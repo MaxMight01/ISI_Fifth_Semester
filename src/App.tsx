@@ -5,6 +5,9 @@ import { subjects, type Subject } from './subjects'
 const PRIMARIES = ['var(--red)', 'var(--blue)', 'var(--yellow)'] as const
 const SHAPES = ['circle', 'square', 'triangle'] as const
 
+/** Resolves a PDF path against the site base, so links work under /<repo>/ on Pages. */
+const pdfUrl = (subject: Subject) => import.meta.env.BASE_URL + subject.pdf
+
 /** Reads the subject code out of the URL hash, e.g. #ANT. */
 function useHashCode() {
   const [code, setCode] = useState(() => window.location.hash.slice(1))
@@ -62,7 +65,7 @@ function Reader({ subject }: { subject: Subject }) {
         </span>
         <a
           className="btn btn-outline"
-          href={subject.pdf}
+          href={pdfUrl(subject)}
           target="_blank"
           rel="noreferrer"
         >
@@ -75,7 +78,11 @@ function Reader({ subject }: { subject: Subject }) {
         aria-hidden="true"
       />
       {/* The browser's own PDF viewer renders inside this frame. */}
-      <iframe className="reader-frame" src={subject.pdf} title={subject.name} />
+      <iframe
+        className="reader-frame"
+        src={pdfUrl(subject)}
+        title={subject.name}
+      />
     </div>
   )
 }

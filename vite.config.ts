@@ -25,7 +25,12 @@ function copyNotePdfs(): Plugin {
   }
 }
 
+// GitHub Pages serves a project site from /<repo>/, so the build needs that prefix.
+// CI sets BASE_PATH from the repository name; local dev and user/org sites use '/'.
+const base = process.env.BASE_PATH ?? '/'
+
 // https://vite.dev/config/
 export default defineConfig({
+  base,
   plugins: [react(), copyNotePdfs()],
 })
