@@ -1,0 +1,100 @@
+% macros.tex
+\usepackage{mathtools}
+\usepackage{xfrac}
+\usepackage{stackengine}
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\curs}[1]{\ensuremath{\mathcalligra{#1}}}
+\newcommand{\bcurs}[1]{\pmb{\curs{#1}}}
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eax}[1]{\emph{#1}\index{#1}} % Macro for emphasis and index
+\newcommand{\abs}[1]{\left| #1 \right|} % Absolute value
+\newcommand{\1}{\textbf{1}}
+\newcommand{\N}{\mathbb{N}} % Natural Numbers
+\newcommand{\R}{\mathbb{R}} % Real numbers
+\newcommand{\Z}{\mathbb{Z}} % Integers
+\newcommand{\Q}{\mathbb{Q}} % Rationals
+\newcommand{\C}{\mathbb{C}} % Complex numbers
+\newcommand{\F}{\mathbb{F}} % Field
+\newcommand{\K}{\mathbb{K}} % Field
+\newcommand{\E}{\mathbb{E}} % Expectation
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\osc}{\text{osc}}
+\newcommand{\eps}{\varepsilon}  
+\newcommand{\toinf}{\to \infty}
+\newcommand{\spanof}{\operatorname{span}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % Norm of a vector
+\newcommand{\ip}[1]{\langle#1\rangle} % Inner product
+\newcommand{\intr}{\operatorname{int}} % Interior of a set
+\newcommand{\Bin}{\operatorname{Bin}} % Binomial distribution
+\newcommand{\Ber}{\operatorname{Ber}} % Bernoulli distribution
+\newcommand{\Poi}{\operatorname{Poisson}} % Poisson distribution
+\newcommand{\ord}{\operatorname{ord}} % Order
+\newcommand{\id}{\operatorname{id}} % Identity
+\newcommand{\lcm}{\operatorname{lcm}} % LCM
+\newcommand{\supp}{\operatorname{supp}} % Support
+\newcommand{\suc}{\operatorname{succ}} % Successor
+\newcommand{\sbg}{\leqslant} % Subgroup
+\newcommand{\Exp}{\operatorname{Exp}} % Exponential distribution
+\newcommand{\Unif}{\operatorname{Unif}} % Uniform distribution
+\newcommand{\Var}{\operatorname{Var}} % Variance
+\newcommand{\Cov}{\operatorname{Cov}} % Covariance
+\newcommand{\sgn}{\operatorname{sgn}} % Sign function
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor} % Floor function
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil} % Ceiling function
+\newcommand{\Img}{\operatorname{Im}} % Image
+\newcommand{\nsbg}{\trianglelefteq} % Normal subgroup
+\newcommand{\ev}{\operatorname{ev}} % Evaluation
+\newcommand{\Aut}{\operatorname{Aut}} % Automorphism group
+\newcommand{\Bij}{\operatorname{Bij}} % Bijections of a set
+\newcommand{\Stab}{\operatorname{Stab}} % Stabilizer of a point
+\newcommand{\MSE}{\operatorname{MSE}} % Mean squared error
+\newcommand{\Bias}{\operatorname{Bias}} % Bias
+\newcommand{\diag}{\operatorname{diag}} % Diagonal
+\newcommand{\tr}{\operatorname{tr}} % Trace
+\newcommand{\cl}{\operatorname{cl}} % Closure
+\newcommand{\diam}{\operatorname{diam}} % Diameter
+\newcommand{\red}{\operatorname{red}} % Reduce
+\newcommand{\Inn}{\operatorname{Inn}} % Inner automorphisms
+\newcommand{\Out}{\operatorname{Out}} % Outer automorphisms
+\newcommand{\eff}{\operatorname{eff}} % Efficiency
+\newcommand{\tensor}[1]{\overset{\leftrightarrow}{#1}} % Tensor notation
+\newcommand{\len}{\operatorname{len}} % Length of a word
+\newcommand{\conv}{\operatorname{conv}} % Convex hull
+\newcommand{\bv}[1]{\mathbf{#1}} % Bold vector
+\newcommand{\bvs}[1]{\boldsymbol{#1}} % Bold vector (symbol)
+\newcommand{\di}[1]{\mathrm{d}#1} % Differential in integrals
+\newcommand{\Int}{\operatorname{Int}} % Interior
+\newcommand{\lilo}{\operatorname{o}} % little o notation
+\newcommand{\Bd}{\operatorname{Bd}} % Boundary
+\newcommand{\Dir}{\operatorname{Dir}} % Dirichlet distribution
+\newcommand{\mf}[1]{\mathfrak{#1}} % Gothic
+\newcommand{\Jac}{\operatorname{Jac}} % Jacobson
+\newcommand{\nil}{\operatorname{nil}} % Nil
+\newcommand{\Hom}{\operatorname{Hom}} % Homomorphisms
+\newcommand{\End}{\operatorname{End}} % Endomorphisms
+\newcommand{\rank}{\operatorname{rank}} % Rank
+\newcommand{\Ann}{\operatorname{Ann}} % Annihilator
+\newcommand{\adj}{\operatorname{adj}} % Adjoint
