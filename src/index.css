@@ -1,10 +1,13 @@
 :root {
-  --bg: #fbfaf8;
-  --fg: #1c1b1a;
-  --muted: #6b6864;
-  --line: #e4e0da;
+  --bg: #f0f0f0;
+  --fg: #121212;
+  --red: #d02020;
+  --blue: #1040c0;
+  --yellow: #f0c020;
+  --muted: #e0e0e0;
 
-  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-weight: 500;
   color: var(--fg);
   background-color: var(--bg);
   line-height: 1.6;
@@ -19,12 +22,29 @@ body {
   margin: 0;
 }
 
-#root {
-  max-width: 56rem;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
 a {
   color: inherit;
+}
+
+/* Every major division carries a thick black rule. */
+.section {
+  border-bottom: 4px solid var(--fg);
+}
+
+.section-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .section-inner {
+    padding: 4rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-inner {
+    padding: 6rem 2rem;
+  }
 }

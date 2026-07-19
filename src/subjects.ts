@@ -2,6 +2,7 @@ export type Subject = {
   code: string
   name: string
   pdf: string
+  /** The subject's pastel from public/pastel.sty, matching its LaTeX title page. */
   color: string
   /** Attended in week one, then dropped. Moves the subject to the Defunct section. */
   defunct?: boolean
