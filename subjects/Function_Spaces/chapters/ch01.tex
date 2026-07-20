@@ -1,1 +1,26 @@
-\chapter{TEST}
+\chapter{FUNCTION SPACES}
+
+\textit{July 20th.}
+
+Quizzes 1 and 2 will account for 10\% and 15\% of the final grade respectively. The mid-term will account for 25\% of the final grade, and the final exam will account for 50\%.
+
+\section{An Introduction}
+Suppose $\K$ is a field, and $X$ is a topological space. Then the set of all $\K$-valued functions on $X$, denoted by $\K^{X}$, is a vector space over $\K$. If we let $X = \{1,2,\ldots,n\}$, then $\K^{X} \cong \K^{n}$, the $n$-dimensional vector space over $\K$. In this course, we will be primarily concerned with the case when $\K = \R$ or $\C$. Consider the map
+\begin{align}
+    D:\K^{\{1,2,\ldots,n\}} \to \K^{\{1,2,\ldots,n-1\}}, \quad (Df)(k) = f(k+1)-f(k) \text{ for } 1 \leq k \leq n-1, \; (Df)(n) = f(1)-f(n).
+\end{align}
+Here, $D$ acts as a discrete analogue of the derivative operator by taking finite differences. We can split this finite difference map as the difference of the left shift operator and the identity operator as $D = S-I$. Since $S$ is the left shift operator, we have $S^{n} = I$ so the eigenvalues of $S$ are a subset of the $n$-th roots of unity. Let $\lambda$ be such an eigenvalue. Then a corresponding eigenvector can be given as $\begin{pmatrix}
+    1 \\ \lambda \\ \vdots \\ \lambda^{n-1}
+\end{pmatrix}$. If $\lambda = e^{2\pi i /n}$, then we can denote the corresponding eigenvector of $\lambda^{k}$ as $\chi_{k}$. In fact, in the basis $\{\chi_{1},\ldots,\chi_{n-1},\chi_{n}\}$, $D$ is a diagonal matrix. Such a basis is termed a \eax{discrete Fourier basis}, and the coordinate vector of $D$ with respect to this basis is called the \eax{discrete Fourier transform} of $D$. The Fourier transform diagonalizes the finite differential operator. We can view $\chi_{k}$ as a function $\chi_{k}:\{1,2,\ldots,n\} \to \C$ defined by $\chi_{k}(j) = e^{2\pi i k(j-1)/n}$ for $1 \leq j \leq n$. 
+
+Recall the Hermitian inner product on $\C^{n}$ given by $\ip{x,y} = \sum_{i=1}^{n} x_{i} \overline{y_{i}}$. Viewing $\C^{n}$ as the function space $\C^{\{1,2,\ldots,n\}}$, we can endow it with the inner product $\ip{f,g} = \sum_{k=1}^{n} f(k) \overline{g(k)}$, which gives the 2-norm $\norm{f}_{2} = \sqrt{\sum_{i=1}^{n} \abs{f(i)}^{2}}$. The discrete Fourier basis is an orthogonal basis with respect to this inner product. Normalizing via division by $\sqrt{n}$ makes it an orthonormal basis. Thus, if we have $f \in \C^{\{1,2,\ldots,n\}}$ which we wish to write as $f = \sum_{j=1}^{n} a_{j} \chi_{j}$, then we can compute the coefficients $a_{j}$ as
+\begin{align}
+    a_{j} = \frac{1}{n} \ip{f,\chi_{j}} = \frac{1}{n} \sum_{r=1}^{n} f(r) e^{-2\pi i j(r-1)/n}.
+\end{align}
+This is the discrete Fourier transform, as before. If we look at the norm, then
+\begin{align}
+    \norm{f}_{2}^{2} = \norm{\sum_{j=1}^{n} a_{j} \chi_{j}}_{2}^{2} = n \sum_{j=1}^{n} \abs{a_{j}}^{2} \implies \frac{1}{n} \norm{f}_{2}^{2} = \sum_{j=1}^{n} \abs{a_{j}}^{2}.
+\end{align}
+This is known as \eax{Plancherel's theorem}.
+
+All of the above can be generalized to the continous case; let $L^{2}[0,1]$ be the space of square integrable functions on $[0,1]$. If $(a_{n})_{n \in \Z}$ is the Fourier series of $f$, then $\int_{0}^{1} \abs{f(x)}^{2} dx = \sum_{n \in \Z} \abs{a_{n}}^{2}$, which is the continuous analogue of Plancherel's theorem.
