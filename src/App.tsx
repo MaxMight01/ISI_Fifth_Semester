@@ -34,6 +34,35 @@ function useHashCode() {
   return code
 }
 
+const DROPPED_KEY = 'fifth-sem:not-taking'
+
+/** Set of subject codes the visitor marked "not taking", persisted per device. */
+function useNotTaking() {
+  const [dropped, setDropped] = useState<Set<string>>(() => {
+    try {
+      const raw = localStorage.getItem(DROPPED_KEY)
+      return new Set<string>(raw ? JSON.parse(raw) : [])
+    } catch {
+      return new Set<string>()
+    }
+  })
+  useEffect(() => {
+    try {
+      localStorage.setItem(DROPPED_KEY, JSON.stringify([...dropped]))
+    } catch {
+      // Storage unavailable (private mode); the choice simply won't persist.
+    }
+  }, [dropped])
+  const toggle = (code: string) =>
+    setDropped((prev) => {
+      const next = new Set(prev)
+      if (next.has(code)) next.delete(code)
+      else next.add(code)
+      return next
+    })
+  return { dropped, toggle }
+}
+
 function Logo() {
   return (
     <span className="logo" aria-hidden="true">
@@ -44,22 +73,43 @@ function Logo() {
   )
 }
 
-function SubjectCard({ subject, index }: { subject: Subject; index: number }) {
+function SubjectCard({
+  subject,
+  index,
+  dropped,
+  onToggle,
+}: {
+  subject: Subject
+  index: number
+  dropped: boolean
+  onToggle: () => void
+}) {
   const shape = SHAPES[index % 3]
   const accent = PRIMARIES[index % 3]
   return (
-    <a className="card" href={`#${subject.code}`}>
-      {/* Color block carries the subject's own pastel, as on its LaTeX title page. */}
-      <span className="card-band" style={{ background: subject.color }}>
-        <span className="card-code">{subject.code}</span>
-        <span className={`card-mark ${shape}`} style={{ background: accent }} />
-      </span>
-      <span className="card-body">
-        <span className="card-name">{subject.name}</span>
-        <span className="card-inst">{subject.instructor}</span>
-        <span className="card-link">View Notes →</span>
-      </span>
-    </a>
+    <div className={`card${dropped ? ' is-dropped' : ''}`}>
+      <a className="card-face" href={`#${subject.code}`}>
+        {/* Color block carries the subject's own pastel, as on its LaTeX title page. */}
+        <span className="card-band" style={{ background: subject.color }}>
+          <span className="card-code">{subject.code}</span>
+          <span className={`card-mark ${shape}`} style={{ background: accent }} />
+        </span>
+        <span className="card-body">
+          <span className="card-name">{subject.name}</span>
+          <span className="card-inst">{subject.instructor}</span>
+          <span className="card-link">View Notes →</span>
+        </span>
+      </a>
+      <button
+        type="button"
+        className="card-toggle"
+        aria-pressed={!dropped}
+        title={dropped ? 'Mark as taking' : 'Mark as not taking'}
+        onClick={onToggle}
+      >
+        {dropped ? 'Not taking' : 'Taking'}
+      </button>
+    </div>
   )
 }
 
@@ -103,7 +153,13 @@ function Reader({ subject }: { subject: Subject }) {
   )
 }
 
-function TimetableCell({ value }: { value: string | null }) {
+function TimetableCell({
+  value,
+  dropped,
+}: {
+  value: string | null
+  dropped: Set<string>
+}) {
   if (!value) return <td className="tt-empty" aria-label="Free" />
   const parts = value.split('/')
   const known = parts.filter((p) => byCode.has(p))
@@ -123,7 +179,7 @@ function TimetableCell({ value }: { value: string | null }) {
           return (
             <span
               key={code}
-              className="tt-class"
+              className={`tt-class${dropped.has(code) ? ' is-dropped' : ''}`}
               style={{ background: s.color }}
               title={s.name}
             >
@@ -137,6 +193,7 @@ function TimetableCell({ value }: { value: string | null }) {
 }
 
 function Home() {
+  const { dropped, toggle } = useNotTaking()
   const primary = subjects.filter((s) => !s.defunct)
   const defunct = subjects.filter((s) => s.defunct)
   const examRows = [...subjects].sort(
@@ -174,7 +231,11 @@ function Home() {
       {/* Every subject's pastel, in order. */}
       <div className="spectrum" aria-hidden="true">
         {subjects.map((s) => (
-          <span key={s.code} style={{ background: s.color }} />
+          <span
+            key={s.code}
+            className={dropped.has(s.code) ? 'is-dropped' : undefined}
+            style={{ background: s.color }}
+          />
         ))}
       </div>
 
@@ -207,11 +268,19 @@ function Home() {
         <div className="section-inner">
           <h2>Course Notes</h2>
           <p className="section-note">
-            Select a subject to read the complete lecture notes.
+            Select a subject to read the complete lecture notes. Use{' '}
+            <strong>Taking</strong> to grey out ones you are not enrolled in —
+            remembered on this device.
           </p>
           <div className="grid">
             {primary.map((s, i) => (
-              <SubjectCard key={s.code} subject={s} index={i} />
+              <SubjectCard
+                key={s.code}
+                subject={s}
+                index={i}
+                dropped={dropped.has(s.code)}
+                onToggle={() => toggle(s.code)}
+              />
             ))}
           </div>
         </div>
@@ -226,7 +295,13 @@ function Home() {
           {defunct.length > 0 ? (
             <div className="grid">
               {defunct.map((s, i) => (
-                <SubjectCard key={s.code} subject={s} index={i} />
+                <SubjectCard
+                  key={s.code}
+                  subject={s}
+                  index={i}
+                  dropped={dropped.has(s.code)}
+                  onToggle={() => toggle(s.code)}
+                />
               ))}
             </div>
           ) : (
@@ -258,7 +333,7 @@ function Home() {
                       {timeSlots[i]}
                     </th>
                     {row.map((cell, j) => (
-                      <TimetableCell key={j} value={cell} />
+                      <TimetableCell key={j} value={cell} dropped={dropped} />
                     ))}
                   </tr>
                 ))}
@@ -291,7 +366,10 @@ function Home() {
               </thead>
               <tbody>
                 {examRows.map((s) => (
-                  <tr key={s.code}>
+                  <tr
+                    key={s.code}
+                    className={dropped.has(s.code) ? 'is-dropped' : undefined}
+                  >
                     <td className="exam-subject">
                       <span className="exam-chip" style={{ background: s.color }}>
                         {s.code}
