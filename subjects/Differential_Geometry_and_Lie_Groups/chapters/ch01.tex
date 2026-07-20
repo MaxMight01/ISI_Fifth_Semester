@@ -1,1 +1,102 @@
-\chapter{TEST}
+\chapter{MANIFOLDS}
+
+\textit{July 20th.}
+
+The primary reference for this course will be Loring Tu's \emph{An Introduction to Manifolds}. Prerequisites include Analysis of Several Variables, Linear Algebra, and Topology. The mid-term will account for 35\% of the final grade, quizzes and student lectures will account for 15\%, and the final exam will account for 50\%. 
+
+Simply put, a manifold is any object that is locally Euclidean.
+
+\section{Calculus on $\R^{n}$}
+A point $p$ or element in $\R^{n}$ is associated with an $n$-tuple of coordinates $x^{1},x^{2},\ldots,x^{n}$. Let $U$ be an open neighbourhood of $p$ in $\R^{n}$. For a non-negative integer $k$, we say that a function $f:U\to\R$ is \eax{$C^{k}$-continuous} at $p \in U$ if all partial derivatives of $f$ of order $\leq k$ exist and are continuous at $p$. $f$ is said to be $C^{\infty}$ or \eax{smooth} if $f$ is $C^{k}$ for all $k \geq 0$. $f$ is $C^{k}$ (or $C^{\infty}$)on $U$ if it is $C^{k}$ (or $C^{\infty}$) at every point in $U$.
+
+If $f$ happens to be a vector-valued function, i.e. $f:U\to\R^{m}$, we say $f = (f^{1},f^{2},\ldots,f^{m})$ is $C^{k}$ (or $C^{\infty}$) at $p$ if each component function $f^{i}:U\to\R$ is $C^{k}$ (or $C^{\infty}$) at $p$. $f$ is $C^{k}$ (or $C^{\infty}$) on $U$ if it is $C^{k}$ (or $C^{\infty}$) at every point in $U$.
+
+\begin{definition}
+    Let $R$ be a commutative ring with unity. We term $A$ to be an $R$-\eax{algebra} if $A$ is a commutative ring with unity and an $R$-module, and for $r \in R$ and $a,b \in A$, we have $r(ab) = (ra)b = a(rb)$.
+\end{definition}
+In this course, we will be primarily be concerned with the case when $R$ is a field, and $A$ is an $R$-vector space.
+
+For a subset $U \subseteq \R^{n}$, we denote $C^{k}(U)$ (or $C^{\infty}(U)$) as the set of all $C^{k}$ (or $C^{\infty}$) functions from $U$ to $\R$. Note that this is a commutative ring with unity. It is also a vector space over $\R$. Together, $C^{k}(U)$ (or $C^{\infty}(U)$) is a (commutative) algebra over $\R$. Moreover, we have the descending chain of subalgebras
+\begin{align}
+    C^{0}(U) \supseteq C^{1}(U) \supseteq C^{2}(U) \supseteq \cdots C^{k}(U) \supseteq C^{k+1}(U) \supseteq \cdots
+\end{align}
+with
+\begin{align}
+    \bigcap_{k \geq 0} C^{k}(U) = C^{\infty}(U).
+\end{align}
+
+$f:U \to \R$ is termed \eax{real analytic} at $p \in U$ if there exists a neighbourhood $V \subseteq U$ of $p$ such that
+\begin{align}
+    f(x) = f(p) + \sum_{i=1}^{n} \frac{\partial f}{\partial x^{i}}(p)(x^{i}-p^{i}) + \cdots + \frac{1}{k!} \sum_{1 \leq i_{1},\ldots,i_{k} \leq n} \frac{\partial^{k} f}{\partial x^{i_{1}} \cdots \partial x^{i_{k}}}(p)(x^{i_{1}}-p^{i_{1}}) \cdots (x^{i_{k}}-p^{i_{k}}) + \cdots
+\end{align}
+for all $x \in V$. $f$ is said to be real analytic on $U$ if it is real analytic at every point in $U$. We denote the set of all real analytic functions on $U$ as $C^{\omega}(U)$. Note that $C^{\omega}(U) \subseteq C^{\infty}(U)$.
+
+\begin{theorem}[\eax{Taylor's theorem}]
+    Let $p \in U \subseteq \R^{n}$, and $f:U \to \R$ be a $C^{\infty}$ function. Further assume that for all $x \in U$, the line segment from $p$ to $x$ is contained in $U$ ($U$ in this case is said to be \eax{star-shaped} with respect to $p$). Then there exist $g_{1},\ldots,g_{n} \in C^{\infty}(U)$ such that, for all $x \in U$,
+    \begin{align}
+        f(x) = f(p) + \sum_{i=1}^{n} g_{i}(x)(x^{i}-p^{i}),
+    \end{align}
+    with
+    \begin{align}
+        g_{i}(p) = \frac{\partial f}{\partial x^{i}}(p), \quad 1 \leq i \leq n.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Let $x \in U$. Then the line segment $\{p+t(x-p) \mid t \in [0,1]\}$ is contained in $U$. Composing $f$ with the map $t \mapsto p+t(x-p)$, we obtain
+    \begin{align}
+        \frac{df}{dt}(p+t(x-p)) = \sum_{i=1}^{n} \frac{\partial f}{\partial x^{i}}(p+t(x-p))(x^{i}-p^{i}).
+    \end{align}
+    Integrating from $0$ to $1$, we get
+    \begin{align}
+        f(x) - f(p) = \int_{0}^{1} \frac{df}{dt}(p+t(x-p)) dt = \sum_{i=1}^{n} (x^{i}-p^{i}) \int_{0}^{1} \frac{\partial f}{\partial x^{i}}(p+t(x-p)) dt = \sum_{i=1}^{n} (x^{i}-p^{i}) g_{i}(x).
+    \end{align}
+    Clearly, because $f$ is $C^{\infty}$, each $g_{i}$ is also $C^{\infty}$. Further, we have $g_{i}(p) = \int_{0}^{1} \frac{\partial f}{\partial x^{i}}(p) dt = \frac{\partial f}{\partial x^{i}}(p)$.
+\end{proof}
+
+Let $p = (p^{1},\ldots,p^{n}), v \in \R^{n}$, and $f:U \to \R$ be $C^{\infty}$ at $p$. The \eax{directional derivative} of$ f$ at $p$ in the direction of $v$ is defined as
+\begin{align}
+    \lim_{t \to 0} \frac{f(p+tv)-f(p)}{t} = \frac{d}{dt}f(p+tv)\Big|_{t=0} = \sum_{i=1}^{n} \frac{df}{dx^{i}}(p)v^{i}.
+\end{align}
+From here, we obtain the operator
+\begin{align}
+    D_{v} = \sum_{i=1}^{n} v^{i} \frac{\partial}{\partial x^{i}}\Big|_{p}
+\end{align}
+Now consider all pairs of the form $(f,U)$ where $p \in U \subseteq \R^{n}$ is an open neighbourhood of $p$ and $f:U \to \R$ is $C^{\infty}$. Define an equivalence relation $\sim$ on this set by declaring $(f,U) \sim (g,V)$ if and only if there exists an open neighbourhood $W \subseteq U \cap V$ of $p$ such that $f|_{W} = g|_{W}$. The equivalence class of $(f,U)$ is denoted by $[(f,U)]$, and the set of all such equivalence classes is denoted by $C^{\infty}_{p}(\R^{n})$. Such an equivalence class $[(f,U)]$ is called the \eax{germ} of $f$ at $p$. We can give $C^{\infty}_{p}(\R^{n})$ the structure of a commutative ring with unity by defining
+\begin{align}
+    [(f,U)] + [(g,V)] = [(f+g,U \cap V)], \quad [(f,U)] \cdot [(g,V)] = [(fg,U \cap V)], \quad 1 = [(1,\R^{n})].
+\end{align}
+It can also be given the structure of a vector space over $\R$ by defining
+\begin{align}
+    \lambda [(f,U)] = [(\lambda f,U)], \quad \lambda \in \R.
+\end{align}
+Thus, $C^{\infty}_{p}(\R^{n})$ is an $\R$-algebra. Now, given a germ $\alpha = [(f,U)] \in C^{\infty}_{p}(\R^{n})$ and a vector $v \in \R^{n}$, we define
+\begin{align}
+    D_{v}\alpha = \sum_{i=1}^{n} v^{i} \frac{\partial f}{\partial x^{i}}\Big|_{p} = v \cdot \nabla f(p).
+\end{align}
+Note that the choice of $f$ is immaterial, since if $[(f,U)] = [(g,V)]$, then there exists an open neighbourhood $W \subseteq U \cap V$ of $p$ such that $f|_{W} = g|_{W}$, and hence $\nabla f(p) = \nabla g(p)$.
+One can infer that $D_{\lambda v}(f) = \lambda D_{v}(f) = D_{v}(\lambda f)$ and $D_{v}(f+g) = D_{v}(f) + D_{v}(g)$ for all $\lambda \in \R$ and $f,g \in C^{\infty}_{p}(\R^{n})$. Thus, $D_{v}$ is an $\R$-linear map from $C^{\infty}_{p}(\R^{n})$ to $\R$ (hereforth, we shall use $f$ to also denote the germ $[(f,U)]$ of $f$ at $p$). Also,
+\begin{align}
+    D_{v}(fg) = \sum_{i=1}^{n} v^{i} \frac{\partial (fg)}{\partial x^{i}}(p) = \sum_{i=1}^{n} v^{i} \left( f(p) \frac{\partial g}{\partial x^{i}}(p) + g(p) \frac{\partial f}{\partial x^{i}}(p) \right) = f(p) D_{v}(g) + g(p) D_{v}(f).
+\end{align} 
+Such a property makes $D_{v}$ what we call a derivation.
+\begin{definition}
+    Any $\R$-linear map $T:C^{\infty}_{p}(\R^{n}) \to \R$ satisfying the Leibniz rule $T(fg) = f(p)T(g) + g(p)T(f)$ for all $f,g \in C^{\infty}_{p}(\R^{n})$ is called a \eax{derivation} at $p$.
+\end{definition}
+One may show that if $T$ is a derivation at $p$, then $T(1) = 0$. 
+
+The set of all derivations at $p$ is denoted by $\mf{D}_{p}(\R^{n})$. It is easy to see that $\mf{D}_{p}(\R^{n})$ is a vector space over $\R$. Now consider the map
+\begin{align}
+    \theta:\R^{n} \to \mf{D}_{p}(\R^{n}), \quad v \mapsto D_{v}.
+\end{align}
+This $\theta$ is an $\R$-linear map (verify). We claim that $\theta$ is an isomorphism of real vector spaces. To this end, let $v \in \R^{n}$ such that $D_{v} = 0 \in \mf{D}_{p}(\R^{n})$. Then $D_{v}f = 0$ for all $f \in C^{\infty}_{p}(\R^{n})$. In particular, for the coordinate functions $x^{i}$, we have $D_{v}x^{i} = v_{i} = 0$ for all $1 \leq i \leq n$. Thus, $v = 0$, and hence $\theta$ is injective. To show surjectivity, we appeal to Taylor's theorem; let $D \in \mf{D}_{p}(\R^{n})$. We claim that $D = D_{v}$ where $v = (D(x^{1}),\ldots,D(x^{n}))$. Indeed, for any $f \in C^{\infty}_{p}(\R^{n})$, we have
+\begin{align}
+    D(f) &= D(f(p)) + D\left( \sum_{i=1}^{n} (x^{i}-p^{i}) g_{i}(x) \right) = 0 + \sum_{i=1}^{n} \left( (x^{i}-p^{i})(p) Dg_{i}(x) + D(x^{i}-p^{i})g_{i}(p) \right) \notag \\
+    &= \sum_{i=1}^{n} (Dx^{i})g_{i}(p) = \sum_{i=1}^{n} \frac{\partial f}{\partial x^{i}}(p) Dx^{i} = D_{v}(f).
+\end{align}
+Hence, $\theta$ is surjective, and we have the desired isomorphism $\mf{D}_{p}(\R^{n}) \cong \R^{n}$.
+
+Note that a germ $f \in C^{\infty}_{p}(\R^{n})$ has a valid value at $p$, but no other point. Hence, we have the evaluation map 
+\begin{align}
+    \ev_p: C^{\infty}_{p}(\R^{n}) \to \R, \quad [(f,U)] \mapsto f(p).
+\end{align}
+The kernel here is $\{[(f,U)] \in C^{\infty}_{p}(\R^{n}) \mid f(p) = 0\}$, which is a ideal in $C^{\infty}_{p}(\R^{n})$. For any other element $[(f,U)] \in C^{\infty}_{p}(\R^{n})$ with $f(p) \neq 0$, a valid inverse is given by $[(f^{-1},U\setminus\{f=0\})]$. This makes $C^{\infty}_{p}(\R^{n})$ a local ring.
