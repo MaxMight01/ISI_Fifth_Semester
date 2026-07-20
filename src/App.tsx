@@ -1,9 +1,24 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { subjects, type Subject } from './subjects'
+import {
+  CLASS_TEACHER,
+  ROOM_NOTE,
+  days,
+  timeSlots,
+  timetable,
+} from './schedule'
 
 const PRIMARIES = ['var(--red)', 'var(--blue)', 'var(--yellow)'] as const
 const SHAPES = ['circle', 'square', 'triangle'] as const
+
+const byCode = new Map(subjects.map((s) => [s.code, s]))
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const fmtDate = (iso: string) => {
+  const [, m, d] = iso.split('-')
+  return `${Number(d)} ${MONTHS[Number(m) - 1]}`
+}
 
 /** Resolves a PDF path against the site base, so links work under /<repo>/ on Pages. */
 const pdfUrl = (subject: Subject) => import.meta.env.BASE_URL + subject.pdf
@@ -41,6 +56,7 @@ function SubjectCard({ subject, index }: { subject: Subject; index: number }) {
       </span>
       <span className="card-body">
         <span className="card-name">{subject.name}</span>
+        <span className="card-inst">{subject.instructor}</span>
         <span className="card-link">View Notes →</span>
       </span>
     </a>
@@ -87,9 +103,45 @@ function Reader({ subject }: { subject: Subject }) {
   )
 }
 
+function TimetableCell({ value }: { value: string | null }) {
+  if (!value) return <td className="tt-empty" aria-label="Free" />
+  const parts = value.split('/')
+  const known = parts.filter((p) => byCode.has(p))
+  if (known.length !== parts.length) {
+    // A colloquium or other non-course entry.
+    return (
+      <td>
+        <span className="tt-label">{value}</span>
+      </td>
+    )
+  }
+  return (
+    <td>
+      <span className="tt-classes">
+        {known.map((code) => {
+          const s = byCode.get(code)!
+          return (
+            <span
+              key={code}
+              className="tt-class"
+              style={{ background: s.color }}
+              title={s.name}
+            >
+              {code}
+            </span>
+          )
+        })}
+      </span>
+    </td>
+  )
+}
+
 function Home() {
   const primary = subjects.filter((s) => !s.defunct)
   const defunct = subjects.filter((s) => s.defunct)
+  const examRows = [...subjects].sort(
+    (a, b) => a.exams.mid.localeCompare(b.exams.mid) || a.exams.end.localeCompare(b.exams.end),
+  )
 
   return (
     <>
@@ -180,6 +232,81 @@ function Home() {
           ) : (
             <p className="empty">Currently empty.</p>
           )}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="section-inner">
+          <h2>Timetable</h2>
+          <p className="section-note">
+            Semester I, 2026–2027. Hover a code for the full subject name.
+          </p>
+          <div className="table-scroll">
+            <table className="timetable">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  {days.map((day) => (
+                    <th key={day}>{day}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {timetable.map((row, i) => (
+                  <tr key={timeSlots[i]}>
+                    <th scope="row" className="tt-time">
+                      {timeSlots[i]}
+                    </th>
+                    {row.map((cell, j) => (
+                      <TimetableCell key={j} value={cell} />
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="tt-note">
+            <strong>Class Teacher:</strong> {CLASS_TEACHER} · {ROOM_NOTE}
+          </p>
+        </div>
+      </section>
+
+      <section className="section exams-section">
+        <div className="section-inner">
+          <h2>Examinations</h2>
+          <p className="section-note">
+            Mid- and end-semester dates, with backpapers. All examinations
+            in 2026.
+          </p>
+          <div className="table-scroll">
+            <table className="exams">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Mid-Sem</th>
+                  <th>End-Sem</th>
+                  <th>Backpaper</th>
+                  <th>Instructor</th>
+                </tr>
+              </thead>
+              <tbody>
+                {examRows.map((s) => (
+                  <tr key={s.code}>
+                    <td className="exam-subject">
+                      <span className="exam-chip" style={{ background: s.color }}>
+                        {s.code}
+                      </span>
+                      <span>{s.name}</span>
+                    </td>
+                    <td className="exam-date">{fmtDate(s.exams.mid)}</td>
+                    <td className="exam-date">{fmtDate(s.exams.end)}</td>
+                    <td className="exam-date">{fmtDate(s.exams.back)}</td>
+                    <td>{s.instructor}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 

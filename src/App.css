@@ -352,6 +352,12 @@
   letter-spacing: -0.02em;
 }
 
+.card-inst {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4b4b4b;
+}
+
 .card-link {
   margin-top: auto;
   padding-top: 0.5rem;
@@ -379,6 +385,125 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+/* ===== Tables (timetable + examinations) ===== */
+
+.table-scroll {
+  overflow-x: auto;
+  border: 4px solid var(--fg);
+  box-shadow: 8px 8px 0px 0px var(--fg);
+  background: #fff;
+}
+
+.timetable,
+.exams {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.timetable {
+  min-width: 44rem;
+}
+
+.exams {
+  min-width: 40rem;
+}
+
+.timetable th,
+.timetable td,
+.exams th,
+.exams td {
+  border: 2px solid var(--fg);
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.timetable thead th,
+.exams thead th {
+  background: var(--fg);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Timetable */
+
+.tt-time {
+  background: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tt-classes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tt-class {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.9rem;
+  padding: 0.35rem 0.55rem;
+  border: 2px solid var(--fg);
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+}
+
+.tt-label {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #555;
+}
+
+.tt-empty {
+  background: var(--muted);
+}
+
+.tt-note {
+  margin: 1.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+.tt-note strong {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Examinations — yellow color block, matching the ISI schedule sheet. */
+
+.exams-section {
+  background: var(--yellow);
+}
+
+.exam-subject {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 700;
+}
+
+.exam-chip {
+  flex: none;
+  padding: 0.2rem 0.5rem;
+  border: 2px solid var(--fg);
+  font-size: 0.7rem;
+  font-weight: 900;
+  color: var(--fg);
+}
+
+.exam-date {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===== About ===== */
