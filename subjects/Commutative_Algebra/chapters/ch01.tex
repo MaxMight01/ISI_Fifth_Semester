@@ -1,0 +1,52 @@
+\chapter{Commutative Algebra}
+
+\textit{July 20th.}
+
+Topics to be covered in this course include tensor products, projective and flat modules, primary decomposition of ideals, Hilbert Nullstellensatz, and completions. The primary references for this course are
+\begin{enumerate}
+    \item Atiyah and Macdonald, \emph{Introduction to Commutative Algebra},
+    \item Eisenbud, \emph{Commutative Algebra with a View Toward Algebraic Geometry}, and
+    \item Miles Reid, \emph{Undergraduate Commutative Algebra}.
+\end{enumerate}
+The mid-term will account for 40\% of the final grade, and the final exam will account for 60\% of the final grade.
+
+\section{Review}
+A \eax{ring} here will always refer to a commutative ring with unity. An \eax{ideal} $I \subseteq R$ of a ring $R$ is a subset of $R$ such that $I$ is an additive subgroup of $R$ and for all $r \in R$ and $x \in I$, we have $rx \in I$. A \eax{prime ideal} $P \subseteq R$ is an ideal such that if $xy \in P$ for some $x, y \in R$, then either $x \in P$ or $y \in P$. A \eax{maximal ideal} $\mf{m} \subsetneq R$ is an ideal such that if $\mf{m} \subseteq I \subseteq R$ for some ideal $I$, then either $I = \mf{m}$ or $I = R$.
+
+\begin{proposition}
+    Every maximal ideal is a prime ideal.
+\end{proposition}
+\begin{proof}
+    Let $\mf{m}$ be a maximal ideal of $R$. Suppose $x,y \notin \mf{m}$ for some $x,y \in R$. Then the ideals $(\mf{m}, x)$ and $(\mf{m}, y)$ are strictly larger than $\mf{m}$, so by maximality, we have $(\mf{m}, x) = R$ and $(\mf{m}, y) = R$. Thus, there exist $a,b \in R$ and $m,n \in \mf{m}$ suh that $ax + m = 1$ and $by + n = 1$. Multiplying these two equations gives $(ax+m)(by+n) = abxy + anx + bmy + mn = 1$. Since $mn, anx, bmy \in \mf{m}$, we have $abxy \in \mf{m}$, showing $xy \notin \mf{m}$. Therefore, $\mf{m}$ is a prime ideal.
+\end{proof}
+
+\begin{proposition}
+    Let $R$ be a ring and $I \subseteq R$ be an ideal. Then $I$ is a prime ideal if and only if the quotient ring $R/I$ is an integral domain.
+\end{proposition}
+\begin{proof}
+    Suppose $I$ is a prime ideal. Let $a + I, b + I \in R/I$ be such that $(a + I)(b + I) = 0 + I$. Then $ab + I = 0 + I$, so $ab \in I$. Since $I$ is a prime ideal, either $a \in I$ or $b \in I$. Thus, either $a + I = 0 + I$ or $b + I = 0 + I$, showing that $R/I$ is an integral domain. A similar argument holds for the converse.
+\end{proof}
+
+Recall that a ring $R$ is called a \eax{field} if $R \setminus \{0\}$ is a group under multiplication. 
+
+\begin{proposition}
+    Let $R$ be a ring and $I \subseteq R$ be an ideal. Then $I$ is a maximal ideal if and only if the quotient ring $R/I$ is a field.
+\end{proposition}
+\begin{proof}
+    Suppose $I$ is a maximal ideal. Let $a + I \in R/I$ be such that $a + I \neq 0 + I$. Then $a \notin I$, so the ideal $(I, a)$ is strictly larger than $I$. By maximality, we have $(I, a) = R$. Thus, there exist $r \in R$ and $m \in I$ such that $ra + m = 1$. Then $(a + I)(r + I) = ra + I = 1 + I$, showing that $a + I$ is invertible. Therefore, $R/I$ is a field. A similar argument holds for the converse.
+\end{proof}
+
+\begin{proposition}
+    Let $R$ be a ring and $I \subseteq R$ be an ideal. Then the ideals in $R$ containing $I$ are in one-to-one correspondence with the ideals in the quotient ring $R/I$.
+\end{proposition}
+
+A \eax{zero-divisor} in a ring $R$ is an element $x \in R$ such that there exists a non-zero element $y \in R$ with $xy = 0$. A \eax{nilpotent} in a ring $R$ is an element $x \in R$ such that there exists a positive integer $n$ with $x^n = 0$. A ring with no non-zero zero-divisors is called an \eax{integral domain}. A ring with no non-zero nilpotents is called a \eax{reduced ring}.
+
+The \eax{nilradical} of a ring $R$ is the subset (ideal) of all nilpotent elements in $R$, denoted by $\nil(R)$ or $\sqrt{(0)}$. The \eax{Jacobson radical} of a ring $R$ is the intersection of all maximal ideals in $R$, denoted by $\Jac(R)$. The \eax{radical} of an ideal $I \subseteq R$ is the set of all elements $x \in R$ such that $x^n \in I$ for some positive integer $n$, denoted by $\rad(I)$ or $\sqrt{I}$.
+
+\begin{proposition}
+    Let $R$ be a ring and $I \subseteq R$ be an ideal, and $q: R \to R/I$ be the quotient map. Then $\sqrt{I} = q^{-1}(\nil(R/I))$.
+\end{proposition}
+\begin{proof}
+    Let $x \in \sqrt{I}$. Then $x^n \in I$ for some positive integer $n$, so $q(x^n) = 0 + I$. Thus, $q(x)^n = 0 + I$, showing that $q(x)$ is nilpotent in $R/I$. Therefore, $x \in q^{-1}(\nil(R/I))$. Conversely, let $x \in q^{-1}(\nil(R/I))$. Then $q(x)$ is nilpotent in $R/I$, so there exists a positive integer $n$ such that $q(x)^n = 0 + I$. Thus, $q(x^n) = 0 + I$, so $x^n \in I$, showing that $x \in \sqrt{I}$. Therefore, $\sqrt{I} = q^{-1}(\nil(R/I))$.
+\end{proof}
