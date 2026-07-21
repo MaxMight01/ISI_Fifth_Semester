@@ -1,1 +1,88 @@
-\chapter{TEST}
+\chapter{REFINING THE NOTION OF PROBABILITY}
+
+\textit{July 21st.}
+
+Consider the random walk on the line; a drunk ant sits at the origin and takes steps of length $1$ to the left or right with equal probability. We wish to obtain the probability that after an even $n$ steps, the ant returns to the origin. Of course, the natural approach is to frame this problem in a discrete probability space.
+
+\begin{definition}
+    A \eax{discrete probability space} is a pair $(\Omega,q)$ where $\Omega$ is a non-empty finite or countably infinite set called the sample space, and $q:\Omega\to[0,1]$ is a function satisfying $\sum_{\omega\in\Omega}q(\omega)=1$. Any subset of $\Omega$ is termed an event, and the probability of an event $A \subseteq \Omega$ is defined as $\Prob(A) = \sum_{\omega\in A}q(\omega)$.
+\end{definition}
+
+For the problem above, we can take the sample space to be
+\begin{align}
+    \Omega = \{\bv{x}=(x_{0}=0,x_{1},x_{2},\ldots,x_{n}) \in \Z^{n+1} \mid x_{i+1}-x_{i} \in \{-1,1\} \text{ for all } 0 \leq i < n\},
+\end{align}
+and the mapping $q$ to be $q(\bv{x}) = 2^{-n}$ for all $\bv{x} \in \Omega$. Then, the event that the ant returns to the origin after $n$ steps is given by $A = \{\bv{x} \in \Omega \mid x_{n} = 0\}$, and we have
+\begin{align}
+    \Prob(A) = \sum_{\bv{x} \in A} q(\bv{x}) = 2^{-n} \abs{A} = 2^{-n} \binom{n}{n/2}.
+\end{align}
+Reframing the problem, let us consider a random walk on the line starting at the origin, and continuing indefinitely. In this case, the sample space is given by
+\begin{align}
+    \Omega = \{\bv{x}=(x_{0}=0,x_{1},x_{2},\ldots) \in \Z^{\N} \mid x_{i+1}-x_{i} \in \{-1,1\} \text{ for all } i \in \N\}.
+\end{align}
+This $\Omega$ is uncountably infinite. In such a case, we cannot define a probability measure by assigning a positive probability to each element of $\Omega$. As another example of difficulty in dealing with uncountable sample spaces, consider the problem of choosing a real number uniformly at random from the interval $[0,1]$. If we attempt to assign a positive probability to each element of $[0,1]$, we would have to assign a probability of $0$ to each element, since there are uncountably many elements in $[0,1]$. However, this would lead to a total probability of $0$, which is not valid. Of course, we know that the probability of choosing a specific element or a countable set of elements from $[0,1]$ is $0$, but there then arises the question of how to assign a probability to an uncountable set of elements, such as the Cantor set. We can work in a slightly different viewpoint.
+
+\begin{definition}
+    A probability space is a tuple $(\Omega,\cF,\Prob)$ where $\Omega$ is a non-empty set called the sample space, $\cF$ is the collection of all subsets of $\Omega$ ($\sim 2^{\Omega}$), and $\Prob:\cF\to[0,1]$ is a function satisfying $\Prob(\Omega)=1$ and countable additivity, that is, for any countable collection of pairwise disjoint sets $A_{1},A_{2},\ldots \in \cF$, we have
+    \begin{align}
+        \Prob\left(\bigcup_{i=1}^{\infty}A_{i}\right) = \sum_{i=1}^{\infty}\Prob(A_{i}).
+    \end{align}
+\end{definition}
+
+Using this definition, we look to define a $\Prob$ on subsets of $[0,1]$ that satisfies the above properties, along with the property that $\Prob([a,b]) = b-a$. Thus, we have $\Prob([0,1]) = 1$. If we have two disjoint intervals $I_{1},I_{2} \subseteq [0,1]$, then $\Prob(I_{1}\cup I_{2}) = \Prob(I_{1}) + \Prob(I_{2})$. This is a natural property to expect from a probability measure. What about a general set $S \subseteq [0,1]$? One can observe that if we have a sequence of intervals $I_{1},I_{2},\ldots$ such that $S \subseteq \bigcup_{k=1}^{\infty}I_{k}$, then we would have $\Prob(S) \leq \sum_{k=1}^{\infty}\Prob(I_{k})$. This is because the probability of $S$ should be less than or equal to the probability of any set that contains $S$. Thus, we can define
+\begin{align}
+    \Prob_{\ast}(S) = \inf \left\{ \sum_{k=1}^{\infty}\abs{I_{k}} \, \Big| \, S \subseteq \bigcup_{k=1}^{\infty}I_{k}, \; I_{k} \subseteq [0,1] \right\}.
+\end{align}
+We have not verified that this is a valid definition of a probability measure, hence the subscript $\ast$. Via this, let us try computing $\Prob_{\ast}(\Q \cap [0,1])$. Enumerate the rationals in $[0,1]$ as $\{q_{1},q_{2},\ldots\}$. For any $\epsilon > 0$, we can choose intervals $I_{k} = [q_{k}-\epsilon/2^{k+1},q_{k}+\epsilon/2^{k+1}] \cap [0,1]$ for each $k \in \N$. Note that $\bigcup_{k=1}^{\infty}I_{k}$ contains all the rationals in $[0,1]$, and $\sum_{k=1} \abs{I_{k}} \leq \sum_{k=1}^{\infty}\epsilon/2^{k} = \epsilon$. Since $\epsilon$ was arbitrary, we have $\Prob_{\ast}(\Q \cap [0,1]) = 0$. This is consistent with our intuition that the probability of choosing a rational number from $[0,1]$ is $0$. So, $\Prob_{\ast}$ seems to be a reasonable definition of a probability measure on $([0,1],2^{[0,1]})$. However, we will show later that there exists a set $\cA \subseteq [0,1]$ such that $\Prob_{\ast}(\cA) = \Prob_{\ast}([0,1]\setminus \cA) = 1$, contradicting the property that $\Prob_{\ast}([0,1]) = 1$. We state the following theorem without proof.
+\begin{theorem}
+    There is no probability measure $\Prob$ on $([0,1],2^{[0,1]})$ such that $\Prob([a,b]) = b-a$ for all $[a,b] \subseteq [0,1]$.
+\end{theorem}
+If we remove the requirement that the probability measure of a subinterval $[a,b]$ is equal to its length, then we can define a probability measure on $([0,1],2^{[0,1]})$. For example, we can define $\Prob(S) = 1$ if $1/2 \in S$ and $\Prob(S) = 0$ otherwise. This is a valid probability measure, but it is not very useful. Keeping the requirement that the probability measure of a subinterval $[a,b]$ is equal to its length, we can instead restrict the collection of subsets of $[0,1]$ on which we define the probability measure. 
+
+\begin{definition}
+    A \eax{probability space} is a tuple $(\Omega,\cF,\Prob)$ where
+    \begin{itemize}
+        \item $\Omega$ is a non-empty set called the sample space,
+        \item $\cF$ is a collection of subsets of $\Omega$ satisfying the following properties:
+        \begin{itemize}
+            \item $\Omega \in \cF$,
+            \item if $A \in \cF$, then $\Omega \setminus A \in \cF$,
+            \item if $A_{1},A_{2},\ldots \in \cF$, then $\bigcup_{i=1}^{\infty}A_{i} \in \cF$,
+        \end{itemize}
+        \item $\Prob:\cF\to[0,1]$ is a function satisfying:
+        \begin{itemize}
+            \item $\Prob(\Omega) = 1$,
+            \item if $A_{1},A_{2},\ldots \in \cF$ are pairwise disjoint, then $\Prob\left(\bigcup_{i=1}^{\infty}A_{i}\right) = \sum_{i=1}^{\infty}\Prob(A_{i})$.
+        \end{itemize}
+    \end{itemize}
+\end{definition}
+Such an $\cF$ is termd a \eax{$\sigma$-algebra} on $\Omega$, and such a $\Prob$ is termed a \eax{probability measure} on $(\Omega,\cF)$.
+
+\section{$\sigma$-algebras}
+
+\begin{example}
+    Given $\Omega$, trivial possible choices for $\cF$ are $\{\emptyset,\Omega\}$ and $2^{\Omega}$. A more interesting example is the following: suppose $\Omega$ is uncountable. Then $\cF = \{A \subseteq \Omega \mid A \text{ is countable or } \Omega \setminus A \text{ is countable}\}$ is a $\sigma$-algebra on $\Omega$.
+\end{example}
+
+Let $S \subseteq 2^{\Omega}$ be a collection of subsets of $\Omega$. We claim that there exists a notion of the smallest $\sigma$-algebra containing $S$. This is called the $\sigma$-algebra generated by $S$, and is denoted by $\sigma(S)$.
+
+\begin{lemma}
+    For any collection $S \subseteq 2^{\Omega}$, there exists a unique smallest $\sigma$-algebra containing $S$ satisfying
+    \begin{align}
+        \sigma(S) = \bigcap \{\cF \subseteq 2^{\Omega} \mid \cF \text{ is a $\sigma$-algebra and } S \subseteq \cF\}.
+    \end{align}
+\end{lemma}
+\begin{proof}
+    It is easy to check that $\sigma(S)$ is indeed a $\sigma$-algebra containing $S$. If $\cF$ is any $\sigma$-algebra containing $S$, then $\sigma(S) \subseteq \cF$. Thus, $\sigma(S)$ is the unique smallest $\sigma$-algebra containing $S$.
+\end{proof}
+
+\begin{definition}
+    Let $(X,d)$ be a metric space (or a topological space), and let $\cS \subseteq 2^{X}$ be the colletion of all open sets in $X$. Then, the $\sigma$-algebra $\sigma(\cS)$ is called the \eax{Borel $\sigma$-algebra} on $X$, and its elements are called \eax{Borel set}s.
+\end{definition}
+We will show that there exists a probability measure on $([0,1],\cB)$, where $\cB$ is the Borel $\sigma$-algebra on $[0,1]$, which extends the notion of length of intervals to Borel sets.
+
+Let us return to the problem of indefinite random walks on the line. Let $\Omega = \{\omega = (\omega_{1},\omega_{2},\ldots) \mid \omega_{i} \in \{0,1\}\}$, where $\omega_{i} = 0$ corresponds to a step to the left and $\omega_{i} = 1$ corresponds to a step to the right. If we let $A = \{0,1\}$, then $\Omega = A^{\N}$; consider the discrete topology on $A$, and the product topology on $\Omega$. If we let
+\begin{align}
+    \cS = \{U_{1} \times U_{2} \times \cdots \times U_{k} \times A \times A \cdots \mid U_{i} = \{0\} \text{ or } \{1\}\}
+\end{align}
+then one can show that the $\sigma$-algebra generated by $\cS$ is the Borel $\sigma$-algebra on $\Omega$. We can set $\cF = \sigma(\cS)$, and define a probability measure $\Prob$ on $(\Omega,\cF)$ by setting $\Prob(U_{1} \times U_{2} \times \cdots \times U_{k} \times A \times A \cdots) = 2^{-k}$ for all $U_{i} = \{0\}$ or $\{1\}$. 
