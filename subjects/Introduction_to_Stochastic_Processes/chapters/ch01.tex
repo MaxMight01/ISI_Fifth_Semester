@@ -1,1 +1,70 @@
-\chapter{TEST}
+\chapter{RANDOM WALKS}
+
+\textit{July 22nd.}
+
+Quizzes will account for 20\% of the final grade, and assignments for 5\%. The mid-term will account for 25\% of the final grade, and the final exam will account for 50\%. The primary reference for random walks is H.~Follner.
+
+\section{The Setup}
+We wish to concretify the idea of a random walk on the integers $\Z$. $\Omega$ is out sample space, with $0 < \abs{\Omega} < \infty$ (we shall later look at the case when $\Omega$ is countably infinite). $\cF$ is the event space, and is exactly $\cP(\Omega)$, the power set of $\Omega$. The intuition of a random walk is as follows; stand at the origin. At each step, flip a fair coin. If the coin comes up heads, take a step to the right; if tails, take a step to the left. Repeat this process $N$ times. $S_{n}$ here then denotes the position of the random walk after $n$ steps, for $0 \leq n \leq N$.
+
+For a fixed $N \in \N$, we let $\Omega_{N} = \{\pm 1\}^{N}$, and $\cF_{N} = \cP(\Omega_{N})$. For $1 \leq k \leq N$, define the random variable $X_{k}:\Omega_{N} \to \{\pm 1\}$ as $X_{k}(\omega) = \omega_{k}$, where $\omega = (\omega_{1}, \omega_{2}, \ldots, \omega_{N}) \in \Omega_{N}$; this models the step taken by the random walk at step $k$. Further, define $S_{0} = 0$, and for $1 \leq n \leq N$, define $S_{n}:\Omega_{N} \to \Z$ as $S_{n}(\omega) = \sum_{k=1}^{n} X_{k}(\omega)$; this models the position of the random walk after $n$ steps. Finally, define the probability measure $\Prob_{N}$ on $(\Omega_{N}, \cF_{N})$ as $\Prob_{N}(A) = \frac{\abs{A}}{2^{N}}$ for $A \in \cF_{N}$. This models the fair coin flip at each step of the random walk.
+
+
+\begin{definition}
+    The sequence of random variables $\{S_{n}\}_{n=0}^{N}$ on $(\Omega_{N}, \cF_{N}, \Prob_{N} \equiv \Prob)$, as prescribed above, is called the \eax{simple symmetric random walk} of length $N$ on $\Z$, starting at the origin.
+\end{definition}
+
+Given $1 \leq k_{1} < k_{2} < \cdots < k_{n} \leq N$, and $x_{i} \in \{\pm 1\}$,
+\begin{align}
+    \Prob(X_{k_{1}} = x_{1}, \ldots, X_{k_{n}} = x_{n}) = \frac{\abs{\{\omega \in \Omega_{N} \mid X_{k_{i}}(\omega) = x_{i}, 1 \leq i \leq n\}}}{2^{N}} = \frac{2^{N-n}}{2^{N}} = 2^{-n}.
+\end{align}
+That is, fixing $n$ steps of the walk, the probability of any particular sequence of steps is $2^{-n}$. Using this, we can show that for any $1 \leq k \leq N$, $\Prob(X_{k} = 1) = \Prob(X_{k} = -1) = \frac{1}{2}$. Moreover, we can extract that
+\begin{align}
+    \Prob(X_{k}=x_{k},X_{l}=x_{l}) = 2^{-2} = \Prob(X_{k}=x_{k})\Prob(X_{l}=x_{l}),
+\end{align}
+showing independence of subsequent steps; the model seems like a reasonable fit for our intuition of a random walk.
+
+\begin{example}
+    The simple symmetric random walk has independent increments; that is, given $0 < k_{1} < k_{2} < N$, the random variables $S_{k}-S_{0}$, $S_{k_{2}}-S_{k_{1}}$, and $S_{N}-S_{k_{2}}$ are mutually independent. This is because the increments are functions of disjoint sets of independent random variables $X_{k}$, and hence are independent themselves. Similarly, one may concretely show that for $1 \leq k < m \leq N$, the distribution of $S_{m}-S_{k}$ is the same as that of $S_{m-k}$.
+\end{example}
+
+The following properties of the simple symmetric random walk are immediate consequences of the above definition and example.
+
+Suppose we have $\Prob(S_{n-1}=a_{n-1}, S_{n-2}=a_{n-2}, \ldots, S_{0}=0) > 0$. Then, we are free to compute the conditional probability $\Prob(S_{n}=a_{n} \mid S_{n-1}=a_{n-1}, S_{n-2}=a_{n-2}, \ldots, S_{0}=0)$. One may verify that
+\begin{align}
+    \Prob(S_{n}=a_{n} \mid S_{n-1}=a_{n-1}, S_{n-2}=a_{n-2}, \ldots, S_{0}=0) = \Prob(S_{n}=a_{n} \mid S_{n-1}=a_{n-1}),
+\end{align}
+for all $a_{1},\ldots,a_{n} \in \Z$ such that $\Prob(S_{n-1}=a_{n-1}, S_{n-2}=a_{n-2}, \ldots, S_{0}=0) > 0$. This is called the \eax{Markov property} of the simple symmetric random walk. In words, this property states that given the present state of the walk, the future evolution of the walk is independent of its past history.
+
+Now suppose $\Prob(S_{k}=a) > 0$ for some $k \geq 1,a \in \Z$, and let $m > k,b \in \Z$. Then, one can simply compute that $\Prob(S_{m}=b \mid S_{k}=a) = \Prob(S_{m-k}=b-a)$.
+
+The next question we may ask is, on an average, where the random walk is located after $n$ steps, for $1 \leq n \leq N$. We can compute the expected value of $S_{n}$ as follows:
+\begin{align}
+    \E[S_{n}] = \E\left[\sum_{k=1}^{n} X_{k}+0\right] = \sum_{k=1}^{n} \E[X_{k}] = \sum_{k=1}^{n} 0 = 0. 
+\end{align}
+Thus, to get a better idea of the location of the random walk after $n$ steps, we compute the variance of $S_{n}$:
+\begin{align}
+    \Var(S_{n}) = \Var\left(\sum_{k=1}^{n} X_{k}+0\right) = \sum_{k=1}^{n} \Var(X_{k}) = \sum_{k=1}^{n} 1 = n.
+\end{align}
+So, via the central limit theorem, we can approximate for large $n$ as
+\begin{align}
+    \Prob\left( -3 \leq \frac{S_{n}}{\sqrt{n}} \leq 3 \right) \approx \Phi(3) - \Phi(-3)
+\end{align}
+where $\Phi$ is the cumulative distribution function of the standard normal distribution.
+
+We now claim that
+\begin{align}
+    \Prob(S_{2n}=0) = \binom{2n}{n} 2^{-2n} = \Prob(S_{2n-1}=1) = \Prob(S_{2n-1}=-1).
+\end{align}
+To this end, we note that for $S_{n} = x$, we must have taken $\frac{n+x}{2}$ steps to the right, and $\frac{n-x}{2}$ steps to the left. Thus, we have
+\begin{align}
+    \Prob(S_{n}=x) = \frac{\abs{\{\omega \in \Omega_{N} \mid S_{n} = x\}}}{2^{N}} = \binom{n}{\frac{n+x}{2}} \frac{2^{N-n}}{2^{N}} = \binom{n}{\frac{n+x}{2}} 2^{-n}.
+\end{align}
+The binomial coefficient attains its maximum at $x=0$ for even $n$, and at $x=\pm 1$ for odd $n$. Thus, we have shown the above required claim. We can further approximate this via \eax{Stirling's formula}, which stats $k! \sim \sqrt{2\pi k} k^{k}e^{-k}$ for large $k$. For now, we shall treat this as an equality. Thus, for large $n$,
+\begin{align}
+    \Prob(S_{2n}=0) = \binom{2n}{n} 2^{-2n} \sim \frac{\sqrt{4\pi n}(2n)^{2n}e^{-2n}}{2\pi n n^{2n} e^{-2n}} 2^{-2n} = \frac{1}{\sqrt{\pi n}}.
+\end{align}
+We now show that given any interval $[a,b] \subsetneq \R$, the probability that the random walk stays in this interval is zero as $n \to \infty$. To this end, note that either $\Prob(S_{n}=x) \leq \Prob(S_{n}=0)$ or $\Prob(S_{n}=x) \leq \Prob(S_{n}=1)$ holds for any given $n$; moreover, both of the quantities on the right-hand side are bounded by $\frac{c}{\sqrt{n}}$ for an appropriate constant $c > 0$. Thus, we have
+\begin{align}
+    0 \leq \Prob(a \leq S_{n} \leq b) = \sum_{x=a}^{b} \Prob(S_{n}=x) \leq \frac{c(b-a+1)}{\sqrt{n}} \to 0 \text{ as } n \to \infty.
+\end{align}
