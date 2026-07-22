@@ -100,3 +100,54 @@ Note that a germ $f \in C^{\infty}_{p}(\R^{n})$ has a valid value at $p$, but no
     \ev_p: C^{\infty}_{p}(\R^{n}) \to \R, \quad [(f,U)] \mapsto f(p).
 \end{align}
 The kernel here is $\{[(f,U)] \in C^{\infty}_{p}(\R^{n}) \mid f(p) = 0\}$, which is a ideal in $C^{\infty}_{p}(\R^{n})$. For any other element $[(f,U)] \in C^{\infty}_{p}(\R^{n})$ with $f(p) \neq 0$, a valid inverse is given by $[(f^{-1},U\setminus\{f=0\})]$. This makes $C^{\infty}_{p}(\R^{n})$ a local ring.
+\\
+
+\section{Multilinear Algebra}
+
+\textit{July 22nd.}
+
+\noindent Hereforth, $V$ shall denote a finite-dimensional real vector space, and $V^{V}$ shall denote its \eax{dual space} $\Hom_{\R}(V,\R)$. If $e_{1},\ldots,e_{n}$ are a basis for $V$, then the \eax{dual basis} of $V^{V}$ is denoted by $\alpha^{1},\ldots,\alpha^{n} \in V^{V}$, and is defined by $\alpha^{i}(e_{j}) = \delta_{i,j}$ for all $1 \leq i,j \leq n$. One may verify that the dual basis $\{\alpha^{1},\ldots,\alpha^{n}\}$, induced by the basis $\{e_{1},\ldots,e_{n}\}$, is indeed a basis for $V^{V}$. $S_{k}$ shall denote the permutation group on $k$ symbols, satisfying $\abs{S_{k}} = k!$. For any $\sigma \in S_{k}$, the sign of $\sigma$ is denoted by $\sgn(\sigma)$, and is defined as $+1$ if $\sigma$ is an even permutation, and $-1$ if $\sigma$ is an odd permutation. 
+
+With notation out of the way, let $k \geq 1$ be an integer. We shall consider the $k$-tuple $V^{k} = V \times \cdots \times V$ ($k$ times).
+
+\begin{definition}
+    A mapping $f:V^{k} \to \R$ is said to be \eax{$k$-linear} if $f$ is linear in each of its $k$ arguments.
+\end{definition}
+A special case is when $k = 2$, in which case $f$ is called a \eax{bilinear form}. Such an $f:V \times V \to \R$ satisfies
+\begin{align}
+    f(\lambda v + \mu w, u) = \lambda f(v,u) + \mu f(w,u), \quad f(u,\lambda v + \mu w) = \lambda f(u,v) + \mu f(u,w).
+\end{align}
+A common example of a bilinear form is any valid inner product $\ip{\cdot,\cdot}:V \times V \to \R$ on $V$. Another example is the determinant $\det:\R^{n} \to \R$, where the vectors are interpreted as the columns of a matrix. We can also write
+\begin{align}
+    L_{k}(V) = \{f:V^{k} \to \R \mid f \text{ is $k$-linear}\}.
+\end{align}
+It is easy to see that $L_{k}(V)$ is an $\R$-vector space.
+
+\begin{definition}
+    A $k$-linear map $f:V^{k} \to \R$ is called a \eax{symmetric $k$-linear form} if for all $\sigma \in S_{k}$,
+    \begin{align}
+        f(v_{1},\ldots,v_{k}) = f(v_{\sigma(1)},\ldots,v_{\sigma(k)}).
+    \end{align}
+    That is, $f$ is invariant under any permutation of its arguments. Moreover, $f$ is called an \eax{alternating $k$-linear form} if for all $\sigma \in S_{k}$,
+    \begin{align}
+        f(v_{1},\ldots,v_{k}) = \sgn(\sigma)f(v_{\sigma(1)},\ldots,v_{\sigma(k)}).
+    \end{align}
+\end{definition}
+One can see that the standard inner product on $\R^{n}$ is a symmetric bilinear form, and the determinant is an alternating $n$-linear form. Related to these definitions, we can immediately define the following subspaces of $L_{k}(V)$:
+\begin{align}
+    S_{k}(V) = \{f \in L_{k}(V) \mid f \text{ is symmetric}\} \subseteq L_{k}(V), \quad A_{k}(V) = \{f \in L_{k}(V) \mid f \text{ is alternating}\} \subseteq L_{k}(V).
+\end{align}
+Currently, our main interest of study is $A_{k}(V)$, the space of alternating $k$-linear forms on $V$. Elements of $A_{k}(V)$ are termed \eax{alternating $k$-tensors}. Similarly, those of $S_{k}(V)$ and $L_{k}(V)$ are called \eax{symmetric $k$-tensors} and \eax{$k$-tensors}, respectively. For $k = 0$, we define $L_{0}(V) = S_{0}(V) = A_{0}(V) = \R$. For $k = 1$, we have $L_{1}(V) = S_{1}(V) = A_{1}(V) = V^{V}$. We can define the (left) action of $S_{k}$ on $L_{k}(V)$ by
+\begin{align}
+    (\sigma \cdot f)(v_{1},\ldots,v_{k}) = f(v_{\sigma(1)},\ldots,v_{\sigma(k)}).
+\end{align}
+Thus, $f$ is symmetric if $\sigma \cdot f = f$ for all $\sigma \in S_{k}$, and $f$ is alternating if $\sigma \cdot f = \sgn(\sigma)f$ for all $\sigma \in S_{k}$.
+
+Given an $f \in L_{k}(V)$, we can define the \eax{symmetrization} $Sf \in S_{k}(V)$, of $f$, as
+\begin{align}
+    Sf = \sum_{\sigma \in S_{k}} \sigma \cdot f.
+\end{align}
+One may, indeed, check that $Sf$ is symmetric. Similarly, we can define the \eax{alternation} $Af \in A_{k}(V)$, of $f$, as
+\begin{align}
+    Af = \sum_{\sigma \in S_{k}} \sgn(\sigma) \sigma \cdot f.
+\end{align}

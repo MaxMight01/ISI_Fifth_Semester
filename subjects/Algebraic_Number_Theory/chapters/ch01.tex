@@ -1,10 +1,10 @@
-\chapter{ALGEBRAIC NUMBERS}
+\chapter{THE RATIONALS}
 
 \textit{July 20th.}
 
 Prerequisites for this course include Rings and Modules (tensor products, localization, etc.), Field and Galois Theory, and bits of Commutative Algebra and Algebraic Geometry.
 
-\section{The Rationals}
+\section{Algebraic Extensions}
 The basic object of study in algebraic number theory is the field of rational numbers $\Q$. We recall the field inclusions $\Q \subset \R \subset \C$. We will be interested in the field of algebraic numbers $\overline{\Q} \subset \C$.
 
 \begin{definition}
@@ -87,6 +87,43 @@ The concept of algebraic numbers can be generalized to any field $k$. Let $k \su
     Let $L/k$ be a finite extension. Then for any $\alpha \in L$, set the left multiplication map $\ell_{\alpha} : L \to L$ defined by $\ell_{\alpha}(x) = \alpha x$. This is a $k$-linear map, and hence has a characteristic polynomial $P_{\alpha}(X)$. By the Cayley-Hamilton theorem, $P_{\alpha}(\ell_{\alpha}) = 0$, and hence $P_{\alpha}(\alpha) = 0$. Thus, $\alpha$ is algebraic over $k$.
 \end{proof}
 
+\textit{July 22nd.}
+
 \begin{theorem}
-    Let $L \supseteq E \supseteq k$ be fields. Then $L/k$ is algebraic if and only if both $L/E$ and $E/k$ are algebraic.
+    Let $E \supseteq L \supseteq k$ be fields. Then $E/k$ is algebraic if and only if both $E/L$ and $L/k$ are algebraic.
 \end{theorem}
+
+Such an inclusion is termed a \eax{tower of extensions}. To prove this theorem, we require the following lemma.
+
+\begin{lemma}
+    Let $L \supseteq k$ be a field extesion, and let $\alpha_{1},\ldots,\alpha_{n} \in L$ be algebraic over $k$. Then $k(\alpha_{1},\ldots,\alpha_{n})$ is finite dimensional, and algebraic, over $k$.
+\end{lemma}
+
+A field extension $L = k(\beta)$ is called a \eax{simple extension}. In general, if $L/k$ is a field extension, then $L/k$ is called a \eax{finitely generated extension} if there exists a finite subset $S \subseteq L$ such that $L = k(S)$. Note that a finitely generated extension need not be a finite extension. For example, $\Q(\pi)/\Q$ is finitely generated but not finite.
+
+\begin{proof}[Proof of theorem]
+    Let us assume $L/E$ and $E/k$ are algebraic; let $\alpha \in E$. Then $\alpha$ is algebraic over $L$, and there exists a non-zero polynomial $g(X) \in L[X]$ such that $g(\alpha) = 0$. Write $g(X) = a_{0} + a_{1}x + \cdots + a_{r}X^{r}$ with $a_{i} \in L$. Now consider $k(a_{0},a_{1},\ldots,a_{r})$; here, each $a_{i}$ is algebraic over $k$ so $k(a_{0},a_{1},\ldots,a_{r})/k$ is algebraic. Consider $k(a_{0},a_{1},\ldots,a_{r})(\alpha)$; since $\alpha$ is algebraic over $k(a_{0},a_{1},\ldots,a_{r})$, we have $[k(a_{0},a_{1},\ldots,a_{r})(\alpha) : k(a_{0},a_{1},\ldots,a_{r})] < \infty$. Thus, $[k(a_{0},a_{1},\ldots,a_{r})(\alpha) : k]$ is finite, and hence $\alpha$ is algebraic over $k$. Since $\alpha \in E$ was arbitrary, we have that $E/k$ is algebraic. The converse is immediate since any $\alpha \in L$ is also in $E$, and hence algebraic over $k$.
+\end{proof}
+
+\begin{example}
+    As an exercise, show that an algebraic extension $L/k$ is finitely generated if and only if $[L:k]$ is finite.
+\end{example}
+
+\section{Number Fields}
+
+Simply put, a finite field extension of the rationals $\Q$ is called a \eax{number field}. Examples include $\Q(\sqrt{2})$, $\Q(\alpha_{1},\ldots,\alpha_{r})$ where $\alpha_{i}$ are algebraic over $\Q$. Non-examples include $\Q(\pi)$, $\Q(\sqrt{2},\sqrt{3},\sqrt{5},\ldots,\sqrt{p},\ldots)$ for all primes $p$. Recall the field of algebraic numbers:
+\begin{align}
+    \overline{\Q} = \{\alpha \in \C \mid \alpha \text{ is algebraic over } \Q\}.
+\end{align}
+It is left as an exercise to show that $\overline{\Q}$ is a field, and that $\overline{\Q}/\Q$ is an algebraic extension.
+
+\begin{definition}
+    A field $K$ is called \eax{algebraically closed} if every non-constant polynomial $f(X) \in K[X]$ has a root in $K$. Equivalently, irreducible polynomials over $K$ are exactly the linear polynomials.
+\end{definition}
+For example, $\C$ is algebraically closed, but $\R$ is not. This is a consequence of the fundamental theorem of algebra.
+
+\begin{example}
+    The field $\overline{\Q}$ is algebraically closed. To show this, let $f(X) \in \overline{\Q}[X]$ be an irreducible polynomial. By the fundamental theorem of algebra, there exists a root $\alpha \in \C$ of $f(X)$. So, $\overline{\Q}(\alpha)/\overline{\Q}$ is algebraic. But since $\overline{\Q}/\Q$ is algebraic, we have that $\overline{\Q}(\alpha)/\Q$ is algebraic. Thus, $\alpha \in \overline{\Q}$, and hence $f(X)$ has a root in $\overline{\Q}$.
+\end{example}
+
+If we define $\overline{\Q}^{\R} = \{\alpha \in \R \mid \alpha \text{ is algebraic over } \Q\}$. Clearly, $\overline{\Q}^{\R}$ is algebraic. Consider $i \in \C$; $i$ is algebraic over $\Q$ but $i \notin \R$, so $i \notin \overline{\Q}^{\R}$. Thus, the minimal polynomial of $i$ over $\overline{\Q}^{\R}$ is $X^{2}+1$, which is irreducible over $\overline{\Q}^{\R}$. Hence, $\overline{\Q}^{\R}$ is not algebraically closed. 
