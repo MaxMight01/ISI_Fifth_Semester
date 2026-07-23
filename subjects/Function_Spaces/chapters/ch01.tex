@@ -24,3 +24,76 @@ This is the discrete Fourier transform, as before. If we look at the norm, then
 This is known as \eax{Plancherel's theorem}.
 
 All of the above can be generalized to the continous case; let $L^{2}[0,1]$ be the space of square integrable functions on $[0,1]$. If $(a_{n})_{n \in \Z}$ is the Fourier series of $f$, then $\int_{0}^{1} \abs{f(x)}^{2} dx = \sum_{n \in \Z} \abs{a_{n}}^{2}$, which is the continuous analogue of Plancherel's theorem.
+
+\section{Metric and Normed Spaces}
+\textit{July 23rd.}
+
+The following theorem relates the notion of compactness, that every cover has a finite subcover, to many other properties of metric spaces.
+
+\begin{theorem}
+Let $(X,d)$ be a metric space. The following are equivalent:
+\begin{enumerate}
+    \item $X$ is compact.
+    \item Every nested sequence of nonempty closed sets $F_1 \supseteq F_2 \supseteq \cdots$ has nonempty intersection, that is,
+    \begin{align}
+        \bigcap_{n=1}^{\infty} F_n \neq \emptyset.
+    \end{align}
+    \item Every countable family of closed sets with the finite intersection property has nonempty intersection.
+    \item Every sequence in $X$ has a convergent subsequence.
+    \item $X$ is complete and totally bounded.
+\end{enumerate}
+\end{theorem}
+
+
+\begin{proof}
+    For $1 \implies 2$, let $\{F_n\}_{n=1}^{\infty}$ be a nested sequence of nonempty closed sets with $F_1 \supseteq F_2 \supseteq \cdots$. If $\bigcap_{n=1}^{\infty}F_n=\emptyset$, then $\{X\setminus F_n\}_{n=1}^{\infty}$ is an open cover of $X$. By compactness, there exists a finite subcover. Since the $F_n$ are nested,
+    \begin{align}
+        X=\bigcup_{i=1}^{N}(X\setminus F_i)=X\setminus F_N.
+    \end{align}
+    Hence $F_N=\emptyset$, a contradiction.
+
+    For $2 \implies 3$, let $\{F_n\}_{n=1}^{\infty}$ be a countable family of closed sets with the finite intersection property. Define
+    \begin{align}
+        G_n=\bigcap_{i=1}^{n}F_i.
+    \end{align}
+    Then $G_1\supseteq G_2\supseteq\cdots$ is a nested sequence of nonempty closed sets. By 2, $\bigcap_{n=1}^{\infty}G_n\neq\emptyset$. Since
+    \begin{align}
+        \bigcap_{n=1}^{\infty}G_n=\bigcap_{n=1}^{\infty}F_n,
+    \end{align}
+    the result follows.
+
+    For $3 \implies 4$, let $S_0$ be the set of elements in $(x_i)_{i=1}^{\infty}$, a sequence in $X$. Similarly, let $S_1$ be the set of elements in $(x_i)_{i=2}^{\infty}$, and define $S_n$ similarly. Then
+    \begin{align}
+        \overline{S}_0\supseteq\overline{S}_1\supseteq\cdots\supseteq\overline{S}_n\supseteq\cdots.
+    \end{align}
+    By 3, $\bigcap_{n=1}^{\infty}\overline{S}_n\neq\emptyset$, so there exists $x'\in\bigcap_{n=1}^{\infty}\overline{S}_n$. Now, $B(x',1)\cap S_1$ cannot be empty, so pick $x_{n_1}$ from this intersection. Again, $B(x',1/2)\cap S_{n_1}$ cannot be empty, so pick $x_{n_2}$ from this intersection. Continue inductively to obtain the $x_{n_k}$'s. One can verify that $x_{n_k}\to x'$.
+
+    For $4 \implies 5$, every Cauchy sequence has a convergent subsequence, and hence converges. Thus, $X$ is complete. Suppose $X$ is not totally bounded. Then there exists $\alpha>0$ such that $X$ has no finite covering by balls of radius $\alpha$. Pick $x_1\in X$. Since $B(x_1,\alpha)\neq X$, pick $x_2\in X\setminus B(x_1,\alpha)$. Again,
+    \begin{align}
+        B(x_1,\alpha)\cup B(x_2,\alpha)\neq X.
+    \end{align}
+    Similarly, pick $x_3$ outside the previous balls, and continue inductively. Since $d(x_m,x_n)\ge\alpha$ for $m\neq n$, there is no convergent subsequence, contradicting 4. Hence $X$ is totally bounded.
+
+    For $5 \implies 1$, we prove the contrapositive. Assume $X$ is not compact. If it is not totally bounded, we are done; further assume that it is totally bounded. Then there exists an open cover $\{U_{\alpha}\}_{\alpha\in\Lambda}$ with no finite subcover. Let $\varepsilon=1/2$ and pick a finite $\varepsilon$-net. Pick $x_1$ such that $B(x_1,1/2)$ is not covered by finitely many $U_{\alpha}$. Since $B(x_1,1/2)$ is totally bounded, pick $x_2\in B(x_1,1/2)$ such that $B(x_2,1/4)$ cannot be covered by finitely many $U_{\alpha}$. Inductively, pick $x_n\in B(x_{n-1},1/2^{n-1})$ such that $B(x_n,1/2^n)$ cannot be covered by finitely many $U_{\alpha}$. Then
+    \begin{align}
+        d(x_n,x_m)\le\sum_{k=m}^{n-1}\frac{1}{2^k},
+    \end{align}
+    so $(x_n)$ is a Cauchy sequence. Since $X$ is complete, $x_n\to x$ for some $x\in X$. Let $x\in U_{\alpha}$. Then there exists $\varepsilon>0$ such that $B(x,\varepsilon)\subseteq U_{\alpha}$. Moreover, $d(x_n,x)<\varepsilon/2$ for $n$ sufficiently large. Hence
+    \begin{align}
+        B(x_n,2^{-n})\subseteq B(x_n,\varepsilon/2)\subseteq B(x,\varepsilon)\subseteq U_{\alpha},
+    \end{align}
+    for all sufficiently large $n$, since $2^{-n}<\varepsilon/2$. This contradicts the choice of $B(x_n,2^{-n})$. Hence $X$ is not complete.
+\end{proof}
+
+We now look at some examples of non-trivial function spaces; consider $C[0,1]$, the space of complex-valued continuous functions on $[0,1]$. This is a vector space over $\R$ with pointwise addition and scalar multiplication. We can define a norm on this space as $\norm{f}_{\infty} = \sup_{x \in [0,1]} \abs{f(x)}$. This makes $C[0,1]$ into a normed space.
+
+\begin{definition}
+    Let $X$ be a $\K$-vector space. A \eax{norm} on $X$ is a function $\norm{\cdot}:X\to[0,\infty)$ such that for all $x,y\in X$ and $\alpha\in\K$,
+    \begin{enumerate}
+        \item $\norm{x}=0$ if and only if $x=0$ (positive definiteness).
+        \item $\norm{\alpha x}=\abs{\alpha}\norm{x}$ (homogeneity).
+        \item $\norm{x+y}\le\norm{x}+\norm{y}$ (triangle inequality).
+    \end{enumerate}
+\end{definition}
+
+One may verify that $\norm{\cdot}_{\infty}$ is indeed a norm on $C[0,1]$.
