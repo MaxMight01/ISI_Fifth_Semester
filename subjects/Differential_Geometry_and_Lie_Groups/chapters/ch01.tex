@@ -106,7 +106,7 @@ The kernel here is $\{[(f,U)] \in C^{\infty}_{p}(\R^{n}) \mid f(p) = 0\}$, which
 
 \textit{July 22nd.}
 
-\noindent Hereforth, $V$ shall denote a finite-dimensional real vector space, and $V^{V}$ shall denote its \eax{dual space} $\Hom_{\R}(V,\R)$. If $e_{1},\ldots,e_{n}$ are a basis for $V$, then the \eax{dual basis} of $V^{V}$ is denoted by $\alpha^{1},\ldots,\alpha^{n} \in V^{V}$, and is defined by $\alpha^{i}(e_{j}) = \delta_{i,j}$ for all $1 \leq i,j \leq n$. One may verify that the dual basis $\{\alpha^{1},\ldots,\alpha^{n}\}$, induced by the basis $\{e_{1},\ldots,e_{n}\}$, is indeed a basis for $V^{V}$. $S_{k}$ shall denote the permutation group on $k$ symbols, satisfying $\abs{S_{k}} = k!$. For any $\sigma \in S_{k}$, the sign of $\sigma$ is denoted by $\sgn(\sigma)$, and is defined as $+1$ if $\sigma$ is an even permutation, and $-1$ if $\sigma$ is an odd permutation. 
+Hereforth, $V$ shall denote a finite-dimensional real vector space, and $V^{V}$ shall denote its \eax{dual space} $\Hom_{\R}(V,\R)$. If $e_{1},\ldots,e_{n}$ are a basis for $V$, then the \eax{dual basis} of $V^{V}$ is denoted by $\alpha^{1},\ldots,\alpha^{n} \in V^{V}$, and is defined by $\alpha^{i}(e_{j}) = \delta_{i,j}$ for all $1 \leq i,j \leq n$. One may verify that the dual basis $\{\alpha^{1},\ldots,\alpha^{n}\}$, induced by the basis $\{e_{1},\ldots,e_{n}\}$, is indeed a basis for $V^{V}$. $S_{k}$ shall denote the permutation group on $k$ symbols, satisfying $\abs{S_{k}} = k!$. For any $\sigma \in S_{k}$, the sign of $\sigma$ is denoted by $\sgn(\sigma)$, and is defined as $+1$ if $\sigma$ is an even permutation, and $-1$ if $\sigma$ is an odd permutation. 
 
 With notation out of the way, let $k \geq 1$ be an integer. We shall consider the $k$-tuple $V^{k} = V \times \cdots \times V$ ($k$ times).
 
@@ -151,3 +151,105 @@ One may, indeed, check that $Sf$ is symmetric. Similarly, we can define the \eax
 \begin{align}
     Af = \sum_{\sigma \in S_{k}} \sgn(\sigma) \sigma \cdot f.
 \end{align}
+
+\subsection{The Tensor and Wedge Products}
+
+\noindent \textit{July 24th.}
+
+For any $f \in L_{k}(V)$ and $g \in L_{l}(V)$, we can define the \eax{tensor product} $f \otimes g \in L_{k+l}(V)$ as
+\begin{align}
+    (f \otimes g)(v_{1},\ldots,v_{k+l}) = f(v_{1},\ldots,v_{k})g(v_{k+1},\ldots,v_{k+l}).
+\end{align}
+Verify that $f \otimes g$ is indeed $(k+l)$-linear. We are interested in the tensor product of alternating tensors, so let $f \in A_{k}(V)$ and $g \in A_{l}(V)$. Then, we can define the \eax{wedge product} $f \wedge g \in A_{k+l}(V)$ as
+\begin{align}
+    f \wedge g = \frac{1}{k!l!} A(f \otimes g) = \frac{1}{k!l!} \sum_{\sigma \in S_{k+l}} \sgn(\sigma) \sigma \cdot (f \otimes g).
+\end{align}
+The associativity of the tensor product holds easily: for $f \in L_{k}(V)$, $g \in L_{l}(V)$, and $h \in L_{m}(V)$,
+\begin{align}
+    (f \otimes g) \otimes h = f \otimes (g \otimes h).
+\end{align}
+
+\begin{proposition}
+    For $f \in A_{k}(V)$ and $g \in A_{l}(V)$, we have
+    \begin{align}
+        f \wedge g = (-1)^{kl} g \wedge f.
+    \end{align}
+\end{proposition}
+\begin{proof}
+    We shall show that $A(f \otimes g) = (-1)^{kl} A(g \otimes f)$. To this end, fix the permutation $\tau \in S_{k+l}$ defined by
+    \begin{align}
+        \tau = \begin{pmatrix}
+            1 & 2 & \cdots & l & l+1 & l+2 & \cdots & l+k \\
+            k+1 & k+2 & \cdots & k+l & 1 & 2 & \cdots & k
+        \end{pmatrix}.
+    \end{align}
+    We have
+    \begin{align}
+        A(f \otimes g)(v_{1},\ldots,v_{k+l}) &= \sum_{\sigma \in S_{k+l}} \sgn(\sigma) f(v_{\sigma(1)},\ldots,v_{\sigma(k)}) g(v_{\sigma(k+1)},\ldots,v_{\sigma(k+l)}) \notag \\
+        &= \sum_{\sigma \in S_{k+l}} \sgn(\sigma) f(v_{\sigma\tau(l+1)},\ldots,v_{\sigma\tau(l+k)}) g(v_{\sigma\tau(1)},\ldots,v_{\sigma\tau(l)}) \notag \\
+        &= \sgn(\tau) \sum_{\sigma \in S_{k+l}} \sgn(\sigma\tau) f(v_{\sigma\tau(l+1)},\ldots,v_{\sigma\tau(l+k)}) g(v_{\sigma\tau(1)},\ldots,v_{\sigma\tau(l)}) \notag \\
+        &= \sgn(\tau)A(g \otimes f)(v_{1},\ldots,v_{k+l}).
+    \end{align}
+    With $\sgn(\tau) = (-1)^{kl}$, the proof is complete.
+\end{proof}
+
+\begin{corollary}
+    For $f \in A_{k}(V)$, we have $f \wedge f = 0$ if $k$ is odd.
+\end{corollary}
+\begin{proof}
+    Easy since $f \wedge f = (-1)^{k^{2}} f \wedge f = -f \wedge f$ if $k$ is odd, so $f \wedge f = 0$.
+\end{proof}
+
+\begin{lemma}
+    For $f \in L_{k}(V)$ and $g \in L_{l}(V)$, we have
+    \begin{align}
+        A(Af \otimes g) = k!A(f \otimes g), \quad A(f \otimes Ag) = l!A(f \otimes g).
+    \end{align}
+\end{lemma}
+
+\begin{proof}
+    We shall prove the first equality; the second follows similarly. We have
+    \begin{align}
+        A(Af \otimes g) &= \sum_{\sigma \in S_{k+l}} \sgn(\sigma) \sigma \cdot \left( \sum_{\tau \in S_{k}} \sgn(\tau) (\tau \cdot f)  \otimes g \right) = \sum_{\sigma \in S_{k+l}} \sgn(\sigma) \sigma \cdot \left( \sum_{\tau \in S_{k}} \sgn(\tau) \tau \cdot(f \otimes g) \right) \notag \\
+        &= \sum_{\tau \in S_{k}} \sum_{\sigma \in S_{k+l}} \sgn(\sigma \tau) \sigma \tau \cdot (f \otimes g) = k! \sum_{\alpha \in S_{k+l}} \sgn(\alpha) \alpha \cdot (f \otimes g) = k! A(f \otimes g).
+    \end{align}
+\end{proof}
+
+\begin{proposition}
+    The wedge product is associative, i.e. for $f \in A_{k}(V)$, $g \in A_{l}(V)$, and $h \in A_{m}(V)$, we have
+    \begin{align}
+        (f \wedge g) \wedge h = f \wedge (g \wedge h).
+    \end{align}
+\end{proposition}
+\begin{proof}
+    We have
+    \begin{align}
+        (f \wedge g) \wedge h &= \frac{1}{(k+l)!m!} A((f \wedge g) \otimes h) = \frac{1}{(k+l)!m!k!l!} A(A(f \otimes g) \otimes h) = \frac{(k+l)!}{(k+l)!l!k!m!}A((f \otimes g) \otimes h) \notag \\
+        &= \frac{1}{k!l!m!} A(f \otimes g \otimes h) = f \wedge (g \wedge h).
+    \end{align}
+\end{proof}
+
+\begin{corollary}
+    $f \wedge g \wedge h = \frac{1}{k!l!m!} A(f \otimes g \otimes h)$ for $f \in A_{k}(V)$, $g \in A_{l}(V)$, and $h \in A_{m}(V)$. Inductively,
+    \begin{align}
+        f_{1} \wedge \cdots \wedge f_{k} = \frac{1}{k_{1}!\cdots k_{k}!} A(f_{1} \otimes \cdots \otimes f_{k}),
+    \end{align}
+    where $f_{i} \in A_{k_{i}}(V)$ for $1 \leq i \leq k$.
+\end{corollary}
+
+\begin{proposition}
+    Let $\alpha^{1},\ldots,\alpha^{n} \in V^{V} = A_{1}(V) = L_{1}(V)$, and $v_{1},\ldots,v_{k} \in V$. Then
+    \begin{align}
+        (\alpha^{1} \wedge \cdots \wedge \alpha^{k})(v_{1},\ldots,v_{k}) = \det(\alpha^{i}(v_{j}))_{1 \leq i,j \leq k}.
+    \end{align}
+\end{proposition}
+
+\begin{proof}
+    We have
+    \begin{align}
+        (\alpha^{1} \wedge \cdots \wedge \alpha^{k})(v_{1},\ldots,v_{k}) &= \sum_{\sigma \in S_{k}} \sgn(\sigma)(\alpha^{1} \otimes \cdots \otimes \alpha^{k})(v_{\sigma(1)},\ldots,v_{\sigma(k)}) \notag \\
+        &= \sum_{\sigma \in S_{k}} \sgn(\sigma) \alpha^{1}(v_{\sigma(1)})\alpha^{2}(v{\sigma(2)}) \cdots \alpha^{k}(v_{\sigma(k)}) = \det(\alpha^{i}(v_{j}))_{1 \leq i,j \leq k}.
+    \end{align}
+\end{proof}
+
+Let $V$ be an $\R$-vector space with basis $e_{1},\ldots,e_{n}$, and $V^{V}$ be its dual space with dual basis $\alpha^{1},\ldots,\alpha^{n}$. Moreover, let $I$ be a multi-index of length $k$, i.e. $I = (i_{1},\ldots,i_{k})$ with $1 \leq i_{1},\ldots,i_{k} \leq n$. We define $e_{I} \defeq (e_{i_{1}},\ldots,e_{i_{k}}) \in V^{k}$ and $\alpha^{I} \defeq \alpha^{i_{1}} \wedge \cdots \wedge \alpha^{i_{k}} \in A_{k}(V)$. Then, a $k$-linear form $f \in L_{k}(V)$ is completely determined by its values on the $e_{I}$, and an alternating $k$-linear form $f \in A_{k}(V)$ is completely determined by its values on the $e_{I}$ with $i_{1} < i_{2} < \cdots < i_{k}$. 
