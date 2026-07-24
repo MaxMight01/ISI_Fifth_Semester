@@ -1,0 +1,140 @@
+\chapter{Introduction to Algorithms}
+
+\textit{July 24th.}
+
+Project(s) will account for 20\% of the final grade. The mid-term exam will account for 30\% of the final grade, and the final exam will account for 50\%
+
+The design and analysis of algorithms involves two halves, given any algorithm: proving the correctness of the algorithm, and measuring the efficiency of the algorithm. This analysis must be independent of the system's components; henceforth, we will assume the \eax{RAM model of computation} (Random Access Machine model of computation) for our analysis. The RAM model of computation assumes the following:
+\begin{itemize}
+    \item every basic operation takes unit (constant) time, and
+    \item memory can be accessed randomly in unit (constant) time.
+\end{itemize}
+
+Consider the simple linear search; the input involves an array $A$ of $n$ elements, and a key. The output is the index of the key in the array, or -1 if the key is not present in the array. The algorithm is as follows:
+\begin{verbatim}
+for i = 0 to n-1 do:
+    if A[i] == key:
+        return i
+return -1
+\end{verbatim}
+Here, the best case scenario occurs when the key is present at the first index of the array, and the worst case scenario occurs when the key is not present in the array. Measuring the efficiency of such an algorithm involves looking at how much of the resources (time and space) are consumed, and what the worst case scenario running time is, as a function of the input size.
+
+\begin{definition}
+    The \eax{input size} is simply defined to be the space needed to store the input.
+\end{definition}
+A possible way of measuring this space is bits; if a number takes, say, 16 bits to store, then the input size of the array above is not $n$, but rather $\sim 16n$. However, it gets tedious to work with such detailed measurements, and this is where asymptotic analysis comes into play.
+
+\section{Asymptotic Notation}
+We first look at \eax{big-$\Oh$ notation}; a function $f$ grows at big-O of a function $g$ if such that for large enough inputs, $f$ is bounded by 0 below and a scaling of $g$ above. In other words,
+\begin{align}
+    \Oh(g(n)) = \{f(n) \mid \text{there exist } c > 0, n_{0} \geq 0 \text{ such that } 0 \leq f(n) \leq c \, g(n) \text{ for all } n \geq n_{0}\}.
+\end{align}
+The notation $f(n) = \Oh(g(n))$ is an abuse of notation which represents $f(n) \in \Oh(g(n))$. For examples, we have $10 n^{2} = \Oh(n^{3})$, $n^{2} = \Oh(n^{2})$, $5n^{2}+6n-8 = \Oh(n^{2})$; in general, one can show that
+\begin{align}
+    \sum_{i=0}^{d} a_{i} n^{i} = \Oh(n^{d}) \text{ for } a_{d} > 0.
+\end{align}
+Analogously, we have \eax{big-$\Omega$ notation}, which is the lower bound of a function:
+\begin{align}
+    \Omega(g(n)) = \{f(n) \mid \text{there exist } c > 0, n_{0} \geq 0 \text{ such that } 0 \leq c \, g(n) \leq f(n) \text{ for all } n \geq n_{0}\}.
+\end{align}
+For examples, $\log n = \Omega(1)$, $2^{n} = \Omega(n^{1000})$, etc. One may also note that $5n^{2}+6n-8 = \Oh(n^{2})$; two functions can bound each other via scaling. This leads us to the \eax{big-$\Theta$ notation} where $f(n) = \Theta(g(n))$ if and only if $f(n) = \Oh(g(n))$ and $f(n) = \Omega(g(n))$:
+\begin{align}
+    \Theta(g(n)) = \{f(n) \mid \text{there exist} c_{1}, c_{2} > 0, n_{0} \geq 0 \text{ such that } 0 \leq c_{1} \, g(n) \leq f(n) \leq c_{2} \, g(n) \text{ for all } n \geq n_{0}\}.
+\end{align}
+Again, one can show $f(n) = \Theta(g(n))$ if and only if $g(n) = \Theta(f(n))$. Moreover, functions may be bounded above by a particular function, but not below; this is not an asymptotically tight bound. This leads us to \eax{little-$\oh$ notation}:
+\begin{align}
+    \oh(g(n)) = \{f(n) \mid \text{for all } c > 0, \text{ there exists } n_{0} \geq 0 \text{ such that } 0 \leq f(n) < c \, g(n) \text{ for all } n \geq n_{0}\}.
+\end{align}
+Analogously, we have \eax{little-$\omega$ notation}, to denote a lower bound that is not asymptotically tight:
+\begin{align}
+    \omega(g(n)) = \{f(n) \mid \text{for all } c > 0, \text{ there exists } n_{0} \geq 0 \text{ such that } 0 \leq c \, g(n) < f(n) \text{ for all } n \geq n_{0}\}.
+\end{align}
+Suppose, given two funcitons $f$ and $g$, the limit
+\begin{align}
+    L \defeq \lim_{n \to \infty} \frac{f(n)}{g(n)}
+\end{align}
+exists. Then, we have the following:
+\begin{itemize}
+    \item $L < \infty \implies f(n) = \Oh(g(n))$,
+    \item $L > 0 \implies f(n) = \Omega(g(n))$.
+\end{itemize}
+Coming back to the linear search example, we can easily see that the algorithm is of the order $\Oh(n)$ and $\Omega(n)$, and hence $\Theta(n)$. We look at the binary search algorithm next; the input involves a sorted array $A$ of $n$ elements, and a key. The output is the index of the key in the array, or -1 if the key is not present in the array. The algorithm is as follows:
+\begin{verbatim}
+first = 0; last = n-1
+mid = (first+last)//2
+while first <= last do:
+    if A[mid] == key:
+        return mid
+    else if A[mid] < key:
+        first = mid + 1
+    else:
+        last = mid - 1
+return -1
+\end{verbatim}
+Analyzing this, we see that a single run of the while loop takes $\Theta(1)$ time, and work done outside the loop is $\Theta(1)$ time. So, the time taken by this algorithm is $\Theta$ of number of times the while loop is executed; since after every while loop, the effective range is halved, we obtain $\Theta(\log n)$ time for the binary search algorithm. Another classic example is one of the sorting problem; given an input array of $n$ elements, we wish to output it in sorted order. An algorithm for this is as follows:
+\begin{verbatim}
+for i = 1 to n-1 do:
+    for j = i+1 to n do:
+        if A[i] > A[j]:
+            swap(A[i], A[j])
+return A
+\end{verbatim}
+One may verify that the time taken by this algorithm is $\Theta(n^{2})$; this, however, is not efficient enough for large inputs. We will look at more efficient algorithms for sorting later on.
+
+\subsection{Properties of Asymptotic Notation}
+\subsubsection{Trasitivity}
+If $f(n) = \Theta(g(n))$ and $g(n) = \Theta(h(n))$, then $f(n) = \Theta(h(n))$. This is, in fact, true for all asymptotic notations: we can also show that if $f(n) = \Oh(g(n))$ and $g(n) = \Oh(h(n))$, then $f(n) = \Oh(h(n))$. The same holds for $\Omega$, $\omega$, and $\oh$. Let us prove this for $\Theta$ notation. Suppose $f(n) = \Theta(g(n))$ and $g(n) = \Theta(h(n))$. Then there exist $a_{1},b_{1} > 0$ and $n_{1} \geq 0$ such that
+\begin{align}
+    0 \leq a_{1} \, g(n) \leq f(n) \leq b_{1} \, g(n) \text{ for all } n \geq n_{1},
+\end{align}
+and there exist $a_{2},b_{2} > 0$ and $n_{2} \geq 0$ such that
+\begin{align}
+    0 \leq a_{2} \, h(n) \leq g(n) \leq b_{2} \, h(n) \text{ for all } n \geq n_{2}.
+\end{align}
+Let $n_{0} = \max\{n_{1}, n_{2}\}$. Then, for all $n \geq n_{0}$,
+\begin{align}
+    0 \leq a_{1} a_{2} \, h(n) \leq a_{1} \, g(n) \leq f(n) \leq b_{1} \, g(n) \leq b_{1} b_{2} \, h(n).
+\end{align}
+Thus, $f(n) = \Theta(h(n))$.
+
+\subsubsection{Reflexivity}
+We can easily see that $f(n) = \Theta(f(n))$, $f(n) = \Oh(f(n))$, and $f(n) = \Omega(f(n))$; this is called reflexivity. However, we cannot say that $f(n) = \oh(f(n))$ or $f(n) = \omega(f(n))$; this is because the definition of $\oh$ and $\omega$ requires strict inequality. Choosing $c=1$ in the definition of $\oh$ and $\omega$ leads to a contradiction.
+
+\subsubsection{Symmetry}
+If $f(n) = \Theta(g(n))$, then $g(n) = \Theta(f(n))$. $\Theta$ is the only asymptotic notation that is symmetric.
+
+\subsubsection{Transpose Symmetry}
+Simply stated, $f(n) = \Oh(g(n))$ if and only if $g(n) = \Omega(f(n))$, and $f(n) = \oh(g(n))$ if and only if $g(n) = \omega(f(n))$. This is called transpose symmetry.
+
+\subsection{Specific Examples}
+We state a few statements that hold true in the context of asymptotic notation.
+
+For $a,b > 0$, and $a \neq 1$ and $b \neq 1$,
+\begin{align}
+    \log_{a}(n) = \Theta(\log_{b}(n)).
+\end{align}
+Moreover, any polynomial function dominates any logarithmic function; that is, for $k > 0$, and $b > 1$,
+\begin{align}
+    n^{x} = \omega(\log_{n}(n)).
+\end{align}
+The exponential function further dominates any polynomial function; that is, for $a > 1$ and $k > 0$,
+\begin{align}
+    a^{n} = \omega(n^{k}).
+\end{align}
+As a consequence, this heirarchy of examples holds:
+\begin{align}
+    \log^{2} n < 2^{\sqrt{\log n}} < n^{1/3} < n^{2} < n^{2.001} < n^{2}\log n < 1.5^{n} < 2^{n} = 2^{n+1} < 2^{2n} < n!
+\end{align}
+where $<$ denotes that the function on the left is asymptotically dominated by the function on the right.
+
+So far, we have utilized asymptotic notation to analyze the running time of algorithms. We may also use asymptotic notation to analyze the space complexity of algorithms.
+
+\subsection{Solving Recursions}
+In many cases, we may not explicitly be given the function $f(n)$, but rather a recursion $T(n)$ the depends on smaller instances of the same problem. For example, in the binary search problem, we have the recursion
+\begin{align}
+    T(n) = T(n/2) + 1
+\end{align}
+(the 1 simply accounts for unit time; we ultimately require the asymptotic growth). Via induction, one may prove that $T(n) = T(n/2^{i}) + i$ for any $i \geq 0$. Choosing $i = \log_{2} n$, we have $T(n) = T(1) + \log_{2} n = \Theta(\log n)$.
+\begin{example}
+    Solve the recursions $T(n) = 2T(n/2)+n$, and $T(n) = T(\sqrt{n})+1$.
+\end{example}
