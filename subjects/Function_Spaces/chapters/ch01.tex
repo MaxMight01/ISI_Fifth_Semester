@@ -97,3 +97,74 @@ We now look at some examples of non-trivial function spaces; consider $C[0,1]$, 
 \end{definition}
 
 One may verify that $\norm{\cdot}_{\infty}$ is indeed a norm on $C[0,1]$.
+
+\section{The Lebesgue Integral}
+\textit{July 27th.}
+
+\begin{definition}
+    A function $s:[0,1] \to \C$ is called a \eax{step function} if there exists a partition $P:0=x_{0} < x_{1} < \cdots < x_{n}=1$ of $[0,1]$ such that $s$ is constant on each interval $(x_{i-1},x_{i})$ for $1 \leq i \leq n$. That is, $s(x) = c_{k}$ if $x \in (x_{k-1},x_{k})$ where $c_{k}$ are constants for $1 \leq k \leq n$.
+\end{definition}
+
+We impose that the integral of such a step function is given by
+\begin{align}
+    \int_{0}^{1} s(x) \, dx = \sum_{k=1}^{n} c_{k}(x_{k}-x_{k-1}).
+\end{align}
+The values of the step function on the partition points $x_{i}$ do not affect the value of the integral.
+
+\begin{proposition}
+    The set of step functions on $[0,1]$ is a complex vector space under pointwise addition and scalar multiplication.
+\end{proposition}
+The proof is straightforward and left as an exercise. 
+
+\begin{proposition}
+    The set of step functions on $[0,1]$ such that $\int_{0}^{1} \abs{s(x)} \, dx = 0$ is a subspace of the vector space of step functions on $[0,1]$.
+\end{proposition}
+Again, this proof is rudimentary and left as an exercise. The reader is also urged to show that $\int_{0}^{1} s(x) \, dx$ is well-defined and independent of the choice of partition $P$.
+
+\begin{definition}
+    A set $S \subseteq [0,1]$ is said to have \eax{content zero} or measure zero if for every $\eps > 0$, there exists countably many open intervals $(a_{n},b_{n})_{n=1}^{\infty}$ such that $S \subseteq \bigcup_{n=1}^{\infty} (a_{n},b_{n})$ and $\sum_{n=1}^{\infty} (b_{n}-a_{n}) < \eps$.
+\end{definition}
+
+As a trivial example, any finite subset of $[0,1]$ has content zero. Similarly, any countable subset of $[0,1]$ has content zero. The Cantor set is an example of an uncountable set with content zero. One may show that the countable union of sets of content zero has content zero.
+
+\begin{definition}
+    A sequence of functions $f_{n}:[0,1] \to \R$ is said to be increasing if $f_{n}(x) \leq f_{n+1}(x)$ for all $x \in [0,1]$. Similarly, a sequence of decreasing functions is defined.
+\end{definition}
+
+Note that a property is said to be hold \eax{almost everywhere} if it holds for all $x \in [0,1]$ except for a negligible set (a set of content zero).
+
+\begin{definition}
+    We say $f_{n} \to f$ pointwise almost everywhere if there exists a set $S \subseteq [0,1]$ of content zero such that $f_{n}(x) \to f(x)$ for all $x \in [0,1] \setminus S$. That is, $f_{n}$ converges to $f$ pointwise except on a negligible set.
+\end{definition}
+
+\begin{theorem}[The \eax{proto monotone convergence theorem}]
+    Let $\{s_{n}\}_{n=1}^{\infty}$ be a decreasing seqeucence of non-negative step functions on $[0,1]$ such that $s_{n} \to 0$ pointwise almost everywhere. Then $\int_{0}^{1} s_{n}(x) \, dx \to 0$ as $n \to \infty$.
+\end{theorem}
+
+\begin{proof}
+    Let $E \defeq \{x \in [0,1] \mid s_{n}(x) \not\to 0\}$. Then $E$ has content zero. Define $D$ to be the set of endpoints of intervals in the partitions corresponding to the $s_{n}$'s. Then $D$ is countable, and hence has content zero. Let $F = D \cup E$ is negligible. Let $x \in [0,1]\setminus F$. Then there exists $N(x) \in \N$ such that $s_{n}(x) = 0$ for all $n \geq N(x)$. Since $x \notin D$, there exists an open interval $B(x)$ such that $s_{N}(t) < \eps$ for all $t \in B(x)$. As $\{s_{n}\}$ is decreasing, we have $s_{n}(t) < \eps$ for all $t \in B(x)$ and $n \geq N(x)$. For every $x \in [0,1]\setminus F$, we have a $B(x)$. Find a sequence of open intervals such that $F \subseteq \bigcup_{n=1}^{\infty} F_{n}$ and $\sum_{n=1}^{\infty} \abs{F_{n}} < \eps$. Then
+    \begin{align}
+        [0,1] \subseteq \left( \bigcup_{x \in [0,1]\setminus F} B(x) \right) \cup \left( \bigcup_{n=1}^{\infty} F_{n} \right),
+    \end{align}
+    an open cover. By compactness, there exists a finite subcover, so
+    \begin{align}
+        [0,1] \subseteq \bigcup_{i=1}^{p} B(x_{i}) \cup \bigcup_{r=1}^{q} F_{r}.
+    \end{align}
+    Call the left union $P$ and the right union $Q$. Then
+    \begin{align}
+        \int_{Q} s_{n}(x) \, dx \defeq \int_{0}^{1} \chi_{Q}(x) s_{n}(x) \, dx \leq M \int \sum_{i=1}^{q} \abs{F_{i}} \, dx < M \eps.
+    \end{align}
+    Similarly,
+    \begin{align}
+        \int_{P} s_{n}(x) \, dx \defeq \int_{0}^{1} \chi_{P}(x) s_{n}(x) \, dx \leq \eps \quad \text{ for all } n \geq \max\{N(x_{i}) \mid 1 \leq i \leq p\}.
+    \end{align}
+    Combining gives
+    \begin{align}
+        \int_{0}^{1} s_{n}(x) \, dx = \int_{P} s_{n}(x) \, dx + \int_{Q} s_{n}(x) \, dx < (M+1)\eps.
+    \end{align}
+    Thus, $\int_{0}^{1} s_{n}(x) \, dx \to 0$ as $n \to \infty$.
+\end{proof}
+
+From here, we can immediately note that $\rho:\cS[0,1] \to \C$, map from the set of step functions, defined by $s \mapsto \int_{0}^{1} s(x) \, dx$ is a linear functional. We can also define a semi-norm on the set of step functions as $\norm{s}_{1} = \int_{0}^{1} \abs{s(x)} \, dx$. This is a semi-norm since $\norm{s}_{1} = 0$ does not imply that $s = 0$; it only implies that $s = 0$ almost everywhere. We can define an equivalence relation on the set of step functions by $s \sim t$ if and only if $s = t$ almost everywhere. Then we can define a norm on the quotient space $\cS[0,1]/\sim$ as $\norm{s}_{1} = \int_{0}^{1} \abs{s(x)} \, dx$. This is indeed a norm since $\norm{s}_{1} = 0$ implies that $s = 0$ in the quotient space.
+
+The normed space $(\cS[0,1]/\sim, \norm{\cdot}_{1})$ is not complete; there is a much larger class of functions that are (Lebesgue) integrable. Henceforth, we define $L^{1}[0,1]$ to be the completion of $(\cS[0,1]/\sim, \norm{\cdot}_{1})$. The elements of $L^{1}[0,1]$ are called \eax{Lebesgue integrable function}s. 
