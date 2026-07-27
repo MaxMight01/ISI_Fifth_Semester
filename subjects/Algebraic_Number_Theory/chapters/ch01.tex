@@ -148,6 +148,77 @@ We know that if $L \supseteq k$ is a field extension, then $L$ is also a $k$-vec
     We look at some examples of $k$-embeddings.
     \begin{itemize}
         \item Let $k = \R$ and $\overline{k} = \C$. With $L = \R(\sqrt{-2})$, which is essentially $\C$, calling $\alpha = \sqrt{-2}$, we have that $\varphi(a+b\alpha) = a+b\overline{\alpha}$ and $\varphi(a+b\alpha) = a+b\alpha$ are the only two $\R$-embeddings of $L$ into $\C$.
-        \item Let $\alpha$ be algebraic over $k$, and let $E = k(\alpha)$. We ask what are all the $k$-embeddings of $E$ into $\overline{k}$. Let $m_{\alpha}(X)$ be the minimal polynomial of $\alpha$ over $k$. Pick any root $\beta \in \overline{k}$ of $m_{\alpha}(X)$, and let $\deg m_{\alpha}(X) = d$. Define a mapping $\varphi:k(\alpha) \to \overline{k}$ by $\alpha \mapsto \beta$, and extending $k$-linearly. Then $\varphi$ is a $k$-embedding of $E$ into $\overline{k}$. Conversely, if $\sigma:k(\alpha) \to \overline{k}$ is a $k$-embedding, then $\sigma(\alpha)$ is a root of $m_{\alpha}(X)$ in $\overline{k}$. Thus, the $k$-embeddings of $E$ into $\overline{k}$ are in bijection with the roots of $m_{\alpha}(X)$ in $\overline{k}$.
+        \item Let $\alpha$ be algebraic over $k$, and let $E = k(\alpha)$. We ask what are all the $k$-embeddings of $E$ into $\overline{k}$. Let $m_{\alpha}(X)$ be the minimal polynomial of $\alpha$ over $k$. Pick any root $\beta \in \overline{k}$ of $m_{\alpha}(X)$, and let $\deg m_{\alpha}(X) = d$. Define a mapping $\varphi:k(\alpha) \to \overline{k}$ by $\alpha \mapsto \beta$, and extending $k$-linearly. Then $\varphi$ is a $k$-embedding of $E$ into $\overline{k}$. Conversely, if $\sigma:k(\alpha) \to \overline{k}$ is a $k$-embedding, then $\sigma(\alpha)$ is a root of $m_{\alpha}(X)$ in $\overline{k}$. Thus, the $k$-embeddings of $E$ into $\overline{k}$ are in bijection with the distinct roots of $m_{\alpha}(X)$ in $\overline{k}$.
     \end{itemize}
 \end{example}
+
+\textit{July 27th.}
+
+\begin{definition}
+    Let $L \supseteq k$ be a field extension. An element $\alpha \in L$ is said to be \eax{separable} over $k$ if the minimal polynomial of $\alpha$ over $k$ has roots distinct in $\overline{k}$. The field extension $L/k$ is said to be separable if every element of $L$ is separable over $k$.
+\end{definition}
+
+Let $f \in k[X]$ be irreducible. Then $f$ has distinct roots in some algebraic closure $\overline{k}$ of $k$ if and only if $\chr(k) = 0$, or $\chr(k) = p > 0$ and $f(X) = g(X^{p})$ for some $g \in k[X]$.
+
+For $f(X) = a_{0} + a_{1}X + a_{2}X^{2} + \cdots + a_{r}X^{r}$, we define the \eax{formal derivative} of $f$ as
+\begin{align}
+    f'(X) \defeq a_{1} + 2a_{2}X + 3a_{3}X^{2} + \cdots + ra_{r}X^{r-1}.
+\end{align}
+Check that $(fg)' = f'g + fg'$ and $(f+g)' = f' + g'$.
+
+\begin{example}
+    We look at a couple examples.
+    \begin{enumerate}
+        \item Any number field $K \supseteq \Q$ is separable since $\chr(\Q) = 0$.
+        \item Let $\F_{q}$ be the finite field with $q = p^{n}$ elements. Then any algebraic extension of $\F_{q}$ is separable. In fact, a field $k$ is called \eax{perfect} if all algebraic extensions of $k$ are separable.
+        \item As a non-example, let $k = \F_{p}(X)$ and $K = k(X^{1/p})$. Then $K/k$ is not separable since $Y^{p} - X$, the polynomial in $k[Y]$, has a double root in $\overline{k}$. Such an extension is called \eax{inseparable}.
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}
+    Let $L$ be a finite extension of $k$. Assume that $L$ is separable over $k$. Then there exists an $\alpha \in L$ such that $L = k(\alpha)$. In other words, any finite separable extension is a simple extension.
+\end{theorem}
+
+\begin{theorem}
+    Let $k$ be a field, and $K_{1}$ and $K_{2}$ be two algebraic closures of $k$. Then there exists a $k$-isomorphism from $K_{1}$ to $K_{2}$. In particular, the algebraic closure of a field is unique up to $k$-isomorphism.
+\end{theorem}
+
+\begin{proof}
+    Let $k$ be a field, and $L$ an algebraically closed field. Let $E \supseteq k$ be an algebraic extension. Then any embedding $\sigma:k \to L$ extends to an embedding $\tilde{\sigma}:E \to L$; we shall utilize this result. If $i:k \to K_{2}$ is the inclusion map, then there exists an embedding $\tilde{i}:K_{1} \to K_{2}$ extending $i$. This $\tilde{i}$ also happens to be surjective since $K_{2}/\tilde{i}(K_{1})$ and $\tilde{i}(K_{1})/k$ are algebraic extensions, and $\tilde{i}(K_{1})$ is algebraically closed. Hence, $\tilde{i}$ is a $k$-isomorphism from $K_{1}$ to $K_{2}$.
+\end{proof}
+
+The result used in the proof above is a consequence of Zorn's lemma. Let $k$ be a field, $L$ an algebraically closed field, and $E \supseteq k$ an algebraic extension. Moreover, let $\sigma:k \to L$ be an embedding. Consider
+\begin{align}
+    \cF = \{(M,\sigma_{M}) \mid E \supseteq M \supseteq k, \, \sigma_{M}:M \to L \eax{ is an embedding extending } \sigma\}.
+\end{align}
+Define a partial order on here as $(M,\sigma_{M}) \succeq (N,\sigma_{N})$ if $M \supseteq N$ and $\sigma_{M}|_{N} = \sigma_{N}$. Let $\{(M_{\lambda},\sigma_{\lambda})\}_{\lambda \in \Lambda}$ be a chain in $\cF$. Then we can define $M = \bigcup_{\lambda \in \Lambda} M_{\lambda}$, and $\sigma:M \to L$ by $\sigma|_{M_{\lambda}} = \sigma_{\lambda}$. Then $(M,\sigma) \in \cF$, and $(M,\sigma) \succeq (M_{\lambda},\sigma_{\lambda})$ for all $\lambda$. By Zorn's lemma, there exists a maximal element $(M,\sigma_{M})$ in $\cF$. We claim that $M = E$. If not, pick $\alpha \in E \setminus M$. Then $m_{\alpha}(X)$ is the minimal polynomial of $\alpha$ over $M$, and since $L$ is algebraically closed, there exists a root $\beta \in L$ of $m_{\alpha}(X)$. Define an extension $\tilde{\sigma}:M(\alpha) \to L$ by $\tilde{\sigma}|_{M} = \sigma_{M}$ and $\tilde{\sigma}(\alpha) = \beta$. This contradicts the maximality of $(M,\sigma_{M})$, and hence $M = E$. Thus, any embedding of $k$ into an algebraically closed field extends to an embedding of any algebraic extension of $k$.
+\\
+
+For a field $k$, let $\alpha,\beta \in \overline{k}$. We wish to procure a necessary and sufficient condition for $k(\alpha) \cong k(\beta)$ as extensions of $k$, via an isomorphism $\varphi$ with $\alpha \mapsto \beta$.
+
+\begin{lemma}
+    There exists a $k$-isomorphism $\varphi:k(\alpha) \to k(\beta)$ with $\varphi(\alpha) = \beta$ if and only if $m_{\alpha}(X) = m_{\beta}(X)$.
+\end{lemma}
+
+\begin{definition}
+    Let $k$ be a field, and fix an algebraic closure $\overline{k}$ of $k$. Let $f(X) \in k[X]$ be a polynomial. The \eax{splitting field} of $f(X)$ over $k$ is the smallest field extension of $k$ containing all the roots of $f(X)$; that is,
+    \begin{align}
+        \operatorname{split}(f(X);k) = k(\alpha_{1},\ldots,\alpha_{r})
+    \end{align}
+    where $\alpha_{i}$ are all roots of $f$ in $\overline{k}$.
+\end{definition}
+
+Let $f(X),k,\overline{k}$ be as above, and let $g(X) \in k[X]$ be an irreducible polynomial and suppose $g(X)$ has a root in $L = \operatorname{split}(f(X);k)$. Then $g(X)$ splits completely in $L$.
+
+
+\begin{proof}
+    Let $\beta$ be a root of $g$ in $\overline{k}$. Then there exists a $k$-isomorphism $\varphi:k(\alpha) \to k(\beta)$ with $\varphi(\alpha) = \beta$, where $\alpha$ is such that $L \supseteq k(\alpha) \supseteq k$. By the embedding extension property, $\varphi$ extends to a $k$-embedding $\tilde{\varphi}:L \to \overline{k}$. Since $L$ contains all roots of $f(X)$, we have that $\tilde{\varphi}(L)$ contains all roots of $f(X)$. But $\tilde{\varphi}(L) = L$, and hence $L$ contains all roots of $g(X)$.
+\end{proof}
+
+One can also talk about the splitting field of a set of polynomials too.
+
+\begin{definition}
+    Let $S$ be a set of a polynomials in $k[X]$. Then, we simply define $\operatorname{split}(S;k)$ to be the smallest field extension of $k$ containing all the roots of $f(X)$, where $f(X) \in S$.
+\end{definition}
+
+Here is another property of splitting fields; let $L = \operatorname{split}(S;k) \hookrightarrow \overline{k}$. Then any $k$-embedding $\varphi:L \to \overline{k}$. Then $\varphi(L) = L$.
