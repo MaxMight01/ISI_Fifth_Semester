@@ -252,4 +252,99 @@ The associativity of the tensor product holds easily: for $f \in L_{k}(V)$, $g \
     \end{align}
 \end{proof}
 
-Let $V$ be an $\R$-vector space with basis $e_{1},\ldots,e_{n}$, and $V^{V}$ be its dual space with dual basis $\alpha^{1},\ldots,\alpha^{n}$. Moreover, let $I$ be a multi-index of length $k$, i.e. $I = (i_{1},\ldots,i_{k})$ with $1 \leq i_{1},\ldots,i_{k} \leq n$. We define $e_{I} \defeq (e_{i_{1}},\ldots,e_{i_{k}}) \in V^{k}$ and $\alpha^{I} \defeq \alpha^{i_{1}} \wedge \cdots \wedge \alpha^{i_{k}} \in A_{k}(V)$. Then, a $k$-linear form $f \in L_{k}(V)$ is completely determined by its values on the $e_{I}$, and an alternating $k$-linear form $f \in A_{k}(V)$ is completely determined by its values on the $e_{I}$ with $i_{1} < i_{2} < \cdots < i_{k}$. 
+\noindent \textit{July 27th.}
+
+Let $V$ be an $\R$-vector space with basis $e_{1},\ldots,e_{n}$, and $V^{V}$ be its dual space with dual basis $\alpha^{1},\ldots,\alpha^{n}$. Moreover, let $I$ be a multi-index of length $k$, i.e. $I = (i_{1},\ldots,i_{k})$ with $1 \leq i_{1},\ldots,i_{k} \leq n$. We define $e_{I} \defeq (e_{i_{1}},\ldots,e_{i_{k}}) \in V^{k}$ and $\alpha^{I} \defeq \alpha^{i_{1}} \wedge \cdots \wedge \alpha^{i_{k}} \in A_{k}(V)$. Then, a $k$-linear form $f \in L_{k}(V)$ is completely determined by its values on the $e_{I}$, and an alternating $k$-linear form $f \in A_{k}(V)$ is completely determined by its values on the $e_{I}$ with $i_{1} < i_{2} < \cdots < i_{k}$.
+
+To this end, we first claim that $\alpha^{I}(e_{J}) = \delta_{J}^{I}$ for all multi-indices $I,J$ of length $k$. Indeed, if $J = (j_{1},\ldots,j_{k})$ with $j_{1} < j_{2} < \cdots < j_{k}$, then
+\begin{align}
+    \alpha^{I}(e_{J}) = \det(\alpha^{i_{m}}(e_{j_{n}}))_{1 \leq m,n \leq k};
+\end{align}.
+this is $1$ for $I = J$. Suppose $I \neq J$. Let $1 \leq l \leq k$ be the first index where $i_{l} \neq j_{l}$. Then the $l^{\text{th}}$ row of $\alpha^{i_{m}}(e_{j_{n}})_{1 \leq m,n \leq k}$ is an all zeroes row, and hence $\det(\alpha^{i_{m}}(e_{j_{n}}))_{1 \leq m,n \leq k} = 0$. Thus, $\alpha^{I}(e_{J}) = \delta_{J}^{I}$. We now claim that $\alpha^{I}$, for strictly increasing multi-indices $I$ of length $k$, form a basis for $A_{k}(V)$. For linear independence, we simply have (the sums in this context are over strictly increasing multi-indices $I$ of length $k$):
+\begin{align}
+    \sum_{I} c_{I} \alpha^{I} = 0 \implies \sum_{I} c_{I} \alpha^{I}(e_{J}) = 0 \implies c_{J} = 0, \quad \forall J.
+\end{align}
+To show that they span $A_{k}(V)$, let $f \in A_{k}(V)$. Then consider the $k$-linear form
+\begin{align}
+    g = \sum_{I} f(e_{I}) \alpha^{I}.
+\end{align}
+We show that $f=g$; it is enough to prove that $f(e_{J}) = g(e_{J})$ for all strictly increasing multi-indices $J$ of length $k$. We have
+\begin{align}
+    g(e_{J}) = \sum_{I} f(e_{I}) \alpha^{I}(e_{J}) = f(e_{J}) \alpha^{J}(e_{J}) + \sum_{I \neq J} f(e_{I}) \alpha^{I}(e_{J}) = f(e_{J}).
+\end{align}
+
+\begin{corollary}
+    $A_{k}(V) = 0$ if $k > n$. Further, $\dim A_{k}(V) = \binom{n}{k}$ if $1 \leq k \leq n$.
+\end{corollary}
+
+
+\section{Building Blocks for Manifolds}
+Recall that we had defined the class of germs $C_{p}^{\infty}(\R^{n})$ of $C^{\infty}$ functions at a point $p \in \R^{n}$, which agree on some neighbourhood of $p$. One can show that $C_{p}^{\infty}(\R^{n})$ and $C_{p}^{\infty}(U)$ are isomorphic as $\R$-algebras, where $U \subseteq \R^{n}$ is an open neighbourhood of $p$. Note that we term $T_{p}(U) = T_{p}(\R^{n}) = \R^{n}$ as the \eax{tangent space} of $U$ (or $\R$) at $p$. 
+
+\begin{definition}
+    Let $U \subseteq \R^{n}$ be an open subset. A \eax{vector field} on $U$ is a function $X:U \to \amalg_{p \in U} T_{p}(\R^{n})$ such that $X(p) \in T_{p}(\R^{n})$ for all $p \in U$. In particular,
+    \begin{align}
+        X(p) = \sum_{i=1}^{n} a^{i}(p) \frac{\partial}{\partial x^{i}}\Big|_{p}, \quad a^{i}(p) \in \R.
+    \end{align}
+    We can rewrite this as
+    \begin{align}
+        X = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}, \quad a^{i}:U \to \R.
+    \end{align}
+    $X$ is called a \eax{smooth vector field} if each $a^{i}$ is a smooth function on $U$. The set of all smooth vector fields on $U$ is denoted by $\mf{X}(U)$.
+\end{definition}
+This is a real vector space; note that for $X,Y \in \mf{X}(U)$, we have $X+Y \in \mf{X}(U)$, and for $\lambda \in \R$, we have $\lambda X \in \mf{X}(U)$. Further, $\mf{X}(U)$ is a $C^{\infty}(U)$-module since for $f \in C^{\infty}(U)$ and $X \in \mf{X}(U)$, we have $fX \in \mf{X}(U)$, where
+\begin{align}
+    (fX)(p) = f(p)X(p), \quad p \in U.
+\end{align}
+Notice that $X \in \mf{X}(U)$ describes a map $C^{\infty}(U) \to C^{\infty}(U)$, where $f \mapsto Xf$, being defined as $(Xf)(p)=X_{p}f$. This is a derivation on $C^{\infty}(U)$, since for $f,g \in C^{\infty}(U)$, we have
+\begin{align}
+    (X(fg))(p) = X_{p}(fg) = f(p)X_{p}g + g(p)X_{p}f = (fXg)(p) + (gXf)(p).
+\end{align}
+We refine our definition of a derivation as follows.
+\begin{definition}
+    Let $K$ be a field, and $A$ be a $K$-algebra. A \eax{derivation} $D:A \to A$ is an $\R$-linear map satisfying the Leibniz rule $D(ab) = aD(b) + bD(a)$ for all $a,b \in A$.
+\end{definition}
+
+\begin{definition}
+    A \eax{differential 1-form} on $U$ is a smooth function $\omega:U \to \amalg_{p \in U} T_{p}(\R^{n})^{V}$ such that $\omega(p) \in T_{p}(\R^{n})^{V} =\vcentcolon T_{p}^{\ast}(\R^{n})$ for all $p \in U$. 
+\end{definition}
+For example, for $f \in C^{\infty}(U)$, we can define the differential 1-form $df$ on $U$ by $df(p) = df_{p} \in \Hom_{\R}(T_{p}\R^{n},\R)$, where $df_{p}(X) = X_{p}f$ for all $X \in T_{p}\R^{n}$. In particular, $dx^{i}$ is a differential 1-form on $U$ for all $1 \leq i \leq n$. In fact, $\{dx^{1},\ldots,dx^{n}\}$ is the dual basis of $T_{p}^{\ast}\R^{n}$ corresponding to the basis $\{\frac{\partial}{\partial x^{1}}\Big|_{p},\ldots,\frac{\partial}{\partial x^{n}}\Big|_{p}\}$ of $T_{p}\R^{n}$. Thus, a differential 1-form $\omega$ on $U$ can be expressed as
+\begin{align}
+    \omega(p) = \sum_{i=1}^{n} a_{i}(p) dx^{i}\Big|_{p}, \quad a_{i}:U \to \R.
+\end{align}
+$T_{p}^{\ast}(\R^{n})$, here, is termed the \eax{cotangent space} of $\R^{n}$ at $p$. Thus, our current setup is as follows: $V = T_{p}\R^{n}$, and $V^{V} = T_{p}^{\ast}\R^{n}$. The basis for $T_{p}\R^{n}$ considered is $\{\frac{\partial}{\partial x^{1}}\Big|_{p},\ldots,\frac{\partial}{\partial x^{n}}\Big|_{p}\}$, and the corresponding dual basis for $T_{p}^{\ast}\R^{n}$ is $\{dx^{1}\Big|_{p},\ldots,dx^{n}\Big|_{p}\}$. And finally, we have
+\begin{align}
+    A_{k}(T_{p}\R^{n}) = \text{the space of alternating $k$-linear forms on $T_{p}\R^{n}$}
+\end{align}
+which has the basis $\{dx^{i_{1}}\Big|_{p} \wedge \cdots \wedge dx^{i_{k}}\Big|_{p} \mid 1 \leq i_{1} < \cdots < i_{k} \leq n\}$.
+
+\begin{definition}
+    A \eax{differential $k$-form} on $U$ is a smooth function $\omega:U \to \amalg_{p \in U} A_{k}(T_{p}\R^{n})$ such that $\omega(p) \in A_{k}(T_{p}\R^{n})$ for all $p \in U$.
+\end{definition}
+Any such $\omega$ may be written as $\omega = \sum_{I} a_{I} dx_{I}$. It termed a smooth differential $k$-form if each $a_{I}$ is a smooth function on $U$. The set of all smooth differential $1$-forms on $U$ is denoted by $\Omega^{1}(U)$, and the set of all smooth differential $k$-forms on $U$ is denoted by $\Omega^{k}(U)$. Both these sets are $\R$-vector spaces, and $\Omega^{k}(U)$ is a free $C^{\infty}(U)$-module of rank $\binom{n}{k}$. The isomorphism may be given as
+\begin{align}
+    \Omega^{1}(U) \cong C^{\infty}(U)^{\oplus \binom{n}{k}}, \quad \omega = \sum_{I} a_{I} dx_{I} \mapsto (a_{1},a_{2},\ldots,a_{\binom{n}{k}}).
+\end{align}
+We can endow $\Omega^{k}(U)$ with the wedge product $\wedge:\Omega^{k}(U) \times \Omega^{l}(U) \to \Omega^{k+l}(U)$, defined as
+\begin{align}
+    (\omega \wedge \eta)(p) = \omega(p) \wedge \eta(p), \quad p \in U,
+\end{align}
+or
+\begin{align}
+    \omega \wedge \eta = \sum_{I,J} a_{I}b_{J} dx_{I} \wedge dx_{J}
+\end{align}
+where $I$ and $J$ are strictly increasing multi-indices of length $k$ and $l$, respectively. Note that if $I \cap J \neq \emptyset$, then $dx_{I} \wedge dx_{J} = 0$. Thus, the sum may be taken over all strictly increasing multi-indices $I$ and $J$ of length $k$ and $l$, respectively, such that $I \cap J = \emptyset$. Also,
+\begin{align}
+    A_{\ast}(V) = \bigoplus_{k=0}^{n} A_{k}(V)
+\end{align}
+is defined as the \eax{exterior algebra} of $V$. The wedge product on here is associative and anti-commutative. We define $\Omega^{0}(U) = C^{\infty}(U)$. The map $d:\Omega^{k}(U) \to \Omega^{k+1}(U)$ is defined as the \eax{exterior derivative}; for $k = 0$, we have
+\begin{align}
+    d:C^{\infty}(U) \to \Omega^{1}(U), \quad f \mapsto df = \sum_{i=1}^{n} \frac{\partial f}{\partial x^{i}} dx^{i}.
+\end{align}
+For a $k$-form $\omega = \sum_{I} a_{I} dx_{I} \in \Omega^{k}(U)$, we have
+\begin{align}
+    d\omega = \sum_{I} da_{I} \wedge dx_{I} = \sum_{I} \sum_{j=1}^{n} \frac{\partial a_{I}}{\partial x^{j}} dx^{j} \wedge dx_{I}.
+\end{align}
+\begin{example}
+    Let $U \subseteq \R^{3}$. Let us call the coordinates $x^{1} = x$, $x^{2} = y$, and $x^{3} = z$. The only non-zero forms are $\Omega^{0}(U)$, $\Omega^{1}(U)$, $\Omega^{2}(U)$, and $\Omega^{3}(U)$. Note that $\Omega^{0}(U) = C^{\infty}(U)$, and there's nothing to say about this. For $\Omega^{1}(U)$, a form looks like $f\, dx + g\, dy + h\, dz$ for $f,g,h \in C^{\infty}(U)$. For $\Omega^{2}(U)$, a form looks like $R\, dx \wedge dy + Q\, dx \wedge dz + P\, dy \wedge dz$ for $f,g,h \in C^{\infty}(U)$.
+\end{example}
