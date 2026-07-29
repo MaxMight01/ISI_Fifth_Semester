@@ -68,3 +68,155 @@ We now show that given any interval $[a,b] \subsetneq \R$, the probability that 
 \begin{align}
     0 \leq \Prob(a \leq S_{n} \leq b) = \sum_{x=a}^{b} \Prob(S_{n}=x) \leq \frac{c(b-a+1)}{\sqrt{n}} \to 0 \text{ as } n \to \infty.
 \end{align}
+
+
+\section{Stopping Times}
+\noindent \textit{July 29th.}
+
+We can interpret $S_{n}$ as the amount of capital earned by a player until time $n$. Earlier, we saw that the expected `amount of capital' at $n$ is $\E[S_{n}] = 0$, for $0 \leq n \leq N$. We ask if there is a favourite (random) time at which the player should stop playing, so as to maximize the expected amount of capital earned. We assume that there is no insider trading, and that the player's decision to stop playing at time $n$ is based on the information available until time $n$.
+
+\begin{definition}
+    A subset $A \subseteq \Omega$ is termed an \eax{observable event} by time $n$ if it can be written as a union of basic events of the form
+    \begin{align}
+        \{\omega \in \Omega \mid \omega_{1}=o_{1}, \ldots, \omega_{n}=o_{n}\}, \quad o_{1},\ldots,o_{n} \in \{\pm 1\}.
+    \end{align}
+    That is, $A$ can be determined by observing the outcomes of the first $n$ coin tosses.
+\end{definition}
+
+We shall use $\cA_{n}$ to denote the collection of all observable events by time $n$. One can show that
+\begin{align}
+    \{\emptyset,\Omega\} = \cA_{0} \subseteq \cA_{1} \subseteq \cdots \subseteq \cA_{N} = \cF.
+\end{align}
+
+\begin{definition}
+    A map $T:\Omega \to \{0,1,\ldots,N\} \cup \{\infty\}$ is called a \eax{stopping time} if $\{T=n\} \in \cA_{n}$ for all $0 \leq n \leq N$. 
+\end{definition}
+
+As an example, pick $a \in \Z$. We can then define $\sigma_{a}:\Omega \to \{0,1,2,\ldots,N\} \cup \{\infty\}$ as $\sigma_{a}(\omega) = \min\{n \geq 0 \mid S_{n}(\omega) = a\}$, with the convention that $\min \emptyset = \infty$. This is, simply put, the first time the random walk hits the point $a$. The reader may show that $\sigma_{a}$ is indeed a stopping time. On the other hand, the map $\tau:\Omega \to \{0,1,2,\ldots,N\} \cup \{\infty\}$ defined as $\tau(\omega) = \min\{n \geq 0 \mid S_{n}(\omega) = S_{N}(\omega)\}$ is not a stopping time; this is because we cannot determine if the random walk has hit its final position at time $n$ without knowing the outcome of the coin tosses after time $n$.
+
+\begin{theorem}
+    For any stopping time $T:\Omega \to \{0,1,\ldots,N\}$, we have $\E[S_{T}] = 0$.
+\end{theorem}
+That is, there is an impossibility of a favourite stopping time. We shall adopt the notation $S_{T}(\omega) \defeq S_{T(\omega)}(\omega)$, the outcome of the trajectory $\omega$ at the stopping time $T(\omega)$. This leads us to discuss the impossibillity of profitable games.
+
+
+Let $V_{1},\ldots,V_{N}:\Omega \to \R$ be random variables such that $\{V_{k}=c\} \in \cA_{k-1}$ for all $c \in \R$, $k = 1,\ldots,N$. $V_{k}$ here represents the amount of capital a player bets at time $k$. The result at the $k$-th round of the game is then $V_{k}X_{k}$. This is known as a game system.
+
+\begin{theorem}
+    For any $V_{1},\ldots,V_{N}$ which are a game system as above, let $S_{n}^{V} = \sum_{k=1}^{n} V_{k}X_{k}$ for $1 \leq n \leq N$. Then, $\E[S_{N}^{V}] = 0$.
+\end{theorem}
+
+\begin{proof}
+    We have $\E[S_{N}^{V}] = \sum_{k=1}^{N} \E[V_{k}X_{k}]$. Let us restrict our range as $\mathrm{range}(V_{k}) = \{c_{1},\ldots,c_{M}\}$ for some $M \in \N$. Then, we have
+    \begin{align}
+        \E[V_{k}X_{k}] = \sum_{i=1}^{M} c_{i} \, \E[\1_{\{V_{k}=c_{i}\}} X_{k}]
+    \end{align}
+    Note that, by definition, $\{V_{k}=c_{i}\} \in \cA_{k-1}$, and hence is independent of $X_{k}$. Thus, we have
+    \begin{align}
+        \E[V_{k}X_{k}] = \sum_{i=1}^{M} c_{i} \, \E[\1_{\{V_{k}=c_{i}\}}] \, \E[X_{k}] = 0.
+    \end{align}
+\end{proof}
+
+We shall use this theorem to prove the theorem before it.
+
+\begin{proof}[Proof of impossibility of a favourite stopping time]
+    We have
+    \begin{align}
+        S_{T} = \sum_{k=1}^{T(\omega)} X_{k} = \sum_{k=1}^{N} \1_{\{T \geq k\}} X_{k}.
+    \end{align}
+    Now, for $1 \leq k \leq N$, set $V_{k}:\Omega \to \{0,1\}$ as $V_{k}(\omega) = \1_{\{T(\omega) \geq k\}}$. Then $\{V_{k} = 1\} = \{T \geq k\} = \{T < k\}^{c} = \left( \bigcup_{m=0}^{k-1} \{T=m\} \right)^{c} \in \cA_{k-1}$ since $\{T=m\} \in \cA_{m} \subseteq \cA_{k-1}$ for $0 \leq m \leq k-1$, and $cA_{k-1}$ is closed under finite unions and complements. Thus, $V_{1},\ldots,V_{N}$ is a game system, and hence $\E[S_{T}] = \E[S_{N}^{V}] = 0$ by the previous theorem.
+\end{proof}
+
+Suppose $T:\Omega \to \{0,1,\ldots,N\}$ is a stopping time. Then $\Var(S_{T}) = \E[S_{T}^{2}] - \E[S_{T}]^{2} = \E[S_{T}^{2}]$. We can compute $\E[S_{T}^{2}]$ as follows; let $1 \leq k \leq N$. Then
+\begin{align}
+    S_{k}^{2} = (S_{k-1}+X_{k})^{2} = S_{k-1}^{2} + 2X_{k}S_{k-1} + 1.
+\end{align}
+Set $V_{k} = S_{k-1}\1_{\{T \geq k\}}$. Verify that $V_{1},\ldots,V_{N}$ is a game system. Then, we have
+\begin{align}
+    S_{N}^{V} &= \sum_{k=1}^{N} X_{k}V_{k} = \sum_{k=1}^{N} (S_{k-1}X_{k}) \1_{\{T \geq k\}} = \sum_{k=1}^{N} \frac{1}{2}(S_{k}^{2} - S_{k-1}^{2}-1)\1_{\{T \geq k\}} \notag \\
+    &= \frac{1}{2}\sum_{k=1}^{N} S_{k}^{2} \1_{\{T \geq k\}} - \frac{1}{2} \sum_{k=1}^{N} S_{k-1}^{2} \1_{\{T \geq k\}} - \frac{1}{2}\sum_{k=1}^{N} \1_{\{T \geq k\}} \notag \\
+    &= \frac{1}{2}\sum_{k=1}^{N} S_{k}^{2} \1_{\{T=k\}} - \frac{T}{2} = \frac{S_{T}^{2}-T}{2}.
+\end{align}
+By the previous theorem, we have $\E[S_{N}^{V}] = 0$, and hence $\E[S_{T}^{2}] = \E[T]$. 
+
+\subsection{Ruin Problem}
+We have two players, one with capital $a$ and the other with capital $b$. For $0 \leq n \leq N$, let $S_{n}$ denote the gain of the first player. We define the first player's ruin as
+\begin{align}
+    \{\sigma_{-a} < \sigma_{b},\, \sigma_{-a} \leq N\}.
+\end{align}
+Define the ruin probability $\gamma_{N}^{1}$ to be the probability of this event, the first player's ruin. Similarly, we define the second player's ruin as
+\begin{align}
+    \{\sigma_{b} < \sigma_{-a},\, \sigma_{b} \leq N\},
+\end{align}
+and define the ruin probability $\gamma_{N}^{2}$ to be the probability of this event, the second player's ruin. Now define $T_{N}:\Omega \to \{0,1,2,\ldots,N\}$ as $T_{N} = \min\{\sigma_{-a},\sigma_{b},N\}$. Then, $T_{N}$ is a stopping time. It has been shown that $\E[S_{T_{N}}] = 0$. Explicitly writing out $S_{T_{N}}$, we have
+\begin{align}
+    S_{T_{N}} = \begin{cases}
+        -a &\text{if } \sigma_{-a} < \sigma_{b} \text{ and } \sigma_{-a} \leq N, \\
+        b &\text{if } \sigma_{b} < \sigma_{-a} \text{ and } \sigma_{b} \leq N, \\
+        S_{N} &\text{if } \min(\sigma_{-a},\sigma_{b}) \geq N.
+    \end{cases}
+\end{align}
+Taking expectations, we have
+\begin{align}
+    0 &= -a\Prob(\sigma_{-a} < \sigma_{b},\, \sigma_{-a} \leq N) + b\Prob(\sigma_{b} < \sigma_{-a},\, \sigma_{b} \leq N) + \E[S_{N}\1_{\{\min(\sigma_{-a},\sigma_{b}) \geq N\}}] \notag \\
+    \implies 0 &= -a\gamma_{N}^{1} + b\gamma_{N}^{2} + \E[S_{N}\1_{\{\min(\sigma_{-a},\sigma_{b}) \geq N\}}].
+\end{align}
+Here, we claim that $\E[S_{N}\1_{\{\min(\sigma_{-a},\sigma_{b}) \geq N\}}] \to 0$ as $N \to \infty$. To this end, first notice the bounds
+\begin{align}
+    0 \leq \abs{S_{n}} \1_{\{\min(\sigma_{-a},\sigma_{b}) \geq N\}} \leq (b+a) \1_{\{\min(\sigma_{-a},\sigma_{b}) \geq N\}}
+\end{align}
+which then implies
+\begin{align}
+    0 \leq \E[\abs{S_{n}} \1_{\{\min(\sigma_{-a},\sigma_{b}) \geq N\}}] \leq (b+a) \Prob(\min(\sigma_{-a},\sigma_{b}) \geq N) \leq (b+a) c\frac{(b-a+1)}{\sqrt{N}} \to 0 \text{ as } N \to \infty.
+\end{align}
+We now make three `leaps of faith;' they are
+\begin{enumerate}
+    \item $\gamma^{1} = \lim_{N \to \infty} \gamma_{N}^{1}$ and $\gamma^{2} = \lim_{N \to \infty} \gamma_{N}^{2}$ exist.
+    \item $\gamma^{1} + \gamma^{2} = 1$.
+    \item $0 = -a\gamma^{1} + b\gamma^{2}$.
+\end{enumerate}
+The last two assumptions imply that $\gamma^{1} = \frac{b}{a+b}$ and $\gamma^{2} = \frac{a}{a+b}$.
+
+\section{Reflection Principle}
+
+Consider a random walk starting at the origin that ends up at $a+c$. Such a walk will have to pass through $a$ at some point. We can then reflect the part of the walk after it hits $a$ about the line $y=a$. This gives us a bijection between walks that end up at $a+c$ and walks that reach $a$ and then end up at $a-c$. That is,
+\begin{align}
+    \abs{\{\omega \in \Omega \mid S_{n} = a+c\}} = \abs{\{\omega \in \Omega \mid S_{n} = a+c,\, \sigma_{a} \leq n\}} = \abs{\{\omega \in \Omega \mid S_{n} = a-c,\, \sigma_{a} \leq n\}}.
+\end{align}
+
+This lemma immediately follows.
+\begin{lemma}
+    $\Prob(S_{n}=a+c) = \Prob(\sigma_{a} \leq n,\, S_{n}=a-c)$.
+\end{lemma}
+
+\begin{theorem}
+    $\Prob(\sigma_{a} \leq n) = \Prob(S_{n} \notin [-a,a-1])$, and $\Prob(\sigma_{a}=n) = \frac{a}{n}\Prob(S_{n}=a)$.
+\end{theorem}
+\begin{proof}
+    We have
+    \begin{align}
+        \Prob(\sigma_{a} \leq n) &= \sum_{b \in \Z} \Prob(\sigma_{a} \leq n,\, S_{n} = b) = \sum_{b \in \Z,\, b \geq a} \Prob(\sigma_{a} \leq n,\, S_{n} = b) + \sum_{b \in \Z,\, b < a} \Prob(\sigma_{a} \leq n,\, S_{n} = b) \notag \\
+        &= \Prob(S_{n} \geq a) + \sum_{b \in \Z,\, b < a} \Prob(S_{n}=2a-b) = \Prob(S_{n} \geq a) + \Prob(S_{n} > a) = \Prob(S_{n} \geq a) + \Prob(S_{n} < -a) \notag \\
+        &= \Prob(S_{n} \notin [-a,a-1]).
+    \end{align}
+    On the other hand,
+    \begin{align}
+        \Prob(\sigma_{a}=n) &= \Prob(\sigma_{a} \leq n) - \Prob(\sigma_{a} \leq n-1) = \frac{1}{2} \left( \Prob(S_{n-1} = a-1) - \Prob(S_{n-1}=a+1)\right) \notag \\
+        &= \frac{1}{2} \left( \binom{n-1}{\frac{n-1+a-1}{2}}\frac{1}{2^{n-1}} - \binom{n-1}{\frac{n-1-a+1}{2}}\frac{1}{2^{n-1}} \right) = \frac{1}{2^{n}} \cdot \frac{a}{n} \binom{n}{\frac{n+a}{2}} = \frac{a}{n}\Prob(S_{n}=a).
+    \end{align}
+\end{proof}
+
+We now take as convention that $\sigma_{0} = \min\{n \geq 1 \mid S_{n}=0\}$ so that $\sigma_{0} \neq 0$.
+
+\begin{lemma}
+    $\Prob(\sigma_{0}>2n) = \Prob(S_{2n-1}=-1)$.
+\end{lemma}
+\begin{proof}
+    We have
+    \begin{align}
+        \Prob(\sigma_{0} > 2n) &= \Prob(S_{1} \neq 0, S_{2} \neq 0, \ldots, S_{2n} \neq 0) = 2\Prob(S_{1} > 0, \ldots, S_{2n} > 0) \notag \\
+        &= 2 \cdot \frac{1}{2^{2n}} \#\{\text{paths that start at $0$ and don't hit $-1$ in $2n-1$ steps}\} \notag \\
+        &= \frac{1}{2^{2n-1}} \#\{\text{paths that start at $0$ and stay below $1$ in $2n-1$ steps}\} = \Prob(\sigma_{1} > 2n-1) \notag \\
+        &= 1-\Prob(\sigma_{1} \leq 2n-1) = 1-\Prob(S_{2n-1} \notin [0,1]) = 1-\Prob(S_{2n-1} \neq -1) = \Prob(S_{2n-1}=-1).
+    \end{align}
+\end{proof}

@@ -348,3 +348,35 @@ For a $k$-form $\omega = \sum_{I} a_{I} dx_{I} \in \Omega^{k}(U)$, we have
 \begin{example}
     Let $U \subseteq \R^{3}$. Let us call the coordinates $x^{1} = x$, $x^{2} = y$, and $x^{3} = z$. The only non-zero forms are $\Omega^{0}(U)$, $\Omega^{1}(U)$, $\Omega^{2}(U)$, and $\Omega^{3}(U)$. Note that $\Omega^{0}(U) = C^{\infty}(U)$, and there's nothing to say about this. For $\Omega^{1}(U)$, a form looks like $f\, dx + g\, dy + h\, dz$ for $f,g,h \in C^{\infty}(U)$. For $\Omega^{2}(U)$, a form looks like $R\, dx \wedge dy + Q\, dx \wedge dz + P\, dy \wedge dz$ for $f,g,h \in C^{\infty}(U)$.
 \end{example}
+
+\textit{July 29th.}
+
+\noindent The map $\Omega^{1}(U) \times \mf{X}(U) \to C^{\infty}(U)$, defined as $(\omega,X) \mapsto \omega(X)$, is $\R$-bilinear. In particular, for $\omega = \sum_{i=1}^{n} a_{i} dx^{i}$ and $X = \sum_{j=1}^{n} b^{j} \frac{\partial}{\partial x^{j}}$, we have
+\begin{align}
+    \omega(X) = \sum_{i=1}^{n} a_{i} dx^{i}\left( \sum_{j=1}^{n} b^{j} \frac{\partial}{\partial x^{j}} \right) = \sum_{i=1}^{n} a_{i} b^{i} \in C^{\infty}(U).
+\end{align}
+Extending this, we have the map $\Omega^{k}(U) \times \mf{X}(U)^{k} \to C^{\infty}(U)$, defined as $(\omega,X_{1},\ldots,X_{k}) \mapsto \omega(X_{1},\ldots,X_{k})$, which is $\R$-multilinear. In particular, for $\omega = \sum_{I} b_{I} dx^{I}$ and $X_{i} = \sum_{i=1}^{n} a_{i}^{j} \frac{\partial}{\partial x^{j}}$, we have
+\begin{align}
+    \omega(X_{1},\ldots,X_{k}) = \sum_{I} b_{I} a_{i_{1}}^{1} \cdots a_{i_{k}}^{k} \in C^{\infty}(U)
+\end{align}
+using the fact that $dx^{I}(\frac{\partial}{\partial x^{i_{1}}},\ldots,\frac{\partial}{\partial x^{i_{k}}}) = 1$ if the multi-index matches, and $0$ otherwise.
+
+\subsection{Exterior Differentiation}
+
+Here, $d_{k}$ shall denote the map $d_{k}:\Omega^{k}(U) \to \Omega^{k+1}(U)$, defined as the \eax{exterior derivative}. The subscript $k$ is often omitted, and we simply write $d:\Omega^{k}(U) \to \Omega^{k+1}(U)$. For $k = 0$, we have
+\begin{align}
+    d:C^{\infty}(U) \to \Omega^{1}(U), \quad f \mapsto df = \sum_{i=1}^{n} \frac{\partial f}{\partial x^{i}} dx^{i}.
+\end{align}
+Analogously, for a general $k$-form $\omega = \sum_{I} a_{I} dx^{I} \in \Omega^{k}(U)$, we have
+\begin{align}
+    d:\Omega^{k}(U) \to \Omega^{k+1}(U), \quad \omega \mapsto d\omega = \sum_{I} da_{I} \wedge dx^{I} = \sum_{I} \sum_{j=1}^{n} \frac{\partial a_{I}}{\partial x^{j}} dx^{j} \wedge dx^{I}.
+\end{align}
+All the $d$ maps are $\R$-linear, but not $C^{\infty}(U)$-linear. Also, for two forms $\omega \in \Omega^{k}(U)$ and $\eta \in \Omega^{l}(U)$, we have
+\begin{align}
+    d(\omega \wedge \eta) = d\omega \wedge \eta + (-1)^{k} \omega \wedge d\eta.
+\end{align}
+This is known as \eax{antiderivation}. Moreover, $d_{k+1} \circ d_{k} = d^{2} = 0$. Both these properties may be verified by the reader. Now suppose we have another map $D:\Omega^{k}(U) \to \Omega^{k+1}(U)$ which is $\R$-linear, satisfies antiderivation, and $D^{2} = 0$, and $Df = df$ for all $f \in C^{\infty}(U)$. Then $D = d$; the exterior derivative is unique. Thus, a chain of maps is formed:
+\begin{align}
+    0 \xrightarrow{d} C^{\infty}(U) \xrightarrow{d} \Omega^{1}(U) \xrightarrow{d} \Omega^{2}(U) \xrightarrow{d} \cdots \xrightarrow{d} \Omega^{n}(U) \xrightarrow{d} 0 \quad \text{ for open } U \subseteq \R^{n}.
+\end{align}
+An $\omega \in \Omega^{k}(U)$ is called an \eax{exact $k$-form} if $\omega = d\eta$ for some $\eta \in \Omega^{k-1}(U)$. It is called a \eax{closed $k$-form} if $d\omega = 0$. Note that every exact form is closed, but the converse is not true in general. We will refine the following later: quotienting the space of closed $k$-forms by the space of exact $k$-forms gives us the \eax{de Rham cohomology} of $U$, denoted by $\HdR^{k}(U)$.
