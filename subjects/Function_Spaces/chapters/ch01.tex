@@ -168,3 +168,89 @@ Note that a property is said to be hold \eax{almost everywhere} if it holds for 
 From here, we can immediately note that $\rho:\cS[0,1] \to \C$, map from the set of step functions, defined by $s \mapsto \int_{0}^{1} s(x) \, dx$ is a linear functional. We can also define a semi-norm on the set of step functions as $\norm{s}_{1} = \int_{0}^{1} \abs{s(x)} \, dx$. This is a semi-norm since $\norm{s}_{1} = 0$ does not imply that $s = 0$; it only implies that $s = 0$ almost everywhere. We can define an equivalence relation on the set of step functions by $s \sim t$ if and only if $s = t$ almost everywhere. Then we can define a norm on the quotient space $\cS[0,1]/\sim$ as $\norm{s}_{1} = \int_{0}^{1} \abs{s(x)} \, dx$. This is indeed a norm since $\norm{s}_{1} = 0$ implies that $s = 0$ in the quotient space.
 
 The normed space $(\cS[0,1]/\sim, \norm{\cdot}_{1})$ is not complete; there is a much larger class of functions that are (Lebesgue) integrable. Henceforth, we define $L^{1}[0,1]$ to be the completion of $(\cS[0,1]/\sim, \norm{\cdot}_{1})$. The elements of $L^{1}[0,1]$ are called \eax{Lebesgue integrable function}s. 
+\\
+
+\textit{July 30th.}
+
+\begin{theorem}
+    Let $\{t_{n}\}_{n=1}^{\infty}$ be a sequence of step functions on $[0,1]$ such that
+    \begin{enumerate}
+        \item There is a function $f$ such that $t_{n} \uparrow f$ pointwise almost everywhere.
+        \item The sequence $\{\int_{0}^{1} t_{n}(x) \, dx\}_{n=1}^{\infty}$ converges.
+    \end{enumerate}
+    Then, for any step function $t$ such that $t(x) \leq f(x)$ almost everywhere, we have $\int_{0}^{1} t(x) \, dx \leq \lim_{n \to \infty} \int_{0}^{1} t_{n}(x) \, dx$.
+\end{theorem}
+
+\begin{proof}
+    Define $s_{n}$ as
+    \begin{align}
+        s_{n}(x) = \begin{cases}
+            t(x)-t_{n}(x), & \text{if } t(x) \geq t_{n}(x), \\
+            0, & \text{if otherwise}.
+        \end{cases}
+    \end{align}
+    That is, $s_{n}(x) = \max\{t(x)-t_{n}(x),0\}$ for all $n \geq 1$. Also, $s_{n}(x) \geq t(x) - t_{n}(x)$ almost everywhere, so
+    \begin{align}
+        \int_{0}^{1} s_{n}(x) \, dx \geq \int_{0}^{1} t(x) \, dx - \int_{0}^{1} t_{n}(x) \, dx.
+    \end{align}
+    Taking limits on both sides gives
+    \begin{align}
+        \lim_{n \to \infty} \int_{0}^{1} t_{n}(x) \, dx \geq \int_{0}^{1} t(x) \, dx
+    \end{align}
+    since $\lim_{n \to \infty} \int_{0}^{1} s_{n}(x) \, dx = 0$ by the proto monotone convergence theorem.
+\end{proof}
+
+\subsection{Upper Functions}
+Recall the linear functional $\rho:\cS[0,1] \to \R$ (or $\C$) defined by $s \mapsto \int_{0}^{1} s(x) \, dx$. We can extend this functional to a larger class of functions.
+
+\begin{definition}
+    A function $f:[0,1] \to \R$ is said to be an upper function on $[0,1]$ if there exists an increasing sequence of step functions $\{s_{n}\}_{n=1}^{\infty}$ such that $s_{n} \uparrow f$ pointwise almost everywhere, and $\int_{0}^{1} s_{n}(x) \, dx$ converges.
+\end{definition}
+
+At this point, we can define the integral of an upper function $f$ as $\int_{0}^{1} f dx \defeq \lim_{n \to \infty} \int_{0}^{1} s_{n}(x) \, dx$. The right hand side is well-defined by the previous theorem, but we need to show that it is independent of the choice of the sequence $\{s_{n}\}_{n=1}^{\infty}$ that converges to $f$ pointwise almost everywhere. This is the content of the following theorem.
+
+\begin{theorem}
+    $\int_{0}^{1} f dx$ is well-defined for an upper function $f$.
+\end{theorem}
+
+\begin{proof}
+    Let $\{s_{n}\}_{n=1}^{\infty}$ and $\{t_{n}\}_{n=1}^{\infty}$ be two increasing sequences of step functions such that $s_{n} \uparrow f$ and $t_{n} \uparrow f$ pointwise almost everywhere. Since $s_{n} \leq f$ almost everywhere, we have $\int_{0}^{1} s_{n}(x) \, dx \leq \lim_{k \to \infty} \int_{0}^{1} t_{k}(x) \, dx$ by the previous theorem. Thus,
+    \begin{align}
+        \lim_{n \to \infty} \int_{0}^{1} s_{n}(x) \, dx \leq \lim_{k \to \infty} \int_{0}^{1} t_{k}(x) \, dx.
+    \end{align}
+    By a symmetry argument, we have $\lim_{n \to \infty} \int_{0}^{1} t_{n}(x) \, dx = \lim_{k \to \infty} \int_{0}^{1} s_{k}(x) \, dx$. Hence, $\int_{0}^{1} f dx$ is well-defined.
+\end{proof}
+
+Let $U[0,1]$ denote the set of upper functions on $[0,1]$. Trivially, $\cS[0,1] \subseteq U[0,1]$.
+
+\begin{theorem}
+    Let $f,g \in U[0,1]$, and $\lambda \geq 0$. Then $f+g \in U[0,1]$ and $\lambda f \in U[0,1]$. Moreover,
+    \begin{align}
+        \int_{0}^{1} (f+g)\,dx = \int_{0}^{1} f \,dx + \int_{0}^{1} g dx, \quad \int_{0}^{1} (\lambda f) \,dx = \lambda \int_{0}^{1} f \,dx.
+    \end{align}
+    If $f \leq g$ almost everywhere, then $\int_{0}^{1} f dx \leq \int_{0}^{1} g dx$.
+\end{theorem}
+Note that it is clear that all these properties are true for step functions.
+
+\begin{proof}
+    Suppose $s_{n} \uparrow f$ and $t_{n} \uparrow g$ almost everywhere, and that $\int_{0}^{1} s_{n}(x) \, dx$ and $\int_{0}^{1} t_{n}(x) \, dx$ converge. Then $s_{n}+t_{n} \uparrow f+g$ almost everywhere, and $\lambda s_{n} \uparrow \lambda f$ almost everywhere. By the linearity of the integral for step functions, we have
+    \begin{align}
+        \int_{0}^{1} (s_{n}+t_{n})\, dx = \int_{0}^{1} s_{n} \, dx + \int_{0}^{1} t_{n}\, dx, \quad \int_{0}^{1} (\lambda s_{n}) \, dx = \lambda \int_{0}^{1} s_{n} \, dx.
+    \end{align}
+    Now suppose $f \leq g$ almost everywhere. Then $s_{n} \leq g$ almost everywhere, so $\int_{0}^{1} s_{n}(x) \, dx \leq \int_{0}^{1} g \, dx$ by the previous theorem. Taking limits gives $\int_{0}^{1} f \, dx \leq \int_{0}^{1} g \, dx$.
+\end{proof}
+
+\begin{theorem}
+    If $f,g \in U[0,1]$ and $f=g$ almost everywhere, then $\int_{0}^{1} f \, dx = \int_{0}^{1} g \, dx$.
+\end{theorem}
+\begin{proof}
+    Note that $f \leq g$ almost everywhere and $g \leq f$ almost everywhere. Hence, $\int_{0}^{1} f \, dx \leq \int_{0}^{1} g \, dx$ and $\int_{0}^{1} g \, dx \leq \int_{0}^{1} f \, dx$. Thus, $\int_{0}^{1} f \, dx = \int_{0}^{1} g \, dx$.
+\end{proof}
+
+\begin{theorem}
+    If $f,g \in U[0,1]$, then $\max\{f,g\},\min\{f,g\} \in U[0,1]$.
+\end{theorem}
+
+\begin{proof}
+    Let $s_{n} \uparrow f$ and $t_{n} \uparrow g$ almost everywhere. Note that $\min\{f,g\} \leq f,g$, so $\min\{f,g\} \in U[0,1]$. Now, $\max\{f,g\} = f+g-\min\{f,g\}$, so $\max\{f,g\} \in U[0,1]$ as well.
+\end{proof}
