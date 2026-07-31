@@ -1,4 +1,4 @@
-\chapter{MANIFOLDS}
+\chapter{PRELIMINARIES AND MANIFOLDS}
 
 \textit{July 20th.}
 
@@ -380,3 +380,41 @@ This is known as \eax{antiderivation}. Moreover, $d_{k+1} \circ d_{k} = d^{2} = 
     0 \xrightarrow{d} C^{\infty}(U) \xrightarrow{d} \Omega^{1}(U) \xrightarrow{d} \Omega^{2}(U) \xrightarrow{d} \cdots \xrightarrow{d} \Omega^{n}(U) \xrightarrow{d} 0 \quad \text{ for open } U \subseteq \R^{n}.
 \end{align}
 An $\omega \in \Omega^{k}(U)$ is called an \eax{exact $k$-form} if $\omega = d\eta$ for some $\eta \in \Omega^{k-1}(U)$. It is called a \eax{closed $k$-form} if $d\omega = 0$. Note that every exact form is closed, but the converse is not true in general. We will refine the following later: quotienting the space of closed $k$-forms by the space of exact $k$-forms gives us the \eax{de Rham cohomology} of $U$, denoted by $\HdR^{k}(U)$.
+
+\section{Manifolds}
+
+\begin{definition}
+    A topological space $M$ is termed a \eax{topological manifold} of dimension $n$ if
+    \begin{enumerate}
+        \item $M$ is Hausdorff,
+        \item $M$ is secound countable (that is, has a countable basis), and
+        \item for all $p \in M$, there exists an open neighbourhood $U \subseteq M$ and a homemorphism $\varphi:U \to \varphi(U) \subseteq \R^{n}$, where $\varphi(U)$ is open. This makes a manifold \eax{locally euclidean}.
+    \end{enumerate}
+\end{definition}
+
+The \eax{invariance of dimension} property states that if we have two open sets $U \subseteq \R^{n}$ and $V \subseteq \R^{m}$ such that $U$ is homeomorphic to $V$, then $m = n$. Thus, the dimension of a topological manifold is well-defined.
+
+\begin{definition}
+    A pair $(U,\varphi)$ is called a \eax{coordinate chart} on $M$ if $U \subseteq M$ is open and $\varphi:U \to \varphi(U) \subseteq \R^{n}$ is a homeomorphism. 
+\end{definition}
+A trivial example is $\R^{n}$ with one (coordinate) chart $(\R^{n},\id_{\R^{n}})$. In fact, if $U \subseteq \R^{n}$ is open, then $(U,\id_U)$ is a coordinate chart. Note that subspaces inherit the properties of Hausdorffness and second countability. We state some properties without proof; if $X$ is locally Euclidean but not $T_{2}$, then $X$ being a topological manifold implies that the number of connected (or path connected) components is at most countable.
+
+\begin{definition}
+    Two charts $(U,\varphi)$ and $(V,\psi)$ on a topological manifold $M$ are said to be \eax{$C^{\infty}$-compatible} if either
+    \begin{enumerate}
+        \item $U \cap V = \emptyset$, or
+        \item $U \cap V \neq \emptyset$, and the transition maps $\psi \circ \varphi^{-1}:\varphi(U \cap V) \to \psi(U \cap V)$ and $\varphi \circ \psi^{-1}:\psi(U \cap V) \to \varphi(U \cap V)$ are $C^{\infty}$-maps between open subsets of $\R^{n}$.
+    \end{enumerate}
+    Similarly, $C^{k}$-compatibility may be defined for $k \geq 0$. A $C^{\omega}$-manifold is termed to be a real analytic manifold. In case of $k = 2m$, then $\R^{2m}$ is identified with $\C^{m}$, and the transition maps are required to be holomorphic. 
+\end{definition}
+
+\begin{definition}
+    $M$ is a $C^{\infty}$-manifold or a \eax{smooth manifold} if $M$ is a topological manifold and there exists a family of charts $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ such that
+    \begin{enumerate}
+        \item $\{U_{\alpha}\}_{\alpha \in \Lambda}$ is an open cover of $M$, and
+        \item $(U_{\alpha},\varphi_{\alpha})$ and $(U_{\beta},\varphi_{\beta})$ are $C^{\infty}$-compatible for all $\alpha,\beta \in \Lambda$.
+    \end{enumerate}
+    Similarly, $C^{k}$-manifolds, $C^{\omega}$-manifolds, and complex manifolds may be defined. The family of charts $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ is called an \eax{atlas} of $M$.
+\end{definition}
+
+The most basic non-trivial example is perhaps the circle $S^{1} = \{(x,y) \in \R^{2} \mid x^{2}+y^{2} = 1\}$, which is a $C^{\infty}$-manifold of dimension $1$. We can think of $\R^{2}$ as $\C$. Let $U = S^{1}\setminus\{1\} = \{e^{it} \mid 0 < t < 2\pi\}$ and $V = S^{1}\setminus\{-1\} = \{e^{it} \mid -\pi < t < \pi\}$. Then $(U,\varphi)$ and $(V,\psi)$ are charts, where $\varphi:U \to (0,2\pi) \subseteq \R$ is defined as $e^{it} \mapsto t$ and $\psi:V \to (-\pi,\pi) \subseteq \R$ is defined as $e^{it} \mapsto t$. Here, $U \cap V = \{e^{it} \mid 0 < t < \pi\} \cup \{e^{-t} \mid \pi < t < 2\pi,\, -\pi < t < 0\}$. The transition maps are $\psi \circ \varphi^{-1}:(0,\pi) \to (0,\pi)$ defined as $t \mapsto t$ and $\psi \circ \varphi^{-1}:(\pi,2\pi) \to (-\pi,0)$ defined as $t \mapsto t-2\pi$. Both these maps are smooth, and hence the charts are compatible. Thus, $S^{1}$ is a smooth manifold of dimension $1$.

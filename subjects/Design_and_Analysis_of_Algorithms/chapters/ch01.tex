@@ -106,7 +106,6 @@ If $f(n) = \Theta(g(n))$, then $g(n) = \Theta(f(n))$. $\Theta$ is the only asymp
 \subsubsection{Transpose Symmetry}
 Simply stated, $f(n) = \Oh(g(n))$ if and only if $g(n) = \Omega(f(n))$, and $f(n) = \oh(g(n))$ if and only if $g(n) = \omega(f(n))$. This is called transpose symmetry.
 
-\subsection{Specific Examples}
 We state a few statements that hold true in the context of asymptotic notation.
 
 For $a,b > 0$, and $a \neq 1$ and $b \neq 1$,
@@ -138,3 +137,57 @@ In many cases, we may not explicitly be given the function $f(n)$, but rather a 
 \begin{example}
     Solve the recursions $T(n) = 2T(n/2)+n$, and $T(n) = T(\sqrt{n})+1$.
 \end{example}
+
+
+\section{Divide and Conquer Algorithms}
+\textit{July 31st.}
+
+Algorithms hinged on the \eax{divide and conquer} rule break the problem into smaller subproblems, solve the subproblems recursively, and combine the solutions to the subproblems to solve the original problem. The binary search algorithm is an example of a divide and conquer algorithm. Another example is the merge sort algorithm; given an input array of $n$ elements, we wish to output it in sorted order. The \eax{merge sort} divides the given array into two halves, sorts them recursively, and then merges the sorted halves. The algorithm is as follows:
+\begin{verbatim}
+MergeSort(A, n):
+    if n = 1:
+        return A
+    mid = n//2
+    left = MergeSort(A[0:mid], mid)
+    right = MergeSort(A[mid:n], n-mid)
+    return Merge(left, right)
+
+Merge(left, right):
+    i = 0; j = 0; k = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            A[k] = left[i]
+            i += 1
+        else:
+            A[k] = right[j]
+            j += 1
+    # Append any remaining elements from either list
+    while i < len(left):
+        A[k] = left[i]
+        i += 1
+        k += 1
+    while j < len(right):
+        A[k] = right[j]
+        j += 1
+        k += 1
+    return A
+\end{verbatim}
+The Merge function combines the two sorted halves into a single sorted array, while the MergeSort function handles the recursive sorting of the two halves. To show the correctness of the algorithm, we can use induction on the size of the array. The base case is when the array has one element, which is trivially sorted. For the inductive step, we assume that MergeSort correctly sorts arrays of size less than $n$, and we show that it correctly sorts an array of size $n$ by dividing it into two halves, sorting each half recursively, and merging the sorted halves. In the above algorithm, we have $\verb|A[i] = min(left[i], right[j])|$; this is the key step in the merge process, ensuring that the smallest element from the two halves is placed in the correct position in the merged array. 
+
+We compute the time taken; for every iteration of the while loop, an element is added to the merged list. The total time is of the order of size of the merged list, that is, $\Oh(n)$. Hence, the recursion for the time taken by the merge sort algorithm is $T(n) = 2T(n/2)+\Oh(n)$.
+
+\begin{example}
+    Let us solve the recursion $T(n) = a\, T(n/b) + f(n)$, where $a \geq 1$, $b > 1$, and $f(n)$ is asymptotically positive. Breaking down recursively, we stop when $n/b^{l} = \Oh(1)$, or $l = \log_{b}n$. Each subsequent leaf then does $a^{\log_{b}n} = n^{\log_{b}a}$ work. Thus, the total work done is
+    \begin{align}
+        n^{\log_{b}a} + f(n) + af(n/b) + a^{2}f(n/b^{2}) + \cdots
+    \end{align}
+\end{example}
+
+The master method or \eax{master theorem} is exactly for solving recursions of the form $T(n) = a\, T(n/b) + f(n)$, where $a \geq 1$, $b > 1$, and $f(n)$ is asymptotically positive. The master theorem states that:
+\begin{enumerate}
+    \item If $f(n) = \Oh(n^{\log_{b}a-\epsilon})$ for some $\epsilon > 0$, then $T(n) = \Theta(n^{\log_{b}a})$.
+    \item If $f(n) = \Theta(n^{\log_{b}a})$, then $T(n) = \Theta(n^{\log_{b}a}\log n)$.
+    \item If $f(n) = \Omega(n^{\log_{b}a+\epsilon})$ for some $\epsilon > 0$ and if $a f(n/b) \leq c f(n)$ for some $c < 1$ and sufficiently large $n$, then $T(n) = \Theta(f(n))$.
+\end{enumerate}
+
+Thus, using the master theorem, we can solve the recursion for the merge sort algorithm, $T(n) = 2T(n/2)+\Oh(n)$, where $a=2$, $b=2$, and $f(n) = \Oh(n)$. We have $\log_{b}a = \log_{2}2 = 1$, and $f(n) = \Theta(n^{1})$. Hence, we are in case 2 of the master theorem, and we conclude that $T(n) = \Theta(n\log n)$.
