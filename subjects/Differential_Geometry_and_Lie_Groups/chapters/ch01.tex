@@ -382,6 +382,7 @@ This is known as \eax{antiderivation}. Moreover, $d_{k+1} \circ d_{k} = d^{2} = 
 An $\omega \in \Omega^{k}(U)$ is called an \eax{exact $k$-form} if $\omega = d\eta$ for some $\eta \in \Omega^{k-1}(U)$. It is called a \eax{closed $k$-form} if $d\omega = 0$. Note that every exact form is closed, but the converse is not true in general. We will refine the following later: quotienting the space of closed $k$-forms by the space of exact $k$-forms gives us the \eax{de Rham cohomology} of $U$, denoted by $\HdR^{k}(U)$.
 
 \section{Manifolds}
+\textit{July 31st.}
 
 \begin{definition}
     A topological space $M$ is termed a \eax{topological manifold} of dimension $n$ if
@@ -418,3 +419,141 @@ A trivial example is $\R^{n}$ with one (coordinate) chart $(\R^{n},\id_{\R^{n}})
 \end{definition}
 
 The most basic non-trivial example is perhaps the circle $S^{1} = \{(x,y) \in \R^{2} \mid x^{2}+y^{2} = 1\}$, which is a $C^{\infty}$-manifold of dimension $1$. We can think of $\R^{2}$ as $\C$. Let $U = S^{1}\setminus\{1\} = \{e^{it} \mid 0 < t < 2\pi\}$ and $V = S^{1}\setminus\{-1\} = \{e^{it} \mid -\pi < t < \pi\}$. Then $(U,\varphi)$ and $(V,\psi)$ are charts, where $\varphi:U \to (0,2\pi) \subseteq \R$ is defined as $e^{it} \mapsto t$ and $\psi:V \to (-\pi,\pi) \subseteq \R$ is defined as $e^{it} \mapsto t$. Here, $U \cap V = \{e^{it} \mid 0 < t < \pi\} \cup \{e^{-t} \mid \pi < t < 2\pi,\, -\pi < t < 0\}$. The transition maps are $\psi \circ \varphi^{-1}:(0,\pi) \to (0,\pi)$ defined as $t \mapsto t$ and $\psi \circ \varphi^{-1}:(\pi,2\pi) \to (-\pi,0)$ defined as $t \mapsto t-2\pi$. Both these maps are smooth, and hence the charts are compatible. Thus, $S^{1}$ is a smooth manifold of dimension $1$.
+\\
+
+\textit{August 3rd.}
+\begin{proposition}
+    Let $\cU = \{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ be an atlas on $M$. Suppose $(V,\psi)$ and $(W,\sigma)$ are two charts on $M$ which are $C^{\infty}$-compatible with all charts in $\cU$. Then $(V,\psi)$ and $(W,\sigma)$ are $C^{\infty}$-compatible.
+\end{proposition}
+\begin{proof}
+    Let $p \in V \cap W$. Then there exists $\alpha \in \Lambda$ such that $p \in U_{\alpha}$. Since $(V,\psi)$ and $(U_{\alpha},\varphi_{\alpha})$ are compatible, we have that $\psi \circ \varphi_{\alpha}^{-1}:\varphi_{\alpha}(U_{\alpha} \cap V) \to \psi(U_{\alpha} \cap V)$ is smooth. Similarly, since $(W,\sigma)$ and $(U_{\alpha},\varphi_{\alpha})$ are compatible, we have that $\sigma \circ \varphi_{\alpha}^{-1}:\varphi_{\alpha}(U_{\alpha} \cap W) \to \sigma(U_{\alpha} \cap W)$ is smooth. Now, we have
+    \begin{align}
+        (\sigma \circ \psi^{-1})|_{\psi(U_{\alpha} \cap V \cap W)} = (\sigma \circ \varphi_{\alpha}^{-1})|_{\varphi_{\alpha}(U_{\alpha} \cap V \cap W)} \circ (\varphi_{\alpha} \circ \psi^{-1})|_{\psi(U_{\alpha} \cap V \cap W)}.
+    \end{align}
+    The right-hand side is a composition of smooth maps, and hence is smooth. Thus, $\sigma \circ \psi^{-1}$ is smooth on an open neighbourhood of $p$. Since $p$ was arbitrary, we have that $\sigma \circ \psi^{-1}$ is smooth on $V\cap W$. Similarly, we can show that $\psi\circ\sigma^{-1}$ is smooth on $V\cap W$. Thus, $(V,\psi)$ and $(W,\sigma)$ are compatible.
+\end{proof}
+
+This leads to the following definition.
+
+\begin{definition}
+    A \eax{maximal atlas} $\cM$ on a smooth manifold $M$ is an atlas which is maximal with respect to inclusion; that is, if $\cM \subseteq \cU$ for some atlas $\cU$, then $\cM = \cU$. Equivalently, $\cM$ is a maximal atlas if it contains all charts which are compatible with all charts in $\cM$.
+\end{definition}
+Any atlas $\cU$ on $M$ is contained in a unique maximal atlas $\cM$. For a proof of this, let $\cM = \{(U,\varphi) \mid \text{ compatible with all charts in } \cU\}$. Then $\cM$ is an atlas. If $\cM \subseteq \cM'$, then any chart in $\cM'$ must be compatible with all charts in $\cM$; it must be compatible with all charts in $\cU$. By definition of $\cM$, such a chart must be in $\cM$, so $\cM = \cM'$. For uniqueness, if $\cU \subseteq \cM, \cM'$, then $\cM,\cM' \subseteq \cM \cup \cM'$ tells us $\cM = \cM'$ by maximality. The unique maximal atlas $\cM \supseteq \cU$ is also called a differentiable structure on $M$.
+
+\begin{example}
+    \begin{enumerate}
+        \item Let $U \subseteq \R^{n}$, and $F:U \to \R^{m}$ be a $C^{\infty}$-map. The graph of $F$ is defined as $\Gamma(F) = \{(x,F(x)) \mid x \in U\} \subseteq \R^{n+m}$. At atlas on $\Gamma(F)$ is given by $\{(U,\varphi)\}$, where $\varphi:U \to \Gamma(F)$ is defined as $x \mapsto (x,F(x))$. The transition map is $\varphi^{-1}:\Gamma(F) \to U$ defined as $(x,F(x)) \mapsto x$. This is smooth, and hence $\Gamma(F)$ is a smooth manifold of dimension $n$.
+        \item Let $M$ and $N$ be smooth manifolds of dimension $m$ and $n$, respectively. Then $M \times N$ is a smooth manifold of dimension $m+n$; if $\cU$ and $\cV$ are atlases on $M$ and $N$, respectively, then $\cU \times \cV = \{(U \times V,\varphi \times \psi) \mid (U,\varphi) \in \cU, (V,\psi) \in \cV\}$ is an atlas on $M \times N$. The transition maps are $(\varphi_{2} \times \psi_{2}) \circ (\varphi_{1} \times \psi_{1})^{-1} = (\varphi_{2} \circ \varphi_{1}^{-1}) \times (\psi_{2} \circ \psi_{1}^{-1})$, which is smooth since both $\varphi_{2} \circ \varphi_{1}^{-1}$ and $\psi_{2} \circ \psi_{1}^{-1}$ are smooth.
+    \end{enumerate}
+\end{example}
+
+
+
+\subsection{Smooth Functions and Smooth Maps}
+
+We will often omit `smooth' but still mean smooth in the context of manifolds.
+\begin{definition}
+    Let $M$ be a manifold of dimension $n$. A function $f:M \to \R$ is smooth at $p \in M$ if there exists a chart $(U,\varphi)$ of $M$ such that $f \circ \varphi^{-1}:\varphi(U) \to \R$ is smooth at $\varphi(p)$. A function $f:M \to \R$ is smooth if it is smooth at all $p \in M$.
+\end{definition}
+The definition of the smooth function $f:M \to \R$ is independent of the choice of chart $(U,\varphi)$, since if $(V,\psi)$ is another chart containing $p$, then $\psi \circ \varphi^{-1}:\varphi(U \cap V) \to \psi(U \cap V)$ is smooth, and hence $f \circ \psi^{-1} = (f \circ \varphi^{-1}) \circ (\varphi \circ \psi^{-1})$ is smooth at $\psi(p)$.
+
+\begin{proposition}
+    Let $M$ be a manifold of dimension $n$, and $f:M \to \R$ be a function. Then the following are equivalent:
+    \begin{enumerate}
+        \item $f$ is a smooth function on $M$.
+        \item $M$ has an atlas $\cU = \{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ such that $f \circ \varphi_{\alpha}^{-1}:\varphi_{\alpha}(U_{\alpha}) \to \R$ is smooth for all $\alpha \in \Lambda$.
+        \item For all charts $(U,\varphi)$ on $M$, the map $f \circ \varphi^{-1}:\varphi(U) \to \R$ is smooth.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Note that 2.~implies 1. by definition, and 3.~implies 2. trivially. We show that 1.~implies 3. Let $(U,\varphi)$ be a chart on $M$, and $p \in U$; it is enough to prove that $f \circ \varphi^{-1}$ is smooth at $\varphi(p)$. Since $f$ is smooth, there exists a chart $(V,\psi)$ of $M$ such that $p \in V$ and $f \circ \psi^{-1}:\psi(V) \to \R$ is smooth at $\psi(p)$. Now, we have
+    \begin{align}
+        f \circ \varphi^{-1} = (f \circ \psi^{-1}) \circ (\psi \circ \varphi^{-1}).
+    \end{align}
+    The right-hand side is a composition of smooth maps, and hence is smooth at $\varphi(p)$. Thus, $f \circ \varphi^{-1}$ is smooth at $\varphi(p)$.
+\end{proof}
+
+A function $f:M \to \R$ is smooth on a chart $(U,\varphi)$ if and only if the pullback $\varphi^{\ast}f \defeq f \circ \varphi^{-1} :\varphi(U) \to \R$ is smooth. Also note that the definition of a smooth function $f$ does not assume that $f$ is continuous; however, one may show that the definition itself implies that $f$ is continuous. This is because if $f$ is smooth at $p \in M$, then there exists a chart $(U,\varphi)$ of $M$ such that $f \circ \varphi^{-1}:\varphi(U) \to \R$ is smooth at $\varphi(p)$, and hence continuous at $\varphi(p)$. Since $\varphi$ is a homeomorphism, we have that $f$ is continuous at $p$. Since $p$ was arbitrary, we have that $f$ is continuous on $M$.
+
+\begin{definition}
+    Let $M$ and $N$ be smooth manifolds of dimension $m$ and $n$, respectively. A continuous map $F:N \to M$ is smooth at $p \in N$ if there exist charts $(U,\varphi)$ on $N$, with $p \in U$, and $(V,\psi)$ on $M$, with $F(p) \in V$, such that $\psi \circ F \circ \varphi^{-1}:\varphi(U) \to \psi(V)$ is smooth at $\varphi(p)$. A continuous map $F:N \to M$ is smooth if it is smooth at all $p \in N$.
+\end{definition}
+The definition of a map $f$ being smooth at $p$ is independent of the choice of charts $(U,\varphi)$ and $(V,\psi)$, since if $(U',\varphi')$ and $(V',\psi')$ are other charts containing $p$ and $F(p)$, respectively, then $\psi' \circ \psi^{-1}:\psi(V \cap V') \to \psi'(V \cap V')$ and $\varphi' \circ \varphi^{-1}:\varphi(U \cap U') \to \varphi'(U \cap U')$ are smooth, and hence
+\begin{align}
+    \psi' \circ F \circ \varphi'^{-1} = (\psi' \circ \psi^{-1}) \circ (\psi \circ F \circ \varphi^{-1}) \circ (\varphi \circ \varphi'^{-1})
+\end{align}
+
+\begin{proposition}
+    Let $F:N \to M$ be a continuous map between smooth manifolds. Then the following are equivalent:
+    \begin{enumerate}
+        \item $F$ is smooth.
+        \item There exist atlases $\cU$ of $N$ and $\cV$ of $M$ such that for all $(U,\varphi) \in \cU$ and $(V,\psi) \in \cV$, the map $\psi \circ F \circ \varphi^{-1}:\varphi(U \cap F^{-1}(V)) \to \psi(V)$ is smooth.
+        \item For all charts $(U,\varphi)$ on $N$ and $(V,\psi)$ on $M$, the map $\psi \circ F \circ \varphi^{-1}:\varphi(U \cap F^{-1}(V)) \to \psi(V)$ is smooth.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Again, note that 2.~implies 1. by definition, and 3.~implies 2. trivially. A similar argument as in the previous proposition shows that 1.~implies 3.
+\end{proof}
+
+\begin{proposition}
+    Let $F:N \to M$ and $G:M \to P$ be smooth maps between smooth manifolds. Then the composition $G \circ F:N \to P$ is smooth.
+\end{proposition}
+\begin{proof}
+    Let $(U,\varphi)$, $(V,\psi)$, and $(W,\sigma)$ be charts on $N$, $M$, and $P$, respectively, such that $p \in U$, $F(p) \in V$, and $G(F(p)) \in W$. Then we have 
+    \begin{align}
+        \sigma \circ (G \circ F) \circ \varphi^{-1} = (\sigma \circ G \circ \psi^{-1}) \circ (\psi \circ F \circ \varphi^{-1}).
+    \end{align}
+    The right-hand side is a composition of smooth maps, and hence is smooth at $\varphi(p)$. Thus, $G \circ F$ is smooth at $p$.
+\end{proof}
+
+Finally, a smooth map $F:N \to M$ is termed a \eax{diffeomorphism} if $F$ is a bijection, and $F$ and $F^{-1}$ are smooth. Some properties of diffeomorphisms may be inferred.
+
+\begin{proposition}
+    The following hold true.
+    \begin{enumerate}
+        \item Let $(U,\varphi)$ be a chart on a smooth manifold $M$ of dimension $n$. Then $\varphi:U \to \varphi(U)$ is a diffeomorphism.
+        \item Suppose $U \subseteq M$ is open, and that $F:U \to F(U)$ is a diffeomorphism. Then $(U,F)$ is a chart in the maximal atlas of $M$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item Note that $U$ is a manifold since it is open in $M$, and $\varphi(U)$ is a manifold since it is open in $\R^{n}$. The map $\varphi:U \to \varphi(U)$ is a homeomorphism by definition of a chart, so it is bijective. Note that $\{(U,\varphi)\}$ is an atlas on $U$, and $\{(\varphi(U),\id_{\varphi(U)})\}$ is an atlas on $\varphi(U)$. Then $\varphi$ is smooth since $\id_{\varphi(U)} \circ \varphi \circ \varphi^{-1} = \id_{\varphi(U)}$ is smooth, and $\varphi^{-1}$ is smooth since $\varphi \circ \varphi^{-1} \circ \id_{\varphi(U)} = \id_{\varphi(U)}$ is smooth. Thus, $\varphi$ is a diffeomorphism.
+        
+        \item Since $U$ is open in $M$, it is a smooth manifold. Because $F:U\to F(U)$ is a diffeomorphism, it is in particular a homeomorphism. Hence $F$ is bijective, and its image $F(U)$ is an open subset of $\R^{n}$ (as required for a chart). Let $(V,\psi)$ be any chart on $M$ with $U\cap V\neq\varnothing$. Then the transition maps
+        \begin{align}
+            \psi\circ F^{-1}:F(U\cap V)\to \psi(V) \quad \text{and} \quad F\circ \psi^{-1}:\psi(U\cap V)\to F(U\cap V)
+        \end{align}
+        are smooth, since they are compositions of smooth maps. Therefore $(U,F)$ is compatible with every chart in the maximal atlas of $M$, and so $(U,F)$ is a chart in that maximal atlas.
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}
+    Let $N$ be a smooth manifold of dimension $n$, and $F:N \to \R^{m}$ be a continuous map. Then the following are equivalent.
+    \begin{enumerate}
+        \item $F$ is smooth.
+        \item $N$ has an atlas $\cU$ such that for all $(U,\varphi) \in \cU$, the map $F \circ \varphi^{-1}:\varphi(U) \to \R^{m}$ is smooth.
+        \item For all charts $(U,\varphi)$ on $N$, the map $F \circ \varphi^{-1}:\varphi(U) \to \R^{m}$ is smooth.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    3.~implies 2.~is obvious. For 2.~implies 1., note that there exist atlases $\cU$ and $\cV$ of $N$ and $M$ respectively such that $(U,\varphi) \in \cU$ and $(V,\psi) \in \cV$ satisfy the smoothness condition. Since $\R^{m}$ has a global chart $(\R^{m},\id_{\R^{m}})$, we can take $\cV = \{(\R^{m},\id_{\R^{m}})\}$. Then for any $(U,\varphi) \in \cU$, we have $\id_{\R^{m}} \circ F \circ \varphi^{-1} = F \circ \varphi^{-1}$ is smooth, which implies that $F$ is smooth. For 1.~implies 3., $F$ is smooth and $\varphi$ is a diffeomorphism; thus, $\varphi^{-1}$ is smooth, and $F \circ \varphi^{-1}$ is smooth.
+\end{proof}
+
+\begin{proposition}
+    Let $F:N \to M$ be a continuous map between smooth manifolds. Then the following are equivalent.
+    \begin{enumerate}
+        \item $F$ is smooth.
+        \item $M$ has an atlas $\cV$ such that for all $(V,\psi) \in \cV$, the map $\psi \circ F:F^{-1}(V) \to \psi(V)$ is smooth.
+        \item For any chart $(V,\psi)$ of $M$, the map $\psi \circ F:F^{-1}(V) \to \psi(V)$ is smooth.
+    \end{enumerate}
+\end{proposition}
+The proof follows a similar structure to the one above.
+
+\begin{proposition}
+    Let $F:N \to \R^{m}$ be a continuous map. Then the following are equivalent.
+    \begin{enumerate}
+        \item $F$ is smooth.
+        \item $F^{1},\ldots,F^{m}:N \to \R$ are smooth, where $F = (F^{1},\ldots,F^{m})$.
+    \end{enumerate}
+\end{proposition}
