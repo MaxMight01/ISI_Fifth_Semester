@@ -251,6 +251,80 @@ Note that it is clear that all these properties are true for step functions.
     If $f,g \in U[0,1]$, then $\max\{f,g\},\min\{f,g\} \in U[0,1]$.
 \end{theorem}
 
+
+
+\textit{August 3rd.}
+
+\begin{theorem}
+    Let $f:[0,1] \to \R$ be continuous and bounded. Then $f \in U[0,1]$ and the Lebesgue integral of $f$ is equal to the Riemann integral of $f$.
+\end{theorem}
 \begin{proof}
-    Let $s_{n} \uparrow f$ and $t_{n} \uparrow g$ almost everywhere. Note that $\min\{f,g\} \leq f,g$, so $\min\{f,g\} \in U[0,1]$. Now, $\max\{f,g\} = f+g-\min\{f,g\}$, so $\max\{f,g\} \in U[0,1]$ as well.
+    Let $\cP_{n}:x_{0} < \cdots < x_{2^{n}}$ be a partition of $[0,1]$ into $2^{n}$ equal subintervals of length $2^{-n}$. Let $m_{k} = \inf\{f(x) \mid x \in [x_{k-1},x_{k}]\}$ for $1 \leq k \leq 2^{n}$, and define the step function $s_{n}$ as
+    \begin{align}
+        s_{n}(x) = \begin{cases}
+            m_{k}, & \text{if } x \in (x_{k-1},x_{k}], \\
+            m_{1}, & \text{if } x = x_{0}.
+        \end{cases}
+    \end{align}
+    Infer that $s_{n+1} \geq s_{n}$ since
+    \begin{align}
+        \inf\{f(x) \mid x \in [x_{k-1},x_{k}]\} \leq \inf\{f(x) \mid x \in [x_{2k-2},x_{2k}]\} \leq \inf\{f(x) \mid x \in [x_{2k-2},x_{2k-1}]\}.
+    \end{align}
+    Also observe that $s_{n}(x) \to f(x)$ for all $x \in [0,1]$ for which $f$ is continuous. Given $\eps > 0$, there exists $\delta > 0$ such that for all $y \in (x-\delta,x+\delta) \cap [0,1]$, we have $\abs{f(y)-f(x)} < \eps$. Choose $N$ such that the partition $\cP_{N}$ has a subinterval $[x_{k-1},x_{k}]$ containing $x$ and lying in $(x-\delta,x+\delta)$. Then
+    \begin{align}
+        s_{N}(x) = m_{k} \leq f(x) \leq \inf\{f(y) \mid y \in (x-\delta,x+\delta)\} \leq m_{k} + \eps = s_{N}(x) + \eps.
+    \end{align}
+    That is, $\abs{s_{N}(x)-f(x)} < \eps$. Since $\eps$ was arbitrary, $s_{n}(x) \to f(x)$ for all $x \in [0,1]$. Finally, observe that $\int_{0}^{1} s_{n}(x) \, dx$ is the lower Riemann sum of $f$ with respect to the partition $\cP_{n}$. Since $f$ is Riemann integrable, we have $\int_{0}^{1} s_{n}(x) \, dx \to \int_{0}^{1} f(x) \, dx$ as $n \to \infty$. Hence, $f \in U[0,1]$ and the Lebesgue integral of $f$ is equal to the Riemann integral of $f$.
+\end{proof}
+
+Given general upper functions $u,v \in U[0,1]$, the function $u-v$ may not neccesarily lie in $U[0,1]$. From here, we define the following.
+
+\begin{definition}
+    $L^{1}[0,1]$ is the set of functions $f:[0,1] \to \R$ such that $f = u-v$ for some $u,v \in U[0,1]$. It is termed the space of Lebesgue integrable functions on $[0,1]$. $f$ is said to be \eax{Lebesgue integrable} here, with the Lebesgue integral of $f$ defined as
+    \begin{align}
+        \int_{0}^{1} f \, dx \defeq \int_{0}^{1} u \, dx - \int_{0}^{1} v \, dx.
+    \end{align}
+\end{definition}
+
+\begin{theorem}
+    Let $u,v,w,z \in U[0,1]$ be such that $u-v = w-z$ almost everywhere. Then $\int_{0}^{1} u \, dx - \int_{0}^{1} v \, dx = \int_{0}^{1} w \, dx - \int_{0}^{1} z \, dx$.
+\end{theorem}
+\begin{proof}
+    Note that $u+z = w+v$ almost everywhere. Hence, $\int_{0}^{1} u \, dx + \int_{0}^{1} z \, dx = \int_{0}^{1} w \, dx + \int_{0}^{1} v \, dx$. Rearranging gives the desired result.
+\end{proof}
+Thus, the Lebesgue integral of $f \in L^{1}[0,1]$ is well-defined. 
+
+\begin{theorem}
+    Let $f,g \in L^{1}[0,1]$. Then
+    \begin{enumerate}
+        \item $af+bg \in L^{1}[0,1]$ for all $a,b \in \R$, and $\int_{0}^{1} (af+bg) \, dx = a\int_{0}^{1} f \, dx + b\int_{0}^{1} g \, dx$.
+        \item $\int_{0}^{1} f \, dx \geq 0$ if $f \geq 0$ almost everywhere.
+        \item $\int_{0}^{1} f \, dx \geq \int_{0}^{1} g \, dx$ if $f \geq g$ almost everywhere.
+        \item $\int_{0}^{1} f\, dx = \int_{0}^{1} g \, dx$ if $f = g$ almost everywhere.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $a^{+} = \max\{a,0\}$ and $a^{-} = \max\{-a,0\}$. Then $af = a(u-v) = au-av = (a^{+}u+a^{-}v) - (a^{-}u+a^{+}v)$. Similarly, $bg = b(w-z) = (b^{+}w+b^{-}z) - (b^{-}w+b^{+}z)$. Hence, $af+bg \in L^{1}[0,1]$. The linearity of the integral follows from the linearity of the integral on upper functions.
+        \item Let $f = u-v$ for some $u,v \in U[0,1]$. Then $u \geq v$ almost everywhere, so $\int_{0}^{1} u \, dx \geq \int_{0}^{1} v \, dx$. Hence, $\int_{0}^{1} f \, dx = \int_{0}^{1} u \, dx - \int_{0}^{1} v \, dx \geq 0$.
+        \item Follows from 2.
+        \item Follows from 2 and 3.
+    \end{enumerate}
+\end{proof}
+
+If $f$ is a real-valued function, we can define the positive and negative parts of $f$ as $f^{+} = \max\{f,0\}$ and $f^{-} = \max\{-f,0\}$. Then $f = f^{+}-f^{-}$ and $\abs{f} = f^{+}+f^{-}$.
+
+\begin{theorem}
+    If $f,g \in L^{1}[0,1]$, then $f^{+},f^{-},\abs{f},\max\{f,g\},\min\{f,g\} \in L^{1}[0,1]$. Moreover,
+    \begin{align}
+        \abs{\int_{0}^{1} f \, dx} \leq \int_{0}^{1} \abs{f} \, dx.
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Let $f = u-v$ for some $u,v \in U[0,1]$. Then $f^{+} = \max\{u-v,0\} = \max\{u,v\}-v \in L^{1}[0,1]$ and $f^{-} = \max\{-f,0\} = \max\{v-u,0\} = \max\{u,v\}-u \in L^{1}[0,1]$. Hence, $\abs{f} = f^{+}+f^{-} \in L^{1}[0,1]$. Similarly, $\max\{f,g\},\min\{f,g\} \in L^{1}[0,1]$. Finally,
+    \begin{align}
+        -\int_{0}^{1} \abs{f} \, dx \leq -\int_{0}^{1} f^{-} \, dx = \int_{0}^{1} f^{+}-f^{-} \, dx = \int_{0}^{1} f \, dx \leq \int_{0}^{1} f^{+} \, dx \leq \int_{0}^{1} \abs{f} \, dx.
+    \end{align}
 \end{proof}
