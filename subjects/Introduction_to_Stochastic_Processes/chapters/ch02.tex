@@ -1,0 +1,42 @@
+\chapter{MARKOV CHAINS}
+
+For the simple symmetric random walk on $\Z^{d}$, we saw that when $\Prob(X_{1}=i_{1},\ldots,X_{n}=i_{n})$ is non-zero, it is given by
+\begin{align}
+    \Prob(X_{1}=i_{1},\ldots,X_{n}=i_{n}) = \Prob(X_{1}=i_{1})\prod_{k=2}^{n}\Prob(X_{k}=i_{k} \mid X_{k-1}=i_{k-1}) = \prod_{k=1}^{n} \Prob(X_{2}=i_{k} \mid X_{1}=i_{k-1})
+\end{align}
+where $i_{0} = 0$. If the walk were not symmetric, we could then define
+\begin{align}
+    p_{ij} = \begin{cases}
+        p &\text{if } i = j+1,\\
+        1-p &\text{if } i = j-1,\\
+        0 &\text{otherwise.}
+    \end{cases}
+\end{align}
+With this, the above probability is $\prod_{k=1}^{n} p_{i_{k}i_{k-1}}$. In fact, the walk need not simple too, with steps of arbitrary size taking place. Moreover, $\Z^{d}$ can be replaced by any discrete space $S$. This is where we continue.
+
+\section{Discrete Time and Space Markov Chain}
+Let $S$ be any countable set, called our state space, and $X_{n}$ denote the state of the system at time $n$. The dynamics of the system is given by the transition probabilities; $X_{n}$ moves from $i \in S$ to $j \in S$ with probability $p_{ij}$, which depends only on $i$ and $j$. Some obvious properties include $p_{ij} \in [0,1]$ and $\sum_{j \in S} p_{ij} = 1$. The transition probabilities can be arranged in a matrix $P = [p_{ij}]_{i,j \in S}$, called the one-step \eax{transition matrix}.
+
+\begin{definition}
+    Let $\mu$ be any probability on $(S,\cP(S))$, and let $P = [p_{ij}]_{i,j \in S}$ be a one-step transition matrix. Moreover, let $(\Omega,\cF,\Prob)$ be a probability space with $(X_{n})_{n \geq 0}$ a sequence of $S$-valued random variables whose joint distribution is given by
+    \begin{align}
+        \Prob(X_{0}=i_{0},X_{1}=i_{1},\ldots,X_{n}=i_{n}) = \mu(\{i_{0}\})\prod_{k=1}^{n} p_{i_{k-1}i_{k}}.
+    \end{align}
+    Then $\{X_{n}\}_{n \geq 0}$ is called a \eax{Markov chain} on $S$ with initial distribution $\mu$ and transition matrix $P$.
+\end{definition}
+To find the distribution of $X_{n}$, we can use the law of total probability to get
+\begin{align}
+    \Prob(X_{n}=j) = \sum_{i_{0},\ldots,i_{n-1} \in S} \Prob(X_{0}=i_{0},\ldots,X_{n-1}=i_{n-1},X_{n}=j) = \sum_{i_{0},\ldots,i_{n-1} \in S} \mu(\{i_{0}\})\prod_{k=1}^{n} p_{i_{k-1}i_{k}}.
+\end{align}
+We can also show that the distribution of $X_{n}$ when the previous $n-1$ steps are known, depends only on the last step; we have
+\begin{align}
+    \Prob(X_{n}=j \mid X_{n-1}=i_{n-1},\ldots,X_{0}=i_{0}) &= \frac{\Prob(X_{0}=i_{0},\ldots,X_{n-1}=i_{n-1},X_{n}=j)}{\Prob(X_{0}=i_{0},\ldots,X_{n-1}=i_{n-1})} \notag \\ &= \frac{\mu(\{i_{0}\})\prod_{k=1}^{n} p_{i_{k-1}i_{k}}}{\mu(\{i_{0}\})\prod_{k=1}^{n-1} p_{i_{k-1}i_{k}}} = p_{i_{n-1}j}.
+\end{align}
+On the other hand,
+\begin{align}
+    \Prob(X_{n}=j \mid X_{n-1}=i_{n-1}) &= \frac{\Prob(X_{n}=j,X_{n-1}=i_{n-1})}{\Prob(X_{n-1}=i_{n-1})} \notag \\ &= \frac{\sum_{i_{0},\ldots,i_{n-2} \in S} \mu(\{i_{0}\})\prod_{k=1}^{n} p_{i_{k-1}i_{k}}p_{i_{n-1}j}}{\sum_{i_{0},\ldots,i_{n-2} \in S} \mu(\{i_{0}\})\prod_{k=1}^{n} p_{i_{k-1}i_{k}}} = p_{i_{n-1}j}.
+\end{align}
+Thus, the distribution of $X_{n}$ depends only on the previous state, and not on the entire history. Also, the distribution of $X_{n}$ given the start state $X_0 = i_0$ is
+\begin{align}
+    \Prob(X_{n}=j \mid X_{0}=i_{0}) = \sum_{i_{1},\ldots,i_{n-1} \in S} \prod_{k=1}^{n} p_{i_{k-1}i_{k}}.
+\end{align}

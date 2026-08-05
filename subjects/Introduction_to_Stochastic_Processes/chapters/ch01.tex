@@ -220,3 +220,56 @@ We now take as convention that $\sigma_{0} = \min\{n \geq 1 \mid S_{n}=0\}$ so t
         &= 1-\Prob(\sigma_{1} \leq 2n-1) = 1-\Prob(S_{2n-1} \notin [0,1]) = 1-\Prob(S_{2n-1} \neq -1) = \Prob(S_{2n-1}=-1).
     \end{align}
 \end{proof}
+
+\subsection{Arcsine Law}
+\textit{August 5th.}
+
+The arcsine law is concerned with the analysis of the last visit to the origin till $2N$. That is, defining $L = \max\{0 \leq n \leq 2N \mid S_{n}=0\}$, we wish to compute the order of $L$.
+
+\begin{theorem}
+    Let $n \in \N_{0}$, with $n \leq N$. Then $\Prob(L = 2n) = \frac{1}{2^{2N}} \binom{2n}{n} \binom{2N-2n}{N-n}$.
+\end{theorem}
+
+\begin{remark}
+    Suppose this theorem holds; using Stirling's formula, that $n! \sim n^{n}e^{-n}$ for large $n$, we can approximate $\Prob(L = 2n) \sim \frac{1}{\pi \sqrt{n(N-n)}} = \frac{1}{\pi N} \frac{1}{\sqrt{\frac{n}{N}(1-\frac{n}{N})}}$. The idea is to find the order of $\Prob(L \leq 2Nx) = \Prob(\frac{L}{2N} \leq x)$ for $x \in [0,1]$. Rewriting gives
+    \begin{align}
+        \Prob(L \leq 2Nx) = \sum_{n \leq \floor{Nx}} \Prob(L = 2n) = \sum_{n \leq \floor{Nx}} \frac{1}{N} f(\frac{1}{N})
+    \end{align}
+    where $f(x) = \frac{1}{\pi \sqrt{x(1-x)}}$. This is a Riemann sum, and hence we have $\Prob(L \leq 2Nx) \sim \int_{0}^{x} f(t) dt = \frac{2}{\pi} \arcsin(\sqrt{x})$.
+\end{remark}
+
+\begin{proof}[Proof of theorem]
+    We simply have
+    \begin{align}
+        \Prob(L = 2n) = \Prob(S_{2n}=0)\Prob(\sigma_{0} > 2N-2n) = \binom{2n}{n} \frac{1}{2^{2n}} \cdot \Prob(S_{2N-2n}=0) = \frac{1}{2^{2N}} \binom{2n}{n} \binom{2N-2n}{N-n}.
+    \end{align}
+\end{proof}
+
+\section{Higher Dimensions and Infinite Walks}
+We are now fit to make sense of simple random walks on higher dimensions; let $\Z^{d} = \{(x_{1},\ldots,x_{d}) \mid x_{i} \in \Z, 1 \leq i \leq d\}$ for $d \geq 1$. Also, let $\abs{x} = \sqrt{\sum_{i=1}^{d} x_{i}^{2}}$. Then, for a fixed $N \geq 1$, we define
+\begin{align}
+    \Omega_{N} = \{\omega = (\omega_{1},\ldots,\omega_{N}) \mid \omega_{i} \in \Z^{d}, \, \abs{\omega_{i}} = 1,\, 1 \leq i \leq N\}
+\end{align}
+and $\xi_{i}:\Omega_{N} \to \Z^{d}$ as $\xi_{i}(\omega) = \omega_{i}$ for $1 \leq i \leq N$. We can then further define $X_{n}:\Omega_{N} \to \Z^{d}$ as $X_{n}(\omega) = \sum_{i=1}^{n} \xi_{i}(\omega)$ for $1 \leq n \leq N$. Moreover, $\cF = \cP(\Omega_{N})$, and $\Prob(A) = \frac{\abs{A}}{(2d)^{N}}$ for $A \in \cF$. This is the simple symmetric random walk on $\Z^{d}$ of length $N$.
+
+We wish to extend our notion of random walks for ones of infinite length; that is, the consistency of $\Prob_{N}$ as $N$ varies. We define the projection map $\Pi_{M}:\Omega_{N} \to \Omega_{M}$ as $\omega \mapsto (\omega_{1},\ldots,\omega_{M}) =\vcentcolon \tilde{\omega}$. Now fix $\tilde{\omega} \in \Omega_{M}$ so that
+\begin{align}
+    \Prob_{N}(\{\omega \in \Omega_{N} \mid \Pi_{M}(\omega) = \tilde{\omega}\}) = \frac{\abs{\{\omega \in \Omega_{N} \mid \Pi_{N}(\omega) = \tilde{\omega}\}}}{(2d)^{N}} = \frac{(2d)^{N-M}}{(2d)^{N}} = (2d)^{-M} = \Prob_{M}(\{\tilde{\omega}\}).
+\end{align}
+
+\begin{theorem}[\eax{Kolmogorov consistency theorem}]
+    There exists a probability space $(\Omega,\cF,\Prob)$ such that $\Omega \equiv \Omega_{\infty} = \{(\omega_{i})_{i \geq 1} \mid \omega_{i} \in \Z^{d}, \, \abs{w_{i}} = 1\}$, with $\cF$ suitabily defined, and $\Prob:\cF \to [0,1]$ such that $\Prob(\omega \in \Omega \mid \Pi_{M}(\omega) = \tilde{\omega}) = \Prob_{M}(\{\tilde{\omega}\})$ for all $M \geq 1$ and $\tilde{\omega} \in \Omega_{M}$.
+\end{theorem}
+
+A proof of this theorem is beyond the scope of this course; this lays the groundwork for the study of random walks of infinite length, by defining $\xi_{i}:\Omega \to \Z^{d}$ as $\xi_{i}(\omega) = \omega_{i}$ for $i \geq 1$, and $X_{n}:\Omega \to \Z^{d}$ as $X_{n}(\omega) = \sum_{i=1}^{n} \xi_{i}(\omega)$ for $n \geq 1$. This is the simple symmetric random walk on $\Z^{d}$ of infinite length.
+
+\subsection{Large Number Results}
+Let $\{X_{n}\}_{n \geq 1}$ be the simple symmetric random walk on $\Z^{d}$ of infinite length. Define
+\begin{align}
+    A = \{\omega \in \Omega \mid X_{n}(\omega)/n \to 0 \text{ as } n \to \infty\}.
+\end{align}
+Then, one can show that $\Prob(A) = 1$ despite $A \neq \Omega$. This is a consequence of \eax{Stirling's law of large numbers}. Also,
+\begin{align}
+    \Prob\left( \frac{X_{n}}{\sqrt{n}} \leq x \right) \to \int_{-\infty}^{x} \frac{e^{-y^{2}/2}}{\sqrt{2\pi}} dy \text{ as } n \to \infty.
+\end{align}
+for when $d = 1$. This is a consequence of the \eax{central limit theorem}.
