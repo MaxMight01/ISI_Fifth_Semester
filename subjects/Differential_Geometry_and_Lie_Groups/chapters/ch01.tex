@@ -557,3 +557,26 @@ The proof follows a similar structure to the one above.
         \item $F^{1},\ldots,F^{m}:N \to \R$ are smooth, where $F = (F^{1},\ldots,F^{m})$.
     \end{enumerate}
 \end{proposition}
+
+\subsection{Examples}
+
+\textit{August 5th.}
+
+We look at some examples of smooth manifolds and smooth maps.
+
+\begin{example}
+    For $S^{n} \subseteq \R^{n+1}$, the \eax{$n$-sphere}, define $U_{i}^{+} = \{(x_{1},\ldots,x_{n+1}) \in S^{n} \mid x_{i} > 0\}$ and $U_{i}^{-} = \{(x_{1},\ldots,x_{n+1}) \in S^{n} \mid x_{i} < 0\}$ for $i = 1,\ldots,n+1$. Then $\{(U_{i}^{+},\varphi_{i}^{+}), (U_{i}^{-},\varphi_{i}^{-})\}_{i=1}^{n+1}$ is an atlas on $S^{n}$, where $\varphi_{i}^{+}:U_{i}^{+} \to \R^{n}$ is defined as $(x_{1},\ldots,x_{n+1}) \mapsto (x_{1},\ldots,x_{i-1},x_{i+1},\ldots,x_{n+1})$, and $\varphi_{i}^{-}:U_{i}^{-} \to \R^{n}$ is defined similarly. The transition maps are smooth, and hence $S^{n}$ is a smooth manifold of dimension $n$.
+\end{example}
+
+\begin{example}
+    Recall $\R P^{n}$, the \eax{real projective space} of dimension $n$, defined as the quotient $\R^{n+1}\setminus\{0\}/\sim$, where $(x_{1},\ldots,x_{n+1}) \sim (y_{1},\ldots,y_{n+1})$ if there exists $\lambda \in \R\setminus\{0\}$ such that $(x_{0},\ldots,x_{n}) = (\lambda y_{0},\ldots,\lambda y_{n})$. Let $(a_{1}:a_{2}:\ldots:a_{n+1})$ denote the equivalence class of $(a_{1},\ldots,a_{n+1}) \in \R^{n+1}\setminus\{0\}$. This is a smooth manifold of dimension $n$; an atlas is given by $\{(U_{i},\varphi_{i})\}_{i=1}^{n+1}$, where $U_{i} = \{(x_{1}:\ldots:x_{n+1}) \in \R P^{n} \mid x_{i} \neq 0\}$ and $\varphi_{i}:U_{i} \to \R^{n}$ is defined as
+    \begin{align}
+        \varphi_{i}(x_{1}:\ldots:x_{n+1}) = \left( \frac{x_{1}}{x_{i}},\ldots,\frac{x_{i-1}}{x_{i}},\frac{x_{i+1}}{x_{i}},\ldots,\frac{x_{n+1}}{x_{i}} \right).
+    \end{align}
+    Verify that the transition maps $\varphi_{j} \circ \varphi_{i}^{-1}:\varphi_{i}(U_{i} \cap U_{j}) \to \varphi_{j}(U_{i} \cap U_{j})$ are smooth for all $i,j = 1,\ldots,n+1$. We can also provide a smooth map $F:S^{n} \to \R P^{n}$ defined as $(x_{1},\ldots,x_{n+1}) \mapsto (x_{1}:\ldots:x_{n+1})$. This is a smooth map, and it is a $2$-to-$1$ covering map.
+\end{example}
+
+\begin{example}
+    Similar to the above, we can define $\Prob_{k}^{n}$ to be the projective space of dimension $n$ over the field $k$; that is, $\Prob_{k}^{n} = k^{n+1}\setminus\{0\}/\sim$, where $(x_{1},\ldots,x_{n+1}) \sim (y_{1},\ldots,y_{n+1})$ if there exists $\lambda \in k\setminus\{0\}$ such that $(x_{1},\ldots,x_{n+1}) = (\lambda y_{1},\ldots,\lambda y_{n+1})$. In particular, if $k = \C$, then $\Prob_{\C}^{n}$ consists of complex 1-dimensional subspaces of $\C^{n+1}$. This is a smooth manifold of dimension $2n$. $\R P^{n}$ may be, thus, interpreted as the space of real 1-dimensional subspaces of $\R^{n+1}$. Building upon this, the \eax{Grassmannian space} $\Gr(n,k)$ is defined as the space of $k$-dimensional subspaces of $\R^{n}$. This is a smooth manifold of dimension $k(n-k)$. The Grassmannian space $\Gr(n+1,1)$ is precisely $\R P^{n}$, and $\Gr(n,0)$ is a single point. $\Gr(n,n-1)$ is the space of hyperplanes in $\R^{n}$. Again, the Grassmannian construction may be generalized to any field.
+\end{example}
+
