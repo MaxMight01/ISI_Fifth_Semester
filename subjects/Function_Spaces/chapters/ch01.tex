@@ -200,7 +200,7 @@ The normed space $(\cS[0,1]/\sim, \norm{\cdot}_{1})$ is not complete; there is a
     since $\lim_{n \to \infty} \int_{0}^{1} s_{n}(x) \, dx = 0$ by the proto monotone convergence theorem.
 \end{proof}
 
-\subsection{Upper Functions}
+\subsection{Upper Functions and $L^{1}$}
 Recall the linear functional $\rho:\cS[0,1] \to \R$ (or $\C$) defined by $s \mapsto \int_{0}^{1} s(x) \, dx$. We can extend this functional to a larger class of functions.
 
 \begin{definition}
@@ -327,4 +327,84 @@ If $f$ is a real-valued function, we can define the positive and negative parts 
     \begin{align}
         -\int_{0}^{1} \abs{f} \, dx \leq -\int_{0}^{1} f^{-} \, dx = \int_{0}^{1} f^{+}-f^{-} \, dx = \int_{0}^{1} f \, dx \leq \int_{0}^{1} f^{+} \, dx \leq \int_{0}^{1} \abs{f} \, dx.
     \end{align}
+\end{proof}
+
+\textit{August 6th.}
+
+\noindent We also recall the following theorem from real analysis.
+
+\begin{theorem}[\eax{Lebesgue-Vitali theorem}]
+    $f:[0,1] \to \R$ is Riemann integrable if and only if $f$ is continuous almost everywhere, and bounded.
+\end{theorem}
+
+\textbf{Theorem 1.16} is a generalization of this, with the condition of $f$ being continuous replaced with $f$ being continuous almost everywhere. Of course, this theory extends to complex-valued functions.
+
+\begin{definition}
+    A function $f:[0,1] \to \C$ is said to be Lebesgue integrable, denoted $f \in L^{1}([0,1];\C) (\equiv L^{1}[0,1])$ if $\Re(f),\Im(f) \in L^{1}([0,1];\R)$. The Lebesgue integral of $f$ is defined as
+    \begin{align}
+        \int_{0}^{1} f \, dx \defeq \int_{0}^{1} \Re(f) \, dx + i\int_{0}^{1} \Im(f) \, dx
+    \end{align}
+    where $\Re(f) = \frac{f+\overline{f}}{2}$ and $\Im(f) = \frac{f-\overline{f}}{2i}$.
+\end{definition}
+
+\begin{theorem}
+    If $f \in L^{1}([0,1];\C)$, then $\abs{f} \in L^{1}([0,1];\R)$ and $\abs{\int_{0}^{1} f \, dx} \leq \int_{0}^{1} \abs{f} \, dx$.
+\end{theorem}
+\begin{proof}
+    Note that $h_{1}=\Re(f),h_{2}=\Im(f) \in L^{1}([0,1];\R)$, so $\abs{\Re(f)},\abs{\Im(f)} \in L^{1}([0,1];\R)$. Let $s_{n}$ and $t_{n}$ be a sequence of step functions that converge to $h_{1}$ and $h_{2}$ from below. Then,
+    \begin{align}
+        \sqrt{s_{n}^{2}+t_{n}^{2}} \leq \abs{s_{n}} + \abs{t_{n}} \implies \int_{0}^{1} \abs{f(x)} \, dx \defeq \lim_{n \to \infty} \int_{0}^{1} \sqrt{s_{n}^{2}+t_{n}^{2}} \, dx \leq \int_{0}^{1} \abs{h_{1}(x)} \, dx + \int_{0}^{1} \abs{h_{2}(x)} \, dx < \infty.
+    \end{align}
+    Thus, $\abs{f} \in L^{1}([0,1];\R)$. For the inequality, we can break down $f$ as $f(x) = u(x)\abs{f(x)}$, where $\abs{u(x)} = 1$ for all $x \in [0,1]$. Thus, $\overline{u(x)}f(x) = \abs{f(x)}$
+\end{proof}
+
+\subsection{Convergence and Density}
+
+Recall the equivalence relation $\sim$  used to define the quotient space $\cS[0,1]/\sim$, which was then extended to form $L^{1}[0,1]$. We claim that $\cS[0,1]/\! \sim \; \subseteq L^{1}[0,1]$ is dense in $(L^{1}[0,1],\norm{\cdot}_{1})$.
+
+\begin{lemma}
+    $(\cS[0,1]/\! \sim, \norm{\cdot}_{1})$ is dense in $(C[0,1],\norm{\cdot}_{1})$.
+\end{lemma}
+\begin{proof}
+    Let $f \in C[0,1]$. Then $f$ is bounded, so there exists $M > 0$ such that $\abs{f(x)} \leq M$ for all $x \in [0,1]$. Let $\eps > 0$. By the uniform continuity of $f$, there exists $\delta > 0$ such that $\abs{f(x)-f(y)} < \eps$ whenever $\abs{x-y} < \delta$. Choose $N \in \N$ such that $2^{-N} < \delta$. Consider the partition $\cP_{N}:x_{0} < x_{1} < \cdots < x_{2^{N}}$ of $[0,1]$ into $2^{N}$ equal subintervals of length $2^{-N}$. Define the step function $s_{N}$ as
+    \begin{align}
+        s_{N}(x) = f(x_{k-1}) \quad \text{for } x \in (x_{k-1},x_{k}], \quad 1 \leq k \leq 2^{N}.
+    \end{align}
+    Then,
+    \begin{align}
+        \norm{f-s_{N}}_{1} = \int_{0}^{1} \abs{f(x)-s_{N}(x)} \, dx = \sum_{k=1}^{2^{N}} \int_{x_{k-1}}^{x_{k}} \abs{f(x)-f(x_{k-1})} \, dx < 2^{N} 2^{-N} \eps = \eps.
+    \end{align}
+    Hence, $(\cS[0,1]/\! \sim, \norm{\cdot}_{1})$ is dense in $(C[0,1],\norm{\cdot}_{1})$.
+\end{proof}
+
+\begin{lemma}
+    $(C[0,1],\norm{\cdot}_{1})$ is dense in $(L^{1}[0,1],\norm{\cdot}_{1})$.
+\end{lemma}
+
+\begin{theorem}
+    Let $\{s_{n}\}_{n \geq 1}$ be an increasing sequence of step functions such that $\lim_{n \to \infty} \int_{0}^{1} s_{n}(x) \, dx$ exists. Then $s_{n}$ converges pointwise almost everywhere to some upper function $f \in U[0,1]$ and $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} s_{n}(x) \, dx = \int_{0}^{1} \lim_{n \to \infty} s_{n}(x) \, dx$.
+\end{theorem}
+\begin{proof}
+    Without the loss of generality, we can assume that $s_{n} \geq 0$ for all $n \geq 1$; also Let $M = \lim_{n \to \infty} \int_{0}^{1} s_{n}(x) \, dx$. Define $D = \{x \in [0,1] \mid s_{n}(x) \uparrow \infty \text{ or diverges}\}$. We wish to show that $D$ has content zero. Let $\eps > 0$. Further define $t_{n}(x) = \floor{\frac{\eps}{2 M} s_{n}(x)}$ for all $x \in [0,1]$ and $n \geq 1$. These $t_{n}$ are an increasing sequence of step functions. If $\{s_{n}\}_{n \geq 1}$ converges, then $\{t_{n}\}_{n \geq 1}$ converges as well and, hence, is eventually constant. If $\{s_{n}\}_{n \geq 1}$ diverges, then $t_{n+1}(x) - t_{n}(x) \geq 1$ for infinitely many values of $n$. Let
+    \begin{align}
+        D_{n} = \{x \in [0,1] \mid t_{n+1}(x) - t_{n}(x) \geq 1\}.
+    \end{align} 
+    Notice that $D \subseteq \bigcup_{n=1}^{\infty} D_{n}$. Now,
+    \begin{align}
+        \int_{0}^{1} (t_{n+1}(x) - t_{n}(x)) \, dx \geq \int_{0}^{1} \chi_{D_{n}}(x)(t_{n+1}(x)-t_{n}(x)) \, dx \geq \abs{D_{n}}.
+    \end{align}
+    This leads to
+    \begin{align}
+        \sum_{n=1}^{m} \abs{D_{n}} &\leq \sum_{n=1}^{m} \int_{0}^{1} (t_{n+1}(x)-t_{n}(x)) \, dx = \int_{0}^{1} t_{m+1}(x) \, dx - \int_{0}^{1} t_{1}(x) \, dx \notag \\ &\leq \int_{0}^{1} t_{m+1}(x) \, dx \leq \frac{\eps}{2 M} \int_{0}^{1} s_{m+1}(x) \, dx < \eps.
+    \end{align}
+    Thus, $\sum_{n=1}^{\infty} \abs{D_{n}} < \eps$, and hence $\abs{D} = 0$. The rest of the proof follows from the definition of upper functions.
+\end{proof}
+
+The above is known as the monotone converge theorem for step functions. We can extend this to upper functions as follows.
+
+\begin{theorem}
+    Let $\{f_{n}\}_{n \geq 1}$ be an increasing sequence of upper functions such that $\lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx$ exists. Then $f_{n}$ converges pointwise almost everywhere to some upper function $f \in U[0,1]$ and $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx = \int_{0}^{1} \lim_{n \to \infty} f_{n}(x) \, dx$.
+\end{theorem}
+\begin{proof}
+    Let $s_{n,k} \uparrow f_{k}$ almost everywhere, and define $t_{n}(x) = \max\{s_{n,1}(x),\ldots,s_{n,n}(x)\}$. Then $t_{n}$ is increasing, and $t_{n}(x) \leq \max\{f_{1}(x),\ldots,f_{n}(x)\} = f_{n}(x)$ almost everywhere. Therefore, $\lim_{0}^{1} t_{n}(x) \, dx \leq \int_{0}^{1} f_{n}(x) \, dx \leq M$ for some $M$. Define $f(x) \defeq \lim_{n \to \infty} t_{n}(x)$, wherever the limit exists. By the monotone convergence theorem for step function, $f$ is defined almost everywhere, and $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} t_{n}(x) \, dx$. Also, $s_{n,k}(x) \leq t_{n}(x)$ for all $k \leq n$, so $f_{k}(x) = \lim_{n \to \infty} s_{n,k}(x) \leq \lim_{n \to \infty} t_{n}(x) = f(x)$ almost everywhere. Let $f_{k}(x) \to g(x)$ almost everywhere; we show that $f(x)=g(x)$ almost everywhere. Note that $g(x) \leq f(x)$ almost everywhere. Then $t_{n}(x) \leq f_{n}(x) \leq g(x)$ almost everywhere, so $f(x) \leq g(x)$ almost everywhere. Hence, $f(x) = g(x)$ almost everywhere. Hence, $f \in U[0,1]$. The rest of the proof follows from the monotone convergence theorem for step functions.
 \end{proof}
