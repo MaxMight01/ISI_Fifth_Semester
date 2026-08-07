@@ -259,7 +259,7 @@ and let $\cF = \sigma(S)$. Verify that $S$ is a $\pi$-system; we can set
 \end{align}
 For now, assume that $\mu$ is a pre-measure on $S$. Then there'll exist a unique probability measure on $(\Omega,\sigma(S))$ that extends $\mu$.
 
-\section{Random Variables}
+\section{Measurable Maps and Random Variables}
 
 Note that a space $(\Omega,\cF)$ is called a \eax{measurable space}.
 \begin{definition}
@@ -281,3 +281,44 @@ The most non-trivial yet basic example of a random variable is the \eax{indicato
 \begin{lemma}
     If $X,Y:(\Omega,\cF) \to (\R,\cB)$ are random variables, then $X+Y$ is also a random variable. More generally, if $f:\R^{2} \to \R$ is continuous, then $f(X,Y)$ is a random variable.
 \end{lemma}
+
+\textit{August 7th.}
+
+\begin{example}
+    Consider the infinite simple random walk from before; for $a \in \Z$, define $\tau_{a} = \inf\{n > 0 \mid S_{n}=a\}$, the first hitting time of $a$. Then we claim that $\tau_{a}$ is measurable and, hence, a random variable. To see this, note that $\tau_{a}^{-1}((n,\infty)) = \{\omega \in \Omega \mid \tau_{a}(\omega) > n\} = \{\omega \in \Omega \mid S_{1}(\omega) \neq a, S_{2}(\omega) \neq a, \ldots, S_{n}(\omega) \neq a\} = \bigcap_{k=1}^{n}\{\omega \in \Omega \mid S_{k}(\omega) \neq a\}$, which is in $\cF$ since $S_{k}$ is measurable for all $k$. Thus, $\tau_{a}$ is measurable.
+\end{example}
+
+\begin{definition}
+    Let $(\Omega,\cF,\Prob)$ be a probability space, and let $T:(\Omega,\cF) \to (\tilde{\Omega},\tilde{\cF})$ be a measurable map. Then, the \eax{pushforward measure} of $\Prob$ under $T$ is the measure $\tilde{\Prob}$ on $(\tilde{\Omega},\tilde{\cF})$ defined by $\tilde{\Prob}(A) = \Prob(T^{-1}(A))$ for all $A \in \tilde{\cF}$.
+\end{definition}
+Indeed, one can show that the pushforward measure $\tilde{\Prob}$ is a probability measure on $(\tilde{\Omega},\tilde{\cF})$.
+
+\begin{definition}
+    Given a Borel probability measure $\mu$ on $(\R,\cB)$, we define the \eax{cumulative distribution function} of $\mu$ to be the function $F_{\mu}:\R \to [0,1]$ defined by $F_{\mu}(x) = \mu((-\infty,x])$ for all $x \in \R$. 
+\end{definition}
+
+\begin{proposition}
+    With $\mu$ as above, the following hold true.
+    \begin{enumerate}
+        \item $F_{\mu}$ is non-decreasing.
+        \item $\lim_{x \to \infty} F_{\mu}(x) = 1$ and $\lim_{x \to -\infty} F_{\mu}(x) = 0$.
+        \item $F_{\mu}$ is right-continuous.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item If $x_{1} \leq x_{2}$, then $(-\infty,x_{1}] \subseteq (-\infty,x_{2}]$, and hence $F_{\mu}(x_{1}) = \mu((-\infty,x_{1}]) \leq \mu((-\infty,x_{2}]) = F_{\mu}(x_{2})$.
+        \item Note that $\R = \bigcup_{n=1}^{\infty}(-\infty,n]$; defining $A_{k} = (-\infty,k]$, we have $A_{1} \subseteq A_{2} \subseteq \cdots$ and $A_{k} \uparrow \R$. Since $\mu$ is a measure, $\mu(A_{k}) \uparrow \mu(\R) = 1$, and hence $\lim_{x \to \infty} F_{\mu}(x) = 1$. Similarly, $\lim_{x \to -\infty} F_{\mu}(x) = 0$.
+        \item Let $x_{n}$ be a decreasing sequence of numbers such that $x_{n} \downarrow x$. Then, $(-\infty,x_{1}] \supseteq (-\infty,x_{2}] \supseteq \cdots$ and $(-\infty,x_{n}] \downarrow (-\infty,x]$. Since $\mu$ is a measure, $\mu((-\infty,x_{n}]) \downarrow \mu((-\infty,x])$, and hence $F_{\mu}(x_{n}) \downarrow F_{\mu}(x)$. Thus, $F_{\mu}$ is right-continuous.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+    Suppose $F:\R \to [0,1]$ is a non-decreasing, right-continuous function such that $\lim_{x \to -\infty} F(x) = 0$ and $\lim_{x \to \infty} F(x) = 1$. Then, there exists a unique Borel probability measure $\mu$ on $(\R,\cB)$ such that $F = F_{\mu}$.
+\end{theorem}
+Thus, there is a one-to-one correspondence between Borel probability measures on $(\R,\cB)$ and cumulative distribution functions. In general, it easier to study the cumulative distribution function of a probability measure than the measure itself.
+
+\begin{theorem}
+    Given any probability measure $\mu$ on $(\R^{n},\cB(\R^{n}))$, there exists a measurable map $T:([0,1],\cB([0,1]),\lambda) \to (\R^{n},\cB(\R^{n}))$ such that $\mu = \lambda \circ T^{-1}$. That is, the pushforward measure of $\lambda$ under $T$ is $\mu$. 
+\end{theorem}
