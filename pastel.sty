@@ -1,0 +1,78 @@
+% pastel.sty
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pastel}
+
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{xcolor}
+\RequirePackage{etoolbox}
+
+% === Customize these for each subject ===
+\definecolor{daa_color}{HTML}{F7D6A3}        % Design and Analysis of Algorithms
+\definecolor{fgt_color}{HTML}{BFD8B8}        % Field and Galois Theory
+\definecolor{prob_III_color}{HTML}{AFCFEA}   % Probability III
+\definecolor{fs_color}{HTML}{E6D4F5}         % Function Spaces
+\definecolor{diff_geo_color}{HTML}{F6C8D8}   % Differential Geometry and Lie Groups
+\definecolor{stoch_pro_color}{HTML}{BCE7E3}  % Intro to Stochastic Processes
+\definecolor{gr_color}{HTML}{C9C6F2}         % General Relativity
+\definecolor{comm_alg_color}{HTML}{F2D2B6}   % Commutative Algebra 
+\definecolor{rep_color}{HTML}{D7E8B2}        % Representation Theory of Finite Groups
+\definecolor{ant_color}{HTML}{D8C3E8}        % Algebraic Number Theory
+
+\definecolor{default}{HTML}{4F4F4F}
+
+% === Choose one color per subject ===
+\newcommand{\subjectcolor}{default}
+\newcommand{\setsubjectcolor}[1]{\renewcommand{\subjectcolor}{#1}}
+
+% === Box styling for theorems ===
+\tcbset{
+  pastelbox/.style={
+    colback=\subjectcolor!40!white,
+    colframe=\subjectcolor!80!black,
+    fonttitle=\bfseries,
+    boxrule=0.5pt,
+    arc=3pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    enhanced,
+    breakable,
+    underlay={
+        % Top-left triangle
+        \path[fill=\subjectcolor!80!black] 
+            (frame.north west) -- ++(-0.05,0.05) -- ++(0.5,0) -- ++(-0.5,-0.5) -- ++(0,0.5) -- cycle;
+
+        % Bottom-right triangle
+        \path[fill=\subjectcolor!80!black] 
+            (frame.south east) -- ++(0.05,-0.05) -- ++(-0.5,0) -- ++(0.5,0.5) -- ++(0,-0.5) -- cycle;
+    },
+    shadow={0mm}{-0.5mm}{1mm}{\subjectcolor!30!black},
+  }
+}
+
+% === Automatically wrap theorems in boxes ===
+\AtBeginEnvironment{theorem}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{theorem}{\end{tcolorbox}}
+
+\AtBeginEnvironment{definition}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{definition}{\end{tcolorbox}}
+
+\AtBeginEnvironment{axiom}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{axiom}{\end{tcolorbox}}
+
+\AtBeginEnvironment{lemma}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{lemma}{\end{tcolorbox}}
+
+\AtBeginEnvironment{proposition}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{proposition}{\end{tcolorbox}}
+
+\AtBeginEnvironment{corollary}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{corollary}{\end{tcolorbox}}
+
+\AtBeginEnvironment{remark}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{remark}{\end{tcolorbox}}
+
+\AtBeginEnvironment{example}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{example}{\end{tcolorbox}}
