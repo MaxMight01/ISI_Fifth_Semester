@@ -400,6 +400,8 @@ Recall the equivalence relation $\sim$  used to define the quotient space $\cS[0
     Thus, $\sum_{n=1}^{\infty} \abs{D_{n}} < \eps$, and hence $\abs{D} = 0$. The rest of the proof follows from the definition of upper functions.
 \end{proof}
 
+\noindent \textit{August 10th.}
+
 The above is known as the monotone converge theorem for step functions. We can extend this to upper functions as follows.
 
 \begin{theorem}
@@ -408,3 +410,44 @@ The above is known as the monotone converge theorem for step functions. We can e
 \begin{proof}
     Let $s_{n,k} \uparrow f_{k}$ almost everywhere, and define $t_{n}(x) = \max\{s_{n,1}(x),\ldots,s_{n,n}(x)\}$. Then $t_{n}$ is increasing, and $t_{n}(x) \leq \max\{f_{1}(x),\ldots,f_{n}(x)\} = f_{n}(x)$ almost everywhere. Therefore, $\lim_{0}^{1} t_{n}(x) \, dx \leq \int_{0}^{1} f_{n}(x) \, dx \leq M$ for some $M$. Define $f(x) \defeq \lim_{n \to \infty} t_{n}(x)$, wherever the limit exists. By the monotone convergence theorem for step function, $f$ is defined almost everywhere, and $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} t_{n}(x) \, dx$. Also, $s_{n,k}(x) \leq t_{n}(x)$ for all $k \leq n$, so $f_{k}(x) = \lim_{n \to \infty} s_{n,k}(x) \leq \lim_{n \to \infty} t_{n}(x) = f(x)$ almost everywhere. Let $f_{k}(x) \to g(x)$ almost everywhere; we show that $f(x)=g(x)$ almost everywhere. Note that $g(x) \leq f(x)$ almost everywhere. Then $t_{n}(x) \leq f_{n}(x) \leq g(x)$ almost everywhere, so $f(x) \leq g(x)$ almost everywhere. Hence, $f(x) = g(x)$ almost everywhere. Hence, $f \in U[0,1]$. The rest of the proof follows from the monotone convergence theorem for step functions.
 \end{proof}
+
+Again, we can extend this to Lebesgue integrable functions as follows.
+
+\begin{theorem}[The \eax{monotone convergence theorem}]
+    Let $\{f_{n}\}_{n \geq 1}$ be an increasing sequence of Lebesgue integrable functions such that $\lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx$ exists. Then $f_{n}$ converges pointwise almost everywhere to some Lebesgue integrable function $f \in L^{1}[0,1]$ and $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx = \int_{0}^{1} \lim_{n \to \infty} f_{n}(x) \, dx$.
+
+    Alternatively, let $\{g_{n}\}_{n \geq 1}$ be a sequence of non-negative, almost everywhere, Lebesgue integrable functions such that $\sum_{n=1}^{\infty} \int_{0}^{1} g_{n}(x) \, dx$ converges. Then the series $\sum_{n=1}^{\infty} g_{n}(x)$ converges almost everywhere to a Lebesgue integrable function $g \in L^{1}[0,1]$, and $\int_{0}^{1} g \, dx = \int_{0}^{1} \sum_{n=1}^{\infty} g_{n}(x) \, dx = \sum_{n=1}^{\infty} \int_{0}^{1} g_{n}(x) \, dx$.
+\end{theorem}
+
+We require the following theorem to prove the monotone convergence theorem for Lebesgue integrable functions.
+
+\begin{theorem}
+    Let $f \in L^{1}[0,1]$ and $\eps > 0$. Then
+    \begin{enumerate}
+        \item there exist upper functions $u,v \in U[0,1]$ such that $f = u-v$, with $v$ non-negative almost everywhere, and $\int_{0}^{1} v \, dx < \eps$, and
+        \item there exists a step function $s \in \cS[0,1]$ and $g \in L^{1}[0,1]$ such that $f = s+g$ with $\norm{g}_{1} < \eps$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $f = u_{1}-v_{1}$, with $u_{1},v_{2} \in U[0,1]$. Let $\{t_{n}\}_{n \geq 1} \subseteq \cS[0,1]$ be such that $t_{n} \uparrow v_{1}$, and let $N \in \N$ be such that $0 \leq \int_{0}^{1} (v_{1}-t_{N})(x) \, dx < \eps$. Then $f = u_{1}-t_{N}-(v_{1}-t_{N})$, with $u = u_{1}-t_{N}$ and $v = v_{1}-t_{N}$.
+        \item Let $f = u-v$, with $u,v \in U[0,1]$, and $v \geq 0$ almost everywere. Pick a step function $s \in \cS[0,1]$ such that $0 \leq \int_{0}^{1} (u-s)(x) \, dx < \frac{\eps}{2}$. Then $f = u-v = s+(u-s)-v$, wth $g=u-s-v \in L^{1}[0,1]$. Then $\norm{g}_{1} = \int_{0}^{1} \abs{g(x)} \, dx \leq \int_{0}^{1} (u-s)(x) \, dx + \int_{0}^{1} v(x) \, dx < \frac{\eps}{2} + \frac{\eps}{2} = \eps$. 
+    \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of monotone convergence theorem]
+    For $\eps > 0$, let $g = u_{\eps}-v_{\eps}$, with $u_{\eps},v_{\eps} \in U[0,1]$, $v_{\eps} \geq 0$ almost everywhere, and $\int_{0}^{1} v_{\eps} \, dx < \eps$, by the above theorem; for $n \in \N$, there exists a decomposition $g_{n} = u_{n}-v_{n}$, with $u_{n},v_{n} \in U[0,1]$, $v_{n} \geq 0$ almost everywhere, and $\int_{0}^{1} v_{n} \, dx < \frac{1}{2^{n}}$. Then $\sum_{n=1}^{\infty} \left( \int_{0}^{1} v_{n}(x) \, dx \right)$ converges. Now, $u_{n} = g+v_{n} \geq 0$ almost everywhere; define $U_{n}(x) = \sum_{k=1}^{n} u_{k}(x)$, an increasing sequence of upper functions.Then
+    \begin{align}
+        \int_{0}^{1} U_{n}(x) \, dx = \sum_{k=1}^{n} \int_{0}^{1} u_{k}(x) \, dx = \sum_{k=1}^{n} \left( \int_{0}^{1} g(x) \, dx \right)+ \sum_{k=1}^{n} \left( \int_{0}^{1} v_{k}(x) \, dx \right).
+    \end{align}
+    However, both the sums on the right are finite; one by hypothesis, and one by the choice of the $v_{k}$'s. Hence, $\lim_{n \to \infty} \int_{0}^{1} U_{n}(x) \, dx$ exists. By the monotone convergence theorem for upper functions, $U_{n}$ converges pointwise almost everywhere to $U$, an upper function on $[0,1]$, and $\int_{0}^{1} U(x) \, dx = \lim_{n \to \infty} \int_{0}^{1} U_{n}(x) \, dx$. Similarly, one can obtain $V$ with $\int_{0}^{1} V(x) \, dx = \lim_{n \to \infty} \int_{0}^{1} V_{n}(x) \, dx$. Then, define $g = U-V$, which is Lebesgue integrable, and $\int_{0}^{1} g \, dx = \sum_{n=1}^{\infty}\int_{0}^{1} g_{n}(x) \, dx$.
+\end{proof}
+
+This naturally leads to the next theorem.
+
+\begin{theorem}[The \eax{dominated convergence theorem}]
+    Let $\{f_{n}\}_{n \geq 1}$ be a sequence of Lebesgue integrable functions such that $f_{n} \to f$ almost everywhere, and there exists a Lebesgue integrable function $g \geq 0$ almost everywhere such that $\abs{f_{n}} \leq g$ almost everywhere for all $n \geq 1$. Then $f \in L^{1}[0,1]$ and $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx$.
+\end{theorem}
+% \begin{proof}
+%     Let $g = u-v$ with $u,v \in U[0,1]$, $v \geq 0$ almost everywhere. Then $-g(x) \leq f_{n}(x) \leq g(x) \leq u(x)$ almost everywhere. Define $G_{n,1}(x) = \max\{f_{1}(x),\ldots,f_{n}(x)\}$. Then $\abs{G_{n,1}} \leq g$ almost everywhere on $[0,1]$, and $\abs{\int_{0}^{1} G_{n,1}(x) \, dx} \leq \int_{0}^{1} g(x) \, dx < \infty$. By the monotone convergence theorem, there exists $G \in L^{1}[0,1]$ such that $G_{n,1} \uparrow G$ and $\int_{0}^{1} G(x) \, dx = \lim_{n \to \infty} \int_{0}^{1} G_{n,1}(x) \, dx \leq \int_{0}^{1} g(x) \, dx$. Now define $G_{n,k}(x) = \max\{f_{n}(x),\ldots,f_{n+k}(x)\}$.
+% \end{proof}
