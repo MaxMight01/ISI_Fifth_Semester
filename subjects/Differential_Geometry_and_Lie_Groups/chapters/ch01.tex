@@ -558,7 +558,7 @@ The proof follows a similar structure to the one above.
     \end{enumerate}
 \end{proposition}
 
-\subsection{Examples}
+\subsubsection{Examples}
 
 \textit{August 5th.}
 
@@ -580,3 +580,73 @@ We look at some examples of smooth manifolds and smooth maps.
     Similar to the above, we can define $\Prob_{k}^{n}$ to be the projective space of dimension $n$ over the field $k$; that is, $\Prob_{k}^{n} = k^{n+1}\setminus\{0\}/\sim$, where $(x_{1},\ldots,x_{n+1}) \sim (y_{1},\ldots,y_{n+1})$ if there exists $\lambda \in k\setminus\{0\}$ such that $(x_{1},\ldots,x_{n+1}) = (\lambda y_{1},\ldots,\lambda y_{n+1})$. In particular, if $k = \C$, then $\Prob_{\C}^{n}$ consists of complex 1-dimensional subspaces of $\C^{n+1}$. This is a smooth manifold of dimension $2n$. $\R P^{n}$ may be, thus, interpreted as the space of real 1-dimensional subspaces of $\R^{n+1}$. Building upon this, the \eax{Grassmannian space} $\Gr(n,k)$ is defined as the space of $k$-dimensional subspaces of $\R^{n}$. This is a smooth manifold of dimension $k(n-k)$. The Grassmannian space $\Gr(n+1,1)$ is precisely $\R P^{n}$, and $\Gr(n,0)$ is a single point. $\Gr(n,n-1)$ is the space of hyperplanes in $\R^{n}$. Again, the Grassmannian construction may be generalized to any field.
 \end{example}
 
+\subsection{Quotient Manifolds}
+\textit{August 10th.}
+
+Recall that for an equivalence relation $\sim$ on a set $S$, the quotient set $S/\!\sim$ is defined as the set of equivalence classes $[s] = \{t \in S \mid t \sim s\} \in S/\!\sim$. If $S$ happens to be a topological space, then the projection map $\pi:S \to S/\!\sim$ defined as $s \mapsto [s]$ is continuous if we endow $S/\!\sim$ with the quotient topology; that is, a subset $U \subseteq S/\!\sim$ is open if and only if $\pi^{-1}(U) \subseteq S$ is open. This is the finest topology on $S/\!\sim$ which makes $\pi$ continuous. Also recall the universal property; that is, if $f:S \to X$ is a set map between topological spaces, and $\pi:S \to S/\!\sim$ is the projection map, then there exists a unique map $\tilde{f}:S/\!\sim \to X$ such that $f = \tilde{f} \circ \pi$ if and only if $f$ is constant on equivalence classes. In this case, $\tilde{f}$ is continuous if and only if $f$ is continuous.
+
+The equivalence relation $\sim$ on $S$ is called open if the projection map $\pi:S \to S/\!\sim$ is open; that is, if $U \subseteq S$ is open, then $\pi(U) \subseteq S/\!\sim$ is open. Usually, $S/\!\sim$ is not $T_{2}$ is general. The following is a sufficient condition for $S/\!\sim$ to be $T_{2}$, or Hausdorff.
+
+\begin{proposition}
+    Let $\sim$ be an open equivalence relation on a topological space $S$. Then $S/\!\sim$ is $T_{2}$ if and only if $\{(x,y) \in S \times S \mid x \sim y\}$ is closed in $S \times S$.
+\end{proposition}
+
+\begin{proof}
+    Suppose the set $R = \{(x,y) \in S \times S \mid x \sim y\}$ is closed in $S \times S$. That is, for all $(x,y) \in S \times S$ such that $x \not\sim y$, there exist open neighbourhoods $U$ of $x$ and $V$ of $y$ such that $U \times V \subseteq S \times S \setminus R$. Since $\sim$ is open, we have that $\pi(U)$ and $\pi(V)$ are open neighbourhoods of $[x]$ and $[y]$, respectively. We claim that $\pi(U) \cap \pi(V) = \emptyset$. Suppose not; then there exists $[z] \in \pi(U) \cap \pi(V)$. Then there exist $u \in U$ and $v \in V$ such that $[z] = [u] = [v]$, which implies that $u \sim v$. But this contradicts the fact that $(u,v) \in U \times V \subseteq S \times S \setminus R$. Thus, $\pi(U) \cap \pi(V) = \emptyset$, and hence $S/\!\sim$ is Hausdorff.
+
+    On the other hand, suppose $S/\!\sim$ is Hausdorff. Let $(x,y) \in S \times S$ such that $x \not\sim y$. Then there exist open neighbourhoods $U$ of $[x]$ and $V$ of $[y]$ in $S/\!\sim$ such that $U \cap V = \emptyset$. Since $\pi:S \to S/\!\sim$ is continuous, we have that $\pi^{-1}(U)$ and $\pi^{-1}(V)$ are open neighbourhoods of $x$ and $y$, respectively. We claim that $\pi^{-1}(U) \times \pi^{-1}(V) \subseteq S \times S \setminus R$. Suppose not; then there exists $(u,v) \in \pi^{-1}(U) \times \pi^{-1}(V)$ such that $u \sim v$. Then we have $[u] = [v]$, which implies that $[u] \in U \cap V$, contradicting the fact that $U \cap V = \emptyset$. Thus, $\pi^{-1}(U) \times \pi^{-1}(V) \subseteq S \times S \setminus R$, and hence $R$ is closed in $S \times S$.
+\end{proof}
+
+
+\begin{example}
+    Let $\R^{n+1} \setminus \{(0,\ldots,0)\}$ be the punctured space, and define an equivalence relation $\sim$ on it as $(x_{1},\ldots,x_{n+1}) \sim (y_{1},\ldots,y_{n+1})$ if there exists $\lambda \in \R\setminus\{0\}$ such that $(x_{1},\ldots,x_{n+1}) = (\lambda y_{1},\ldots,\lambda y_{n+1})$. Then $\R^{n+1} \setminus \{(0,\ldots,0)\}/\!\sim$ is precisely $\R P^{n}$. The projection map $\pi:\R^{n+1} \setminus \{(0,\ldots,0)\} \to \R P^{n}$ is open; let $U \subseteq \R^{n}\setminus\{(0,\ldots,0)\}$ be open. Then $\pi^{-1}(\pi(U)) = \bigcup_{\lambda \in \R\setminus\{0\}} \lambda U$ is open, and hence $\pi(U)$ is open in $\R P^{n}$. Also, the set $R = \{(x,y) \in (\R^{n+1}\setminus\{0\}) \times (\R^{n+1}\setminus\{0\}) \mid x \sim y\}$ is closed in $(\R^{n+1}\setminus\{0\}) \times (\R^{n+1}\setminus\{0\})$, since if $y_{i}=\lambda x_{i}$ for some $\lambda \in \R\setminus\{0\}$, then $x_{i}y_{j}-x_{j}y_{i}=0$ for all $i,j=1,\ldots,n+1$. Thus, $R$ is the zero set of the continuous functions $f_{ij}:(\R^{n+1}\setminus\{0\}) \times (\R^{n+1}\setminus\{0\}) \to \R$ defined as $(x,y) \mapsto x_{i}y_{j}-x_{j}y_{i}$ for all $i,j=1,\ldots,n+1$. Hence, $R$ is closed in $(\R^{n+1}\setminus\{0\}) \times (\R^{n+1}\setminus\{0\})$. By the previous proposition, we have that $\R P^{n}$ is Hausdorff.
+\end{example}
+
+\begin{proposition}
+    Let $\sim$ be an open equivalence relation on a topological space $S$. Then $S$ is second countable if and only if $S/\!\sim$ is second countable.
+\end{proposition}
+\begin{proof}
+    
+    Suppose $S$ is second countable, and let $\cB$ be a countable basis for $S$. Then $\cB' = \{\pi(B) \mid B \in \cB\}$ is a countable collection of open sets in $S/\!\sim$. We claim that $\cB'$ is a basis for $S/\!\sim$. Let $U \subseteq S/\!\sim$ be open, and let $[x] \in U$. Then $\pi^{-1}(U) \subseteq S$ is open, and hence there exists $B \in \cB$ such that $x \in B \subseteq \pi^{-1}(U)$. Then we have $[x] \in \pi(B) \subseteq U$, and hence $\cB'$ is a basis for $S/\!\sim$. Thus, $S/\!\sim$ is second countable.
+
+    On the other hand, suppose $S/\!\sim$ is second countable, and let $\cB'$ be a countable basis for $S/\!\sim$. Then $\cB = \{\pi^{-1}(B') \mid B' \in \cB'\}$ is a countable collection of open sets in $S$. We claim that $\cB$ is a basis for $S$. Let $U \subseteq S$ be open, and let $x \in U$. Then $\pi(U) \subseteq S/\!\sim$ is open, and hence there exists $B' \in \cB'$ such that $[x] \in B' \subseteq \pi(U)$. Then we have $x \in \pi^{-1}(B') \subseteq U$, and hence $\cB$ is a basis for $S$. Thus, $S$ is second countable.
+\end{proof}
+
+\begin{example}
+    Consider the disc $D^{n} = \{(x_{1},\ldots,x_{n}) \in \R^{n} \mid x_{1}^{2}+\ldots+x_{n}^{2} \leq 1\}$, and the hemisphere $H^{n} = \{(x_{1},\ldots,x_{n+1}) \in S^{n} \mid x_{n+1} \geq 0\}$. On $H^{n}$, define an equivalence relation as $(x_{1},\ldots,x_{n},x_{n+1}) \sim (y_{1},\ldots,y_{n},y_{n+1})$ if either
+    \begin{enumerate}
+        \item $x_{n+1} = y_{n+1} = 0$ and $(y_{1},\ldots,y_{n},0) = (-x_{1},\ldots,-x_{n},0)$, or
+        \item $(x_{1},\ldots,x_{n},x_{n+1}) = (y_{1},\ldots,y_{n},y_{n+1})$.
+    \end{enumerate}
+    On $D^{n}$, define an equivalence relation simply as $x \sim y$ if $x = y$ or $x = -y$. Then, one can show that $\R P^{n} \cong S^{n}/\!\sim \; \cong D^{n}/\!\sim \; \cong H^{n}/\!\sim$ as smooth manifolds, where $\sim$ on $S^{n}$ is the antipodal equivalence relation.
+\end{example}
+
+\section{Differential Structure}
+Let $M$ be a smooth manifold of dimension $n$. For a point $p \in M$, let $(U,\varphi)$ be a chart of $M$ such that $p \in U$. The functions $r^{1},\ldots,r^{n}:\R^{n} \to \R$ defined as $r^{i}(x_{1},\ldots,x_{n}) = x_{i}$ are smooth, and hence, we can interpret $(U,\varphi)$ as $(U,x^{1},\ldots,x^{n})$, a chart with smooth coordinate functions $x^{i} = r^{i} \circ \varphi:U \to \R$ for $i = 1,\ldots,n$. Then, given a map $f \in C^{\infty}(U)$, we define the partial derivative of $f$ with respect to the coordinate function $x^{i}$ at $p$ as
+\begin{align}
+    \frac{\partial f}{\partial x^{i}}(p) \defeq \frac{\partial (f \circ \varphi^{-1})}{\partial r^{i}}(\varphi(p)).
+\end{align}
+In fact, given any $p$ in this particular $U$, we have
+\begin{align}
+    (\varphi^{-1})^{\ast}\left(\frac{\partial f}{\partial x^{i}} \right) = \frac{\partial f}{\partial x^{i}} \circ \varphi^{-1} = \frac{\partial (f \circ \varphi^{-1})}{\partial r^{i}} \in C^{\infty}(\varphi(U)).
+\end{align}
+This implies that $\frac{\partial f}{\partial x^{i}} \in C^{\infty}(U)$, and hence the partial derivative of $f$ with respect to $x^{i}$ is smooth on $U$. Moreover, one can show that $\frac{\partial x^{i}}{\partial x^{j}}(p) = \frac{\partial r^{i}}{\partial r^{j}}(\varphi(p)) = \delta_{j}^{i}$.
+
+Let $F:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Let $(U,\varphi)$ be a chart on $N$ with $p \in U$, and $(V,\psi)$ be a chart on $M$ with $F(p) \in V$. Then we can interpret $(U,\varphi)$ as $(U,x^{1},\ldots,x^{n})$, and $(V,\psi)$ as $(V,y^{1},\ldots,y^{m})$, where $x^{i} = r^{i} \circ \varphi:U \to \R$ and $y^{j} = r^{j} \circ \psi:V \to \R$ are smooth coordinate functions. Then, we have $F^{i} = y^{i} \circ F = r^{i} \circ \psi \circ F \in C^{\infty}(U)$ for $i = 1,\ldots,m$. The \eax{Jacobian matrix} of $F$ at $p$, with respect to the charts $(U,\varphi)$ and $(V,\psi)$, is defined as the $m \times n$ matrix
+\begin{align}
+    J_{F}(p) = \left( \frac{\partial F^{i}}{\partial x^{j}}(p) \right)_{1 \leq i \leq m, 1 \leq j \leq n}.
+\end{align}
+Each entry here can be written as
+\begin{align}
+    \frac{\partial F^{i}}{\partial x^{j}}(p) = \frac{\partial (\psi \circ F \circ \varphi^{-1})^{i}}{\partial r^{j}}(\varphi(p)) = \frac{\partial (r^{i}\psi F \varphi^{-1})}{\partial r^{j}}(\varphi(p)) = \frac{\partial(y^{i} F \varphi^{-1})}{\partial r^{j}}(\varphi(p)) = \frac{\partial(F^{i} \circ \varphi^{-1})}{\partial r^{j}}(\varphi(p)).
+\end{align}
+Recall the inverse function theorem, which states that if $F:U\subseteq\R^{n} \to \R^{n}$ is smooth, and the Jacobian matrix $J_{F}(p)$ is invertible at $p \in U$, then there exists an open neighbourhood $V$ of $F(p)$ such that $F:U \to V$ is a diffeomorphism. This motivates the following definition. Thus, if $m = n$ and $J_{F}(p)$ is invertible, then $F$ is a local diffeomorphism at $p$; $\psi circ F \circ \varphi^{-1}$ is a local diffeomorphism at $\varphi(p)$ if and only if $F$ is a local diffeomorphism at $p$.
+
+Let $M$ be a smooth manifold of dimension $n$, and let $p \in M$. Suppose $F^{1},F^{2},\ldots,F^{n}$ are smooth functions on some open neighbourhood $U \subseteq M$ of $p$. Then consider $F = (F^{1},\ldots,F^{n}):U \to \R^{n}$, which is a smooth map. Then $\left(\frac{\partial F^{i}}{\partial x^{j}}(p)\right)_{n \times n}$ is invertible if and only if $F$ is a local diffeomorphism at $p$ if and only if $F:W \to F(W) \subseteq \R^{n}$ is a diffeomorphism for some open neighbourhood $W \subseteq U$ of $p$. Then, on some open set around $p$, we can use $F^{1},\ldots,F^{n}$ as local coordinates. This motivates the following definition.
+
+
+\begin{definition}
+    Let $M$ be a smooth manifold, with $p \in M$. Recall $C_{p}^{\infty}(M) \equiv C_{p}^{\infty}$, the local ring of germs of smooth functions at $p$, which is also an $\R$-algebra. Also define $T_{p}M$ to be the $\R$-vector space of derivations at $p$; that is, $T_{p}M = \{D:C_{p}^{\infty} \to \R \mid D \text{ is linear and satisfies the Leibniz rule}\}$. This $T_{p}M$ is called the \eax{tangent space} of $M$ at $p$.
+\end{definition}
+
+Given a smooth map $F:N \to M$ between smooth manifolds, we can define the map $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ as $D \mapsto F_{\ast,p}(D)$, where $F_{\ast,p}(D)(f) = D(f \circ F)$ for all $f \in C_{F(p)}^{\infty}$. This is the pushforward of $f$ at $p$. Moreover, if $G:M \to P$ is another smooth map, then $(G \circ F)_{\ast,p} = G_{\ast,F(p)} \circ F_{\ast,p}$.
