@@ -319,6 +319,47 @@ Indeed, one can show that the pushforward measure $\tilde{\Prob}$ is a probabili
 \end{theorem}
 Thus, there is a one-to-one correspondence between Borel probability measures on $(\R,\cB)$ and cumulative distribution functions. In general, it easier to study the cumulative distribution function of a probability measure than the measure itself.
 
+\textit{August 11th.}
+
+\subsection{The Pushfoward Measure}
+
+In many situations, we can model a random experiment in several ways. Let $\Omega = [0,1]$, $\cF = \cB$, and $\lambda$ the Lebesgue measure. Define the random variables $X_{1} = \1_{[0,1/2]}$ and $X_{2} = \1_{[0,1/4] \cup [1/2,3/4]}$. Consider $\Gamma = (X_{1},X_{2}):\Omega \to \R^{2}$, and let $\mu = \lambda \circ \Gamma^{-1}$ be the pushforward measure of $\lambda$ under $\Gamma$. The support of $\mu$ is the set $\Gamma(\Omega) = \{(1,0),(0,1),(1,1),(0,0)\}$. The measure at each of these points is given by $\mu(\{(1,0)\}) = \lambda(\Gamma^{-1}(\{(1,0)\})) = \lambda([0,1/4]) = 1/4$, $\mu(\{(0,1)\}) = \lambda(\Gamma^{-1}(\{(0,1)\})) = \lambda([1/2,3/4]) = 1/4$, $\mu(\{(1,1)\}) = \lambda(\Gamma^{-1}(\{(1,1)\})) = \lambda([1/4,1/2]) = 1/4$, and $\mu(\{(0,0)\}) = \lambda(\Gamma^{-1}(\{(0,0)\})) = \lambda([3/4,1]) = 1/4$. Thus, we have a probability measure on the support of $\mu$. That is, we have modeled tossing a fair coin twice, without explicitly defining the sample space as $\{0,1\}^{2}$. The probability space does not matter in most contexts; the random variables and their distributions are what matter.
+
+Naturally, we can ask further questions. Whether the following models can exist: tossing a coin $n$ times, and tossing a coin countably many times. The first question is easy to answer; we can define the $k$-th random variable $X_{k}$ exactly as
+\begin{align}
+    X_{k} = \1_{[0,\frac{1}{2^{k}}] \cup [\frac{2}{2^{k}},\frac{3}{2^{k}}] \cup \cdots \cup [\frac{2^{k}-2}{2^{k}},\frac{2^{k}-1}{2^{k}}]}.
+\end{align}
+We leave it as an exercise to verify that $(X_{1},X_{2},\ldots,X_{n})$ has the same distribution as tossing a fair coin $n$ times.
+
 \begin{theorem}
-    Given any probability measure $\mu$ on $(\R^{n},\cB(\R^{n}))$, there exists a measurable map $T:([0,1],\cB([0,1]),\lambda) \to (\R^{n},\cB(\R^{n}))$ such that $\mu = \lambda \circ T^{-1}$. That is, the pushforward measure of $\lambda$ under $T$ is $\mu$. 
+    Given any probability measure $\mu$ on $(\R,\cB)$, there exists a measurable map $T:([0,1],\cB([0,1]),\lambda) \to (\R^{n},\cB(\R^{n}))$ such that $\mu = \lambda \circ T^{-1}$. That is, the pushforward measure of $\lambda$ under $T$ is $\mu$. 
 \end{theorem}
+
+Before we proceed with this theorem, we show the following proposition.
+\begin{proposition}
+    For any Borel probability measures $\mu$ and $\nu$ on $(\R,\cB)$, if $F_{\mu} = F_{\nu}$, then $\mu = \nu$. That is, the cumulative distribution function uniquely determines the probability measure.
+\end{proposition}
+\begin{proof}
+    Let $\mu$ and $\nu$ be the required measures such that $F_{\mu} = F_{\nu}$, or $\mu((-\infty,x]) = \nu((-\infty,x])$ for all $x \in \R$. Let $S = \{(-\infty,x] \mid x \in \R\}$, which is a $\pi$-system. Note that $\sigma(S) = \cB$; thus, by the Sierpiński-Dynkin $\pi$-$\lambda$ theorem, we have $\mu(A) = \nu(A)$ for all $A \in \cB$. Hence, $\mu = \nu$.
+\end{proof}
+
+We now prove \textbf{Theorem 1.23} and \textbf{Theorem 1.24} together.
+\begin{proof}[Proof of theorems]
+    Suppose $F:\R \to [0,1]$ be a non-decreasing, right-continuous function such that $\lim_{x \to -\infty} F(x) = 0$ and $\lim_{x \to \infty} F(x) = 1$. We will show that there exists a measurable map $T:([0,1],\cB([0,1]),\lambda) \to (\R,\cB)$ such that $F_{\lambda \circ T^{-1}} = F$; note that this implies the second theorem by the previous proposition.
+
+    For such an $F$, we can define a generalized inverse $T$ defined as $T(x) = \inf\{p \in \R \mid F(p) \geq x\}$. For any $x \in [0,1]$, the set $\{p \in \R \mid F(p) \geq x\}$ is non-empty (since $\lim_{p \to \infty} F(p) = 1$) and has infimum, so $T$ is well-defined. Moreover, $T$ is non-decreasing and takes values in $\R$. To show measurability of $T$, note that for any $a \in \R$, we have
+    \begin{align}
+        \{x \in [0,1] \mid T(x) > a\} = \{x \in [0,1] \mid F(a) < x\} = (F(a), 1] \cap [0,1],
+    \end{align}
+    which is a Borel set in $[0,1]$. Thus, $T$ is measurable. We now verify that $F_{\lambda \circ T^{-1}} = F$; For any $x \in \R$, we have
+    \begin{align}
+        (\lambda \circ T^{-1})((-\infty, x]) 
+        &= \lambda(T^{-1}((-\infty, x])) 
+        = \lambda(\{u \in [0,1] \mid T(u) \leq x\}) \notag \\
+        &= \lambda(\{u \in [0,1] \mid \inf\{p \in \R \mid F(p) \geq u\} \leq x\})
+        = \lambda(\{u \in [0,1] \mid F(x) \geq u\}) \notag \\
+        &= \lambda([0, F(x)])
+        = F(x).
+    \end{align}
+    Thus, $F_{\lambda \circ T^{-1}} = F$, establishing the existence of the desired measure.
+\end{proof}
