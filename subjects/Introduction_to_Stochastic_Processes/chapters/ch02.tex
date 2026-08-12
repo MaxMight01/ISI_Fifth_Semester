@@ -40,3 +40,163 @@ Thus, the distribution of $X_{n}$ depends only on the previous state, and not on
 \begin{align}
     \Prob(X_{n}=j \mid X_{0}=i_{0}) = \sum_{i_{1},\ldots,i_{n-1} \in S} \prod_{k=1}^{n} p_{i_{k-1}i_{k}}.
 \end{align}
+
+\noindent \textit{August 12th.}
+
+If, in the distribution of $X_{n}$, the starting point $X_{0} = i$ is specified, we can write the distribution as $\Prob(X_{n}=j \mid X_{0}=i) = p_{ij}^{n}$, where $p_{ij}^{n}$ is the $(i,j)$-th entry of the $n$-step transition matrix $P^{n}$. Further, if $S$ is finite, then whenever $r+s = n$, $P^{n} = P^{r}P^{s}$, and thus $p_{ij}^{n} = \sum_{k \in S} p_{ik}^{r}p_{kj}^{s}$. Expanding gives
+\begin{align}
+    \Prob(X_{n} = j \mid X_{0} = i) = \sum_{k \in S} \Prob(X_{r} = k \mid X_{0} = i) \cdot \Prob(X_{s} = j \mid X_{0} = k).
+\end{align}
+This is called the \eax{Chapman-Kolmogorov equation}.
+
+\begin{example}
+    Let $S$ be a countable vertex set, and let $E \subseteq \{\{i,j\} \mid i,j \in S\}$ be a set of unordered edges. Let $\eta:E \to (0,\infty)$ be a function that assigns a positive weight to each edge. We define $\eta_{ij} = \eta(\{i,j\})$ for all $\{i,j\} \in E$, and $\eta_{ij} = 0$ if $\{i,j\} \notin E$. Then further define $\eta_{i} = \sum_{j \in S} \eta_{ij}$. We may assume that $\eta_{i} < \infty$ for all $i \in S$. Now, set $p_{ij} = \eta_{ij}/\eta_{i}$ for all $i,j \in S$. Then, $0 \leq p_{ij} \leq 1$ and $\sum_{j \in S} p_{ij} = 1$. Thus, $P = [p_{ij}]_{i,j \in S}$ is a transition matrix. The Markov chain with this transition matrix, and $S$ as the state space, is simply a random walk on the weighted graph $(S,E,\eta)$. In particular, if $\eta_{ij} = 1$ for all $\{i,j\} \in E$, then $p_{ij} = 1/\deg(i)$, where $\deg(i)$ is the degree of vertex $i$. This the simple random walk on the graph $(S,E)$.
+\end{example}
+
+\begin{example}
+    Let $S = \{0,1\}$, and let $P = \begin{bmatrix}
+        1-\alpha & \alpha \\
+        \beta & 1-\beta
+    \end{bmatrix}$ with $0 \leq \alpha,\beta \leq 1$. Also define the initial distribution as $\mu(\{0\}) = \mu_{0}$ and $\mu(\{1\}) = \mu_{1} = 1-\mu_{0}$. Then, $\{X_{n}\}_{n \geq 0}$ is a Markov chain on $S$ with transition matrix $P$ and initial distribution $\mu$. This is called a two-state Markov chain.
+\end{example}
+Let us expand on the above example; the distribution of $X_{n}$ is can be given as follows. We know $P^{0} = I$ and $P^{n} = P^{n-1}P$ for $n \geq 1$. Thus, we can write
+\begin{align}
+    p_{00}^{n} = p_{00}^{n-1}(1-\alpha) + p_{01}^{n-1}\beta = p_{00}^{n-1}(1-\alpha-\beta) + \beta.
+\end{align}
+This is a linear recurrence relation; first checking for constant solutions $p_{00}^{n} \equiv p$ gives $p = \frac{\beta}{\alpha + \beta}$. For a more general solution, set $x_{n} = p_{00}^{n} - \frac{\beta}{\alpha + \beta}$, which gives $x_{n} = (1-\alpha-\beta)x_{n-1}$. Thus, $x_{n} = (1-\alpha-\beta)^{n}x_{0}$. With $x_{0} = p_{00}^{0} - \frac{\beta}{\alpha + \beta} = 1 - \frac{\beta}{\alpha + \beta} = \frac{\alpha}{\alpha + \beta}$, we have
+\begin{align}
+    p_{00}^{n} = (1-\alpha-\beta)^{n}\frac{\alpha}{\alpha + \beta} + \frac{\beta}{\alpha + \beta}.
+\end{align}
+One can also show that
+\begin{align}
+    p_{10}^{n} = \frac{\beta}{\alpha + \beta} - \frac{\beta}{\alpha + \beta}(1-\alpha-\beta)^{n}.
+\end{align}
+Thus, the distribution of $X_{n}$ is given by
+\begin{align}
+    \Prob(X_{n} = 0)
+    &= \Prob(X_{n} = 0 \mid X_{0} = 0) \cdot \Prob(X_{0} = 0) + \Prob(X_{n} = 0 \mid X_{0} = 1) \cdot \Prob(X_{0} = 1) = p_{00}^{n}\mu_{0} + p_{10}^{n}\mu_{1} \notag \\
+    &= (p_{00}^{n} - p_{10}^{n})\mu_{0} + p_{10}^{n} = \frac{\beta}{\alpha + \beta} + (1-\alpha-\beta)^{n}\left(\mu_{0} - \frac{\beta}{\alpha + \beta}\right),
+\end{align}
+and
+\begin{align}
+    \Prob(X_{n}=1) = 1-\Prob(X_{n}=0) = \frac{\alpha}{\alpha + \beta} - (1-\alpha-\beta)^{n}\left(\mu_{1} - \frac{\alpha}{\alpha + \beta}\right).
+\end{align}
+Immediately, we can make some observations.
+\begin{enumerate}
+    \item If we take $\mu_{0} = \frac{\beta}{\alpha + \beta}$, then $\Prob(X_{n}=0) = \frac{\beta}{\alpha + \beta}$ and $\Prob(X_{n}=1) = \frac{\alpha}{\alpha + \beta}$ for all $n$. Thus, the distribution of $X_{n}$ is independent of $n$.
+    \item If $\alpha + \beta > 0$, or $1-\alpha-\beta < 1$, then $\lim_{n \to \infty} (1-\alpha-\beta)^{n} = 0$. Thus, $\lim_{n \to \infty} \Prob(X_{n}=0) = \frac{\beta}{\alpha + \beta}$ and $\lim_{n \to \infty} \Prob(X_{n}=1) = \frac{\alpha}{\alpha + \beta}$.
+\end{enumerate}
+
+\begin{example}
+    Consider the following weighted digraph.
+    \begin{center}
+    \begin{tikzpicture}[
+        v/.style={circle, draw, minimum size=8mm, inner sep=0pt},
+        edge label/.style={draw=none, fill=\subjectcolor!40!white, inner sep=2pt, font=\small},
+        ->, >=stealth, semithick
+    ]
+
+        % Vertices
+        \node[v] (1) at (0, 0) {1};
+        \node[v] (2) at (2.5, 0) {2};
+        \node[v] (3) at (5, 0) {3};
+        \node[v] (4) at (7.5, 1.5) {4};
+        \node[v] (5) at (7.5, -1.5) {5};
+
+        % Edges
+        \draw (1) to[bend left=15] node[edge label] {1} (2);
+        \draw (2) to[bend left=15] node[edge label] {1/2} (1);
+        
+        \draw (2) to node[edge label] {1/2} (3);
+        
+        \draw (3) to node[edge label] {1/2} (4);
+        
+        \draw (3) to[bend left=15] node[edge label] {1/2} (5);
+        \draw (5) to[bend left=15] node[edge label] {1/2} (3);
+        
+        % Self-loop using basic TikZ angles
+        \draw (4) to[out=135, in=45, looseness=5] node[edge label] {1/2} (4);
+        
+        \draw (4) to[bend left=15] node[edge label] {1/2} (5);
+        \draw (5) to[bend left=15] node[edge label] {1/2} (4);
+
+    \end{tikzpicture}
+    \end{center}
+    Intuitively, it is clear that the Markov chain will spend a `finite' amount of time in states $1$ and $2$, and an `infinite' amount of time in states $3$, $4$, and $5$. We can formalize this by computing the distribution of $X_{n}$ as $n \to \infty$. We wish to show that $p_{11}^{n} \to 0$ as $n \to \infty$.
+\end{example}
+
+\subsection{Recurrence and Transience}
+
+Let $\{X_{n}\}_{n \geq 0}$ be a Markov chain on a countable state space $S$ with transition matrix $P = [p_{ij}]_{i,j \in S}$, and initial distribution $\mu$. For all $n \geq 1$ and $i \in S$, define
+\begin{align}
+    N_{n}(i) = \sum_{k=0}^{n} \1_{\{X_{k} = i\}} \quad \text{and} \quad N(i) = \sum_{k=0}^{\infty} \1_{\{X_{k} = i\}}.
+\end{align}
+That is, $N_{n}(i)$ is the number of visits to state $i$ up to time $n$, and $N(i)$ is the total number of visits to state $i$. From here, we can define the following.
+\begin{definition}
+    A state $i \in S$ is called \eax{recurrent} if $\Prob(N(i) = \infty) = 1$, and \eax{transient} if $\Prob(N(i) < \infty) = 1$. The chain $\{X_{n}\}_{n \geq 1}$ is called recurrent if all states are recurrent, and transient if all states are transient.
+\end{definition}
+We shall later show that every state in a Markov chain is either recurrent or transient. For $i \in S$, let $T_{i} = \min\{n \geq 1 \mid X_{n} = i\}$ be the first return time to state $i$. 
+
+\begin{lemma}
+    Let $i \in S$, and $m \geq 1$. Then
+    \begin{align}
+        \Prob(N(i) \geq m \mid X_{0} = i) = \Prob(T_{i} < \infty \mid X_{0} = i)^{m}.
+    \end{align}
+\end{lemma}
+
+\begin{proof}
+    We have
+    \begin{align}
+        \{N(i) \geq m\} = \bigcup_{k=1}^{\infty} \{N(i) \geq m, \, T_{i} = k\}.
+    \end{align}
+    Suppose, for $k \geq 1$, that $\Prob(T_{i} = k \mid X_{0} = i) > 0$. Then, by the Markov property, we have
+    \begin{align}
+        \Prob(N(i) \geq m, \, T_{i} = k \mid X_{0} = i) &= \Prob(N(i) \geq m \mid T_{i} = k, \, X_{0} = i) \cdot \Prob(T_{i} = k \mid X_{0} = i) \notag \\ &= \Prob(N(i) \geq m-1 \mid X_{0} = i) \cdot \Prob(T_{i} = k \mid X_{0} = i).
+    \end{align}
+    Note that this equation is trivially true if $\Prob(T_{i} = k \mid X_{0} = i) = 0$. Thus, we have
+    \begin{align}
+        \Prob(N(i) \geq m \mid X_{0} = i)
+        &= \sum_{k=1}^{\infty} \Prob(N(i) \geq m, \, T_{i} = k \mid X_{0} = i) \notag \\
+        &= \sum_{k=1}^{\infty} \Prob(N(i) \geq m-1 \mid X_{0} = i) \cdot \Prob(T_{i} = k \mid X_{0} = i) \notag \\
+        &= \Prob(N(i) \geq m-1 \mid X_{0} = i) \cdot \sum_{k=1}^{\infty} \Prob(T_{i} = k \mid X_{0} = i) \notag \\
+        &= \Prob(N(i) \geq m-1 \mid X_{0} = i) \cdot \Prob(T_{i} < \infty \mid X_{0} = i).
+    \end{align}
+    Inductively, we conclude that
+    \begin{align}
+        \Prob(N(i) \geq m \mid X_{0} = i) = \Prob(T_{i} < \infty \mid X_{0} = i)^{m}.
+    \end{align}
+\end{proof}
+
+\begin{proposition}
+    Let $i \in S$. Then $i$ is recurrent if and only if $\Prob(T_{i} < \infty \mid X_{0} = i) = 1$, and transient if and only if $\Prob(T_{i} < \infty \mid X_{0} = i) < 1$.
+\end{proposition}
+Immediately from here, a state must be recurrent or transient.
+\begin{proof}
+    Note that $\{N(i) = \infty\} = \bigcap_{m=1}^{\infty} \{N(i) \geq m\}$. Thus, by continuity of probability measures, we have
+    \begin{align}
+        \Prob(N(i) = \infty) = \lim_{m \downarrow \infty} \Prob(N(i) \geq m).
+    \end{align}
+    Therefore,
+    \begin{align}
+        \Prob(N(i) = \infty \mid X_{0} = i) = \lim_{m \to \infty} \Prob(N(i) \geq m \mid X_{0} = i) = \lim_{m \to \infty} \Prob(T_{i} < \infty \mid X_{0} = i)^{m}
+    \end{align}
+    which is $1$ if $\Prob(T_{i} < \infty \mid X_{0} = i) = 1$, and $0$ if $\Prob(T_{i} < \infty \mid X_{0} = i) < 1$, by the previous lemma. Thus, $i$ is recurrent if and only if $\Prob(T_{i} < \infty \mid X_{0} = i) = 1$, and transient if and only if $\Prob(T_{i} < \infty \mid X_{0} = i) < 1$.
+\end{proof}
+
+\begin{proposition}
+    Let $i \in S$. Then $i$ is transient if and only if $\sum_{n=0}^{\infty} p_{ii}^{n} < \infty$, and recurrent if and only if $\sum_{n=0}^{\infty} p_{ii}^{n} = \infty$.
+\end{proposition}
+\begin{proof}
+    Note that $\Prob(T_{i} < \infty \mid X_{0} = i) < 1$ if and only if $\sum_{m=1}^{\infty} \Prob(T_{i} < \infty \mid X_{0} = i)^{m} < \infty$, which is equivalent to $\sum_{m=1}^{\infty} \Prob(N(i) \geq m-1 \mid X_{0} = i) < \infty$. But, $\sum_{m=1}^{\infty} \Prob(N(i) \geq m-1 \mid X_{0} = i) = \sum_{m=0}^{\infty} \Prob(N(i) \geq m \mid X_{0} = i) = \E[N(i) \mid X_{0} = i]$. This last term can be rewritten as
+    \begin{align}
+        \E[N(i) \mid X_{0} = i] = \E\left[\sum_{n=1}^{\infty} \1_{\{X_{n} = i\}} \, \Big| \,  X_{0} = i\right] = \sum_{n=1}^{\infty} \E[\1_{\{X_{n} = i\}} \mid X_{0} = i] = \sum_{n=1}^{\infty} p_{ii}^{n}.
+    \end{align}
+\end{proof}
+
+\begin{example}
+    Consider the state space $S = \Z$ with $p_{ij} = 1/2$ if $j = i+1$ or $j = i-1$, and $p_{ij} = 0$ otherwise. This is the simple symmetric random walk on $\Z$. We claim that $0 \in S$ is recurrent. To see this, we have
+    \begin{align}
+        p_{00}^{2n} = \frac{1}{2^{2n}}\binom{2n}{n} \sim \frac{1}{\sqrt{\pi n}} \implies \sum_{n=0}^{\infty} p_{00}^{2n} = \infty.
+    \end{align}
+    Therefore, $0$ is recurrent. Now, let $i \in \Z$ be any state. There exist $r,s \in \N$ such that $p_{i0}^{r} > 0$ and $p_{0i}^{s} > 0$. If we let $n \in \N$, then $n = r+s+k$ for some $k \geq 1$. Thus, $p_{ii}^{n} \geq p_{i0}^{r}p_{00}^{k}p_{0i}^{s}$. Therefore, $\sum_{n=0}^{\infty} p_{ii}^{n} \geq p_{i0}^{r}p_{0i}^{s}\sum_{k=0}^{\infty} p_{00}^{k} = \infty$, and thus $i$ is recurrent. Since $i$ was arbitrary, the chain is recurrent.
+\end{example}
