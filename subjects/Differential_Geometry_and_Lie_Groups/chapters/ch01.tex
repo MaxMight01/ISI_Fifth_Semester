@@ -649,4 +649,23 @@ Let $M$ be a smooth manifold of dimension $n$, and let $p \in M$. Suppose $F^{1}
     Let $M$ be a smooth manifold, with $p \in M$. Recall $C_{p}^{\infty}(M) \equiv C_{p}^{\infty}$, the local ring of germs of smooth functions at $p$, which is also an $\R$-algebra. Also define $T_{p}M$ to be the $\R$-vector space of derivations at $p$; that is, $T_{p}M = \{D:C_{p}^{\infty} \to \R \mid D \text{ is linear and satisfies the Leibniz rule}\}$. This $T_{p}M$ is called the \eax{tangent space} of $M$ at $p$.
 \end{definition}
 
-Given a smooth map $F:N \to M$ between smooth manifolds, we can define the map $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ as $D \mapsto F_{\ast,p}(D)$, where $F_{\ast,p}(D)(f) = D(f \circ F)$ for all $f \in C_{F(p)}^{\infty}$. This is the pushforward of $f$ at $p$. Moreover, if $G:M \to P$ is another smooth map, then $(G \circ F)_{\ast,p} = G_{\ast,F(p)} \circ F_{\ast,p}$.
+\noindent \textit{August 12th.}
+
+We leave it as an exercise to check that $\frac{\partial}{\partial x^{i}}|_{p}$ is a derivation from $C_{p}^{\infty}$ to $\R$, and hence $\frac{\partial}{\partial x^{i}}|_{p} \in T_{p}M$ for all valid $i$. Given a smooth map $F:N \to M$ between smooth manifolds, we can define the map $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ as $D \mapsto F_{\ast,p}(D)$, where $F_{\ast,p}(D)(f) = D(f \circ F)$ for all $f \in C_{F(p)}^{\infty}$. This is the pushforward of $f$ at $p$. Moreover, if $G:M \to P$ is another smooth map, then $(G \circ F)_{\ast,p} = G_{\ast,F(p)} \circ F_{\ast,p}$. The map $F_{\ast,p}$ is linear, and hence a linear transformation between the tangent spaces $T_{p}N$ and $T_{F(p)}M$.
+
+If $F:N \to M$ were a diffeomorphism, then there exists a diffeomorphism $G:M \to N$ such that $G \circ F = \id_{N}$ and $F \circ G = \id_{M}$. Now look at the chain
+\begin{align}
+    T_{p}N \xrightarrow{F_{\ast,p}} T_{F(p)}M \xrightarrow{G_{\ast,F(p)}} T_{G(F(p))}N = T_{p}N.
+\end{align}
+Here, we have $(G \circ F)_{\ast,p} = G_{\ast,F(p)} \circ F_{\ast,p} = (\id_{N})_{\ast,p} = \id_{T_{p}N}$, and similarly $F_{\ast,p} \circ G_{\ast,F(p)} = \id_{T_{F(p)}M}$. Thus, $F_{\ast,p}$ is a linear isomorphism between the tangent spaces $T_{p}N$ and $T_{F(p)}M$.
+\\
+
+Let $p \in M$, a smooth manifold, and let $(U,\varphi)$ be a chart containing $p$. Since $C_{p}^{\infty}(M) \equiv C_{p}^{\infty}(U)$, the diffeomorphism $\varphi:U \to \varphi(U)$ induces an isomorphism $\varphi_{\ast,p}:T_{p}M \to T_{\varphi(p)}\R^{n}$. We know that the tangent space on the right has the basis $\left\{\frac{\partial}{\partial r^{1}}|_{\varphi(p)},\ldots,\frac{\partial}{\partial r^{n}}|_{\varphi(p)}\right\}$. Applying this map to a basis element, we have
+\begin{align}
+    \varphi_{\ast,p}\left(\frac{\partial}{\partial x^{i}}\Big|_{p}\right)(f) = \frac{\partial}{\partial x^{i}}\Big|_{p}(f \circ \varphi) = \frac{\partial}{\partial r^{i}}\Big|_{\varphi(p)}(f \circ \varphi \circ \varphi^{-1}) = \frac{\partial}{\partial r^{i}}\Big|_{\varphi(p)}(f) \quad \text{for all } f \in C_{p}^{\infty}(M).
+\end{align}
+Hence, $\varphi_{\ast,p}\left(\frac{\partial}{\partial x^{i}}|_{p}\right) = \frac{\partial}{\partial r^{i}}|_{\varphi(p)}$, and so $\left\{\frac{\partial}{\partial x^{1}}|_{p},\ldots,\frac{\partial}{\partial x^{n}}|_{p}\right\}$ is a basis for $T_{p}M$. Thus, we have shown that the tangent space $T_{p}M$ has dimension $n$. This also shows that if $F:N \to M$ is a smooth map between smooth manifolds of dimension $n$ and $m$ that also happens to be a diffeomorphism, then $n = m$. Moreover, given a map $F:N \to M$ between smooth manifolds, and given a chart $(U,\varphi)$ of $p \in N$ and a chart $(V,\psi)$ of $F(p) \in M$, we have
+\begin{align}
+    F_{\ast,p}:T_{p}N \to T_{F(p)}M, \quad F_{\ast,p}\left(\frac{\partial}{\partial x^{i}}\Big|_{p}\right) = \sum_{j=1}^{m} b_{j}^{i} \frac{\partial}{\partial y^{j}}\Big|_{F(p)}, \quad b_{j}^{i} = \frac{\partial F^{j}}{\partial x^{i}}(p) \quad \text{for } i = 1,\ldots,n, j = 1,\ldots,m.
+\end{align}
+That is, the matrix of $F_{\ast,p}$ with respect to the bases $\left\{\frac{\partial}{\partial x^{1}}|_{p},\ldots,\frac{\partial}{\partial x^{n}}|_{p}\right\}$ and $\left\{\frac{\partial}{\partial y^{1}}|_{F(p)},\ldots,\frac{\partial}{\partial y^{m}}|_{F(p)}\right\}$ is precisely the Jacobian matrix $J_{F}(p)$.
