@@ -319,9 +319,8 @@ Indeed, one can show that the pushforward measure $\tilde{\Prob}$ is a probabili
 \end{theorem}
 Thus, there is a one-to-one correspondence between Borel probability measures on $(\R,\cB)$ and cumulative distribution functions. In general, it easier to study the cumulative distribution function of a probability measure than the measure itself.
 
-\textit{August 11th.}
-
 \subsection{The Pushfoward Measure}
+\textit{August 11th.}
 
 In many situations, we can model a random experiment in several ways. Let $\Omega = [0,1]$, $\cF = \cB$, and $\lambda$ the Lebesgue measure. Define the random variables $X_{1} = \1_{[0,1/2]}$ and $X_{2} = \1_{[0,1/4] \cup [1/2,3/4]}$. Consider $\Gamma = (X_{1},X_{2}):\Omega \to \R^{2}$, and let $\mu = \lambda \circ \Gamma^{-1}$ be the pushforward measure of $\lambda$ under $\Gamma$. The support of $\mu$ is the set $\Gamma(\Omega) = \{(1,0),(0,1),(1,1),(0,0)\}$. The measure at each of these points is given by $\mu(\{(1,0)\}) = \lambda(\Gamma^{-1}(\{(1,0)\})) = \lambda([0,1/4]) = 1/4$, $\mu(\{(0,1)\}) = \lambda(\Gamma^{-1}(\{(0,1)\})) = \lambda([1/2,3/4]) = 1/4$, $\mu(\{(1,1)\}) = \lambda(\Gamma^{-1}(\{(1,1)\})) = \lambda([1/4,1/2]) = 1/4$, and $\mu(\{(0,0)\}) = \lambda(\Gamma^{-1}(\{(0,0)\})) = \lambda([3/4,1]) = 1/4$. Thus, we have a probability measure on the support of $\mu$. That is, we have modeled tossing a fair coin twice, without explicitly defining the sample space as $\{0,1\}^{2}$. The probability space does not matter in most contexts; the random variables and their distributions are what matter.
 
@@ -363,3 +362,40 @@ We now prove \textbf{Theorem 1.23} and \textbf{Theorem 1.24} together.
     \end{align}
     Thus, $F_{\lambda \circ T^{-1}} = F$, establishing the existence of the desired measure.
 \end{proof}
+
+\section{Probability Measures on $\R$}
+\textit{August 14th.}
+
+We first wish to generalize the notion of the integral of a function with respect to the Lebesgue measure. A function $\varphi:[a,b] \to \R$ is said to be a \eax{simple function} if it is of the form $\varphi = \sum_{i=1}^{n} a_{i}\1_{A_{i}}$ for some $n \in \N$, $a_{i} \in \R$, and $A_{i} \in \cB$. That is, $\varphi$ takes finitely many values, and the pre-image of each value is a Borel set. For a simple function $\varphi$, we define the integral of $\varphi$ to be
+\begin{align}
+    \int_{[a,b]} \varphi(x) \, dx = \sum_{i=1}^{n} a_{i}\lambda(A_{i}).
+\end{align}
+In general, a function $g:[a,b] \to \R$ is said to be \eax{Borel measurable} if $g^{-1}(A) \in \cB$ for all Borel sets $A \subseteq \R$. Note that any simple function is Borel measurable. The integral of a non-negative Borel measurable function $g:[a,b] \to \R$ is then defined as
+\begin{align}
+    \int_{[a,b]} g(x) \, dx = \sup\left\{\int_{[a,b]} \varphi(x) \, dx \; \Big| \; 0 \leq \varphi \leq g, \, \varphi \text{ is simple}\right\}.
+\end{align}
+One can infer that $\int(f+\alpha g) = \int f + \alpha \int g$, $g \leq f \implies \int g \leq \int f$, and $\int_{I_{1} \sqcup I_{2}} g = \int_{I_{1}} g + \int_{I_{2}} g$ for disjoint intervals $I_{1}$ and $I_{2}$, and non-negative Borel measurable functions $f$ and $g$. We can extend the definition of the integral to all Borel measurable functions $g$ by defining $\int g = \int g^{+} - \int g^{-}$, where $g^{+} = \max\{g,0\}$ and $g^{-} = \max\{-g,0\}$. Thus, we are fit to define the following.
+
+\begin{definition}
+    A probability measure $\mu \in \cP(\R)$ is said to have a \eax{density} $f$ if $f:\R \to \R$ is a non-negative Borel measurable function such that $\int_{\R} f(x) \, dx = 1$ and $F_{\mu}(x) = \int_{-\infty}^{x} f(t) \, dt$ for all $x \in \R$. 
+\end{definition}
+
+Suppose $\mu \in \cP(\R)$ has a density $f$. Then, for any Borel set $A \subseteq \R$, we have
+\begin{align}
+    \mu(A) = \int_{A} f(x) \, dx.
+\end{align}
+Note that not every probability measure has a density; for example, the measure $\mu = \delta_{0}$, indicator of the set $\{0\}$, does not have a density. In fact, if there exists $p \in \R$ with $\mu(\{p\}) > 0$, then $\mu$ does not have a density. This is because if $\mu$ has a density $f$, then $\mu(\{p\}) = \int_{\{p\}} f(x) \, dx = 0$, which is a contradiction. Thus, any probability measure with a density must be non-atomic; that is, it cannot assign positive measure to any singleton set. However, the converse is not true; there exist non-atomic probability measures that do not have a density. For example, consider the Cantor measure $\mu$ on $[0,1]$, which is non-atomic, but does not have a density.
+
+We now wish to define a metric on the space of probability measures on $\R$.
+\begin{enumerate}
+    \item For any $\mu,\nu \in \cP(\R)$, we define the \eax{total variation distance} between $\mu$ and $\nu$ to be
+    \begin{align}
+        D_{1}(\mu,\nu) =d_{TV}(\mu,\nu) = \sup_{A \in \cB} \abs{\mu(A) - \nu(A)}.
+    \end{align}
+    \item The CDFs may be utilized to define
+    \begin{align}
+        D_{2}(\mu,\nu) = \sup_{x \in \R} \abs{F_{\mu}(x) - F_{\nu}(x)}.
+    \end{align}
+\end{enumerate}
+
+Both of these metrics are fine as they are, but fail in being `nice' with respect to convergence of measures; the sequence of measures $\{\mu_{n} = \delta_{1/n}\}_{n=1}^{\infty}$ fails to converge to $\delta_{0}$ in either of these metrics, even though we expect it to converge intuitively.
