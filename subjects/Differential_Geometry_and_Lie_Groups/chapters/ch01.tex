@@ -668,4 +668,64 @@ Hence, $\varphi_{\ast,p}\left(\frac{\partial}{\partial x^{i}}|_{p}\right) = \fra
 \begin{align}
     F_{\ast,p}:T_{p}N \to T_{F(p)}M, \quad F_{\ast,p}\left(\frac{\partial}{\partial x^{i}}\Big|_{p}\right) = \sum_{j=1}^{m} b_{j}^{i} \frac{\partial}{\partial y^{j}}\Big|_{F(p)}, \quad b_{j}^{i} = \frac{\partial F^{j}}{\partial x^{i}}(p) \quad \text{for } i = 1,\ldots,n, j = 1,\ldots,m.
 \end{align}
-That is, the matrix of $F_{\ast,p}$ with respect to the bases $\left\{\frac{\partial}{\partial x^{1}}|_{p},\ldots,\frac{\partial}{\partial x^{n}}|_{p}\right\}$ and $\left\{\frac{\partial}{\partial y^{1}}|_{F(p)},\ldots,\frac{\partial}{\partial y^{m}}|_{F(p)}\right\}$ is precisely the Jacobian matrix $J_{F}(p)$.
+That is, the matrix of $F_{\ast,p}$ with respect to the bases $\left\{\frac{\partial}{\partial x^{1}}|_{p},\ldots,\frac{\partial}{\partial x^{n}}|_{p}\right\}$ and $\left\{\frac{\partial}{\partial y^{1}}|_{F(p)},\ldots,\frac{\partial}{\partial y^{m}}|_{F(p)}\right\}$ is precisely the $m \times n$ real \eax{Jacobian matrix} $(dF)_{p} \defeq J_{F}(p) = \left( \frac{\partial F^{i}}{\partial x^{j}}(p) \right)_{1 \leq i \leq m, \, 1 \leq j \leq n}$.
+\\
+
+\noindent \textit{August 17th.}
+
+Suppose $0 \in (a,b) \subseteq \R$, and let $c:(a,b) \to M$ be a smooth map to a smooth manifold $M$ of dimension $n$ such that $c(0) = p \in M$. $c$ is then called a \eax{smooth curve} in $M$. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$ with $p \in U$. Then $c^{1}(0) \in T_{p}M$ is defined as $c'(0) = c_{\ast,0}\left(\frac{d}{dt}\Big|_{0}\right)$, where $\frac{d}{dt}|_{0} \in T_{0}\R$ is the standard basis element. Then $c'(0)$ is a tangent vector at $p$, and we have
+\begin{align}
+    \R \cong T_{0}((a,b)) \xrightarrow{c_{\ast,0}} T_{p}M \xrightarrow{\varphi_{\ast,p}} T_{\varphi(p)}\R^{n} \cong \R^{n}, \quad c'(0) \mapsto \varphi_{\ast,p}(c'(0)) = (\varphi \circ c)_{\ast,0}\left(\frac{d}{dt}\Big|_{0}\right) = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}\Big|_{p}
+\end{align}
+since $\{\frac{\partial}{\partial x^{i}} |_{p}\}_{i=1}^{n}$ is a basis for $T_{p}M$. Utilising $c'(0) = c_{\ast,0}\left(\frac{d}{dt}|_{0}\right)$, we have
+\begin{align}
+    a^{i} = \varphi_{\ast,p}(c'(0))(x^{i}) = c_{\ast,0}\left(\frac{d}{dt}\Big|_{0}\right)(x^{i} \circ \varphi^{-1}) = \frac{d}{dt}\Big|_{0}(x^{i} \circ \varphi^{-1} \circ c) = \frac{d}{dt}\Big|_{0}(x^{i} \circ c) = \frac{dc^{i}}{dt}(0).
+\end{align}
+Thus, a curve $c$ can be thought of as a tangent vector at $p$, and the tangent vector is given by the derivative of the curve at $0$. In particular, let us interpret $c:\R \to \R^{n}$ as a smooth curve in $\R^{n}$; we have $c(t) = (c_{1}(t),\ldots,c_{n}(t))$, and hence $c'(0) = (\frac{dc_{1}}{dt}(0),\ldots,\frac{dc_{n}}{dt}(0)) \in \R^{n}$. This is consistent with the above definition of $c'(0)$ as a tangent vector at $p$. From here, we wish to obtain a smooth map $c:(a,b) \to M$ such that $c(0) = p$ and $c'(0) = X_{p} = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}|_{p}$ for some $X_{p} \in T_{p}M$. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$ with $p \in U$. In fact, choose a chart $\varphi$ such that $\varphi(p) = 0 \in \R^{n}$ (translations are diffeomorphisms). Then we can define a smooth curve $c:(-\epsilon,\epsilon) \to M$ for some $\epsilon > 0$ such that $c(0) = p$ and $c'(0) = X_{p}$ as
+\begin{align}
+    c(t) = \varphi^{-1}(ta^{1},\ldots,ta^{n}) \quad \text{for } t \in (-\epsilon,\epsilon).
+\end{align}
+Then, $c'(0) = c_{\ast,0}\left(\frac{d}{dt}|_{0}\right) = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}|_{p} = X_{p}$, as desired. 
+
+Coming back to the smooth map $F:N \to M$ between smooth manifolds, the rank of $F$ at $p \in N$ is defined as the rank of the linear map $F_{\ast,p}:T_{p}N \to T_{F(p)}M$, which is also the rank of the matrix $(dF)_{p} = J_{F}(p) = \left( \frac{\partial F^{i}}{\partial x^{j}}(p) \right)_{1 \leq i \leq m, 1 \leq j \leq n}$. The map $F:N \to M$ is called an \eax{immersion} at $p \in N$ if $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ is injective (that is, $\rank(F_{\ast,p}) = \dim(T_{p}N) = n$), and $F$ is called an immersion if it is an immersion at all points $p \in N$. Similarly, $F$ is called a \eax{submersion} at $p \in N$ if $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ is surjective (that is, $\rank(F_{\ast,p}) = \dim(T_{F(p)}M) = m$), and $F$ is called a submersion if it is a submersion at all points $p \in N$. If $F:N \to M$ is a smooth map between smooth manifolds of dimension $n$ and $m$, respectively, then $\rank(F_{\ast,p}) \leq \min\{n,m\}$ for all $p \in N$. Thus, if $n < m$, then $F$ cannot be a submersion, and if $n > m$, then $F$ cannot be an immersion.
+
+\section{Regular Maps and Regular Submanifolds}
+
+\begin{definition}
+    Let $F:N \to M$ be a smooth map between smooth manifolds. $p \in N$ is called a \eax{critical point} of $F$ if $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ is not surjective; that is, $F$ is not a submersion at $p$. $p$ is called a \eax{regular point} of $F$ if $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ is surjective; that is, $F$ is a submersion at $p$. Similarly, $q \in M$ is called a \eax{critical value} of $F$ if there exists a critical point $p \in N$ such that $F(p) = q$. $q \in M$ is called a \eax{regular value} of $F$ if it is not a critical value; that is, for all $p \in N$ such that $F(p) = q$, we have that $p$ is a regular point of $F$. That is, either $F^{-1}(m) = \emptyset$, or $F_{\ast,p}:T_{p}N \to T_{F(p)}M$ is surjective for all $p \in F^{-1}(m)$.
+\end{definition}
+
+From here, we can define something called a regular submanifold, which is useful in determining whether a certain set is a manifold or not. Let $M$ be a manifold of dimension $n$, and $S \subseteq M$ be a subset with the subspace topology. Suppose that for all $p \in S$, there exists a chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ of $M$ with $p \in U$ and $\varphi(p) = 0 \in \varphi(U) \subseteq \R^{n}$ such that
+\begin{align}
+    U \cap S = \{(x^{1},x^{2},\ldots,x^{n}) \in U \mid x^{i_{1}} = x^{i_{2}} = \ldots = x^{i_{n-k}} = 0 \text{ for some } 1 \leq i_{1} < i_{2} < \ldots < i_{n-k} \leq n\}
+\end{align}
+for some fixed integer $0 \leq k \leq n$ (via switching of coordinates, we may assume that the last $n-k$ coordinates are zero). Such a chart $(U,\varphi)$ of $M$ is said to be adapted to $S$. Then, we say that $S$ is a \eax{regular submanifold} of $M$ of dimension $k$ if for all $p \in S$, there exists a chart $(U,\varphi)$ of $M$ with $p \in U$ such that $(U,\varphi)$ is adapted to $S$. Therefore, if $(U,\varphi)$ is adapted to $S$, then $\varphi(U \cap S)$ consists of only those points that look like $(r^{1},\ldots,r^{k},0,\ldots,0) \in \R^{n}$, and hence $\varphi(U \cap S)$ is an open subset of $\R^{k}$. If we define $\varphi_{S}:U \cap S \to \R^{k}$ as $\varphi_{S}(p) = (x^{1}(p),\ldots,x^{k}(p))$, then $\varphi_{S}(U \cap S) = \varphi(U \cap S) \cap \R^{k}$.
+
+\begin{theorem}
+    Consider the maximal atlas $\cU = \{(U,\varphi)\}$ of $M$, and let $\cA = \{(U \cap S, \varphi_{S}) \mid (U,\varphi) \in \cU\}$, where $(U,\varphi)$ is adapted to $S$ and $\bigcup \{U \cap S \mid (U,\varphi) \in \cU\} = S$. Then $\cA$ is a smooth atlas on $S$, and hence $S$ is a smooth manifold of dimension $k$.
+\end{theorem}
+The \eax{codimension} of a regular submanifold $S$ of $M$ is defined as $\codim_{M}S = \dim(M) - \dim(S) = n-k$.
+
+Let $f:M \to \R$ be a smooth function on a smooth manifold $M$ of dimension $n$. Also let $0 \in \R$ be a regular value of $f$ with $f^{-1}(0) \neq \emptyset$. Then, $f^{-1}(0)$ is a regular submanifold of $M$ of dimension $n-1$, or codimension $1$. Note that $0$ here is a red herring; we can replace $0$ with any regular value $c \in \R$ of $f$ with $f^{-1}(c) \neq \emptyset$, and the same result holds. 
+
+For a proof of this, let $p \in f^{-1}(0) \neq \emptyset$ so that $f(p) = 0$. Since $0$ is a regular value of $f$, we have that $f_{\ast,p}:T_{p}M \to T_{0}\R$ is surjective. $T_{p}M$ has a basis $\left\{\frac{\partial}{\partial x^{1}}|_{p},\ldots,\frac{\partial}{\partial x^{n}}|_{p}\right\}$, and $T_{0}\R$ has a basis $\left\{\frac{d}{dt}|_{0}\right\}$. The $1 \times n$ Jacobian matrix of $f$ at $p$ is given by
+\begin{align}
+    (d f)_{p} = \left( \frac{\partial f}{\partial x^{1}}(p),\ldots,\frac{\partial f}{\partial x^{n}}(p) \right).
+\end{align}
+Since $f_{\ast,p}:T_{p}M \to T_{0}\R$ is surjective, we have that $\rank(f_{\ast,p}) = 1$, and hence $(d f)_{p} \neq 0$; at least coordinate function $x^{i}$ has $\frac{\partial f}{\partial x^{i}}(p) \neq 0$. Without the loss of generality, we may assume that $\frac{\partial f}{\partial x^{1}}(p) \neq 0$. Then, by the inverse function theorem, there exists an open neighbourhood $V$ of $p$ such that $f:V \to f(V) \subseteq \R$ is a diffeomorphism. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$ with $p \in U \subseteq V$. Then, we have
+\begin{align}
+    U \cap f^{-1}(0) = \{(x^{1},\ldots,x^{n}) \in U \mid x^{1} = 0\},
+\end{align}
+which shows that $(U,\varphi)$ is adapted to $f^{-1}(0)$. Since $p \in f^{-1}(0)$ was arbitrary, we have that $f^{-1}(0)$ is a regular submanifold of $M$ of dimension $n-1$, or codimension $1$. In general, this result generalizes to the following theorem.
+
+\begin{theorem}
+    Let $F:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectivel, with $n \geq m$. Let $q \in M$ be a regular value of $F$ with $F^{-1}(q) \neq \emptyset$. Then, $F^{-1}(q)$ is a regular submanifold of $N$ of dimension $n-m$, or codimension $m$.
+\end{theorem}
+
+\begin{proof}
+    Let $p \in F^{-1}(q)$; then $F_{\ast,p}:T_{p}N \to T_{q}M$ is surjective. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart in $N$ such that $\varphi(p) = 0 \in \R^{n}$, and let $(V,\psi) = (V,y^{1},\ldots,y^{m})$ be a chart in $M$ such that $\psi(q) = 0 \in \R^{m}$. We may assume $F(U) \subseteq V$. The matrix of $F_{\ast,p}$ with respect to the bases $\left\{\frac{\partial}{\partial x^{1}}|_{p},\ldots,\frac{\partial}{\partial x^{n}}|_{p}\right\}$ and $\left\{\frac{\partial}{\partial y^{1}}|_{q},\ldots,\frac{\partial}{\partial y^{m}}|_{q}\right\}$ is given by $\left( \frac{\partial F^{i}}{\partial x^{j}}(p) \right)_{1 \leq i \leq m, 1 \leq j \leq n}$; this has rank $m$ since $F_{\ast,p}$ is surjective. Without the loss of generality, we may assume that the $m \times m$ submatrix $\left( \frac{\partial F^{i}}{\partial x^{j}}(p) \right)_{1 \leq i,j \leq m}$ is invertible. Then, by the inverse function theorem, there exists an open neighbourhood $W$ of $p$ such that $F:W \to F(W)$ is a diffeomorphism. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $N$ with $p \in U \subseteq W$. Then, we have
+    \begin{align}
+        U \cap F^{-1}(q) = \{(x^{1},\ldots,x^{n}) \in U \mid x^{1} = x^{2} = \ldots = x^{m} = 0\},
+    \end{align}
+    which shows that $(U,\varphi)$ is adapted to $F^{-1}(q)$. Since $p \in F^{-1}(q)$ was arbitrary, we have that $F^{-1}(q)$ is a regular submanifold of $N$ of dimension $n-m$, or codimension $m$.
+\end{proof}
