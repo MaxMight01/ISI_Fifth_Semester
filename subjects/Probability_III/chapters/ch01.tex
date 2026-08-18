@@ -390,12 +390,40 @@ We now wish to define a metric on the space of probability measures on $\R$.
 \begin{enumerate}
     \item For any $\mu,\nu \in \cP(\R)$, we define the \eax{total variation distance} between $\mu$ and $\nu$ to be
     \begin{align}
-        D_{1}(\mu,\nu) =d_{TV}(\mu,\nu) = \sup_{A \in \cB} \abs{\mu(A) - \nu(A)}.
+        D_{1}(\mu,\nu) = d_{TV}(\mu,\nu) \defeq \sup_{A \in \cB} \abs{\mu(A) - \nu(A)}.
     \end{align}
     \item The CDFs may be utilized to define
     \begin{align}
-        D_{2}(\mu,\nu) = \sup_{x \in \R} \abs{F_{\mu}(x) - F_{\nu}(x)}.
+        D_{2}(\mu,\nu) \defeq \sup_{x \in \R} \abs{F_{\mu}(x) - F_{\nu}(x)}.
     \end{align}
 \end{enumerate}
 
 Both of these metrics are fine as they are, but fail in being `nice' with respect to convergence of measures; the sequence of measures $\{\mu_{n} = \delta_{1/n}\}_{n=1}^{\infty}$ fails to converge to $\delta_{0}$ in either of these metrics, even though we expect it to converge intuitively.
+\\
+
+\noindent \textit{August 18th.}
+
+Hereforth, we define the \eax{Levy distance} on $\cP(\R)$ as
+\begin{align}
+    d(\mu,\nu) \defeq \inf\{\epsilon > 0 \mid F_{\mu}(t+\epsilon)+\epsilon \geq F_{\nu}(t), \; F_{\nu}(t+\epsilon)+\epsilon \geq F_{\mu}(t) \text{ for all } t \in \R\}.
+\end{align}
+In fact, this can be generalized to a metric on Borel probability measures on any metric space $(X,\cD)$ as follows (this is termed the \eax{Levy-Prokhorov metric}).
+\begin{align}
+    d_{LP}(\mu,\nu) \defeq \inf\{\epsilon > 0 \mid \mu(A+\epsilon)+\epsilon \geq \nu(A), \; \nu(A+\epsilon)+\epsilon \geq \mu(A) \text{ for all closed } A \subseteq X\}
+\end{align}
+where the \eax{$\epsilon$-fattening} of $A$ is defined as
+\begin{align}
+    A+\epsilon \defeq \{x \in X \mid \text{ there exists } y \in A \text{ such that } \cD(x,y) < \epsilon\}.
+\end{align}
+Note that these two metrics are not the same on $\cP(\R)$, but are equivalent. Also, via the Levy distance, we can show $d(\delta_{1/n},\delta_{0}) = 1/n$, showing that $\delta_{1/n} \to \delta_{0}$ in this metric.
+
+\begin{theorem}
+    Suppose $\mu,\mu_{1},\mu_{2},\ldots \in \cP(\R)$ are Borel probability measures. Then $d(\mu_{n},\mu) \xrightarrow{n \toinf} 0$ if and only if $F_{\mu_{n}}(x) \xrightarrow{n \toinf} F_{\mu}(x)$ for all continuity points $x \in \R$ of $F_{\mu}$.
+\end{theorem}
+\begin{proof}
+    We first show the forward implication. Suppose $d(\mu_{n},\mu) \to 0$. Then, for any $\epsilon > 0$, there exists $N_{\epsilon} \in \N$ such that $d(\mu_{n},\mu) < \epsilon$ for all $n \geq N_{\epsilon}$. Now fix $\epsilon > 0$ and $x \in \R$. Then, for all $n \geq N_{\epsilon}$, we have $F_{\mu}(x+\epsilon) + \epsilon \geq F_{\mu_{n}}(x)$. We can replace the right hand side with the limit superior to get
+    \begin{align}
+        F_{\mu}(x+\epsilon) + \epsilon \geq \limsup_{n \toinf} F_{\mu_{n}}(x) \text{ for all } \epsilon > 0.
+    \end{align}
+    This implies that $F_{\mu}(x) \geq \limsup_{n \toinf} F_{\mu_{n}}(x)$. Similarly, for all $n \geq N_{\epsilon}$, we have $F_{\mu_{n}}(x) + \epsilon \geq F_{\mu}(x-\epsilon)$. By a similar argument, we have $\liminf_{n \toinf} F_{\mu_{n}}(x) \geq F_{\mu}(x)$ if $x$ is a continuity point of $F_{\mu}$. Thus, we have shown that $\limsup_{n \toinf} F_{\mu_{n}}(x) \leq F_{\mu}(x) \leq \liminf_{n \toinf} F_{\mu_{n}}(x)$ or $F_{\mu_{n}}(x) \to F_{\mu}(x)$ for all continuity points.
+\end{proof}
