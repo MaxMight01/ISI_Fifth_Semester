@@ -729,3 +729,70 @@ which shows that $(U,\varphi)$ is adapted to $f^{-1}(0)$. Since $p \in f^{-1}(0)
     \end{align}
     which shows that $(U,\varphi)$ is adapted to $F^{-1}(q)$. Since $p \in F^{-1}(q)$ was arbitrary, we have that $F^{-1}(q)$ is a regular submanifold of $N$ of dimension $n-m$, or codimension $m$.
 \end{proof}
+
+\textit{August 19th.}
+
+\begin{example}
+    Consider the map $f:\R^{3} \to \R$ defined as $f(x,y,z) = x^{2}+y^{2}+z^{2}$. Then, $S^{2} = f^{-1}(1) = \{(x,y,z) \in \R^{3} \mid x^{2}+y^{2}+z^{2} = 1\}$. We have $f_{\ast,p}:T_{p}\R^{3} \to T_{1}\R = \R$ given by $f_{\ast,p}\left(\frac{\partial}{\partial x^{i}}|_{p}\right) = \sum_{j=1}^{3} \frac{\partial f}{\partial x^{j}}(p) \frac{\partial}{\partial y}|_{1}$, where $y$ is the coordinate function on $\R$. Then, the Jacobian matrix of $f$ at $p$ is given by $(d f)_{p} = \left( \frac{\partial f}{\partial x}(p), \frac{\partial f}{\partial y}(p), \frac{\partial f}{\partial z}(p) \right) = (2x, 2y, 2z)$. The origin is the only critical point of $f$ and is excluded from $S^{2}$. Thus, $1 \in \R$ is a regular value of $f$, and hence $S^{2} = f^{-1}(1)$ is a regular submanifold of $\R^{3}$ of dimension $3-1 = 2$.
+\end{example}
+
+\begin{example}
+    Consider the determinant map $\det:\R^{n^{2}} \to \R$, interpreting a point $p \in \R^{n^{2}}$ as an $n \times n$ matrix $A \in M_{n}(\R)$. Look at $SL_{n}(\R) = \det^{-1}(1) = \{A \in M_{n}(\R) \mid \det(A) = 1\}$. We have $\det_{\ast,A}:T_{A}\R^{n^{2}} \to T_{1}\R = \R$, where the bases are $\{\frac{\partial}{\partial x_{ij}}\}_{1 \leq i,j \leq n}$ and $\{\frac{d}{dt}|_{1}\}$, respectively. Note that $\frac{\partial \det}{\partial x_{ij}}(A)$ is the $(i,j)$-th cofactor of $A$; not all of these cofactors can be zero since otherwise we would have $\det(A) = 0$ but $A \in \det^{-1}(1)$. Thus, $1 \in \R$ is a regular value of $\det$, and hence $SL_{n}(\R) = \det^{-1}(1)$ is a regular submanifold of $\R^{n^{2}}$ of dimension $n^{2}-1$.
+\end{example}
+
+
+The following is a corollary of the inverse function theorem; it may be generalized to the case of smooth maps between smooth manifolds.
+
+\begin{corollary}
+    Let $p \in \R^{n}$ have an open neighbourhood $U \subseteq \R^{n}$, and let $f:U \to \R^{m}$ be a smooth map with $f = (f_{1},\ldots,f_{m})$. Suppose $f$ has rank $k$ in a neighbourhood of $p$ in $U$; that is, $\left(\frac{\partial f_{i}}{\partial x_{j}}(q)\right)$ has rank $k$ for all $q$ in this possibly smaller neighbourhood of $p$. Then there exists a diffeomorphism $G:V \to G(V)$, with $G(V)$ open in $\R^{n}$ and $p \in V$ open in $U$, and a diffeomorphism $F:W \to F(W)$, with $F(W)$ open in $\R^{m}$ and $f(p) \in W$ open in $\R^{m}$, such that $f(V) \subseteq W$, and $(FfG^{-1})(x^{1},\ldots,x^{n}) = (x^{1},\ldots,x^{k},0,\ldots,0)$ for all $(x^{1},\ldots,x^{n}) \in G(V)$.    
+\end{corollary}
+
+\begin{proof}
+    Let $p \in \R^{n}$ have an open neighbourhood $U \subseteq \R^{n}$, and let $f:U \to \R^{m}$ be a smooth map with $f = (f_{1},\ldots,f_{m})$. Suppose $f$ has rank $k$ in a neighbourhood of $p$ in $U$. Then, without the loss of generality, we may assume that the $k \times k$ submatrix $\left(\frac{\partial f_{i}}{\partial x_{j}}(q)\right)_{1 \leq i,j \leq k}$ is invertible for all $q$ in this possibly smaller neighbourhood of $p$. Define the smooth map $F:U \to \R^{n}$ as $F(x^{1},\ldots,x^{n}) = (f_{1}(x^{1},\ldots,x^{n}),\ldots,f_{k}(x^{1},\ldots,x^{n}),x^{k+1},\ldots,x^{n})$. Then, the Jacobian matrix of $F$ at $q \in U$ is given by
+    \begin{align}
+        (dF)_{q} = \begin{pmatrix}
+            \frac{\partial f_{1}}{\partial x_{1}}(q) & \cdots & \frac{\partial f_{1}}{\partial x_{k}}(q) & \frac{\partial f_{1}}{\partial x_{k+1}}(q) & \cdots & \frac{\partial f_{1}}{\partial x_{n}}(q) \\
+            \vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial f_{k}}{\partial x_{1}}(q) & \cdots & \frac{\partial f_{k}}{\partial x_{k}}(q) & \frac{\partial f_{k}}{\partial x_{k+1}}(q) & \cdots & \frac{\partial f_{k}}{\partial x_{n}}(q) \\
+            0 & 0 & 0 & 1 & 0 & 0\\
+            0 & 0 & 0 & 0 & 1 & 0\\
+            0 & 0 & 0 & 0 & 0 & 1
+        \end{pmatrix}.
+    \end{align}
+    Thus, by the inverse function theorem, there exists an open neighbourhood $V$ of $p$ with $V \subseteq U$ such that $F:V \to F(V)$ is a diffeomorphism. Consider the map $F^{-1}:F(V) \to V$; a point $(x^{1},\ldots,x^{n}) \in F(V)$ is mapped to $(x^{1},\ldots,x^{k},f^{k+1},\ldots,f^{m})$. The Jacobian matrix of $F^{-1}$ at $(x^{1},\ldots,x^{n}) \in F(V)$ is given by
+    \begin{align}
+        (dF^{-1})_{(x^{1},\ldots,x^{n})} = \begin{pmatrix}
+            1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 0 \\
+            \ast & \ast & \ast & \frac{\partial f^{k+1}}{\partial x^{k+1}} & \cdots & \frac{\partial f^{k+1}}{\partial x^{n}} \\
+            \ast & \ast & \ast & \vdots & \ddots & \vdots \\
+            \ast & \ast & \ast & \frac{\partial f^{m}}{\partial x^{k+1}} & \cdots & \frac{\partial f^{m}}{\partial x^{n}}
+        \end{pmatrix}.
+    \end{align}
+    We know this matrix to have rank $k$ by hypothesis. Thus, the $(m-k) \times (n-k)$ submatrix $\left(\frac{\partial f^{i}}{\partial x^{j}}(q)\right)_{k+1 \leq i \leq m, k+1 \leq j \leq n}$ must have rank $0$; that is, $\frac{\partial f^{i}}{\partial x^{j}}(q) = 0$ for all $k+1 \leq i \leq m$ and $k+1 \leq j \leq n$. The functions $f^{k+1},\ldots,f^{m}$ are then functions of only $x^{1},\ldots,x^{k}$. Define the smooth map $G:f(V) \to \R^{m}$ as $(y^{1},\ldots,y^{m}) = (y^{1},\ldots,y^{k},y^{k+1}-f^{k+1},\ldots,y^{m}-f^{m})$. Then, the Jacobian matrix of $G$ at $(y^{1},\ldots,y^{m}) \in f(V)$ is given by
+    \begin{align}
+        (dG)_{(y^{1},\ldots,y^{m})} = \begin{pmatrix}
+            1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 0 \\
+            -\frac{\partial f^{k+1}}{\partial y^{1}} & \cdots & -\frac{\partial f^{k+1}}{\partial y^{k}} & 1 & 0 & 0 \\
+            \vdots & \ddots & \vdots & 0 & 1 & 0 \\
+            -\frac{\partial f^{m}}{\partial y^{1}} & \cdots & -\frac{\partial f^{m}}{\partial y^{k}} & 0 & 0 & 1
+        \end{pmatrix}.
+    \end{align}
+    This matrix is of full rank, so $G$ is a diffeomorphism from $f(V)$ to $G(f(V))$. Then, we have $(GF)(x^{1},\ldots,x^{n}) = (f_{1}(x^{1},\ldots,x^{n}),\ldots,f_{k}(x^{1},\ldots,x^{n}),0,\ldots,0)$ for all $(x^{1},\ldots,x^{n}) \in V$. Thus, we have found diffeomorphisms $G$ and $F$ such that $(GF)(x^{1},\ldots,x^{n}) = (x^{1},\ldots,x^{k},0,\ldots,0)$ for all $(x^{1},\ldots,x^{n}) \in G(V)$.
+\end{proof}
+
+The generalization is as follows. Let $f:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Let $p \in N$ be a point such that $f$ has a rank $k$ in a neighbourhood of $p$ in $N$. Then there exists a chart $(U,\varphi)$ centred at $p$ in $N$ and a chart $(V,\psi)$ centred at $f(p)$ in $M$ such that $f(U) \subseteq V$, and $\psi \circ f \circ \varphi^{-1}(x^{1},\ldots,x^{n}) = (x^{1},\ldots,x^{k},0,\ldots,0)$ for all $(x^{1},\ldots,x^{n}) \in \varphi(U)$.
+
+\begin{theorem}
+    Let $f:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Let $m \in M$ be such that $f$ has a rank $k$ in a neighbourhood of $f^{-1}(m)$ in $N$. Then $f^{-1}(m)$ is a regular submanifold of $N$ of dimension $n-k$.
+\end{theorem}
+
+\begin{example}
+    Look at the map $f:GL_{n}(\R) \to GL_{n}(\R)$ define by $f(A) = A^{t}A$. Then, $O_{n}(\R) = f^{-1}(I_{n}) = \{A \in GL_{n}(\R) \mid A^{t}A = I_{n}\}$. For now, the dimension of $O_{n}(\R)$ will remain unknown, but we can still show that it is a regular submanifold of $GL_{n}(\R)$. Let $C \in GL_{n}(\R)$. Then $f(AC) = C^{t}f(A)C$. Note that conjugation by $C$ is a diffeomorphism from $GL_{n}(\R)$ to itself, and hence $f$ has the same rank at $A$ and $AC$. We shall show that the ranks of $f_{\ast,A}$ and $f_{\ast,B}$ are the same for all $A,B \in GL_{n}(\R)$. We can break down $B = AC$ for some $C \in GL_{n}(\R)$. Then $f \circ r_{C} = l_{C^{t}} \circ r_{c} \circ f$, where $r_{C}:GL_{n}(\R) \to GL_{n}(\R)$ is right multiplication by $C$ and $l_{C^{t}}:GL_{n}(\R) \to GL_{n}(\R)$ is left multiplication by $C^{t}$. Then, we have
+    \begin{align}
+        f_{\ast,AC} (r_{C})_{\ast,A} = (l_{C^{t}})_{\ast,A^{t}AC}(r_{C})_{\ast,A^{t}A}f_{\ast,A}.
+    \end{align}
+\end{example}
