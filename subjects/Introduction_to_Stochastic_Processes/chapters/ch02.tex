@@ -200,3 +200,99 @@ Immediately from here, a state must be recurrent or transient.
     \end{align}
     Therefore, $0$ is recurrent. Now, let $i \in \Z$ be any state. There exist $r,s \in \N$ such that $p_{i0}^{r} > 0$ and $p_{0i}^{s} > 0$. If we let $n \in \N$, then $n = r+s+k$ for some $k \geq 1$. Thus, $p_{ii}^{n} \geq p_{i0}^{r}p_{00}^{k}p_{0i}^{s}$. Therefore, $\sum_{n=0}^{\infty} p_{ii}^{n} \geq p_{i0}^{r}p_{0i}^{s}\sum_{k=0}^{\infty} p_{00}^{k} = \infty$, and thus $i$ is recurrent. Since $i$ was arbitrary, the chain is recurrent.
 \end{example}
+
+
+\subsection{Hitting Probabilities}
+\textit{August 19th.}
+
+Suppose we have two players, $A$ and $B$, with an initial capital of two rupees. The dynamics are as follows: toss a fair coin. If heads, $A$ wins and gets one rupee, and $B$ loses one. If tails, $B$ wins and gets one rupee, and $A$ loses one. The game ends if either player runs out of money, and the other player is declared the winner. We can model this as a Markov chain with state space $S = \{0,1,2,3,4\}$, and $(X_{n})_{n \geq 0}$ denoting the capital of $A$ at time $n$ with $X_{0} = 2$. We wish to obtain the probability that $A$ wins. To this end, define $T^{4} = \min\{k \geq 0 \mid X_{k} = 4\}$. Thus, we need to compute the probability $\Prob(T^{4} < \infty \mid X_{0}=2)$. If we define the map $h:S \to [0,1]$ as $h(i) = \Prob(T^{4} < \infty \mid X_{0}=i)$, then we have $h(4) = 1$ and $h(0) = 0$. For $i \in \{1,2,3\}$, we have
+\begin{align}
+    h(i) &= \Prob(T^{4} < \infty \mid X_{0}=i) = \Prob(T^{4} < \infty, \, X_{1}=i+1 \mid X_{0}=i) + \Prob(T^{4} < \infty, \, X_{1}=i-1 \mid X_{0}=i) \notag \\
+    &= \Prob(T^{4} < \infty \mid X_{1}=i+1, \, X_{0}=i) \cdot \Prob(X_{1}=i+1 \mid X_{0}=i) \notag \\ &\quad + \Prob(T^{4} < \infty \mid X_{1}=i-1, \, X_{0}=i) \cdot \Prob(X_{1}=i-1 \mid X_{0}=i) \notag \\
+    &= \frac{1}{2}\Prob(T^{4} < \infty \mid X_{1}=i+1) + \frac{1}{2} \Prob(T^{4} < \infty \mid X_{1}=i-1) = \frac{1}{2}h(i+1) + \frac{1}{2}h(i-1).
+\end{align}
+Solving this recurrence relation with the boundary conditions $h(0) = 0$ and $h(4) = 1$, we get $h(i) = i/4$.
+\\
+
+Now suppose $A$ has an initial capital of 10 rupees, and instead plays against the casino. Moreover, they play with a biased coin, with the probability of heads being $p \in (0,1)$, and $p \neq 1/2$. We question whether $A$ is guaranteed to lose all their money. To this end, the state space is $S = \{0,1,2,\ldots\}$, and $(X_{n})_{n \geq 0}$ denotes the capital of $A$ at time $n$ with $X_{0} = 10$. We wish to compute the probability $\Prob(T^{0} < \infty \mid X_{0}=10)$, where $T^{0} = \min\{k \geq 0 \mid X_{k} = 0\}$. Define the map $h:S \to [0,1]$ as $h(i) = \Prob(T^{0} < \infty \mid X_{0}=i)$. Then, we have $h(0) = 1$, and for $i \geq 1$, we have
+\begin{align}
+    h(i) = \Prob(T^{0} < \infty \mid X_{0}=i) = p \cdot h(i+1) + (1-p) \cdot h(i-1).
+\end{align}
+We can guess that $h(i) = \alpha^{i}$; this then leads to $h(i) = c_{1} + c_{2}\left(\frac{1-p}{p}\right)^{i}$ for some $c_{1},c_{2} \geq 0$ for the recurrence relation. Using the boundary condition $h(0) = 1$, we have $c_{1} + c_{2} = 1$. Therefore,
+\begin{align}
+    h(i) = c_{1}+(1-c_{1})\left(\frac{1-p}{p}\right)^{i}.
+\end{align}
+If $c_{1} \neq 1$, and $p < 1/2$, then $\lim_{i \to \infty} h(i) = \infty$, which is impossible. Thus, $c_{1} = 1$, and $h(i) = 1$ for all $i \geq 0$. Therefore, $A$ is guaranteed to lose all their money. If $p > 1/2$, then $\lim_{i \to \infty} h(i) = c_{1}$; we will show later that this forces $c_{1} = 0$, and thus $h(i) = \left(\frac{1-p}{p}\right)^{i}$ for all $i \geq 0$. Therefore, $A$ is not guaranteed to lose all their money.
+
+\begin{theorem}
+    Let $(X_{n})_{n \geq 0}$ be a Markov chain on $S$ with transition matrix $P$ and initial distribution $\mu$. Let $A \subseteq S$, and define $T^{A} = \min\{n \geq 0 \mid X_{n} \in A\}$. Consider the map $h^{A}:S \to [0,1]$ defined as $h^{A}(i) = \Prob(T^{A} < \infty \mid X_{0}=i)$. Then
+    \begin{align}
+        h^{A}(i) = \begin{cases}
+            1 &\text{if } i \in A,\\
+            \sum_{j \in S} p_{ij}h^{A}(j) &\text{if } i \notin A.
+        \end{cases}
+    \end{align}
+    If $f:S \to [0,\infty)$ is any other map satisfying the above equation, then $h^{A}(i) \leq f(i)$ for all $i \in S$.
+\end{theorem}
+
+\begin{example}
+    Consider the simple symmetric random walk on $\Z^{d}$, with $P_{ij} = 1/(2d)$ if $\abs{i-j}=1$ and $0$ otherwise. For $d = 1$, we showed that
+    \begin{align}
+        p_{00}^{2n} = \frac{1}{2^{2n}}\binom{2n}{n} \sim \frac{1}{\sqrt{\pi n}} \implies \sum_{n=0}^{\infty} p_{00}^{2n} = \infty,
+    \end{align}
+    and thus $0$ (and every state in $\Z$) is recurrent. For $d = 2$, we have
+    \begin{align}
+        p_{(0,0),(0,0)}^{2n} = \frac{1}{4^{2n}}\binom{2n}{n}^{2} \sim \frac{1}{\pi n} \implies \sum_{n=0}^{\infty} p_{(0,0),(0,0)}^{2n} = \infty,
+    \end{align}
+    and thus $0$ is recurent. Note that this example works easily since we are working in the $\Z^{d}$ lattice structure. If we, instead, replace $\Z^{2}$ with a hexagonal lattice, then using $\sum_{n \geq 0} p_{jj}^{n} = \infty$ is not as easy. 
+\end{example}
+
+
+\subsection{Weighted Graphs}
+Recall \textbf{Example 2.2}, where we had a weighted graph $\Gamma = (G,\mu)$, with $G = (V,E)$ and $\mu:E \to (0,\infty)$. We defined a Markov chain on $V$ with transition matrix $P = [p_{ij}]_{i,j \in S}$, where $p_{ij} = \mu_{ij}/\mu_{i}$ for all $i,j \in V$. Here, notice that $p_{ij} = p_{ji}$ for all $i,j \in V$. Also, for $x_{0},x_{1},\ldots,x_{n} \in V$, we have
+\begin{align}
+    \mu_{x_{0}} \Prob(X_{0}=x_{0},\ldots,X_{n}=x_{n} \mid X_{0}=x_{0}) = \prod_{i=1}^{n} \mu_{x_{i-1},x_{i}} = \mu_{x_{n}} \Prob(X_{0}=x_{n},\ldots,X_{n}=x_{0} \mid X_{0}=x_{n}).
+\end{align}
+This is known as the \eax{time reversible property}.
+
+\begin{theorem}
+    Let $\Gamma$ be a weighted graph with vertex set $V$ and weight function $\mu:E \to (0,\infty)$. Also let $(X_{n})_{n \geq 0}$ be the random walk on $\Gamma$. Then $\sum_{i \in V} \mu_{i} < \infty$ implies that $(X_{n})_{n \geq 0}$ is recurrent.
+\end{theorem}
+\begin{proof}
+    Let $x \in V$. Let $h:V \to [0,1]$ be defined as $h(i) = \Prob(T^{x} < \infty \mid X_{0}=i)$, where $T^{x} = \min\{n \geq 0 \mid X_{n} = x\}$. We shall show that $h \equiv 1$. We know that $h(x) = 1$, and for $i \neq x$, we have $h(i) = \sum_{j \in V} p_{ij}h(j)$.
+We work with the energy principle. For $\varphi:V \to [0,\infty)$, define
+\begin{align}
+    \cE(\varphi,\varphi) = \frac{1}{2} \sum_{z,w \in V} \mu_{zw}(\varphi(z)-\varphi(w))^{2}.
+\end{align}
+If we set $\varphi=1-h$, then showing $\cE(\varphi,\varphi)=0$ gives $h\equiv 1$. Now
+\begin{align}
+    \cE(\varphi,\varphi)
+    &= \frac{1}{2} \sum_{z,w \in V} \mu_{zw}(\varphi(z)-\varphi(w))^{2} \\
+    &= \sum_{z\in V} \varphi(z) \sum_{w\in V} \mu_{zw}(\varphi(z)-\varphi(w)).
+\end{align}
+For $z\neq x$, we have $\varphi(z)=\sum_{w\in V} p_{zw}\varphi(w)$, so
+\begin{align}
+    \sum_{w \in V} \mu_{zw}(\varphi(z)-\varphi(w))
+    = \mu_z\left(\varphi(z)-\sum_{w\in V} p_{zw}\varphi(w)\right)=0.
+\end{align}
+Also $\varphi(x)=1-h(x)=0$, so the $z=x$ term vanishes as well. Hence $\cE(\varphi,\varphi)=0$. Since each summand is nonnegative, $\varphi(z)=\varphi(w)$ on every edge with $\mu_{zw}>0$; connectedness then implies $\varphi$ is constant on $V$. Because $\varphi(x)=0$, that constant is $0$. Thus $h(i)=1$ for all $i\in V$, and therefore
+\begin{align}
+    \Prob(T^x<\infty \mid X_0=i)=1 \qquad \text{for all } i\in V.
+\end{align}
+So the walk hits $x$ almost surely from any starting point, and hence $x$ is recurrent. Since $x$ was arbitrary, the random walk is recurrent.
+\end{proof}
+
+For a weghted graph $\Gamma = (G,\mu)$, on a finite set of vertices, denote $j \leftarrow i$ if there exists a natural $n$ such that $p_{ij}^{n} > 0$. That is, $j$ is reachable from $i$. Further, denote $j \leftrightarrow i$ if $j \leftarrow i$ and $i \leftarrow j$. Here, we say that $i$ and $j$ communicate. Now define
+\begin{align}
+    T = \{j \in S \mid \text{ there exists } k \in S \text{ such that } k \leftarrow j \text{ but } j \not\leftarrow k\}.
+\end{align}
+That is, all states in $T$ can reach some state, but cannot be reached from that state. If $S = T$, then this happens to be a contradiction to the fact that $S$ is finite. Thus, $T \subsetneq S$. Let $z_{1} \in S \setminus T$, and define $R_{1} = \{x \in S \mid z_{1} \leftrightarrow x\}$. If $S = T \sqcup R_{1}$, then we are done. Otherwise, let $z_{2} \in S \setminus (T \sqcup R_{1})$, and define $R_{2} = \{x \in S \mid z_{2} \leftrightarrow x\}$. Continuing in this manner, we can write
+\begin{align}
+    S = T \sqcup R_{1} \sqcup R_{2} \sqcup \cdots \sqcup R_{k}, \quad R_{i} = \{x \in S \mid z_{i} \leftrightarrow x\},
+\end{align}
+for some $k \geq 1$. Note that $R_{i} \cap R_{j} = \emptyset$ for $i \neq j$, and $R_{i} \cap T = \emptyset$ for all $i$. Take $y \in R_{i}$ for some $i = 1,2,\ldots,k$. Let $n_{0}(y) \in \N$ be such that $p_{y,z_{i}}^{n_{0}} > 0$. Also let $c = \min_{y \in R_{i}} p_{y,z_{i}}^{n_{0}(y)} > 0$. Then,
+\begin{align}
+    \sum_{y \in R_{i}} \sum_{m=0}^{\infty} p_{yy}^{m} &\geq \sum_{y \in R_{i}} \sum_{m=n_{0}(y)+1}^{\infty} p_{yy}^{m} \geq \sum_{y \in R_{i}} \sum_{m=n_{0}(y)+1}^{\infty} p_{y,z_{i}}^{n_{0}(y)}p_{z_{i},y}^{m-n_{0}(y)} \notag \\
+    &= \sum_{y \in R_{i}} p_{y,z_{i}}^{n_{0}(y)} \left( \sum_{k=1}^{\infty} p_{z_{i},y}^{k} \right) \geq c \sum_{y \in R_{i}} \sum_{k=1}^{\infty} p_{z_{i},y}^{k} = c \sum_{k=1}^{\infty} \sum_{y \in R_{i}} p_{z_{i},y}^{k} = c \sum_{k=1}^{\infty} 1 = \infty.
+\end{align}
+Since $\abs{R_{i}} < \infty$, there exists $y \in R_{i}$ such that $\sum_{m=0}^{\infty} p_{yy}^{m} = \infty$. Thus, $y$ is recurrent. But any other $y \in R_{i}$ communicates with $y$, and thus is also recurrent. Therefore, all states in $R_{i}$ are recurrent. Since $i$ was arbitrary, we conclude that all states in $\bigcup_{i=1}^{k} R_{i}$ are recurrent. Now let $i \in T$. By definition, there exists $j \in S$ such that $p_{ji}^{k} = 0$ for all $k \geq 1$. Thus, $\Prob(T^{i} < \infty \mid X_{0}=j) = 0$, and thus $i$ is transient. Therefore, we have shown that all states in $S$ are either recurrent or transient.
