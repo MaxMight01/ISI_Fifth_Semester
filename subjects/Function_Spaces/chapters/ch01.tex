@@ -482,7 +482,7 @@ This naturally leads to the next theorem.
     Let $\{f_{n}\}_{n \geq 1}$ be a Cauchy sequence in $(L^{1}[0,1],\norm{\cdot}_{1})$. Then for all $\eps > 0$, there exists $N \in \N$ such that $\norm{f_{n}-f_{m}}_{1} < \eps$ for all $n,m \geq N$. In particular, we can choose $\eps = 2^{-k}$ for $k \in \N$. Then there exists $N_{k} \in \N$ such that $\norm{f_{n}-f_{m}}_{1} < 2^{-k}$ for all $n,m \geq N_{k}$. We can assume that $N_{k} < N_{k+1}$ for all $k \in \N$. Then define $g_{k}(x) = \sum_{i=1}^{k} \abs{f_{N_{i+1}}(x)-f_{N_{i}}(x)}$. Then $\{g_{k}\}_{k \geq 1}$ is an increasing sequence of non-negative Lebesgue integrable functions, with $\int_{0}^{1} g_{k}(x) \, dx < \sum_{i=1}^{k} 2^{-i} < 1$. By the monotone convergence theorem, there exists $g \in L^{1}[0,1]$ such that $g_{k} \uparrow g$ and $\int_{0}^{1} g(x) \, dx = \lim_{k \to \infty} \int_{0}^{1} g_{k}(x) \, dx < 1$. Now define $h_{n}(x) = f_{n}(x)-f_{N_{1}}(x)$ for all $n \geq N_{1}$. Then $\abs{h_{n}(x)} = \abs{f_{n}(x)-f_{N_{1}}(x)} \leq g(x)$ almost everywhere. By the dominated convergence theorem, there exists $h \in L^{1}[0,1]$ such that $h_{n} \to h$ almost everywhere and $\int_{0}^{1} h(x) \, dx = \lim_{n \to \infty} \int_{0}^{1} h_{n}(x) \, dx$. Finally, define $f = h+f_{N_{1}}$. Clearly, $f_{n} \to f$ almost everywhere, and $\int_{0}^{1} f(x) \, dx = \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx$. Hence, $f \in L^{1}[0,1]$, and $\{f_{n}\}_{n \geq 1}$ converges to $f$ in $(L^{1}[0,1],\norm{\cdot}_{1})$. Therefore, $(L^{1}[0,1],\norm{\cdot}_{1})$ is a Banach space.
 \end{proof}
 
-\section{The Fourier Transform}
+\subsubsection{The Fourier Transform}
 Let $f \in L^{1}[0,1]$. Then, for $n \in \Z$, we define the $n$-th \eax{Fourier coefficient} of $f$ as
 \begin{align}
     c_{n} \defeq \int_{0}^{1} f(x) e^{-2\pi i n x} \, dx.
@@ -498,3 +498,89 @@ Given any two functions $f,g \in L^{1}[0,1] (\equiv L^{1}(S^{1}) \text{ via the 
     (f \ast g)(x) \defeq \int_{0}^{1} f(x-y)g(y) \, dy \text{ for all } x \in [0,1].
 \end{align}
 One may show that $f \ast g = g \ast f$.
+\\
+
+\noindent \textit{August 20th.}
+
+A little on complex valued functions; the space $L^{1}([0,1],\C)$ consists of all complex valued functions $f:[0,1] \to \C$ such that $\Re(f),\Im(f) \in L^{1}([0,1],\R)$. Such an $f$ is termed Lebesgue integrable, and the Lebesgue integral of $f$ is defined as
+\begin{align}
+    \int_{0}^{1} f \, dx \defeq \int_{0}^{1} \Re(f) \, dx + i\int_{0}^{1} \Im(f) \, dx.
+\end{align}
+We show that all our previous results extend to complex valued functions.
+
+\begin{proposition}
+    Let $f=u+iv \in L^{1}([0,1],\C)$, with $u,v \in L^{1}([0,1],\R)$. Then $\abs{f} \in L^{1}([0,1],\R)$ and $\abs{\int_{0}^{1} f \, dx} \leq \int_{0}^{1} \abs{f} \, dx$.
+\end{proposition}
+\begin{proof}
+    Note that $\abs{f} = \sqrt{u^{2}+v^{2}} \leq \abs{u}+\abs{v}$; there exist sequences of step functions $s_{n} \uparrow u$ and $t_{n} \uparrow v$ almost everywhere. Then $\sqrt{s_{n}^{2}+t_{n}^{2}} \to \sqrt{u^{2}+v^{2}}$ almost everywhere, and $\sqrt{s_{n}^{2}+t_{n}^{2}} \leq \max{\abs{s_{1}},\abs{u}}+\max{\abs{t_{1}},\abs{v}}$ almost everywhere. By the dominated convergence theorem, $\int_{0}^{1} \sqrt{s_{n}^{2}+t_{n}^{2}} \, dx \to \int_{0}^{1} \sqrt{u^{2}+v^{2}} \, dx$. Hence, $\abs{f} \in L^{1}([0,1],\R)$. Now, $\int_{0}^{1} f(x) \, dx = re^{i\theta}$ for some $r \geq 0$ and $\theta \in [0,2\pi)$. Then $r = \int_{0}^{1} e^{-i\theta}f(x) \, dx$ implies
+    \begin{align}
+        \abs{\int_{0}^{1} f(x) \, dx} &= \abs{\int_{0}^{1} e^{-i\theta}f(x) \, dx} = \abs{\int_{0}^{1} \Re(e^{-i\theta}f(x)) \, dx} \notag \\ &\leq \int_{0}^{1} \abs{\Re(e^{-i\theta}f(x))} \, dx \leq \int_{0}^{1} \abs{e^{-i\theta}f(x)} \, dx = \int_{0}^{1} \abs{f(x)} \, dx.
+    \end{align}
+\end{proof}
+
+\begin{proposition}[The dominated convergence theorem for complex valued functions]
+    Let $(f_{n})_{n\geq 1} \subseteq L^{1}([0,1],\C)$ be a sequence of complex valued functions such that $f_{n} \to f$ almost everywhere, and there exists a Lebesgue integrable real function $g \geq 0$ almost everywhere such that $\abs{f_{n}} \leq g$ almost everywhere for all $n \geq 1$. Then $f \in L^{1}([0,1],\C)$ and $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx$.
+\end{proposition}
+
+\begin{proof}
+    If we write $f = u+iv$ and $f_{n} = u_{n}+iv_{n}$, with $u,v,u_{n},v_{n} \in L^{1}([0,1],\R)$, then $u_{n} \to u$ and $v_{n} \to v$ almost everywhere, and $\abs{u_{n}} \leq g$ and $\abs{v_{n}} \leq g$ almost everywhere for all $n \geq 1$. Hence, by the dominated convergence theorem for real valued functions, we have $\int_{0}^{1} u \, dx = \lim_{n \to \infty} \int_{0}^{1} u_{n}(x) \, dx$ and $\int_{0}^{1} v \, dx = \lim_{n \to \infty} \int_{0}^{1} v_{n}(x) \, dx$. Thus, $\int_{0}^{1} f \, dx = \lim_{n \to \infty} \int_{0}^{1} f_{n}(x) \, dx$.    
+\end{proof}
+
+\subsection{Integration on Unbounded Intervals}
+Simply put, such an integral can be viewed as the limit of integrals over bounded intervals. We shall work with the interval $\R$, but the same can be done for any unbounded interval. First off, the proto-monotone convergence theorem states that if $s_{n} \downarrow 0$ almost everywhere, and with the additional condition that $\int_{\R} s_{1}(x) \, dx < \infty$, then $\int_{\R} s_{n}(x) \, dx \to 0$. The set of upper functions $U(\R)$ is defined as the upper limits of increasing sequences of \textit{integrable} step functions. $L^{1}(\R)$ is then defined as the span of $U(\R)$, $\spanof U(\R)$.
+
+\begin{theorem}
+    Let $f:[0,\infty) \to \R$, and suppose $f \chi_{[0,b]} \in L^{1}[0,b]$ for all $b > 0$ and there exists $M \geq 0$ such that $\int_{0}^{b} \abs{f(x)} \, dx \leq M$ for all $b > 0$. Then 
+    \begin{enumerate}
+        \item $f \in L^{1}[0,\infty)$,
+        \item $\lim_{b \to \infty} \int_{0}^{b} f(x) \, dx$ exists, and
+        \item $\int_{0}^{\infty} f(x) \, dx = \lim_{b \to \infty} \int_{0}^{b} f(x) \, dx$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Note that $\abs{f}\chi_{[0,n]} \uparrow \abs{f}$ almost everywhere, and $\int_{0}^{\infty} \abs{f(x) \chi_{[0,n]}(x)} \, dx = \int_{0}^{n} \abs{f(x)} \, dx \leq M$ for all $n \geq 1$. By the monotone convergence theorem, $\int_{0}^{\infty} \abs{f(x)} \, dx = \lim_{n \to \infty} \int_{0}^{n} \abs{f(x)} \, dx < \infty$. Hence, $\abs{f} \in L^{1}[0,\infty)$. If we now let $g_{n} = f \chi_{[0,n]}$, then $g_{n} \to f$ almost everywhere, and $\abs{g_{n}} \leq \abs{f}$ almost everywhere. By the dominated convergence theorem, $\int_{0}^{\infty} f(x) \, dx = \lim_{n \to \infty} \int_{0}^{n} f(x) \, dx$.
+\end{proof}
+
+
+Recall the definition of the improper Riemann integral.
+\begin{definition}
+    If $f$ is Riemann integrable on $[0,b]$ for all $b > 0$, and $\lim_{b \to \infty} (R)\int_{0}^{b} f(x) \, dx$ exists, then $f$ is said to be \eax{improperly Riemann integrable} on $[0,\infty)$, and the improper Riemann integral of $f$ on $[0,\infty)$ is defined as $(IR)\int_{0}^{\infty} f(x) \, dx = \lim_{b \to \infty} (R)\int_{0}^{b} f(x) \, dx$.
+\end{definition}
+
+Then,
+\begin{theorem}
+    Assume $f$ is Riemann integrable on $[0,b]$ for all $b > 0$, and that there exists a constant $M \geq 0$ such that $\abs{\int_{0}^{b} f(x) \, dx} \leq M$ for all $b > 0$. Then both $f$ and $\abs{f}$ are improperly Riemann integrable on $[0,\infty)$, and $f \in L^{1}[0,\infty)$, with $\int_{0}^{\infty} f(x) \, dx = (IR)\int_{0}^{\infty} f(x) \, dx$.
+\end{theorem}
+
+\begin{proof}
+    Define $F(b) = \int_{0}^{b} \abs{f(x)} \, dx$. Then $F$ is increasing and bounded above by $M$, so $\lim_{b \to \infty} F(b)$ exists. Also, $0 \leq \abs{f(x)} - f(x) \leq 2\abs{f(x)}$. By the dominated convergence theorem, $\lim_{b \to \infty} \int_{0}^{b} (\abs{f(x)}-f(x)) \, dx$ exists, and hence $\lim_{b \to \infty} \int_{0}^{b} \abs{f(x)} \, dx$ exists.
+\end{proof}
+
+\begin{example}
+    Let $f(x) = e^{-x}x^{t-1}$ for any $t > 0$. We claim that $\int_{0}^{\infty} f(x) \, dx$ exists. Note that $\lim_{x \to \infty} x^{n} e^{-x} = 0$ for all $n > 0$. Hence, there exists $M_{t} \geq 0$ such that $e^{-x}x^{t-1} \leq e^{-x}M_{t}$ for all $x \geq 1$. Also, $\int_{0}^{1} e^{-x}x^{t-1} \, dx \leq \int_{0}^{1} x^{t-1} \, dx = \frac{1}{t}$, and $\int_{1}^{b} e^{-x}x^{t-1} \, dx \leq M_{t}\int_{1}^{b} e^{-x} \, dx = M_{t}(e^{-1}-e^{-b})$. Hence, $\abs{\int_{0}^{b} f(x) \, dx} \leq \frac{1}{t}+M_{t}(e^{-1}-e^{-b})$, which is bounded above by $\frac{1}{t}+M_{t}e^{-1}$ for all $b > 0$. Hence, $\int_{0}^{\infty} f(x) \, dx$ exists.
+\end{example}
+
+In the above example, the function $\Gamma(t) \defeq \int_{0}^{\infty} e^{-x}x^{t-1} \, dx$ is called the \eax{Gamma function}. To find the derivative of $\Gamma$, we have
+\begin{align}
+    \Gamma'(t) = \lim_{n \to \infty} \frac{\Gamma(t+\frac{1}{n}) - \Gamma(t)}{\frac{1}{n}}
+\end{align}
+By the definition of $\Gamma$,
+\begin{align}
+    \frac{\Gamma(t+\frac{1}{n})-\Gamma(t)}{\frac{1}{n}}
+    &=\int_{0}^{\infty}e^{-x}x^{t-1}\frac{x^{1/n}-1}{1/n}\,dx.
+\end{align}
+For $x>0$, the mean value theorem gives $\theta_{n,x}\in(0,1)$ such that
+\begin{align}
+    \frac{x^{1/n}-1}{1/n}&=x^{\theta_{n,x}/n}\log x
+    \longrightarrow \log x.
+\end{align}
+Choose $N$ with $1/N<t/2$. For $n\geq N$, the integrand is dominated by
+\begin{align}
+    h(x)&=x^{t-1-1/N}\abs{\log x}\chi_{(0,1]}(x)
+    +e^{-x}x^{t}\abs{\log x}\chi_{[1,\infty)}(x),
+\end{align}
+which is integrable. Hence, by dominated convergence,
+\begin{align}
+    \Gamma'(t)&=\int_{0}^{\infty}e^{-x}x^{t-1}\log x\,dx.
+\end{align}
