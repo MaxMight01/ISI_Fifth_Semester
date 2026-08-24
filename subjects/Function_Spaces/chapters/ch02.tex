@@ -1,0 +1,52 @@
+\chapter{THE FOURIER TRANSFORM}
+
+\begin{definition}
+    For a function $f \in L^{1}(\R,\C)$, the \eax{Fourier transform} $\hat{f}$ of $f$ is a complex-valued function on $\R$ defined by
+    \begin{align}
+        \hat{f}(\xi) = \int_{-\infty}^{\infty} f(x) e^{-2 \pi i x \xi} \, dx, \quad \xi \in \R.
+    \end{align}
+\end{definition}
+
+One can show that $x \mapsto e^{-2 \pi i x \xi}$ is measurable. Via this, the mapping $h(x) = f(x) e^{-2 \pi i x \xi}$ is measurable, and dominated by $\abs{f}$, which is integrable. Hence, the Fourier transform is well-defined. Also, we can show that it is continuous on $\R$:
+\begin{align}
+    \hat{f}(\xi+h_{n})-\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x) e^{-2 \pi i x \xi} (e^{-2 \pi i x h_{n}} - 1) \, dx
+\end{align}
+where the integrand coverges to $0$ pointwise as $h_{n} \to 0$. Thus, by the dominated convergence theorem, we have $\hat{f}(\xi+h_{n}) \to \hat{f}(\xi)$ as $h_{n} \to 0$. 
+\\
+
+The notion of continuity may be redefined by our theory of Lebesgue integration.
+
+\begin{theorem}
+    Let $X,Y$ be subintervals of $\R$, and $f:X \times Y \to \R$ be a function satisfying the following conditions.
+    \begin{enumerate}
+        \item For $y \in Y$, the function $f_{y}:X \to \R$ defined by $f_{y}(x) = f(x,y)$ is measurable.
+        \item There is a non0negative function $g \in L^{1}(X)$ such that $\abs{f_{y}(x)} = \abs{f(x,y)} \leq g(x)$ almost everywhere on $X$ for all $y \in Y$.
+        \item For a fixed $y \in Y$, $\lim_{t \to y} f(x,t) = f(x,y)$ almost everywhere on $X$. That is, $f_{x}$ is continuous almost everywhere.
+    \end{enumerate}
+    Then, $\int_{X} f(x,y) \, dx$ exists for each $y \in Y$, and the function $F:Y \to \R$ defined by $F(y) = \int_{X} f(x,y) \, dx$ is continuous on $Y$.
+\end{theorem}
+\begin{proof}
+    Note that $f_{y} \in \cM(X)$ for each $y \in Y$, and $\abs{f_{y}} \leq g$ almost everywhere on $X$. Hence, by the dominated convergence theorem, $f_{y} \in L^{1}(X)$. Let $y_{n} \to y$ in $Y$, and define $G_{n}(x) \defeq f(x,y_{n})$. Then $G_{n}(x) \to f(x,y)$ almost everywhere on $X$ by the third assumption. Also, $F(y_{n}) = \int_{X} G_{n}(x) \, dx$ for each $n$. By the dominated convergence theorem, we have
+    \begin{align}
+        \lim_{n \to \infty} F(y_{n}) = \lim_{n \to \infty} \int_{X} G_{n}(x) \, dx = \int_{X} f(x,y) \, dx = F(y).
+    \end{align}
+\end{proof}
+
+Note that the Fourier transform $\hat{f}$ is continuous on $\R$ by the above theorem, but may fail to be differentiable.
+
+\begin{theorem}
+    Let $X,Y$ be subintervals of $\R$, and $f:X \times Y \to \R$ be a function satisfying the following conditions.
+    \begin{enumerate}
+        \item For $y \in Y$, the function $f_{y}:X \to \R$ defined by $f_{y}(x) = f(x,y)$ is measurable, and $f_{a} \in L^{1}(X)$ for some $a \in Y$.
+        \item $\frac{\partial}{\partial y}f(x,y)$ exists for each interior point $(x,y) \in X \times Y$.
+        \item There exists a non-negative function $G \in L^{1}(X)$ such that $\abs{\frac{\partial f}{\partial y}(x,y)} \leq G(x)$ for all interior points $(x,y) \in X \times Y$.
+    \end{enumerate}
+    Then $\int_{X}f(x,y) \, dx$ exists for all $y \in Y$, and the function $F:Y \to \R$ defined by $F(y) = \int_{X} f(x,y) \, dx$ is differentiable at each interior point of $Y$, and $F'(y) = \int_{X} \frac{\partial f}{\partial y}(x,y) \, dx$.
+\end{theorem}
+
+\begin{proof}
+    Since $f(x,y)-f(x,a) = (y-a)\frac{\partial}{\partial y}f(x,c)$ for some $c$ between $a$ and $y$, we have $\abs{f_{y}(x)} \leq \abs{f_{a}(x)} + \abs{y-a}G(x)$, showing that $\abs{f_{y}} \in L^{1}(X)$ for each $y \in Y$. Hence, $\int_{X} f(x,y) \, dx$ exists for all $y \in Y$. Let $y_{n} \to y$ in $Y$, and define $q_{n}(x) = \frac{f(x,y_{n})-f(x,y)}{y_{n}-y}$. Then $q_{n}(x) \to \frac{\partial f}{\partial y}(x,y)$ for each interior point $(x,y) \in X \times Y$. Also, $\abs{q_{n}(x)} \leq G(x)$ for all interior points $(x,y) \in X \times Y$. By the dominated convergence theorem, we have
+    \begin{align}
+        \lim_{n \to \infty} \int_{X} q_{n}(x) \, dx = \int_{X} \frac{\partial f}{\partial y}(x,y) \, dx.
+    \end{align}
+\end{proof}

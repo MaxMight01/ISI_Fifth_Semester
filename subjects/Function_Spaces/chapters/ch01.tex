@@ -584,3 +584,28 @@ which is integrable. Hence, by dominated convergence,
 \begin{align}
     \Gamma'(t)&=\int_{0}^{\infty}e^{-x}x^{t-1}\log x\,dx.
 \end{align}
+
+\subsection{Measurable Functions}
+\textit{August 24th.}
+
+\begin{definition}
+    A function $f:[0,1] \to \R$ is said to be a \eax{measurable function} if there exists a sequence of step functions $\{s_{n}\}_{n \geq 1}$ such that $s_{n} \to f$ almost everywhere. The set of all measurable functions on $[0,1]$ is denoted by $\cM[0,1]$.
+\end{definition}
+Notice that the definition of a measurable function is similar to that of an upper function, except that we do not require the step functions to be integrable. In fact, we claim that $L^{1}[0,1] \subsetneq \cM[0,1]$. To see this, let $f \in L^{1}[0,1]$. Then there exists a sequence of step functions $\{s_{n}\}_{n \geq 1}$ such that $s_{n} \to f$ almost everywhere. Hence, $f$ is measurable. However, the converse is not true; for example, the function $f(x) = \frac{1}{x}$ is measurable on $(0,1]$, but it is not Lebesgue integrable on $(0,1]$.
+
+\begin{theorem}
+    If $f \in \cM[0,1]$ and there exists a non-negative $g \in L^{1}[0,1]$ such that $\abs{f} \leq g$ almost everywhere, then $f \in L^{1}[0,1]$.
+\end{theorem}
+\begin{proof}
+    Since $f$ is measurable, there exists a sequence of step functions $\{s_{n}\}_{n \geq 1}$ such that $s_{n} \to f$ almost everywhere. Define $g_{n} = \max\{\min\{s_{n},g\},-g\}$ for all $n \geq 1$. Then $\abs{g_{n}} \leq g$ almost everywhere, and $g_{n} \in L^{1}[0,1]$. Moreover, $g_{n} \to f$ almost everywhere. The dominated convergence theorem then implies that $f \in L^{1}[0,1]$.
+\end{proof}
+
+Thus, to show a function $f$ is integrable, it suffices to show that it is measurable and dominated by an integrable function. 
+
+\begin{theorem}
+    Let $\varphi: \R^{2} \to \R$ be continuous. If $f,g \in \cM[0,1]$, then the function $h:[0,1] \to \R$ defined by $h(t) = \varphi(f(t),g(t))$ is also measurable. In particular, $f+g$, $fg$, $\abs{f}$, $\max\{f,g\}$, and $\min\{f,g\}$ are all measurable. Also, $1/f \in \cM[0,1]$ if $f$ is non-zero almost everywhere.
+\end{theorem}
+
+\begin{proof}
+    Note that if $s$ and $t$ are two step functions, then $\varphi(s,t)$ is also a step function; one can show this by considering the preimage of $\varphi(s,t)$ under the partition of $[0,1]$ induced by $s$ and $t$. Since $\varphi$ is continuous, whenever $s_{n} \to f$ and $t_{n} \to g$ almost everywhere, we have $\varphi(s_{n},t_{n}) \to \varphi(f,g)$ almost everywhere. Hence, $\varphi(f,g)$ is measurable. The other statements follow from the fact that addition, multiplication, absolute value, maximum, minimum, and reciprocal (for non-zero functions) are all continuous operations.
+\end{proof}
