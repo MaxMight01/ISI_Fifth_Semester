@@ -785,14 +785,38 @@ The following is a corollary of the inverse function theorem; it may be generali
 \end{proof}
 
 The generalization is as follows. Let $f:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Let $p \in N$ be a point such that $f$ has a rank $k$ in a neighbourhood of $p$ in $N$. Then there exists a chart $(U,\varphi)$ centred at $p$ in $N$ and a chart $(V,\psi)$ centred at $f(p)$ in $M$ such that $f(U) \subseteq V$, and $\psi \circ f \circ \varphi^{-1}(x^{1},\ldots,x^{n}) = (x^{1},\ldots,x^{k},0,\ldots,0)$ for all $(x^{1},\ldots,x^{n}) \in \varphi(U)$.
+\\
 
+\textit{August 24th.}
 \begin{theorem}
-    Let $f:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Let $m \in M$ be such that $f$ has a rank $k$ in a neighbourhood of $f^{-1}(m)$ in $N$. Then $f^{-1}(m)$ is a regular submanifold of $N$ of dimension $n-k$.
+    Let $f:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Let $c \in M$ be such that $f$ has a rank $k$ in a neighbourhood of $f^{-1}(c) \neq \emptyset$ in $N$. Then $f^{-1}(c)$ is a regular submanifold of $N$ of dimension $n-k$.
 \end{theorem}
+
+% \begin{proof}
+%     We wish to find smooth compatible charts on open subsets of $S = f^{-1}(c)$ which will prove that $S$ is a regular submanifold of $N$. Let $p \in S$ so that $f(p) = c$. Then, by the next theorem, there exists a chart $(U,\varphi)$ centred at $p$ in $N$ and a chart $(V,\psi)$ centred at $c$ in $M$ such that $\psi f \varphi^{-1}(x^{1},\ldots,x^{n}) = (x^{1},\ldots,x^{k},0,\ldots,0) \in \R^{m}$ for all $(x^{1},\ldots,x^{n}) \in \varphi(U)$. Then, with $\psi(c) = \psi(f(p)) = 0 \in \R^{m}$, we have $S \cap U = (\psi f)^{-1}(0) \cap U$, and $\varphi(S \cap U) = \varphi((\psi f)^{-1}(0) \cap U) = \varphi((\psi f)^{-1}(0))$
+% \end{proof}
 
 \begin{example}
     Look at the map $f:GL_{n}(\R) \to GL_{n}(\R)$ define by $f(A) = A^{t}A$. Then, $O_{n}(\R) = f^{-1}(I_{n}) = \{A \in GL_{n}(\R) \mid A^{t}A = I_{n}\}$. For now, the dimension of $O_{n}(\R)$ will remain unknown, but we can still show that it is a regular submanifold of $GL_{n}(\R)$. Let $C \in GL_{n}(\R)$. Then $f(AC) = C^{t}f(A)C$. Note that conjugation by $C$ is a diffeomorphism from $GL_{n}(\R)$ to itself, and hence $f$ has the same rank at $A$ and $AC$. We shall show that the ranks of $f_{\ast,A}$ and $f_{\ast,B}$ are the same for all $A,B \in GL_{n}(\R)$. We can break down $B = AC$ for some $C \in GL_{n}(\R)$. Then $f \circ r_{C} = l_{C^{t}} \circ r_{c} \circ f$, where $r_{C}:GL_{n}(\R) \to GL_{n}(\R)$ is right multiplication by $C$ and $l_{C^{t}}:GL_{n}(\R) \to GL_{n}(\R)$ is left multiplication by $C^{t}$. Then, we have
     \begin{align}
         f_{\ast,AC} (r_{C})_{\ast,A} = (l_{C^{t}})_{\ast,A^{t}AC}(r_{C})_{\ast,A^{t}A}f_{\ast,A}.
     \end{align}
+    The rank of $f_{\ast,A}$ is the same as the rank of $f_{\ast,AC}$ since $(r_{C})_{\ast,A}$ and $(l_{C^{t}})_{\ast,A^{t}AC}(r_{C})_{\ast,A^{t}A}$ are both isomorphisms. Thus, $f$ has the same rank at all points in $GL_{n}(\R)$. 
 \end{example}
+
+
+The previous theorem may be generalized to the following theorem.
+
+\begin{theorem}
+    Let $f:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Also let $S \subseteq M$ be a regular submanifold of codimension $k$, or dimension $m-k$. Suppose $f_{\ast,p}(T_{p}N) + T_{f(p)}S = T_{f(p)}M$ for all $p \in f^{-1}(S)$. Then, $f^{-1}(S)$ is a regular submanifold of $N$ of codimension $k$, or dimension $n-k$.
+\end{theorem}
+
+
+\begin{theorem}
+    Let $f:N \to M$ be a smooth map between smooth manifolds of dimension $n$ and $m$, respectively. Let $p \in N$.
+    \begin{enumerate}
+        \item Suppose $\rank(f_{\ast,p}) = m$. Then there exists a local chart $(U,\varphi)$ centred at $p$ in $N$ and a local chart $(V,\psi)$ centred at $f(p)$ in $M$ such that $\psi f \varphi^{-1}(x^{1},\ldots,x^{n}) = (x^{1},\ldots,x^{m})$ for all $(x^{1},\ldots,x^{n}) \in \varphi(U)$.
+        \item Suppose $\rank(f_{\ast,p}) = n$. Then there exists a local chart $(U,\varphi)$ centred at $p$ in $N$ and a local chart $(V,\psi)$ centred at $f(p)$ in $M$ such that $\psi f \varphi^{-1}(x^{1},\ldots,x^{n}) = (x^{1},\ldots,x^{n},0,\ldots,0)$ for all $(x^{1},\ldots,x^{n}) \in \varphi(U)$.
+    \end{enumerate}
+\end{theorem}
+
