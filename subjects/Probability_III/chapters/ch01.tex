@@ -416,6 +416,9 @@ where the \eax{$\epsilon$-fattening} of $A$ is defined as
     A+\epsilon \defeq \{x \in X \mid \text{ there exists } y \in A \text{ such that } \cD(x,y) < \epsilon\}.
 \end{align}
 Note that these two metrics are not the same on $\cP(\R)$, but are equivalent. Also, via the Levy distance, we can show $d(\delta_{1/n},\delta_{0}) = 1/n$, showing that $\delta_{1/n} \to \delta_{0}$ in this metric.
+\\
+
+\textit{August 25th.}
 
 \begin{theorem}
     Suppose $\mu,\mu_{1},\mu_{2},\ldots \in \cP(\R)$ are Borel probability measures. Then $d(\mu_{n},\mu) \xrightarrow{n \toinf} 0$ if and only if $F_{\mu_{n}}(x) \xrightarrow{n \toinf} F_{\mu}(x)$ for all continuity points $x \in \R$ of $F_{\mu}$.
@@ -423,7 +426,69 @@ Note that these two metrics are not the same on $\cP(\R)$, but are equivalent. A
 \begin{proof}
     We first show the forward implication. Suppose $d(\mu_{n},\mu) \to 0$. Then, for any $\epsilon > 0$, there exists $N_{\epsilon} \in \N$ such that $d(\mu_{n},\mu) < \epsilon$ for all $n \geq N_{\epsilon}$. Now fix $\epsilon > 0$ and $x \in \R$. Then, for all $n \geq N_{\epsilon}$, we have $F_{\mu}(x+\epsilon) + \epsilon \geq F_{\mu_{n}}(x)$. We can replace the right hand side with the limit superior to get
     \begin{align}
-        F_{\mu}(x+\epsilon) + \epsilon \geq \limsup_{n \toinf} F_{\mu_{n}}(x) \text{ for all } \epsilon > 0.
+        F_{\mu}(x+\epsilon) + \epsilon \geq \limsup_{n \toinf} F_{\mu_{n}}(x) \quad \text{ for all } \epsilon > 0.
     \end{align}
     This implies that $F_{\mu}(x) \geq \limsup_{n \toinf} F_{\mu_{n}}(x)$. Similarly, for all $n \geq N_{\epsilon}$, we have $F_{\mu_{n}}(x) + \epsilon \geq F_{\mu}(x-\epsilon)$. By a similar argument, we have $\liminf_{n \toinf} F_{\mu_{n}}(x) \geq F_{\mu}(x)$ if $x$ is a continuity point of $F_{\mu}$. Thus, we have shown that $\limsup_{n \toinf} F_{\mu_{n}}(x) \leq F_{\mu}(x) \leq \liminf_{n \toinf} F_{\mu_{n}}(x)$ or $F_{\mu_{n}}(x) \to F_{\mu}(x)$ for all continuity points.
+
+    For the converse, if $\cC$ denotes the set of continuity points of $F_{\mu}$, then $\cC$ is cocountable and hence dense in $\R$. Now fix $\eps \in (0,1)$. Let $A,B \in \R$ be numbers such that $F_{\mu}(A) < \eps$ and $F_{\mu}(B) \geq 1-\eps$. Pick points $\{x_{i}\}_{i=0}^{m}$ in $[A,B] \cap \cC$ such that $A=x_{0} < x_{1} < \cdots < x_{m} = B$ and $x_{i+1}-x_{i} < \eps$ for all $i$. By the choice of the $x_{i}$'s, we have $F_{\mu_{n}}(x_{i}) \to F_{\mu}(x_{i})$ for all $i$, and so there exists $N_{\eps} \in \N$ such that $\abs{F_{\mu_{n}}(x_{i}) - F_{\mu}(x_{i})} < \eps$ for all $n \geq N_{\eps}$ and all $i$. Now fix $t \in [A,B]$; so $t \in [x_{i},x_{i+1}]$ for some $i$. Then, for all $n \geq N_{\eps}$, we have
+    \begin{align}
+        F_{\mu_{n}}(t+\eps) \geq F_{\mu_{n}}(x_{i+1}) \geq F_{\mu}(x_{i+1}) - \eps \geq F_{\mu}(t) - \eps \implies F_{\mu_{n}}(t+\eps) + \eps \geq F_{\mu}(t)
+    \end{align}
+    for all $n \geq N_{\eps}$ and $t \in [A,B]$. If $t > B$, then both $F_{\mu_{n}}(t)$ and $F_{\mu}(t)$ are at least $1-2\eps$, and hence $F_{\mu_{n}}(t+\eps) + \eps \geq F_{\mu}(t)$. If $t < A$, then both $F_{\mu_{n}}(t)$ and $F_{\mu}(t)$ are at most $2\eps$, and hence $F_{\mu_{n}}(t+\eps) + \eps \geq F_{\mu}(t)$. Thus, we have shown that for all $\eps > 0$, there exists $N_{\eps} \in \N$ such that for all $n \geq N_{\eps}$, we have
+    \begin{align}
+        F_{\mu_{n}}(t+\eps) + \eps \geq F_{\mu}(t) \quad \text{ for all } t \in \R \implies d(\mu_{n},\mu) \leq 2\eps.
+    \end{align}
 \end{proof}
+
+\section{Expectation}
+
+Expectation, in our new setting, corresponds to integration in a probability space. To this end, we start with simple functions.
+
+\begin{definition}
+    Let $(\Omega, \cF, \Prob)$ be a probability space. A measurable function $S: \Omega \to \R$ is called a \eax{simple random variable} if it takes finitely many values; that is, $S(\Omega) = \{s_{1},\ldots,s_{n}\}$ for some $n \in \N$.
+\end{definition}
+In this case, we can write $S = \sum_{i=1}^{n} c_{i} \1_{A_{i}}$ for some $c_{i} \in \R$ and $A_{i} \in \cF$. This representation need not be unique; however, note that any such simple function can be written in a unique way as
+\begin{align}
+    S = \sum_{i=1}^{n} \beta_{i} \1_{B_{i}}
+\end{align}
+where $\beta_{i} \in S(\Omega)$ are unequal and $B_{i}$'s are measurable sets that are mutually disjoint.
+
+\begin{definition}
+    The \eax{expectation of a simple random variable} $S = \sum_{i=1}^{n} c_{i} \1_{A_{i}}$ is defined as
+    \begin{align}
+        \E[S] \defeq \sum_{i=1}^{n} c_{i} \Prob(A_{i}).
+    \end{align}
+\end{definition}
+Since this representation is not unique, one can verify that the expectation is well-defined by using the unique representation of $S$ as $\sum_{i=1}^{n} \beta_{i} \1_{B_{i}}$. Also, if $S$ and $T$ are simple random variables, then $S+T$ is also a simple random variable, and $\E[S+T] = \E[S] + \E[T]$. Similarly, for any $\alpha \in \R$, we have $\E[\alpha S] = \alpha \E[S]$. If $S \geq 0$, then $\E[S] \geq 0$. We can now extend the definition of expectation to all non-negative random variables, and then to all random variables.
+
+\begin{definition}
+    The \eax{expectation of a non-negative random variable} $X: \Omega \to [0,\infty)$ is defined as
+    \begin{align}
+        \E[X] \defeq \sup\{\E[S] \mid 0 \leq S \leq X, \, S \text{ is a simple random variable}\}.
+    \end{align}
+    If $X$ is a general random variable, we can write $X = X^{+} - X^{-}$, where $X^{+} = \max\{X,0\}$ and $X^{-} = \max\{-X,0\}$. If $\E[X^{+}] < \infty$ or $\E[X^{-}] < \infty$, then we define the \eax{expectation of (the) random variable} $X$ as
+    \begin{align}
+        \E[X] \defeq \E[X^{+}] - \E[X^{-}].
+    \end{align}
+\end{definition}
+
+\begin{proposition}
+    Let $X$ and $Y$ be non-negative random variables. Then, the following hold true.
+    \begin{enumerate}
+        \item $\E[X] \geq 0$.
+        \item $\E[X+Y] = \E[X] + \E[Y]$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    The first part is clear from the definition since $S \equiv 0$ is a simple random variable such that $0 \leq S \leq X$, so $\E[X] \geq \E[S] = 0$. For the second part, let $S$ and $T$ be simple random variables such that $0 \leq S \leq X$ and $0 \leq T \leq Y$. Then, $S+T$ is a simple random variable such that $0 \leq S+T \leq X+Y$, and hence $\E[X+Y] \geq \E[S+T] = \E[S] + \E[T]$. Taking supremum over all such $S$ and $T$, we get $\E[X+Y] \geq \E[X] + \E[Y]$. For the reverse inequality, let $U$ be a simple random variable such that $0 \leq U \leq X+Y$. Then, we can write $U = U_{1} + U_{2}$ where $U_{1} = U\1_{\{X > 0\}}$ and $U_{2} = U\1_{\{Y > 0\}}$. Then, $0 \leq U_{1} \leq X$ and $0 \leq U_{2} \leq Y$, and hence $\E[U] = \E[U_{1}] + \E[U_{2}] \leq \E[X] + \E[Y]$. Taking supremum over all such $U$, we get $\E[X+Y] \leq \E[X] + \E[Y]$. Thus, we have equality.
+\end{proof}
+
+We also have the monotone converge theorem, of which we state a basic version first.
+
+\begin{theorem}
+    Suppose $X \geq 0$ is a random variable, and $\{\varphi_{n}\}_{n=1}^{\infty}$ is a sequence of simple random variables such that $0 \leq \varphi_{n} \uparrow X$. Then, $\E[\varphi_{n}] \uparrow \E[X]$.
+\end{theorem}
+
+\begin{theorem}[The \eax{monotone convergence theorem}]
+    Suppose $X \geq 0$ is a random variable, and $\{X_{n}\}_{n=1}^{\infty}$ is a sequence of non-negative random variables such that $0 \leq X_{n} \uparrow X$. Then, $\E[X_{n}] \uparrow \E[X]$.
+\end{theorem}
