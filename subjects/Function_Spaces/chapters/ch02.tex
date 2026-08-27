@@ -50,3 +50,63 @@ Note that the Fourier transform $\hat{f}$ is continuous on $\R$ by the above the
         \lim_{n \to \infty} \int_{X} q_{n}(x) \, dx = \int_{X} \frac{\partial f}{\partial y}(x,y) \, dx.
     \end{align}
 \end{proof}
+
+\textit{August 27th.}
+\begin{example}
+    Since $\chi_{[-1,1]} \in L^{1}(\R)$, we can compute its Fourier transform:
+    \begin{align}
+        \hat{\chi}_{[-1,1]}(\xi) = \int_{\R} \chi_{[-1,1]}(x) e^{-2\pi i x \xi} \, dx = \int_{-1}^{1} e^{-2\pi i x \xi} \, dx = \frac{e^{-2\pi i \xi}-e^{2\pi i \xi}}{-2\pi i \xi} = \frac{\sin(2\pi \xi)}{\pi \xi} = 2 \sinc(2 \pi \xi)
+    \end{align}
+    where $\sinc(x) = \frac{\sin x}{x}$ for $x \neq 0$, and $\sinc(0) = 1$.    
+\end{example}
+
+For $y > 0$, define the function $F:(0,\infty) \to \R$ as
+\begin{align}
+    F(y) = \int_{0}^{\infty} e^{-xy} \sinc(x) \, dx.
+\end{align}
+Note that this integral is well-defined in the Lebesgue sense. Also, $\abs{e^{-xy} \sinc(x)} \leq e^{-xy}$ for $x,y > 0$. We claim that $F$ is continuous in its domain and vanishes at infinity. To this end, let $(y_{n})_{n \geq 1}$ be a sequence of positive numbers such that $y_{n} \to y > 0$. Then
+\begin{align}
+    F(y_{n}) - F(y) = \int_{0}^{\infty} e^{-xy_{n}}(1-e^{-x(y-y_{n})}) \sinc(x) \, dx
+\end{align}
+where $e^{-xy/2}(1+e^{-xy}) \geq e^{-xy_{n}}(1+e^{-xy_{n}})$ for sufficiently large $n$. Hence, by the dominated convergence theorem, we have $F(y_{n}) \to F(y)$ as $n \to \infty$. Also, for $y > 0$, we have
+\begin{align}
+    \abs{F(y)} \leq \int_{0}^{\infty} e^{-xy} \abs{\sinc(x)} \, dx \leq \int_{0}^{\infty} e^{-xy} \, dx = \frac{1}{y} \to 0 \quad \text{as } y \to \infty.
+\end{align}
+Now, $F'(y) = -\int_{0}^{\infty} e^{-xy} \sin(x) \, dx$ for $y > 0$. By integration by parts, and rearranging, we have
+\begin{align}
+    F'(y) = -\frac{1}{1+y^{2}}.
+\end{align}
+Thus, $F(y) = C - \tan^{-1}(y)$ for some constant $C$. Since $F(y) \to 0$ as $y \to \infty$, we have $C = \frac{\pi}{2}$. Moreover, $\lim_{y \to 0^{+}} F(y) = \int_{0}^{\infty} \sinc(x) \, dx = \frac{\pi}{2}$. If we choose subintervals $X = [0,\infty)$ and $Y = [\varepsilon, \infty)$ for some $\varepsilon > 0$, then the function $f(x,y) = e^{-xy} \sinc(x)$ satisfies the hypotheses of the above theorem. Therefore, $F$ is differentiable on $(0,\infty)$, and $F'(y) = -\int_{0}^{\infty} e^{-xy} \sin(x) \, dx$ for $y > 0$.
+
+We also claim that $\lim_{\alpha \to \infty} \int_{0}^{\alpha} \sinc(x) \, dx = \frac{\pi}{2}$, as the improper Riemann integral. To see this, we know that
+\begin{align}
+    \lim_{\alpha \to \infty} \int_{0}^{\alpha} e^{-xy}\sinc(x) \, dx = \frac{\pi}{2} - \tan^{-1}(y) \quad \text{for } y > 0.
+\end{align}
+For $\varepsilon > 0$, choose $\beta > 0$ such that
+\begin{align}
+    \frac{5}{\beta} < \frac{\varepsilon}{3}.
+\end{align}
+By integration by parts, for all $\alpha > \beta$ and $y > 0$, we have
+\begin{align}
+    \abs{\int_{\beta}^{\alpha} \sinc(x) \, dx} &\leq \frac{2}{\beta}, \\
+    \abs{\int_{\beta}^{\infty} e^{-xy}\sinc(x) \, dx} &\leq \frac{3}{\beta}.
+\end{align}
+Choose $y > 0$ sufficiently small such that
+\begin{align}
+    \abs{F(y)-\frac{\pi}{2}} < \frac{\varepsilon}{3}
+    \quad \text{and} \quad
+    \int_{0}^{\beta} (1-e^{-xy})\abs{\sinc(x)} \, dx < \frac{\varepsilon}{3}.
+\end{align}
+The second condition is possible since $e^{-xy} \to 1$ uniformly on $[0,\beta]$ as $y \to 0^{+}$. Hence, for all $\alpha > \beta$, we have
+\begin{align}
+    \abs{\int_{0}^{\alpha} \sinc(x) \, dx - \frac{\pi}{2}}
+    &\leq \int_{0}^{\beta} (1-e^{-xy})\abs{\sinc(x)} \, dx
+    + \abs{\int_{\beta}^{\alpha} \sinc(x) \, dx}
+    + \abs{\int_{\beta}^{\infty} e^{-xy}\sinc(x) \, dx}
+    + \abs{F(y)-\frac{\pi}{2}} \notag \\
+    &< \varepsilon.
+\end{align}
+Therefore,
+\begin{align}
+    \lim_{\alpha \to \infty} \int_{0}^{\alpha} \sinc(x) \, dx = \frac{\pi}{2}.
+\end{align}
