@@ -1,0 +1,67 @@
+\chapter{TANGENT SPACES, BUNDLES, AND VECTORS}
+
+
+\section{Manifold Structure}
+\noindent \textit{August 31st.}
+
+Recall that given a smooth manifold $M$, the tangent space $T_{p}M$ at a point $p \in M$ consists of all derivations from $C_{p}^{\infty}(M)$ to $\R$. $T_{p}M$ exactly equals $T_{p}U$, where $U$ is an open neighbourhood of $p$ in $M$, since germs of functions need only match in a neighbourhood. If $M$ is a manifold of dimension $n$, then any tangent space of a point in $M$ is a vector space of dimension $n$, too. Now, the \eax{tangent bundle} of the manifold is defined as the disjoint union of all tangent spaces:
+\begin{align}
+    TM = \bigsqcup_{p \in M} T_{p}M.
+\end{align}
+From here, let $\pi:TM \to M$ denote the projection map; that is, if $v \in T_{p}M \subseteq TM$ for some $p \in M$, then $\pi(v) = p$.
+
+
+We can equip $TM$ with a topology so that it becomes a smooth manifold is its own right, and so that $\pi$ also happens to be a smooth map. For $p \in M$, let $(U,\varphi)$ be a chart on $M$ containing $p$. Note that for all $p \in U$, the tangent space $T_{p}M$ has a basis $\{\frac{\partial}{\partial x^{1}}\big|_{p},\ldots,\frac{\partial}{\partial x^{n}}\big|_{p}\}$. Given any $v \in T_{p}M$, it can uniquely be written as
+\begin{align}
+    v = \sum_{i=1}^{n} c^{i}(v) \, \frac{\partial}{\partial x^{i}} \Big|_{p}.
+\end{align}
+Now, given $v \in TU$, we define a chart $(\tilde{U},\tilde{\varphi})$ as $\tilde{U} = \pi^{-1}(U) = \bigsqcup_{p \in U} T_{p}M = TU$, and
+\begin{align}
+    \tilde{\varphi}:TU \to \varphi(U) \times \R^{n}, \quad v \mapsto (x^{1}(p),\ldots,x^{n}(p),c^{1}(v),\ldots,c^{n}(v)) = ((x^{1} \circ \pi)(v),\ldots,(x^{n} \circ \pi)(v),c^{1}(v),\ldots,c^{n}(v)).
+\end{align}
+Note that $\tilde{\varphi}$ has a (set-theoretic) inverse since
+\begin{align}
+    \tilde{\varphi}^{-1}:\varphi(U) \times \R^{n} \to TU, \quad (\varphi(p),c^{1},\ldots,c^{n}) \mapsto v = \sum_{i=1}^{n} c^{i} \frac{\partial}{\partial x^{i}} \Big|_{p}.
+\end{align}
+On $\varphi(U) \times \R^{n} \subseteq \R^{2n}$, we put the subspace topology. Using the bijection $\tilde{\varphi}$, we put a topology on $TU$; that is, $A \subseteq TU$ is open if and only if $\tilde{\varphi}(A) \subseteq \varphi(U) \times \R^{n}$ is open.
+
+With $\cU = \{(U_{\alpha},\varphi_{\alpha})\}$ is a maximal atlas of $M$, let $\cB = \{A \subseteq TU_{\alpha} \mid A \text{ open and } \alpha \text{ is any index}\}$. We show that $\cB$ is a basis for a topology on $TM$. The union being $M$ is clear since
+\begin{align}
+    TM = \bigcup_{\alpha} TU_{\alpha} \subseteq \bigcup_{A \in \cB} A \subseteq TM.
+\end{align}
+To show the second property of a basis, let $A \subseteq TU$ be open and $B \subseteq TV$ be open. Then $TU \cap TV = \pi^{-1}(U) \cap \pi^{-1}(V) = \pi^{-1}(U \cap V) = T(U \cap V)$ and so $A \cap B \subseteq T(U \cap V)$. Since $A \cap T(U \cap V)$ and $B \cap T(U \cap V)$ are both open in $T(U \cap V)$, $A \cap B = A \cap B \cap T(U \cap V)$ is open in $T(U \cap V)$.
+
+\begin{lemma}
+    $TM$ is a second countable Hausdorff space.
+\end{lemma}
+\begin{proof}
+    Let $v,w \in TM$; so that $v \in T_{p}M$ and $w \in T_{q}M$, or $\pi(v) = p$ and $\pi(w) = q$. Two cases arise. If $p \neq q$, then since $M$ is Hausdorff, there exists open neighbourhoods $p \in U$ and $q \in V$ such that $U \cap V = \emptyset$. This simply implies $v \in \pi^{-1}(U) = TU$ and $w \in \pi^{-1}(V) = TV$, and $TU \cap TV = \emptyset$. For the case when $p = q$, both $v,w \in T_{p}M$. Since this $T_{p}M$ identifies with $\R^{n}$, $n$ being the dimension of $M$, we can pick open neighbourhoods $U_{1},U_{2} \subseteq T_{p}M$ of $v$ and $w$, respectively, such that $U_{1} \cap U_{2} = \emptyset$. If we now pick a coordinate chart $W$ of $p \in M$, then $W \times U_{1}$ and $W \times U_{2}$ are two open sets in $TM$ that separate $v$ and $w$, with $W \times U_{1} \cap W \times U_{2} = \emptyset$.
+
+    Let $\{B_{i}\}_{i \geq 1}$ be a countable basis of $M$, and let $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ be an atlas. For $p \in U_{\alpha}$, there exists $p \in B_{p,\alpha} \subseteq U_{\alpha}$. Varying $p$ and $\alpha$, we get $\{B_{p,\alpha}\}_{p \in M, \, \alpha \in \Lambda} \subseteq \{B_{i}\}_{i \geq 1}$. So, there exists a countable basis of $M$ consisting of coordinate charts for $M$. Since $TU_{i}$ identifies with $\varphi_{i}(U_{i}) \times \R^{n}$ for any $i$, it is second countable and has a countable basis $\cB_{i}$. Therefore, $\cB = \bigcup_{i=1}^{\infty} \cB_{i}$ is a countable basis of $TM$.
+\end{proof}
+
+Finally, we show that $\{(TU_{\alpha},\tilde{\varphi}_{\alpha})\}$ gives an atlas consisting of smooth compatible charts on $TM$. Let $(U,\varphi) = (U,x^{1}\ldots,x^{n})$ and $(V,\psi) = (V,y^{1},\ldots,y^{n})$ be two charts in $M$ such that $U \cap V \neq \emptyset$. Let $p \in U \cap V$ with $v \in T_{p}M$. $\{\frac{\partial}{\partial x^{1}}\big|_{p},\ldots,\frac{\partial}{\partial x^{n}}\big|_{p}\}$ and $\{\frac{\partial}{\partial y^{1}}\big|_{p},\ldots,\frac{\partial}{\partial y^{n}}\big|_{p}\}$ are two bases for $T_{p}M$, so $v = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}\big|_{p} = \sum_{i=1}^{n} b^{i} \frac{\partial}{\partial y^{i}}\big|_{p}$. Applying $y^{i}$ on both sides gives
+\begin{align}
+    b^{i} = \sum_{j=1}^{n} \frac{\partial y^{i}}{\partial x^{j}}(p) a^{j}.
+\end{align}
+This is a smooth transformation, showing that switching from one set of coordinates to another is smooth. Moreover, the $TU_{\alpha}$'s cover $TM$. This is a valid atlas.
+
+As a consequence of this, the projection map $\pi:TM \to M$ is a smooth map, since $\varphi(U) \times \R^{n} \cong TU \xrightarrow{\pi} U \cong \varphi(U)$ takes the first $n$ coordinates of $\varphi(U) \times \R^{n}$, which is a smooth map.
+
+\begin{definition}
+    A \eax{vector field} $X$ on a smooth manifold $M$ is a map $X:M \to TM$ such that $X(p) \in T_{p}M$ for all $p \in M$. In other words, a vector field is a smooth assignment of a tangent vector to each point in the manifold. It is termed smooth if the map $X$ is smooth, meaning that for any chart $(U,\varphi)$ on $M$, the composition $\tilde{\varphi} \circ X|_{U}: U \to \varphi(U) \times \R^{n}$ is smooth.
+\end{definition}
+Such a vector field $X$ is a section of the tangent bundle $TM$, as it assigns to each point $p \in M$ a vector in the corresponding tangent space $T_{p}M$. The projection map $\pi:TM \to M$ turns out to be the left inverse of $X$, since $\pi(X(p)) = p$ for all $p \in M$.
+
+\begin{definition}
+    Let $M$ be a smooth manifold of dimension $n$. A \eax{smooth vector bundle} on $M$ of rank $r$ is a triple $(E,M,\pi)$, where $E$ is a smooth manifold of dimension $n+r$, and $\pi:E \to M$ is a smooth surjective map such that for each $p \in M$, the fiber $\pi^{-1}(p)$ is an $r$-dimensional real vector space. Additionally, $\pi$ satisfies the local triviality condition: for every $p \in M$, there exists an open neighborhood $U$ of $p$ in $M$ and a diffeomorphism $\phi_{U}: E_{U} \defeq \pi^{-1}(U) \to U \times \R^{r}$ such that
+    \begin{align}
+        \pi|_{E_{U}} = \text{pr}_{1} \circ \phi_{U},
+    \end{align}
+    where $\text{pr}_{1}: U \times \R^{r} \to U$ is the projection onto the first factor, and $\varphi_{U}|_{\pi^{-1}(p)}: \pi^{-1}(p) \to \{p\} \times \R^{r}$ is a linear isomorphism of real vector spaces for each $p \in U$. Here, $E$ is termed the \eax{total space} and $M$ the \eax{base space} of the vector bundle.
+\end{definition}
+
+\begin{definition}
+    A \eax{morphism} between two smooth vector bundles $(E,M,\pi)$ and $(F,N,\varphi)$ is a pair of smooth maps $(\tilde{f},f)$, where $\tilde{f}:E \to F$ and $f:M \to N$, such that $\varphi \tilde{f} = f \pi$, and for each $p \in M$, the map $\tilde{f}|_{\pi^{-1}(p)}: \pi^{-1}(p) \to \varphi^{-1}(f(p))$ is a linear map of real vector spaces. 
+\end{definition}
+As a special case, if $M = N$, and $f = \text{id}_{M}$, then $\tilde{f}$ is called a \eax{bundle map} over $M$. If $\tilde{f}$ is a diffeomorphism, then $(\tilde{f},\text{id}_{M})$ is an isomorphism of vector bundles, and the two bundles are said to be isomorphic. In particular, if $(E,M,\pi)$ is isomorphic to $(M \times \R^{r},M,\text{pr}_{1})$, then $(E,M,\pi)$ is called a \eax{trivial vector bundle} of rank $r$.
