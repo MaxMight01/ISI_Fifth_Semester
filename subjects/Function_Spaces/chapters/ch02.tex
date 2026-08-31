@@ -110,3 +110,50 @@ Therefore,
 \begin{align}
     \lim_{\alpha \to \infty} \int_{0}^{\alpha} \sinc(x) \, dx = \frac{\pi}{2}.
 \end{align}
+
+\section{Convolution}
+\textit{August 31st.}
+
+\begin{definition}
+    For $f,g \in L^{1}(\R,\C)$, the \eax{convolution} $f * g$ of $f$ and $g$ is a complex-valued function on $\R$ defined by
+    \begin{align}
+        (f * g)(x) = \int_{-\infty}^{\infty} f(x-t)g(t) \, dt, \quad x \in \R.
+    \end{align}
+\end{definition}
+\noindent For example, if $g(x) = \frac{1}{2 \varepsilon} \chi_{[-\varepsilon,\varepsilon]}(x)$ for some $\varepsilon > 0$, then
+\begin{align}
+    (f * g)(x) = \frac{1}{2 \varepsilon} \int_{x-\varepsilon}^{x+\varepsilon} f(t) \, dt.
+\end{align}
+If $f$ is continuous at $x$, then $(f * g)(x) \to f(x)$ as $\varepsilon \to 0^{+}$.
+
+\begin{proposition}
+    The following hold true for $f,g,h \in L^{1}(\R,\C)$.
+    \begin{enumerate}
+        \item Commutativity: $f * g = g * f$.
+        \item Associativity: $f * (g * h) = (f * g) * h$.
+        \item If $g$ is smooth, then so is $f * g$.
+        \item If $g$ is a polynomial on some interval, then so is $f * g$ on some interval.
+    \end{enumerate}
+\end{proposition}
+
+Also, we have the following result for the Fourier transform of a convolution.
+\begin{proposition}
+    For $f,g \in L^{1}(\R,\C)$,
+    \begin{align}
+        \widehat{f * g} = \hat{f} \cdot \hat{g}.
+    \end{align}
+\end{proposition}
+\begin{proof}
+    Note that $f * g \in L^{1}(\R,\C)$, and
+    \begin{align}
+        \widehat{f * g}(\xi) = \int_{-\infty}^{\infty} (f * g)(x) e^{-2\pi i x \xi} \, dx = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x-t)g(t) e^{-2\pi i x \xi} \, dt \, dx.
+    \end{align}
+    By Fubini's theorem, we can interchange the order of integration:
+    \begin{align}
+        \widehat{f * g}(\xi) = \int_{-\infty}^{\infty} g(t) \left( \int_{-\infty}^{\infty} f(x-t) e^{-2\pi i x \xi} \, dx \right) dt.
+    \end{align}
+    Let $u = x - t$, then $du = dx$, and we have
+    \begin{align}
+        \widehat{f * g}(\xi) = \int_{-\infty}^{\infty} g(t) e^{-2\pi i t \xi} \left( \int_{-\infty}^{\infty} f(u) e^{-2\pi i u \xi} \, du \right) dt = \hat{f}(\xi) \cdot \hat{g}(\xi).
+    \end{align}
+\end{proof}

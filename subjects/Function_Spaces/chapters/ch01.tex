@@ -492,12 +492,6 @@ This integral is well-defined since
     \abs{c_{n}} = \abs{\int_{0}^{1} f(x) e^{-2\pi i n x} \, dx} \leq \int_{0}^{1} \abs{f(x)} \, dx = \norm{f}_{1} < \infty
 \end{align}
 (note here that we have not yet proved the middle inequality for complex-valued functions; we shall assume it for now). Thus, for a function $f \in L^{1}[0,1]$, we define the function $\hat{f}:\Z \to \C$ as $\hat{f}(n) = c_{n}$ for all $n \in \Z$. This function is called the \eax{Fourier transform} of $f$.
-
-Given any two functions $f,g \in L^{1}[0,1] (\equiv L^{1}(S^{1}) \text{ via the periodic extension})$, we define the \eax{convolution} of $f$ and $g$ as
-\begin{align}
-    (f \ast g)(x) \defeq \int_{0}^{1} f(x-y)g(y) \, dy \text{ for all } x \in [0,1].
-\end{align}
-One may show that $f \ast g = g \ast f$.
 \\
 
 \noindent \textit{August 20th.}
