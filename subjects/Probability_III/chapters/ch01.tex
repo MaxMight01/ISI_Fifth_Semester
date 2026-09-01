@@ -523,6 +523,15 @@ We also have the monotone converge theorem, of which we state a basic version fi
     where the last inequality follows from the fact that $Y_{n} \leq X_{n}$ for all $n$.
 \end{proof}
 
+\textit{September 1st.}
+
 \begin{theorem}[The \eax{dominated convergence theorem}]
     Suppose $\{X_{n}\}_{n=1}^{\infty}$ is a sequence of random variables such that $X_{n} \to X$ almost surely, and there exists a non-negative random variable $Y$ such that $\abs{X_{n}} \leq Y$ for all $n$, and $\E[Y] < \infty$. Then, $\E[X_{n}] \to \E[X]$.
 \end{theorem}
+\begin{proof}
+    Define $Z_{n} = 2Y - \abs{X_{n}-X}$. Since $\Z_{n} \geq 0$, we can apply Fatou's lemma to get
+    \begin{align}
+        \E[\liminf_{n \toinf} Z_{n}] \leq \liminf_{n \toinf} \E[Z_{n}] \implies 2\E[Y] - \E[\limsup_{n \toinf} \abs{X_{n}-X}] \leq 2\E[Y] - \limsup_{n \toinf} \E[\abs{X_{n}-X}],
+    \end{align}
+    which implies that $\E[\limsup_{n \toinf} \abs{X_{n}-X}] \geq \limsup_{n \toinf} \E[\abs{X_{n}-X}]$. Now, since $X_{n} \to X$ almost surely, we have $\limsup_{n \toinf} \abs{X_{n}-X} = 0$ almost surely, and hence $\E[\limsup_{n \toinf} \abs{X_{n}-X}] = 0$. Thus, we have $\limsup_{n \toinf} \E[\abs{X_{n}-X}] = 0$, which implies that $\E[\abs{X_{n}-X}] \to 0$, and hence $\E[X_{n}] \to \E[X]$.
+\end{proof}
