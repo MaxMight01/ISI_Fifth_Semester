@@ -65,3 +65,26 @@ Such a vector field $X$ is a section of the tangent bundle $TM$, as it assigns t
     A \eax{morphism} between two smooth vector bundles $(E,M,\pi)$ and $(F,N,\varphi)$ is a pair of smooth maps $(\tilde{f},f)$, where $\tilde{f}:E \to F$ and $f:M \to N$, such that $\varphi \tilde{f} = f \pi$, and for each $p \in M$, the map $\tilde{f}|_{\pi^{-1}(p)}: \pi^{-1}(p) \to \varphi^{-1}(f(p))$ is a linear map of real vector spaces. 
 \end{definition}
 As a special case, if $M = N$, and $f = \text{id}_{M}$, then $\tilde{f}$ is called a \eax{bundle map} over $M$. If $\tilde{f}$ is a diffeomorphism, then $(\tilde{f},\text{id}_{M})$ is an isomorphism of vector bundles, and the two bundles are said to be isomorphic. In particular, if $(E,M,\pi)$ is isomorphic to $(M \times \R^{r},M,\text{pr}_{1})$, then $(E,M,\pi)$ is called a \eax{trivial vector bundle} of rank $r$.
+\subsection{Sections and Frames}
+\textit{September 2nd.}
+
+As earlier with a vector field, we have the following.
+
+\begin{definition}
+    A map $s:M \to E$ is called a \eax{section} of the vector bundle $(E,M,\pi)$ if $\pi(s(p)) = p$ for all $p \in M$. In other words, a section assigns to each point in the base space a vector in the corresponding fiber. A section is termed smooth if the map $s$ is smooth, meaning that for any chart $(U,\varphi)$ on $M$, the composition $\phi_{U} \circ s|_{U}: U \to U \times \R^{r}$ is smooth.
+\end{definition}
+
+We use $\Gamma(E) = \Gamma(M,E)$ to denote the set of all (global) smooth sections of the vector bundle $(E,M,\pi)$. For any open subset $U \subseteq M$, we denote by $\Gamma(U,E)$ the set of all smooth sections of $(E,M,\pi)$ over $U$; that is, smooth maps $s:U \to E$ such that $\pi(s(p)) = p$ for all $p \in U$. Moreover, for $s,t \in \Gamma(U,E)$, we define the sum $s+t \in \Gamma(U,E)$ by $(s+t)(p) = s(p) + t(p)$ for all $p \in U$; this sum is indeed in $\Gamma(U,E)$ since $\pi((s+t)(p)) = \pi(s(p) + t(p)) = \pi(s(p)) = p$, and $s+t$ can also be shown to be smooth. For $f \in C^{\infty}(U)$, we define the product $fs \in \Gamma(U,E)$ by $(fs)(p) = f(p)s(p)$ for all $p \in U$; this product is also in $\Gamma(U,E)$ since $\pi((fs)(p)) = \pi(f(p)s(p)) = \pi(s(p)) = p$, and $fs$ can also be shown to be smooth. Therefore, $\Gamma(U,E)$ is a module over the ring $C^{\infty}(U)$, and $\Gamma(E)$ is a module over the ring $C^{\infty}(M)$.
+
+\begin{definition}
+    A \eax{frame} of a vector bundle $(E,M,\pi)$ over an open subset $U \subseteq M$ is a collection of $r$ sections $s_{1},\ldots,s_{r} \in \Gamma(U,E)$ such that for each $p \in U$, the set $\{s_{1}(p),\ldots,s_{r}(p)\}$ forms a basis of the fiber $E_{p} = \pi^{-1}(p)$. The frame is termed smooth if each section $s_{i}$ is smooth. 
+\end{definition}
+
+Consider the tangent bundle $(TM,M,\pi)$ of a smooth manifold $M$ of dimension $n$. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$. Then the collection of sections $s_{i}:U \to TM$ defined by $s_{i}(p) = \frac{\partial}{\partial x^{i}}\big|_{p}$ for $i = 1,\ldots,n$ forms a smooth frame of the tangent bundle over $U$.
+
+\begin{lemma}
+    Let $(E,M,\pi)$ be a vector bundle, and let $U \subseteq M$ be an open subset. Suppose $s_{1},\ldots,s_{r}$ is a smooth frame of $E$ over $U$, and $s = \sum_{i=1}^{r} c^{i} s_{i}$. Then $s$ is a smooth section of $E$ over $U$ if and only if each coefficient function $c^{i}:U \to \R$ is smooth.
+\end{lemma}
+\begin{proof}
+    The ``if'' direction is clear from the definition of smoothness. For the ``only if'' direction, let $s$ be a smooth section of $E$ over $U$ such that $s = \sum_{i=1}^{r} c^{i} s_{i}$. Let $p \in U$. We show that each $c^{i}$ is smooth at $p$. Since $s_{1},\ldots,s_{r}$ is a smooth frame of $E$ over $U$, there exists an open neighborhood $V \subseteq U$ of $p$ and a diffeomorphism $\phi_{V}: E_{V} \to V \times \R^{r}$ such that $\pi|_{E_{V}} = \text{pr}_{1} \circ \phi_{V}$, and $\phi_{V}|_{\pi^{-1}(q)}: \pi^{-1}(q) \to \{q\} \times \R^{r}$ is a linear isomorphism for each $q \in V$. Let $\phi_{V}(s(q)) = (q, (c^{1}(q),\ldots,c^{r}(q)))$ for all $q \in V$. Since $\phi_{V} \circ s|_{V}: V \to V \times \R^{r}$ is smooth, it follows that each component function $c^{i}: V \to \R$ is smooth. Therefore, each coefficient function $c^{i}$ is smooth at $p$, and since $p$ was arbitrary, each $c^{i}$ is smooth on all of $U$.
+\end{proof}
