@@ -296,3 +296,103 @@ for some $k \geq 1$. Note that $R_{i} \cap R_{j} = \emptyset$ for $i \neq j$, an
     &= \sum_{y \in R_{i}} p_{y,z_{i}}^{n_{0}(y)} \left( \sum_{k=1}^{\infty} p_{z_{i},y}^{k} \right) \geq c \sum_{y \in R_{i}} \sum_{k=1}^{\infty} p_{z_{i},y}^{k} = c \sum_{k=1}^{\infty} \sum_{y \in R_{i}} p_{z_{i},y}^{k} = c \sum_{k=1}^{\infty} 1 = \infty.
 \end{align}
 Since $\abs{R_{i}} < \infty$, there exists $y \in R_{i}$ such that $\sum_{m=0}^{\infty} p_{yy}^{m} = \infty$. Thus, $y$ is recurrent. But any other $y \in R_{i}$ communicates with $y$, and thus is also recurrent. Therefore, all states in $R_{i}$ are recurrent. Since $i$ was arbitrary, we conclude that all states in $\bigcup_{i=1}^{k} R_{i}$ are recurrent. Now let $i \in T$. By definition, there exists $j \in S$ such that $p_{ji}^{k} = 0$ for all $k \geq 1$. Thus, $\Prob(T^{i} < \infty \mid X_{0}=j) = 0$, and thus $i$ is transient. Therefore, we have shown that all states in $S$ are either recurrent or transient.
+\\
+
+\noindent \textit{September 2nd.}
+\begin{proposition}
+    Let $(X_{n})_{n \geq 1}$ be a Markov chain with with transition matrix $P$ on state space $S$.
+    \begin{enumerate}
+        \item Let $\pi$ be a stationary distribution, that is, $\pi P = \pi$ and $\sum_{i \in S} \pi_{i} = 1$. Then, if $X_{0} \overset{d}{=} \pi$, we have $X_{n} \overset{d}{=} \pi$ for all $n \geq 1$.
+        \item If $S$ is finite, then any limiting distribution must be a stationary distribution.
+        \item If $S$ is finite, and $P$ is doubly stochastic, that is, $\sum_{i \in S} p_{ij} = 1$ for all $j \in S$, then the uniform distribution on $S$ is the stationary distribution.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item We show via induction. For $n = 1$, we have
+        \begin{align}
+            \Prob(X_{1} = j) = \sum_{i \in S} \Prob(X_{1} = j \mid X_{0} = i) \cdot \Prob(X_{0} = i) = \sum_{i \in S} p_{ij}\pi(i) = \pi_{j}
+        \end{align}
+        since $\pi P = \pi$. Now suppose that $X_{n} \overset{d}{=} \pi$. Then, we have
+        \begin{align}
+            \Prob(X_{n+1} = j) = \sum_{i \in S} \Prob(X_{n+1} = j \mid X_{n} = i) \cdot \Prob(X_{n} = i) = \sum_{i \in S} p_{ij}\pi(i) = \pi_{j}.
+        \end{align}
+
+        \item Fix $i \in S$. Define $\pi(j) \defeq \lim_{n \to \infty} p_{ij}^{n}$ for all $j \in S$. Then $0 \leq \pi(j) \leq 1$ for all $j \in S$, and
+        \begin{align}
+            \sum_{j \in S} \pi(j) = \sum_{j \in S} \lim_{n \to \infty} p_{ij}^{n} = \lim_{n \to \infty} \sum_{j \in S} p_{ij}^{n} = 1.
+        \end{align}
+        For $n \geq 2$, we know that $p_{ij}^{n} = \sum_{k \in S} p_{ik}^{n-1}p_{kj}$. Thus, taking limits, we have
+        \begin{align}
+            \pi(j) = \lim_{n \to \infty} p_{ij}^{n} = \lim_{n \to \infty} \sum_{k \in S} p_{ik}^{n-1}p_{kj} = \sum_{k \in S} \lim_{n \to \infty} p_{ik}^{n-1}p_{kj} = \sum_{k \in S} \pi(k)p_{kj}
+        \end{align}
+        or, equivalently, $\pi P = \pi$. Therefore, $\pi$ is a stationary distribution.
+
+        \item Let $\pi$ be the uniform distribution on $S$; that is, $\pi(i) = 1/\abs{S}$ for all $i \in S$. Then, we have
+        \begin{align}
+            \sum_{k \in S} \pi(k) p_{kj} = \frac{1}{\abs{S}} \sum_{k \in S} p_{kj} = \frac{1}{\abs{S}} = \pi(j).
+        \end{align}
+        $\pi$ is a stationary distribution.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}
+    Let $(X_{n})_{n \geq 0}$ be an irreducible Markov chain; that is, for all $i,j \in S$, there exists $n \geq 1$ such that $p_{ij}^{n} > 0$. Also let the state space $S$ be finite. Then there exists a unique stationary distribution $\pi$ on $S$.
+\end{theorem}
+
+\begin{proof}
+    We utilize graph theory. Let $i \in S$. Construct a directed rooted tree $(g)$ with a root in $i$, and with vertex set $S$, such that the following holds: for all $j \in S$, there exists a unique directed path from $j$ to $i$. The root $i$ has no outgoing edges, and all other vertices have exactly one outgoing edge. Let $G(i)$ denote the set of all such directed rooted trees with root in $i$. For all $i \in S$, define
+    \begin{align}
+        \pi_{0}(i) \defeq \sum_{g \in G(i)} \prod_{(j \rightarrow k) \in g} p_{jk}.
+    \end{align}
+    Then, we have
+    \begin{align}
+        \pi_{0}(i) \left(\sum_{j \neq i} p_{ij} \right) = \sum_{j \neq i} \sum_{g \in G(i)} p_{ij} \prod_{(k \rightarrow l) \in g} p_{kl}.
+    \end{align}
+    We claim that this is equal to $\sum_{g \in L} \prod_{(j \rightarrow k) \in g} p_{jk}$ where $L$:
+    \begin{enumerate}
+        \item for all $k \in S$, there is only one directed edge pointing away from $k$ to $l$, for $k \neq l \in S$, and
+        \item the graph has exactly one closed cycle with $i$ in the cycle.
+    \end{enumerate}
+    Set $C = \sum_{i \in S} \pi_{0}(i)$, and $\tilde{\pi}(i) = \pi_{0}(i)/C$.
+
+    For uniqueness, let $\pi_{1}$ and $\pi_{2}$ be two stationary distributions, and set $\pi = \pi_{1} - \pi_{2}$. Then, we have $\pi P = \pi$ or $(P^{\top}-I)\pi^{\top} = 0$; $\pi^{\top}$ is in the null space of $P^{\top}-I$. Let $h:S \to \R$ be such that $Ph = h$. Also, let $M = \max\{h(i) \mid i \in S\}$, so that $h(i_{0}) = M$ for some $i_{0} \in S$. Suppose $p_{i_{0}j} > 0$ for some $j \in S$ with $h(j) < M$. Then, we have
+    \begin{align}
+        h(i_{0}) = \sum_{k \in S} p_{ki_{0}} h(k) = h(j) p_{ji_{0}} + \sum_{k \neq j} p_{ki_{0}} h(k) < M p_{ji_{0}} + M \sum_{k \neq j} p_{ki_{0}} = M,
+    \end{align}
+    which is a contradiction. Thus, since the chain is irreducible, we have $h(j) = M$ for all $j \in S$. Therefore, the null space of $P^{\top}-I$ looks like $\{c \cdot \mathbf{1} \mid c \in \R\}$, where $\mathbf{1}$ is the vector of all ones. Thus, $\pi^{\top}$ is a scalar multiple of $\mathbf{1}$; this, along with that $\sum_{i \in S} \pi(i) = 0$, gives $\pi \equiv 0$. Therefore, $\pi_{1} = \pi_{2}$, and the stationary distribution is unique.
+\end{proof}
+
+\begin{theorem}
+    Let $(X_{n})_{n \geq 0}$ be an irreducible Markov chain on a finite state space $S$, and suppose that $X_{0} \overset{d}{=} \pi$, where $\pi$ is the unique stationary distribution. Then
+    \begin{align}
+        \sup_{i,j \in S} \abs{p_{ij}^{n} - \pi(j)} \leq C \Theta^{n}
+    \end{align}
+    for some $C > 0$ and $\Theta \in (0,1)$.
+\end{theorem}
+\begin{proof}
+    By previous theorem, we know that there exists a unique stationary distribution $\pi$ on $S$. Note that, for $i \in S$, there exists $n_{i} \geq 1$ such that $p_{ii}^{n_{i}} > 0$. Fix such an $i$, and let $i \neq j \in S$. By irreducibility, there exists $m_{j} \geq 1$ such that $p_{ij}^{m_{j}} > 0$. Let $r = \max\{n_{i} \mid i \in S\} + \max\{m_{j} \mid j \in S\}$. Then $p_{ij}^{r} \geq p_{ii}^{n_{i}}p_{ij}^{m_{j}} > 0$. That is, we have obtained a $r \geq 1$ such that $p_{ij}^{r} > 0$ for all $i,j \in S$. Define $\Pi = [\pi(j)]_{i,j \in S}$, and let $1 > \delta > 0$. Then $p_{ij}^{r} \geq \delta \pi(i) > 0$ for all $i,j \in S$. With $\Theta = 1-\delta$, define $Q = \frac{1}{\Theta}(P^{r}+(1-\Theta)\Pi)$. Then $Q$ is a stochastic matrix, and $Q^{k}\Pi = \Pi$ for all $k \geq 1$. Since $\Pi P^{r} = \Pi$ also holds, we can rearrange to get $P^{rk} = \Theta^{k}Q^{k} + (1-\Theta^{k})\Pi$. Now, for all $n \geq r$, there exist $k \geq 1$ and $0 \leq l < r$ such that $n = rk + l$. Then, we have
+    \begin{align}
+        P^{n} = P^{rk+l} = \Theta^{k}Q^{k}P^{l} + (1-\Theta^{k})\Pi P^{l} = \Theta^{k}Q^{k}P^{l} + (1-\Theta^{k})\Pi \implies P^{rk+l}-\Pi = \Theta^{k}(Q^{k}P^{l}-\Pi).
+    \end{align}
+    Looking at the $ij$-th entry, we have
+    \begin{align}
+        p_{ij}^{rk+l}-\pi(j) = \Theta^{k}(Q^{k}P^{l})_{ij}-\pi(j) \implies \abs{p_{ij}^{n}-\pi(j)} \leq C\Theta^{k}.
+    \end{align}
+\end{proof}
+
+\begin{theorem}
+    Let $(X_{n})_{n \geq 0}$ be an irreducible aperiodic Markov chain on $S$, and assume there exists a stationary distribution $\pi$ on $S$. Then, for all $i,j \in S$, we have
+    \begin{align}
+        \lim_{n \to \infty} p_{ij}^{n} = \pi(j).
+    \end{align}
+\end{theorem}
+
+\begin{definition}
+    A probability distribution $\pi$ on $S$ is called reversible for a Markov chain with transition matrix $P$ if $\pi(i)p_{ij} = \pi(j)p_{ji}$ for all $i,j \in S$.
+\end{definition}
+Suppose $\pi$ is reversible for a Markov chain with transition matrix $P$. Then, we have
+\begin{align}
+    \sum_{j \in S} \pi(j) p_{ji} = \sum_{j \in S} \pi(i)p_{ij} = \pi(i) \sum_{j \in S} p_{ij} = \pi(i).
+\end{align}
+That is, $\pi$ is a stationary distribution. Therefore, reversibility implies stationarity. However, the converse is not true in general. 
