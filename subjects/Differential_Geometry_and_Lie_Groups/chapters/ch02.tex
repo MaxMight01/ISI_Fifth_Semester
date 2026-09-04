@@ -88,3 +88,27 @@ Consider the tangent bundle $(TM,M,\pi)$ of a smooth manifold $M$ of dimension $
 \begin{proof}
     The ``if'' direction is clear from the definition of smoothness. For the ``only if'' direction, let $s$ be a smooth section of $E$ over $U$ such that $s = \sum_{i=1}^{r} c^{i} s_{i}$. Let $p \in U$. We show that each $c^{i}$ is smooth at $p$. Since $s_{1},\ldots,s_{r}$ is a smooth frame of $E$ over $U$, there exists an open neighborhood $V \subseteq U$ of $p$ and a diffeomorphism $\phi_{V}: E_{V} \to V \times \R^{r}$ such that $\pi|_{E_{V}} = \text{pr}_{1} \circ \phi_{V}$, and $\phi_{V}|_{\pi^{-1}(q)}: \pi^{-1}(q) \to \{q\} \times \R^{r}$ is a linear isomorphism for each $q \in V$. Let $\phi_{V}(s(q)) = (q, (c^{1}(q),\ldots,c^{r}(q)))$ for all $q \in V$. Since $\phi_{V} \circ s|_{V}: V \to V \times \R^{r}$ is smooth, it follows that each component function $c^{i}: V \to \R$ is smooth. Therefore, each coefficient function $c^{i}$ is smooth at $p$, and since $p$ was arbitrary, each $c^{i}$ is smooth on all of $U$.
 \end{proof}
+
+\textit{September 4th.}
+\begin{definition}
+    Let $f:N \to M$ be a smooth map between smooth manifolds, such that $f$ is also injective and an immersion. Then $f(N)$, equipped with the topology borrowed from $N$, is termed an \eax{immersed submanifold}.
+\end{definition}
+In such a case, $f(N)$ is diffeomorphic to $N$. Note, however, that $f(N)$ need not be a manifold in the subspace topology of $M$; the subspace topology on $f(N)$ is weaker than the topology on $f(N)$ borrowed from $N$.
+
+\begin{definition}
+    A smooth map $f:N \to M$ between smooth manifolds is called an \eax{embedding} if $f$ is injective and an immersion, and the subspace topology from $M$ and the topology inherited from $N$ are the same on $f(N)$.
+\end{definition}
+
+\begin{theorem}
+    If $S \subseteq M$ is a regular submanifold of $M$, then the inclusion map $i:S \to M$ is an embedding. Conversely, if $f:N \to M$ is an embedding, then $f(N)$ is a regular submanifold of $M$.
+\end{theorem}
+\begin{proof}
+    Note that $i:S \to M$ is a smooth map, taking $(x^{1},x^{2},\ldots,x^{s}) \mapsto (x^{1},x^{2},\ldots,x^{s},0,\ldots,0)$, is injective and an immersion. Also, the topologies trivially coincide. Hence, $i$ is an embedding. For the converse, suppose $f:N \to M$ is an embedding. Let $p \in N$, with $f(p) \in f(N)$. Since $f$ is an immersion (at $p$), there exist charts $(U,\varphi) = (U,x^{1},\ldots,x^{n})$, centred at $p$, and $(V,\psi) = (V,y^{1},\ldots,y^{m})$, centred at $f(p)$, such that $f(U) \subseteq V$, and $f$ acts as $(x^{1},\ldots,x^{n}) \to (x^{1},\ldots,x^{n},0,\ldots,0)$. Now, since $f(U) \subseteq f(N) \cap V$, we will change $V$ to be the smallest open set $W \subseteq V \subseteq M$ such that $f(U) = f(N) \cap W$; since $U$ is open in $N$ if and only if $f(U)$ is open in $f(N)$ if and only if $f(U) = V' \cap f(N)$ where $V'$ is open in $M$, we can set $W = V \cap V' \subseteq V$, so that $f(U) = W \cap f(N)$.
+\end{proof}
+
+\begin{theorem}
+    Let $f:N^{n} \to M^{m}$ be a smooth map between smooth manifolds. Suppose $S^{s} \subseteq M$ is a regular submanifold of $M$, and $f(N) \subseteq S$; this induces a set-theoretic factoring map $\tilde{f}:N \to S$ such that $i \circ \tilde{f} = f$. Then $\tilde{f}$ is a smooth map between smooth manifolds.
+\end{theorem}
+\begin{proof}
+    With $p \in N$, and $f(p) \in S \subseteq M$, there exists a chart $(V,\psi) = (V,y^{1},\ldots,y^{m})$, centred at $f(p)$ in $M$, such that $S \cap V = \{(y^{1},\ldots,y^{m}) \in V \mid y^{s+1}=\cdots=y^{m}=0\}$. There also exits a chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$, centred at $p \in N$, such that $f(U) \subseteq V$ and $f$ is given by $(x^{1},\ldots,x^{n}) \mapsto (f^{1},f^{2},\ldots,f^{m})$, where each $f^{i}$ is smooth on $U$. But this means $f^{s+1}(x^{1},\ldots,x^{n}) = \cdots = f^{m}(x^{1},\ldots,x^{n}) = 0$ for all $(x^{1},\ldots,x^{n}) \subseteq U$. In $S$, we have a smooth chart given by $(V \cap S, \varphi_{S})$ via which, the map $\tilde{f}$ on $U$ is given as $(x^{1},\ldots,x^{n}) \mapsto (f^{1},\ldots,f^{s})$; $\tilde{f}$ is smooth.
+\end{proof}
