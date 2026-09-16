@@ -1,0 +1,21 @@
+\chapter{INDEPENDENCE}
+
+\textit{September 15th.}
+
+\begin{definition}
+    Let $(\Omega, \mathcal{F}, P)$ be a probability space.
+    \begin{enumerate}
+        \item We say sub-$\sigma$-algebras $\cG_{1},\cG_{2},\cdots,\cG_{n}$ of $\cF$ are independent if $\Prob(A_{1} \cap A_{2} \cap \cdots \cap A_{n}) = \Prob(A_{1})\Prob(A_{2})\ldots\Prob(A_{n})$ for all $A_{i} \in \cG_{i}$, $i=1,2,\ldots,n$.
+        \item We say that the random variables $X_{1},X_{2},\ldots,X_{n}$ are independent if the sub-$\sigma$-algebras $\sigma(X_{1}),\sigma(X_{2}),\ldots,\sigma(X_{n})$ are independent.
+        \item We say that the events $A_{1},A_{2},\ldots,A_{n}$ are independent if the sub-$\sigma$-algebras $\sigma(A_{1}),\sigma(A_{2}),\ldots,\sigma(A_{n})$ are independent.
+    \end{enumerate}
+\end{definition}
+
+Equivalent condition for independence of events is that
+\begin{align}
+    \Prob(A_{1}^{\pm} \cap A_{2}^{\pm} \cap \cdots \cap A_{n}^{\pm}) = \Prob(A_{1}^{\pm})\Prob(A_{2}^{\pm})\cdots\Prob(A_{n}^{\pm}),
+\end{align}
+where $A_{i}^{+} = A_{i}$ and $A_{i}^{-} = A_{i}^{c}$ for $i=1,2,\ldots,n$.
+\begin{definition}
+    We say that a collection of countably many random variables $X_{1},X_{2},\ldots$ on $(\Omega,\cF,\Prob)$ are independent if every finite subcollection of them are independent. 
+\end{definition}
