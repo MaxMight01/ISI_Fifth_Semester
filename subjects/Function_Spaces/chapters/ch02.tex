@@ -157,3 +157,106 @@ Also, we have the following result for the Fourier transform of a convolution.
         \widehat{f * g}(\xi) = \int_{-\infty}^{\infty} g(t) e^{-2\pi i t \xi} \left( \int_{-\infty}^{\infty} f(u) e^{-2\pi i u \xi} \, du \right) dt = \hat{f}(\xi) \cdot \hat{g}(\xi).
     \end{align}
 \end{proof}
+
+\textit{September 17th.}
+
+\begin{theorem}
+    Let $X,Y$ be subintervals of $\R$, and suppose $k:X \times Y \to \R$ is continuous and bounded. With $f \in L^{1}(X)$ and $g \in L^{1}(Y)$, the following hold true.
+    \begin{enumerate}
+        \item For $y \in Y$, $\int_{X}f(x)k(x,y)dx$ exists and $F(y) = \int_{X}f(x)k(x,y)dx$ is continuous on $Y$.
+        \item For $x \in X$, $\int_{Y}g(y)k(x,y)dy$ exists and $G(x) = \int_{Y}g(y)k(x,y)dy$ is continuous on $X$.
+        \item The integrals $\int_{X}f(x)G(x)dx$ and $\int_{Y}g(y)F(y)dy$ exist, and
+        \begin{align}
+            \int_{Y}g(y)\left(\int_{X}f(x)k(x,y) \, dx\right)dy = \int_{Y} g(y)F(y) \, dy = \int_{X} f(x)G(x) \, dx = \int_{X}f(x)\left( \int_{Y} g(y)k(x,y) \, dy \right) dx.
+        \end{align}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Let $M = \sup_{X \times Y} \abs{k} < \infty$.
+
+    For the first statement, fix $y \in Y$ and let $f_{y}(x) = f(x)k(x,y)$. Since $f$ is measurable and $x \mapsto k(x,y)$ is continuous, $f_{y}$ is measurable, and $\abs{f_{y}(x)} \leq M\abs{f(x)}$ with $M\abs{f} \in L^{1}(X)$. By the dominated convergence theorem, $f_{y} \in L^{1}(X)$, so $F(y) = \int_{X} f(x)k(x,y) \, dx$ exists. Now let $y_{n} \to y$ in $Y$. Then
+    \begin{align}
+        \abs{F(y_{n})-F(y)} \leq \int_{X} \abs{f(x)} \abs{k(x,y_{n})-k(x,y)} \, dx
+    \end{align}
+    where the integrand converges to $0$ pointwise as $n \to \infty$ by the continuity of $k$, and is dominated by $2M\abs{f(x)} \in L^{1}(X)$. Hence, by the dominated convergence theorem, we have $F(y_{n}) \to F(y)$ as $n \to \infty$, so $F$ is continuous on $Y$. The second statement follows by interchanging the roles of $(X,f)$ and $(Y,g)$.
+
+    For the third statement, note that $G$ is continuous by the second statement, with $\abs{G(x)} \leq M\norm{g}_{1}$. Thus $fG$ is measurable and $\abs{f(x)G(x)} \leq M\norm{g}_{1}\abs{f(x)}$, so $fG \in L^{1}(X)$; likewise $\abs{g(y)F(y)} \leq M\norm{f}_{1}\abs{g(y)}$, so $gF \in L^{1}(Y)$. Both integrals therefore exist, and it remains to prove that $\int_{X} f(x)G(x) \, dx = \int_{Y} g(y)F(y) \, dy$. For $\phi \in L^{1}(X)$ and $\psi \in L^{1}(Y)$, write
+    \begin{align}
+        I(\phi,\psi) = \int_{X} \phi(x)\left(\int_{Y} \psi(y)k(x,y) \, dy\right) dx, \qquad J(\phi,\psi) = \int_{Y} \psi(y)\left(\int_{X} \phi(x)k(x,y) \, dx\right) dy,
+    \end{align}
+    so that the desired identity is $I(f,g) = J(f,g)$. Both $I$ and $J$ are bilinear, and since the inner integrals are bounded by $M\norm{\psi}_{1}$ and $M\norm{\phi}_{1}$ respectively,
+    \begin{align}
+        \abs{I(\phi,\psi)} \leq M\norm{\phi}_{1}\norm{\psi}_{1}, \qquad \abs{J(\phi,\psi)} \leq M\norm{\phi}_{1}\norm{\psi}_{1}.
+    \end{align}
+    If $\phi = \chi_{A}$ and $\psi = \chi_{B}$ for compact intervals $A \subseteq X$ and $B \subseteq Y$, then $k$ is continuous on the compact rectangle $A \times B$, and the theory of the multivariable Riemann integral gives
+    \begin{align}
+        I(\chi_{A},\chi_{B}) = \int_{A}\left(\int_{B} k(x,y) \, dy\right) dx = \int_{B}\left(\int_{A} k(x,y) \, dx\right) dy = J(\chi_{A},\chi_{B}).
+    \end{align}
+    By bilinearity, $I(s,t) = J(s,t)$ for all step functions $s$ on $X$ and $t$ on $Y$.
+
+    Now let $\varepsilon > 0$, and choose step functions $s$ and $t$ with $\int_{X} \abs{f-s} \, dx < \varepsilon$ and $\int_{Y} \abs{g-t} \, dy < \varepsilon$, so that $\norm{s}_{1} \leq \norm{f}_{1} + \varepsilon$. Using bilinearity together with the bounds above,
+    \begin{align}
+        \abs{I(f,g)-I(s,t)} = \abs{I(f-s,g) + I(s,g-t)} \leq M\norm{g}_{1}\varepsilon + M(\norm{f}_{1}+\varepsilon)\varepsilon,
+    \end{align}
+    and identically $\abs{J(f,g)-J(s,t)} \leq M\norm{g}_{1}\varepsilon + M(\norm{f}_{1}+\varepsilon)\varepsilon$. Since $I(s,t) = J(s,t)$, it follows that
+    \begin{align}
+        \abs{I(f,g)-J(f,g)} \leq \abs{I(f,g)-I(s,t)} + \abs{J(s,t)-J(f,g)} \leq 2M\varepsilon\left(\norm{f}_{1}+\norm{g}_{1}+\varepsilon\right).
+    \end{align}
+    Letting $\varepsilon \to 0^{+}$ yields $I(f,g) = J(f,g)$, as required.
+\end{proof}
+
+We show more properties of the convolution.
+
+\begin{proposition}
+    Let $f,g \in L^{1}(\R)$.
+    \begin{enumerate}
+        \item If $f,g \in C_{c}(\R)$, then $f \ast g \in C_{c}(\R)$.
+        \item If $f \in L^{1}(\R)$ and $g \in C_{c}(\R)$, then $f \ast g \in C(\R)$.
+        \item Let $\tau_{p}f(x) = f(x-p)$ for $p \in \R$. Then $\tau_{p}(f \ast g) = (\tau_{p}f) \ast g = f \ast (\tau_{p}g)$.
+        \item $(f \ast g)' = f' \ast g = f \ast g'$.
+        \item Let $\varphi \in C_{c}^{\infty}(\R)$ be such that $\int_{\R} \varphi(x) dx = 1$, and $\varphi$ is an even non-negative function that is monotonically decreasing on $[0,\infty)$. Then, with $\varphi_{\varepsilon}(x) = \frac{1}{\varepsilon} \varphi(\frac{x}{\varepsilon})$, we have $\lim_{\varepsilon \to 0^{+}} f \ast \varphi_{\varepsilon} = f$ in $L^{1}(\R)$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item Since the integrand of $(f \ast g)(x) = \int_{\R} f(x-y)g(y) \, dy$ is nonzero only when $y \in \supp(g)$ and $x-y \in \supp(f)$, any $x$ with $(f \ast g)(x) \neq 0$ satisfies $x = (x-y)+y \in \supp(f) + \supp(g)$. As $\supp(f)$ and $\supp(g)$ are compact, so is their sum $\supp(f) + \supp(g)$, being the image of the compact set $\supp(f) \times \supp(g)$ under addition; hence $\supp(f \ast g) \subseteq \supp(f) + \supp(g)$ is compact. Moreover $f \in C_{c}(\R) \subseteq L^{1}(\R)$ and $g \in C_{c}(\R)$, so $f \ast g$ is continuous by (2). Therefore $f \ast g \in C_{c}(\R)$.
+
+        \item Since $g \in C_{c}(\R)$ is bounded and uniformly continuous, commutativity gives $(f \ast g)(x) = \int_{\R} f(y)g(x-y) \, dy$, so for $h \in \R$,
+        \begin{align}
+            \abs{(f \ast g)(x+h)-(f \ast g)(x)} \leq \int_{\R} \abs{f(y)} \abs{g(x+h-y)-g(x-y)} \, dy \leq \norm{f}_{1} \sup_{z \in \R} \abs{g(z+h)-g(z)}.
+        \end{align}
+        By the uniform continuity of $g$, the supremum tends to $0$ as $h \to 0$, uniformly in $x$. Hence $f \ast g$ is (uniformly) continuous on $\R$.
+
+        \item Directly, and using the substitution $u = y-p$ where needed,
+        \begin{align}
+            (\tau_{p}f \ast g)(x) &= \int_{\R} f(x-y-p)g(y) \, dy = (f \ast g)(x-p) = \tau_{p}(f \ast g)(x), \\
+            (f \ast \tau_{p}g)(x) &= \int_{\R} f(x-y)g(y-p) \, dy = \int_{\R} f(x-p-u)g(u) \, du = (f \ast g)(x-p).
+        \end{align}
+        Hence $\tau_{p}(f \ast g) = (\tau_{p}f) \ast g = f \ast (\tau_{p}g)$.
+
+        \item Suppose $g \in C_{c}^{1}(\R)$. Writing $(f \ast g)(x) = \int_{\R} f(y)g(x-y) \, dy$, the integrand has $x$-derivative $f(y)g'(x-y)$, which is dominated by $\norm{g'}_{\infty}\abs{f(y)} \in L^{1}(\R)$. By differentiation under the integral sign,
+        \begin{align}
+            (f \ast g)'(x) = \int_{\R} f(y)g'(x-y) \, dy = (f \ast g')(x).
+        \end{align}
+        Symmetrically, if $f \in C_{c}^{1}(\R)$, then writing $(f \ast g)(x) = \int_{\R} f(x-y)g(y) \, dy$ and differentiating under the integral sign gives $(f \ast g)'(x) = \int_{\R} f'(x-y)g(y) \, dy = (f' \ast g)(x)$. In particular, when both derivatives exist, $(f \ast g)' = f' \ast g = f \ast g'$.
+
+        \item Since $\int_{\R} \varphi_{\varepsilon}(y) \, dy = \int_{\R} \varphi(y) \, dy = 1$ for every $\varepsilon > 0$, we may write
+        \begin{align}
+            (f \ast \varphi_{\varepsilon})(x) - f(x) = \int_{\R} \left(f(x-y)-f(x)\right)\varphi_{\varepsilon}(y) \, dy.
+        \end{align}
+        Taking the $L^{1}$-norm and using Tonelli's theorem to interchange the integrals,
+        \begin{align}
+            \norm{f \ast \varphi_{\varepsilon} - f}_{1} \leq \int_{\R} \varphi_{\varepsilon}(y) \left(\int_{\R} \abs{f(x-y)-f(x)} \, dx\right) dy = \int_{\R} \varphi_{\varepsilon}(y)\, \omega(y) \, dy,
+        \end{align}
+        where $\omega(y) = \norm{\tau_{y}f - f}_{1}$. Recall that translation is continuous in $L^{1}(\R)$, that is, $\omega(y) \to 0$ as $y \to 0$: given $\eta > 0$, choose $\psi \in C_{c}(\R)$ with $\norm{f-\psi}_{1} < \eta$, so that
+        \begin{align}
+            \omega(y) \leq \norm{\tau_{y}f - \tau_{y}\psi}_{1} + \norm{\tau_{y}\psi - \psi}_{1} + \norm{\psi - f}_{1} = 2\norm{f-\psi}_{1} + \norm{\tau_{y}\psi - \psi}_{1},
+        \end{align}
+        and $\norm{\tau_{y}\psi - \psi}_{1} \to 0$ as $y \to 0$ by the uniform continuity of $\psi$; also $\omega(y) \leq 2\norm{f}_{1}$ for all $y$. Now fix $\eta > 0$ and choose $\delta > 0$ with $\omega(y) < \eta$ for $\abs{y} < \delta$. Then
+        \begin{align}
+            \norm{f \ast \varphi_{\varepsilon} - f}_{1} \leq \int_{\abs{y} < \delta} \varphi_{\varepsilon}(y)\, \omega(y) \, dy + \int_{\abs{y} \geq \delta} \varphi_{\varepsilon}(y)\, \omega(y) \, dy \leq \eta + 2\norm{f}_{1} \int_{\abs{y} \geq \delta} \varphi_{\varepsilon}(y) \, dy.
+        \end{align}
+        Finally, $\int_{\abs{y} \geq \delta} \varphi_{\varepsilon}(y) \, dy = \int_{\abs{u} \geq \delta/\varepsilon} \varphi(u) \, du \to 0$ as $\varepsilon \to 0^{+}$, since $\varphi \in L^{1}(\R)$. Hence we have the bound $\limsup_{\varepsilon \to 0^{+}} \norm{f \ast \varphi_{\varepsilon} - f}_{1} \leq \eta$, and as $\eta > 0$ was arbitrary, $\lim_{\varepsilon \to 0^{+}} f \ast \varphi_{\varepsilon} = f$ in $L^{1}(\R)$.
+    \end{enumerate}
+\end{proof}
