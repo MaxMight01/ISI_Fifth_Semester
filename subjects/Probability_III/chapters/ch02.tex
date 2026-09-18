@@ -1,5 +1,6 @@
-\chapter{INDEPENDENCE}
+\chapter{MORE ON RANDOM VARIABLES}
 
+\section{Independence of Random Variables}
 \textit{September 15th.}
 
 \begin{definition}
@@ -19,3 +20,88 @@ where $A_{i}^{+} = A_{i}$ and $A_{i}^{-} = A_{i}^{c}$ for $i=1,2,\ldots,n$.
 \begin{definition}
     We say that a collection of countably many random variables $X_{1},X_{2},\ldots$ on $(\Omega,\cF,\Prob)$ are independent if every finite subcollection of them are independent. 
 \end{definition}
+
+\begin{definition}
+    Suppose $X_{1},X_{2},\ldots$ are random variables on $(\Omega,\cF,\Prob)$, and define $\cF_{n} = \sigma(X_{n},X_{n+1},\ldots)$ for $n=1,2,\ldots$. The \eax{tail $\sigma$-algebra} of the sequence $X_{1},X_{2},\ldots$ is defined as
+    \begin{align}
+        \cT = \bigcap_{n=1}^{\infty} \cF_{n} \subseteq \sigma(X_{1},X_{2},\ldots) = \cF.
+    \end{align}
+\end{definition}
+
+An event $A \in \cT$ is an event whose occurrence is determined by the
+variables $X_{n},X_{n+1},\ldots$ for every $n$. Thus, $A$ does not depend on any fixed finite number of the variables at the beginning of the sequence. For example, the event
+\begin{align}
+    A = \{X_{n} \text{ occurs infinitely often}\}
+\end{align}
+belongs to $\cT$, since for every $m$ it can be described using only
+$X_{m},X_{m+1},\ldots$.
+
+If $X_{1},X_{2},\ldots$ are independent and $A \in \cT$, then $A$ is
+independent of $\sigma(X_{1},\ldots,X_{n})$ for every $n$, since $A$ is
+measurable with respect to $\sigma(X_{n+1},X_{n+2},\ldots)$. Therefore $A$ is
+independent of
+\begin{align}
+    \sigma(X_{1},X_{2},\ldots) = \sigma\left(\bigcup_{n=1}^{\infty}
+    \sigma(X_{1},\ldots,X_{n})\right).
+\end{align}
+In particular, $A$ is independent of itself, and hence
+\begin{align}
+    \Prob(A) = \Prob(A \cap A) = \Prob(A)^{2}.
+\end{align}
+Thus $\Prob(A) \in \{0,1\}$. This is known as \eax{Kolmogorov's zero--one law}, that for independent random variables, any tail event has probability 0 or 1. Without independence, a tail event may retain information about the variables in every finite initial segment, and this argument does not apply.
+
+\subsection{Percolation}
+\textit{September 18th.}
+
+We first discuss (Bernoulli) percolation on $\Z^{2} \subseteq \R^{2}$. To each edge $e$, we associate $X_{e} \sim \Ber(p)$ for some $p \in [0,1]$, independently for each edge. If $X_{e} = 1$, we retain the edge $e$, and if $X_{e} = 0$, we delete the edge $e$. We then have a random subgraph of $\Z^{2}$, which is a random subset of edges of $\Z^{2}$. The present or retained edges are termed open, and the absent or deleted edges are termed closed. We ask if there exists an unbounded connected component of open edges; let $E_{p}$ be the event that there exists an unbounded connected component of open edges. Since there are only countably many $X_{e}$'s, we can order them in a spiral like manner starting from the origin, and let $X_{1},X_{2},\ldots$ be the corresponding sequence of random variables. Then $E_{p}$ is a tail event here, and hence by Kolmogorov's zero--one law, $\Prob(E_{p}) \in \{0,1\}$. Moreover, $\Prob(E_{0}) = 0$ and $\Prob(E_{1}) = 1$, and for $0 < p < q < 1$, we have $\Prob(E_{p}) \leq \Prob(E_{q})$ by a coupling argument. Therefore, there exists a critical probability $p_{c} \in [0,1]$ such that $\Prob(E_{p}) = 0$ for $p < p_{c}$ and $\Prob(E_{p}) = 1$ for $p > p_{c}$.
+
+Let $\{0 \leftrightarrow \infty\}$ denote the event that there exists an unbounded connected component of open edges containing the origin. Define $\theta_{p} \defeq \Prob(0 \leftrightarrow \infty)$. Note that this is not a tail event, but $\theta_{p} > 0$ if and only if $\Prob(E_{p}) = 1$. Also, $\theta_{p}$ is non-decreasing in $p$.
+
+\begin{lemma}
+    For small $p$, $\Prob(E_{p}) = 0$. For $p \approx 1$, $\Prob(E_{p}) = 1$.
+\end{lemma}
+\begin{proof}
+    Firstly, note that the event $\{0 \leftrightarrow \infty\}$ is contained in the event that there exists a self avoiding path of open edges starting from the origin and ending at manhattan distance $N$ from the origin, for some $N \in \N$. This event is further contained in the event that there exists a self avoiding path of open edges starting from the origin with length at least $N$. Call the first event $A_{N}$ and the second event $B_{N}$. Then $\{0 \leftrightarrow \infty\} \subseteq A_{N} \subseteq B_{N}$, and hence $\Prob(0 \leftrightarrow \infty) \leq \Prob(A_{N}) \leq \Prob(B_{N})$. If $C_{n}$ is the event that there exists a self avoiding path of open edges starting from the origin of length exactly $N$, then $\Prob(C_{N}) \leq 4 \cdot 3^{N-1} p^{N} \leq (4p)^{N}$, since there are at most $4 \cdot 3^{N-1}$ self avoiding paths of length $N$ starting from the origin, and each such path is open with probability $p^{N}$. Moreover, note that $B_{N} = \bigcup_{n=N}^{\infty} C_{n}$, and hence $\Prob(B_{N}) \leq \sum_{n=N}^{\infty} (4p)^{n}$. Therefore, if $p < 1/4$, we have $\Prob(B_{N}) = \frac{(4p)^{N}}{1-4p} \to 0$ as $N \to \infty$, and hence $\Prob(0 \leftrightarrow \infty) = 0$ for $p < 1/4$. So, for small $p$, specifically for $p < 1/4$, we have $\theta_{p} = 0$ and hence $\Prob(E_{p}) = 0$.
+
+    For the second statement, note that the $\Ber(p)$ percolation model on $\Z^{2}$ induces a $\Ber(1-p)$ percolation model on the dual lattice $(\Z^{2})^{*}$. Thus, the event $\{0 \not\leftrightarrow \infty\}$ is exactly the event that there exists a loop of open edges in the dual lattice surrounding the origin. If $C_{N}^{*}$ is the event that there exists a loop of open edges in the dual lattice surrounding the origin with length exactly $N$, then this event is contained in the event that there exists a self avoiding path of open edges in the dual lattice starting at $\{(1,0),(2,0),\ldots,(n,0)\}$ of length exactly $N$. Therefore, $\Prob(C_{N}^{*}) \leq n(4(1-p))^{N}$, and hence $\Prob(\{0 \not\leftrightarrow \infty\}) \leq \sum_{N=1}^{\infty} n(4(1-p))^{N}$. Therefore, if $p > 3/4$, we have $\Prob(\{0 \not\leftrightarrow \infty\}) = 0$, and hence $\theta_{p} = 1$ and $\Prob(E_{p}) = 1$ for $p > 3/4$.
+\end{proof}
+
+\begin{lemma}[\eax{Borel-Cantelli lemma}]
+    Let $A_{1},A_{2},\ldots$ be a sequence of events in a probability space $(\Omega,\cF,\Prob)$.
+    \begin{enumerate}
+        \item If $\sum_{n=1}^{\infty} \Prob(A_{n}) < \infty$, then $\Prob(A_{n} \text{ i.o.}) = 0$.
+        \item If $A_{1},A_{2},\ldots$ are independent and $\sum_{n=1}^{\infty} \Prob(A_{n}) = \infty$, then $\Prob(A_{n} \text{ i.o.}) = 1$.
+    \end{enumerate}
+\end{lemma}
+We prove the second statement.
+\begin{proof}
+    Let $B_{n} = \bigcup_{j=n}^{\infty} A_{j}$, so that $B_{1} \supseteq B_{2} \supseteq \cdots$ and $\Prob(A_{n} \text{ i.o.}) = \Prob(\bigcap_{n=1}^{\infty} B_{n})$. If we prove that $\Prob(B_{n}) = 1$ for all $n$, then we are done. Now, $\Prob(B_{n}) = 1 - \Prob(B_{n}^{c}) = 1 - \Prob(\bigcap_{j=n}^{\infty} A_{j}^{c})$. Since $A_{1},A_{2},\ldots$ are independent, we have
+    \begin{align}
+        \Prob(\bigcap_{j=n}^{m} A_{j}^{c}) = \prod_{j=n}^{m} \Prob(A_{j}^{c}) = \prod_{j=n}^{m} (1 - \Prob(A_{j})) \leq \prod_{j=n}^{m} e^{-\Prob(A_{j})} = e^{-\sum_{j=n}^{m} \Prob(A_{j})}.
+    \end{align}
+    Taking the limit as $m \to \infty$, we get $\Prob(\bigcap_{j=n}^{\infty} A_{j}^{c}) \leq e^{-\sum_{j=n}^{\infty} \Prob(A_{j})} = 0$, since $\sum_{j=n}^{\infty} \Prob(A_{j}) = \infty$. Therefore, $\Prob(B_{n}) = 1$ for all $n$, and hence $\Prob(A_{n} \text{ i.o.}) = 1$.
+\end{proof}
+
+\section{Moments of Random Variables}
+For a random variable $X:(\Omega,\cF,\Prob) \to \R$, recall that the \eax{mean} of $X$ was simply its expectation $\E[X]$, if it exists. Else, the mean is undefined. For higher moments, the \eax{$p$-th moment} of $X$ is defined as $\E[\abs{X}^{p}]$, if it exists. The \eax{variance} of $X$ is defined as $\Var(X) = \E[(X - \E[X])^{2}] = \E[X^{2}] - \E[X]^{2}$.
+
+In many cases, for a given $X$, we may not know its exact distribution, but we may know its moments. In such cases, we can use the moments to bound the probabilities of certain events. For example, if $X$ is a non-negative random variable with finite mean $\E[X]$, then by Markov's inequality, for any $t > 0$, we have
+\begin{align}
+    \Prob(X > t) \leq \frac{\E[X]}{t}.
+\end{align}
+In particular, if $\E[X] = 0$, then $\Prob(X \geq t) = 0$ for all $t > 0$, and hence $X = 0$ almost surely. If $X$ also happens to have a finite second moment $\E[X^{2}]$, then we can replace $X$ with $\abs{X-\E[X]}$ in the above inequality to get Chebyshev's inequality, which states that for any $t > 0$,
+\begin{align}
+    \Prob(\abs{X - \E[X]} > t) \leq \frac{\Var(X)}{t^{2}}.
+\end{align}
+In fact, if $\E[\abs{X-\E[X]}^{n}] < \infty$, then
+\begin{align}
+    \Prob(\abs{X-\mu} > t) \leq \frac{\E[\abs{X-\mu}^{n}]}{t^{n}}.
+\end{align}
+The \eax{exponential moment} of $X$ is defined as $\E[e^{\lambda x}]$ for $\lambda \neq 0$, if it exists. If $\E[e^{\lambda x}] < \infty$ for some $\lambda > 0$, then by Markov's inequality, we have
+\begin{align}
+    \Prob(X > t) = \Prob(e^{\lambda X} > e^{\lambda t}) \leq \frac{\E[e^{\lambda X}]}{e^{\lambda t}}.
+\end{align}
+Note that if the $p$-th moment of $X$ exists, then the $q$-th moment of $X$ also exists for all $0 < q < p$; this holds since if we write $\abs{X}^{p} = \abs{X}^{p}\1_{\{\abs{X} \leq 1\}} + \abs{X}^{p}\1_{\{\abs{X} > 1\}}$, and note that $\E[\abs{X}^{p}]$ is finite if and only if $\E[\abs{X}^{p}\1_{\{\abs{X} > 1\}}]$ is finite, then
+\begin{align}
+    \E[\abs{X}^{q}] = \E[\abs{X}^{q}\1_{\{\abs{X} \leq 1\}}] + \E[\abs{X}^{q}\1_{\{\abs{X} > 1\}}] \leq 1 + \E[\abs{X}^{p}\1_{\{\abs{X} > 1\}}] < \infty.
+\end{align}

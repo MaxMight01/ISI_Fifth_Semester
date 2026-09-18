@@ -112,3 +112,61 @@ In such a case, $f(N)$ is diffeomorphic to $N$. Note, however, that $f(N)$ need 
 \begin{proof}
     With $p \in N$, and $f(p) \in S \subseteq M$, there exists a chart $(V,\psi) = (V,y^{1},\ldots,y^{m})$, centred at $f(p)$ in $M$, such that $S \cap V = \{(y^{1},\ldots,y^{m}) \in V \mid y^{s+1}=\cdots=y^{m}=0\}$. There also exits a chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$, centred at $p \in N$, such that $f(U) \subseteq V$ and $f$ is given by $(x^{1},\ldots,x^{n}) \mapsto (f^{1},f^{2},\ldots,f^{m})$, where each $f^{i}$ is smooth on $U$. But this means $f^{s+1}(x^{1},\ldots,x^{n}) = \cdots = f^{m}(x^{1},\ldots,x^{n}) = 0$ for all $(x^{1},\ldots,x^{n}) \subseteq U$. In $S$, we have a smooth chart given by $(V \cap S, \varphi_{S})$ via which, the map $\tilde{f}$ on $U$ is given as $(x^{1},\ldots,x^{n}) \mapsto (f^{1},\ldots,f^{s})$; $\tilde{f}$ is smooth.
 \end{proof}
+
+\section{Bump Functions and Partitions of Unity}
+\textit{September 18th.}
+
+\begin{definition}
+    A \eax{bump function} is a smooth non-negative function $f$ on a smooth manifold $M$ such that $f$ has compact support, that is, the closure of the set $\{q \in M \mid f(q) \neq 0\}$ is compact in $M$. A bump function is said to be adapted to an open set $U \subseteq M$ if the support of $f$ is contained in $U$.
+\end{definition}
+
+If $p \in U \subseteq M$ is an open set, then there exists a bump function $f$ adapted to $U$ such that $f(x) = 1$ in a neighbourhood of $p$ contained in $U$.
+
+\begin{definition}
+    A collection of subsets $\{A_{\alpha}\}_{\alpha \in \Lambda}$ of a topological space $S$ is said to be \eax{locally finite} if for all $p \in S$, there exists a neighbourhood $V$ of $P$ such that $\{\alpha \in \Lambda \mid A_{\alpha} \cap V \neq \emptyset\}$ is finite. In other words, each point in $S$ has a neighbourhood that intersects only finitely many of the sets $A_{\alpha}$.
+\end{definition}
+
+\begin{definition}
+    A (smooth) \eax{partition of unity} is a collection of smooth functions $\{\rho_{\alpha}:M \to \R\}_{\alpha \in \Lambda}$ on a smooth manifold $M$ such that the following conditions hold:
+    \begin{enumerate}
+        \item $\{\supp{\rho_{\alpha}}\}_{\alpha \in \Lambda}$ is a locally finite collection of subsets of $M$.
+        \item $\sum_{\alpha \in \Lambda} \rho_{\alpha}(p) = 1$ for all $p \in M$.
+    \end{enumerate}
+\end{definition}
+Note that the sum in the second condition is well-defined since for each $p \in M$, there exists a neighbourhood $V$ of $p$ such that $\{\alpha \in \Lambda \mid \supp{\rho_{\alpha}} \cap V \neq \emptyset\}$ is finite, and so only finitely many terms in the sum are non-zero.
+
+\begin{theorem}
+    Let $M$ be a smooth manifold, and let $\{U_{\alpha}\}_{\alpha \in \Lambda}$ be an open cover of $M$. Then the following hold true.
+    \begin{enumerate}
+        \item There exists a countable smooth partition of unity $\{\varphi_{i}\}_{i=1}^{\infty}$ on $M$ such that for each $i$, $\supp(\varphi_{i})$ is compact and contained in some $U_{\alpha}$.
+        \item There exists a smooth partition of unity $\{\rho_{\alpha}\}_{\alpha \in \Lambda}$ on $M$ such that for each $\alpha$, $\supp(\rho_{\alpha})$ is contained in $U_{\alpha}$. 
+    \end{enumerate}
+\end{theorem}
+In the second statement, we say that the partition of unity is \eax{subordinate} to the open cover $\{U_{\alpha}\}_{\alpha \in \Lambda}$. Before we prove the theorem, we require a few results from topology.
+
+Firstly, since $M$ is a smooth manifold, it is second countable and has a countable basis $\{B_{i}\}_{i \geq 1}$. Define $\cS = \{B_{i} \mid \overline{B_{i}} \text{ is compact}\}$. Then $\cS$ is a countable basis of $M$ consisting of open sets with compact closure. We shall show that $\cS$ also happens to be a basis of $M$; to this end, let $p \in U \subseteq M$ be a point in an open set $U$. Moreover, let $V$ be an open neighbourhood of $p$ such that $\overline{V}$ is compact and $\overline{V} \subseteq U$. Since $\cB$ is a basis of $M$, there exists $B_{i} \in \cB$ such that $p \in B_{i} \subseteq V$. But then $\overline{B_{i}} \subseteq \overline{V}$ is compact, and so $B_{i} \in \cS$. Therefore, $\cS$ is a basis of $M$ consisting of open sets with compact closure. Thus, any smooth manifold has a countable basis of open sets with compact closure.
+
+Secondly, given any smooth manifold $M$, there exists a sequence of open sets $\{V_{i}\}_{i \geq 1}$ such that $\overline{V_{i}}$ is compact and $\overline{V_{i}} \subseteq V_{i+1}$ for all $i$, and $M = \bigcup_{i=1}^{\infty} V_{i}$. Indeed, let $\{B_{i}\}_{i=1}^{\infty}$ be a countable basis of $M$ consisting of open sets with compact closure. Define $V_{1} = B_{1}$, so that $V_{1} \subseteq \overline{V}_{1}$ is compact. Thus, it must be contained in a finite union of the open cover $\{U_{\alpha}\}_{\alpha \in \Lambda}$; that is, there exists a finite set $A_{1} \subseteq \Lambda$ such that $\overline{V}_{1} \subseteq \bigcup_{\alpha \in A_{1}} U_{\alpha}$; for simplicity, suppose $\overline{V}_{1} \subseteq B_{1} \cup B_{2} \cup \cdots \cup B_{i_{1}}$ for some $i_{1} > 1$ such that $i_{1}$ is the smallest integer with this property. Now, let $V_{2} = B_{1} \cup B_{2} \cup \cdots \cup B_{i_{1}}$, an open set with compact closure. Thus, $V_{1} \subseteq \overline{V}_{1} \subseteq V_{2}$, and $\overline{V}_{2}$ is compact. Repeating the same argument, we have $\overline{V}_{2} \subseteq B_{1} \cup B_{2} \cup \cdots \cup B_{i_{1}} \cup \cdots \cup B_{i_{2}}$ for some $i_{2} > i_{1}$ such that $i_{2}$ is the smallest integer with this property. Let $V_{3} = B_{1} \cup B_{2} \cup \cdots \cup B_{i_{2}}$, an open set with compact closure. Thus, $V_{2} \subseteq \overline{V}_{2} \subseteq V_{3}$, and $\overline{V}_{3}$ is compact. Continuing in this manner, we get a sequence of open sets $\{V_{i}\}_{i=1}^{\infty}$ such that $\overline{V}_{i}$ is compact and $\overline{V}_{i} \subseteq V_{i+1}$ for all $i$, and $M = \bigcup_{i=1}^{\infty} V_{i}$. If we define $V_{-1} = V_{0} = \emptyset$, we obtain a sequence as
+\begin{align}
+    V_{-1} \subseteq \overline{V}_{-1} \subseteq V_{0} \subseteq \overline{V}_{0} \subseteq V_{1} \subseteq \overline{V}_{1} \subseteq V_{2} \subseteq \overline{V}_{2} \subseteq V_{3} \subseteq \cdots
+\end{align}
+From here, we can infer that
+\begin{align}
+    \overline{V}_{i+1} \setminus V_{i} \subseteq V_{i+2} \setminus \overline{V}_{i-1}
+\end{align}
+where $\overline{V}_{i+1} \setminus V_{i}$ is compact and $\overline{V}_{i-1} \subseteq V_{i+2}$ is open. We shall use ths construction in the proof of the theorem.
+
+\begin{proof}
+    Start with the construction of the sequence of open sets $\{V_{i}\}_{i=-1}^{\infty}$ as above, where $V_{-1} = V_{0} = \emptyset$, and $\overline{V}_{i} \subseteq V_{i+1}$ for all $i$. Let $p \in U_{\alpha}$ for some $\alpha \in \Lambda$. Then there exists $i$ such that $p \in U_{\alpha} \cap (V_{i+2}-\overline{V}_{i-1})$. Since $U_{\alpha} \cap (V_{i+2}-\overline{V}_{i-1})$ is open, there exists a smooth bump function $\rho_{p}:M \to \R$ such that $\supp(\rho_{p}) \subseteq U_{\alpha} \cap (V_{i+2}-\overline{V}_{i-1})$ and $\rho_{p} > 0$ in some neighbourhood $W_{p}$ of $p$. The collection $\{W_{p}\}_{p \in \overline{V}_{i+1} \setminus V_{i}}$ is then an open cover of the compact set $\overline{V}_{i+1} \setminus V_{i}$; refine this cover to a finite subcover consisting of $W_{1},\ldots,W_{m}$, and let $\rho_{1},\ldots,\rho_{m}$ be the corresponding bump functions. Repeating this for every $i$, we obtain, for each $\overline{V}_{i+1}\setminus V_{i}$, a finite cover $W_{1}^{i},W_{2}^{i},\ldots,W_{m(i)}^{i}$ of $\overline{V}_{i+1}\setminus V_{i}$, and corresponding bump functions $\rho_{1}^{i},\rho_{2}^{i},\ldots,\rho_{m(i)}^{i}$ such that $\supp(\rho_{j}^{i}) \subseteq U_{\alpha} \cap (V_{i+2}-\overline{V}_{i-1})$ for some $\alpha \in \Lambda$, and $\rho_{j}^{i} \equiv 1$ in $W_{j}^{i}$ for all $j = 1,\ldots,m(i)$. Now, let $\{\rho_{k}\}_{k=1}^{\infty}$ be the countable collection of all these bump functions, and $\{W_{j}^{i}\}$ be the corresponding open sets. Note that the following properties hold:
+    \begin{enumerate}
+        \item $\supp(\rho_{j}^{i})$ is compact for all $i,j$.
+        \item $\supp(\rho_{j}^{i}) \subseteq U_{\alpha_{ij}} \cap (V_{i+2}-\overline{V}_{i-1})$ for some $\alpha_{ij} \in \Lambda$.
+        \item $\overline{V}_{i+1} \setminus V_{i} \subseteq \bigcup_{j=1}^{m(i)} W_{j}^{i}$ for all $i$.
+        \item $\rho_{j}^{i} > 0$ on $W_{j}^{i}$ for all $i,j$.
+    \end{enumerate}
+    Since $\supp(\rho_{j}^{i}) \subseteq V_{i+2} \setminus \overline{V}_{i-1}$, we must have $\supp(\rho_{j}^{i}) \cap \overline{V}_{i-1} = \emptyset$ and $\supp(\rho_{j}^{i}) \cap (M \setminus V_{i+2}) = \emptyset$. Therefore, for each $p \in M$, there exists $i$ such that $p \in V_{i+2} \setminus \overline{V}_{i-1}$, and so $p$ can only belong to the support of bump functions $\rho_{j}^{k}$ for $k = i-1,i,i+1$. This shows that the collection $\{\supp(\rho_{j}^{i})\}$ is locally finite. Finally, we define
+    \begin{align}
+        \varphi_{k} = \frac{\rho_{k}}{\sum_{j=1}^{\infty} \rho_{j}}
+    \end{align}
+    where the denominator is smooth and positive, and only finitely many terms are non-zero in a neighbourhood of any point. Then $\{\varphi_{k}\}_{k=1}^{\infty}$ is a countable smooth partition of unity on $M$ such that for each $k$, $\supp(\varphi_{k})$ is compact and contained in some $U_{\alpha}$. This proves the first statement. For the second statement, we can define $\rho_{\alpha} = \sum_{k \in I_{\alpha}} \varphi_{k}$, where $I_{\alpha} = \{k \mid \supp(\varphi_{k}) \subseteq U_{\alpha}\}$. Then $\{\rho_{\alpha}\}_{\alpha \in \Lambda}$ is a smooth partition of unity on $M$ subordinate to the open cover $\{U_{\alpha}\}_{\alpha \in \Lambda}$.
+\end{proof}
