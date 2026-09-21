@@ -216,6 +216,7 @@ We show more properties of the convolution.
         \item Let $\tau_{p}f(x) = f(x-p)$ for $p \in \R$. Then $\tau_{p}(f \ast g) = (\tau_{p}f) \ast g = f \ast (\tau_{p}g)$.
         \item $(f \ast g)' = f' \ast g = f \ast g'$.
         \item Let $\varphi \in C_{c}^{\infty}(\R)$ be such that $\int_{\R} \varphi(x) dx = 1$, and $\varphi$ is an even non-negative function that is monotonically decreasing on $[0,\infty)$. Then, with $\varphi_{\varepsilon}(x) = \frac{1}{\varepsilon} \varphi(\frac{x}{\varepsilon})$, we have $\lim_{\varepsilon \to 0^{+}} f \ast \varphi_{\varepsilon} = f$ in $L^{1}(\R)$.
+        \item If, additionally, $f \in C_{c}(\R)$, then $\lim_{\varepsilon \to 0^{+}} f \ast \varphi_{\varepsilon} = f$ uniformly on $\R$.
     \end{enumerate}
 \end{proposition}
 \begin{proof}
@@ -260,3 +261,69 @@ We show more properties of the convolution.
         Finally, $\int_{\abs{y} \geq \delta} \varphi_{\varepsilon}(y) \, dy = \int_{\abs{u} \geq \delta/\varepsilon} \varphi(u) \, du \to 0$ as $\varepsilon \to 0^{+}$, since $\varphi \in L^{1}(\R)$. Hence we have the bound $\limsup_{\varepsilon \to 0^{+}} \norm{f \ast \varphi_{\varepsilon} - f}_{1} \leq \eta$, and as $\eta > 0$ was arbitrary, $\lim_{\varepsilon \to 0^{+}} f \ast \varphi_{\varepsilon} = f$ in $L^{1}(\R)$.
     \end{enumerate}
 \end{proof}
+
+\textit{September 21st.}
+
+\begin{theorem}
+    If $f,g \in L^{1}(\R)$, then $f \ast g \in L^{1}(\R)$, and $\norm{f \ast g}_{1} \leq \norm{f}_{1}\norm{g}_{1}$. Further, if $f,g \geq 0$, then $\norm{f \ast g}_{1} = \norm{f}_{1}\norm{g}_{1}$.
+\end{theorem}
+\begin{proof}
+    First, we show for indicator functions $\chi_{I}$ and $\chi_{J}$. We have
+    \begin{align}
+        (\chi_{I} \ast \chi_{J})(x) = \int_{\R} \chi_{I}(x-y)\chi_{J}(y) \, dy = \int_{\R} \chi_{(x-I)\cap J}(y) \, dy = \abs{(x-I) \cap J},
+    \end{align}
+    so that
+    \begin{align}
+        \norm{\chi_{I} \ast \chi_{J}}_{1} = \int_{\R} \abs{(x-I) \cap J} \, dx = \int_{\R} \int_{\R} \chi_{(x-I) \cap J}(y) \, dy \, dx = \int_{\R} \int_{\R} \chi_{I}(x-y)\chi_{J}(y) \, dx \, dy = \abs{I}\abs{J}.
+    \end{align}
+    Now let $s = \sum_{i=1}^{p} c_{i}\chi_{I_{i}}$ and $t = \sum_{j=1}^{q} d_{j}\chi_{J_{j}}$ be step functions. Then
+    \begin{align}
+        (s \ast t)(x) = \sum_{i,j} c_{i}d_{j}\abs{(x-I_{i}) \cap J_{j}} \implies \norm{s \ast t}_{1} = \sum_{i,j} c_{i}d_{j}\abs{I_{i}}\abs{J_{j}} \leq \norm{s}_{1}\norm{t}_{1}.
+    \end{align}
+    For general $f,g \in L^{1}(\R)$, we can approximate them by step functions; let $f,g \geq 0$ with $f,g \in L^{1}(\R)$. Choose step functions $s_{n} \uparrow f$ and $t_{n} \uparrow g$ pointwise almost everywhere. Then define
+    \begin{align}
+        \psi_{n}(x) \defeq (s_{n} \ast t_{n})(x) = \int_{\R} s_{n}(x-y)t_{n}(y) \, dy.
+    \end{align}
+    Since $s_{n} \uparrow f$, it converges outside a null set $N_{f}$. Thus, $(y \mapsto s_{n}(x-y)) \uparrow (y \mapsto f(x-y))$ outside $x-N_{f}$. Similarly, $(y \mapsto t_{n}(y)) \uparrow (y \mapsto g(y))$ outside $N_{g}$. So,
+    \begin{align}
+        \abs{\int_{\R}\psi_{n}(x) \, dx} = \abs{\int_{\R} s_{n}(x) \, dx}\abs{\int_{\R} t_{n}(x) \, dx} \leq \norm{s_{n}}_{1}\norm{t_{n}}_{1} \leq \norm{f}_{1}\norm{g}_{1}.
+    \end{align}
+    Thus, by the monotone convergence theorem, we have that $\psi \defeq \lim_{n \to \infty} \psi_{n}$ exists with
+    \begin{align}
+        \int_{\R} \psi(x) \, dx = \lim_{n \to \infty} \int_{\R} \psi_{n}(x) \, dx = \lim_{n \to \infty} \norm{s_{n}}_{1}\norm{t_{n}}_{1} = \norm{f}_{1}\norm{g}_{1}.
+    \end{align}
+    It remains to show that $\psi = f \ast g$ almost everywhere. For $x \in \R$, we have
+    \begin{align}
+        \psi(x) = \lim_{n \to \infty} \psi_{n}(x) = \lim_{n \to \infty} \int_{\R} s_{n}(x-y)t_{n}(y) \, dy = \int_{\R} f(x-y)g(y) \, dy = (f \ast g)(x).
+    \end{align}
+    Therefore, $\psi = f \ast g$ almost everywhere. Finally, for general $f,g \in L^{1}(\R)$, we can write $f = f_{+}-f_{-}$ and $g = g_{+}-g_{-}$, where $f_{\pm},g_{\pm} \geq 0$ are in $L^{1}(\R)$. Then
+    \begin{align}
+        f \ast g = (f_{+}-f_{-}) \ast (g_{+}-g_{-}) = f_{+} \ast g_{+} - f_{+} \ast g_{-} - f_{-} \ast g_{+} + f_{-} \ast g_{-},
+    \end{align}
+    and the result follows.
+\end{proof}
+
+\begin{theorem}[The \eax{Weierstrass approximation theorem}]
+    The space of polynomial functions on $[0,1]$ is dense in $(C[0,1],\norm{\cdot}_{\infty})$.
+\end{theorem}
+\begin{proof}
+    Let $f \in C[0,1]$. Without the loss of generality, we may assume $f(0) = f(1) = 0$, since we can set $g(x) = f(x)-f(0)-x(f(1)-f(0))$ and approximate $g$ instead. Extend $f$ to a continuous function on $\R$ by setting $f(x) = 0$ for $x \notin [0,1]$, so that $f \in C_{c}(\R) \subseteq L^{1}(\R)$. Let $Q_{n}$ be the function defined as $Q_{n}(x) = c_{n}(1-x^{2})^{n}$ for $x \in [-1,1]$ and $Q_{n}(x) = 0$ for $x \notin [-1,1]$, where $c_{n}$ is a normalization constant. Then $Q_{n} \in C_{c}(\R)$ is non-negative, even, and monotonically decreasing on $[0,\infty)$, with $\int_{\R} Q_{n}(x) \, dx = 1$. Define $P_{n}(x) = f \ast Q_{n}(x) = \int_{0}^{1} f(t)Q_{n}(t-x) \, dt$ for $x \in [0,1]$. 
+\end{proof}
+
+\begin{definition}    
+    Let $E$ be a set. A collection of functions $\cA \subseteq \C^{E}$ is said to be an \eax{algebra} if the following hold.
+    \begin{enumerate}
+        \item $f+g \in \cA$ for all $f,g \in \cA$.
+        \item $fg \in \cA$ for all $f,g \in \cA$.
+        \item $\lambda f \in \cA$ for all $f \in \cA$ and $\lambda \in \C$.
+    \end{enumerate}
+    $\cA$ is said to be \eax{uniformly closed} if $(\cA,\norm{\cdot}_{\infty})$ is complete.
+\end{definition}
+Examples include the set of polynomials on $[0,1]$, the set of trigonometric polynomials on $[0,2\pi]$, and the set of continuous functions on a compact interval $[a,b]$.
+\begin{definition}
+    Let $\cA \subseteq \C^{E}$ be an algebra.
+    \begin{enumerate}
+        \item $\cA$ is said to separate points on $E$ if for any $x,y \in E$ with $x \neq y$, there exists $f \in \cA$ such that $f(x) \neq f(y)$.
+        \item For each $x \in E$, there exists $g \in \cA$ such that $g(x) \neq 0$; in this case, we say that $\cA$ vanishes nowhere on $E$.
+    \end{enumerate}
+\end{definition}
