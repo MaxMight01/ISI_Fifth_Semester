@@ -170,3 +170,77 @@ where $\overline{V}_{i+1} \setminus V_{i}$ is compact and $\overline{V}_{i-1} \s
     \end{align}
     where the denominator is smooth and positive, and only finitely many terms are non-zero in a neighbourhood of any point. Then $\{\varphi_{k}\}_{k=1}^{\infty}$ is a countable smooth partition of unity on $M$ such that for each $k$, $\supp(\varphi_{k})$ is compact and contained in some $U_{\alpha}$. This proves the first statement. For the second statement, we can define $\rho_{\alpha} = \sum_{k \in I_{\alpha}} \varphi_{k}$, where $I_{\alpha} = \{k \mid \supp(\varphi_{k}) \subseteq U_{\alpha}\}$. Then $\{\rho_{\alpha}\}_{\alpha \in \Lambda}$ is a smooth partition of unity on $M$ subordinate to the open cover $\{U_{\alpha}\}_{\alpha \in \Lambda}$.
 \end{proof}
+
+\begin{lemma}
+    Let $M$ be a smooth manifold, and $X$ be a vector field on $M$. Then $X$ is smooth on $M$ if and only if for any chart $(U,\varphi)$ on $M$, with $X = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}$ on $U$, each coefficient function $a^{i}:U \to \R$ is smooth.
+\end{lemma}
+\begin{proof}
+    Suppose $X$ was smooth on $M$, or $X:M \to TM$ is a smooth map. Then for any chart $(U,\varphi)$ on $M$, the composition $\tilde{\varphi} \circ X|_{U}: U \to \varphi(U) \times \R^{n}$ is smooth, and so each component function $a^{i}:U \to \R$ is smooth. Conversely, suppose that for any chart $(U,\varphi)$ on $M$, with $X = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}$ on $U$, each coefficient function $a^{i}:U \to \R$ is smooth. Then for any chart $(U,\varphi)$ on $M$, the composition $\tilde{\varphi} \circ X|_{U}: U \to \varphi(U) \times \R^{n}$ is smooth, and so $X:M \to TM$ is a smooth map.
+\end{proof}
+
+\begin{proposition}
+    Let $X$ be a vector field on a smooth manifold $M$. Then $X$ is smooth if and only if for any smooth function $f \in C^{\infty}(M)$, the function $X(f):M \to \R$ defined by $X(f)(p) = X_{p}(f)$ is smooth.
+\end{proposition}
+\begin{proof}
+    Suppose $X$ is smooth. Then for any smooth function $f \in C^{\infty}(M)$, the function $X(f):M \to \R$ defined by $X(f)(p) = X_{p}(f)$ is smooth. Conversely, suppose that for any smooth function $f \in C^{\infty}(M)$, the function $X(f):M \to \R$ defined by $X(f)(p) = X_{p}(f)$ is smooth. Let $(U,\varphi)$ be a chart on $M$, with $\varphi = (x^{1},\ldots,x^{n})$. Then on $U$, we have $X = \sum_{i=1}^{n} a^{i} \frac{\partial}{\partial x^{i}}$, where each coefficient function $a^{i}:U \to \R$ is given by $a^{i}(p) = X_{p}(x^{i})$. Since each coordinate function $x^{i}$ is smooth, it follows that each coefficient function $a^{i}:U \to \R$ is smooth. Therefore, by the previous lemma, $X$ is smooth on $M$.
+\end{proof}
+Moreover, since $X_{p}$ is a $\R$-linear derivation from $C^{\infty}(M)$ to $\R$, we get that $X$ is a derivation on $C^{\infty}(M)$; that is, for any $f,g \in C^{\infty}(M)$, we have
+\begin{align}
+    X(fg)(p) = X_{p}(fg) = f(p)X_{p}(g) + g(p)X_{p}(f) = (fX(g) + gX(f))(p) \implies X(fg) = fX(g) + gX(f).
+\end{align}
+
+
+\section{Integral Curves}
+The following theorem will be useful in the study of vector fields and their flows on smooth manifolds.
+\begin{theorem}
+    Let $p_{0} \in V \subseteq \R^{n}$ be an open set, and $f:V \to \R^{n}$ be a smooth map. Then the differential equation $\frac{dy}{dt} = f(y)$ with initial condition $y(0) = p_{0}$ has a unique smooth solution $y:(a(p_{0}),b(p_{0})) \to V$ where $(a(p_{0}),b(p_{0}))$ is the maximal open interval containing $0$ such that $y$ is defined on $(a(p_{0}),b(p_{0}))$.
+\end{theorem}
+
+\begin{definition}
+    Let $X$ be a smooth vector field on a smooth manifold $M$, and let $p \in M$. An \eax{integral curve} of $X$ is a smooth curve $c:(a,b) \to M$ such that $c'(t) = X_{c(t)}$ for all $t \in (a,b)$. We usually presume $0 \in (a,b)$; if $c(0) = p$, we say that $c$ is an integral curve of $X$ starting at $p$.
+
+    A \eax{maximal integral curve} is an integral curve whose domain cannot be extended to a larger interval while still satisfying the integral curve condition. 
+\end{definition}
+
+We look at a few examples.
+\begin{example}
+    Consider the smooth manifold $M = \R^{2}$ and the smooth vector field $X = x \frac{\partial}{\partial x} + y \frac{\partial}{\partial y}$. Let $p_{0} = (1,0) \in \R^{2}$. Then, an integral curve $c:(a,b) \to \R^{2}$ of $X$ starting at $p_{0}$ satisfies the differential equation $c'(t) = (\dot{x}(t),\dot{y}(t)) = (-y(t),x(t)) = X_{c(t)}$ with initial condition $c(0) = (1,0)$. Solving this system of differential equations, we get
+    \begin{align}
+        c(t) = (\cos t, \sin t).
+    \end{align}
+    This integral curve is a circle centered at the origin with radius 1, and it is defined for all $t \in \R$. If, instead, we had chosen $p_{0} = (x_{0},y_{0}) \in \R^{2}$, then the integral curve of $X$ starting at $p_{0}$ would be given by
+    \begin{align}
+        c(t) = (x_{0}\cos t - y_{0}\sin t, x_{0}\sin t + y_{0}\cos t),
+    \end{align}
+    which is a circle centered at the origin with radius $\sqrt{x_{0}^{2} + y_{0}^{2}}$, and it is also defined for all $t \in \R$. Moreover, one can verify that $c_{s}(c_{t}) = c_{s+t}$ for all $s,t \in \R$, where $c_{t}(p_{0})$ denotes the integral curve of $X$ starting at $p_{0}$ evaluated at time $t$. $c_{t}$ is a diffeomorphism of $\R^{2}$ for each $t \in \R$, and the map
+    \begin{align}
+        \R \to \mathrm{Diff}(\R^{2}), \quad t \mapsto c_{t}
+    \end{align}
+    is a smooth group homomorphism from $(\R,+)$ to the group of diffeomorphisms of $\R^{2}$, where the group operation on $\mathrm{Diff}(\R^{2})$ is composition of maps. 
+\end{example}
+
+From the above, any group homomorphism from $(\R,+)$ to the group of diffeomorphisms of a smooth manifold $M$ is called a one-parameter group of diffeomorphisms of $M$.
+
+\begin{corollary}
+    Let $X$ be a smooth vector field on a smooth manifold $M$, with $p \in M$. Then there exists an integral curve $c:(a,b) \to M$ of $X$ such that $0 \in (a,b)$ with $c(0) = p$, and this integral curve is unique.
+\end{corollary}
+
+\begin{theorem}
+    Let $V \subseteq \R^{n}$ be open, and $f:V \to \R^{n}$ be a smooth map. Then for each point $p_{0} \in V$, there exists a neighbourhood $W$ of $p_{0}$ in $V$, an $\epsilon > 0$, and a smooth function $y:(-\epsilon,\epsilon) \times W \to V$ such that
+    \begin{align}
+        \frac{\partial y}{\partial t}(t,q) = f(y(t,q)), \qquad y(0,q) = q
+    \end{align}
+    for all $(t,q) \in (-\epsilon,\epsilon) \times W$.
+\end{theorem}
+\begin{corollary}
+    Let $X$ be a smooth vector field on a smooth manifold $M$, and let $U$ be a chart around $p \in M$. Then there exists a neighbourhood $W$ of $p$ in $U$, an $\epsilon > 0$, and a smooth map $F:(-\epsilon,\epsilon) \times W \to U$ such that for all $q \in W$, $F(t,q)$ is an integral curve of $X$ with initial point $q$ ($F(0,q) = q)$.
+\end{corollary}
+In the above, we use the notation $F(t,q) = F_{t}(q)$. Suppose $s,t \in (-\epsilon,\epsilon)$, and $q \in W$, and that $F_{t}(F_{s}(q))$ and $F_{t+s}(q)$ are both defined. Then we have $F_{t}(F_{s}(q)) = F_{t+s}(q)$. This is because both sides are integral curves of $X$ starting at $q$ at time $0$, and by uniqueness of integral curves, they must coincide. $F$, above, is termed as a \eax{local flow} generated by the vector field $X$. $F_{t}(q)$ is then a flow line of $q$ of the local flow $F$. If $F$ can be defined as $F:\R \times M \to M$, then $F$ is called a \eax{global flow} generated by the vector field $X$. $X$ is called a \eax{complete vector field} if its flow is global.
+
+\begin{definition}
+    In general, a \eax{local flow} about a point $p \in U \subseteq M$ is a smooth map $F:(-\epsilon,\epsilon) \times W \to U$, where $W$ is a neighbourhood of $p$ in $U$ and $\epsilon > 0$, such that
+    \begin{enumerate}
+        \item $F_{0}(q) = q$ for all $q \in W$, and
+        \item $F_{t}(F_{s}(q)) = F_{t+s}(q)$ whenever both sides are defined.
+    \end{enumerate}
+\end{definition}
