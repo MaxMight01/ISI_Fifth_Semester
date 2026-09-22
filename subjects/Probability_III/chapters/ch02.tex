@@ -1,6 +1,6 @@
 \chapter{MORE ON RANDOM VARIABLES}
 
-\section{Independence of Random Variables}
+\section{Independence}
 \textit{September 15th.}
 
 \begin{definition}
@@ -82,7 +82,7 @@ We prove the second statement.
     Taking the limit as $m \to \infty$, we get $\Prob(\bigcap_{j=n}^{\infty} A_{j}^{c}) \leq e^{-\sum_{j=n}^{\infty} \Prob(A_{j})} = 0$, since $\sum_{j=n}^{\infty} \Prob(A_{j}) = \infty$. Therefore, $\Prob(B_{n}) = 1$ for all $n$, and hence $\Prob(A_{n} \text{ i.o.}) = 1$.
 \end{proof}
 
-\section{Moments of Random Variables}
+\section{Moments}
 For a random variable $X:(\Omega,\cF,\Prob) \to \R$, recall that the \eax{mean} of $X$ was simply its expectation $\E[X]$, if it exists. Else, the mean is undefined. For higher moments, the \eax{$p$-th moment} of $X$ is defined as $\E[\abs{X}^{p}]$, if it exists. The \eax{variance} of $X$ is defined as $\Var(X) = \E[(X - \E[X])^{2}] = \E[X^{2}] - \E[X]^{2}$.
 
 In many cases, for a given $X$, we may not know its exact distribution, but we may know its moments. In such cases, we can use the moments to bound the probabilities of certain events. For example, if $X$ is a non-negative random variable with finite mean $\E[X]$, then by Markov's inequality, for any $t > 0$, we have
@@ -105,3 +105,79 @@ Note that if the $p$-th moment of $X$ exists, then the $q$-th moment of $X$ also
 \begin{align}
     \E[\abs{X}^{q}] = \E[\abs{X}^{q}\1_{\{\abs{X} \leq 1\}}] + \E[\abs{X}^{q}\1_{\{\abs{X} > 1\}}] \leq 1 + \E[\abs{X}^{p}\1_{\{\abs{X} > 1\}}] < \infty.
 \end{align}
+
+\section{Convergence of Random Variables}
+\textit{September 22nd.}
+
+Throughout, we shall assume that $(X_{n})_{n \geq 1}$ is a sequence of random variables on $(\Omega,\cF,\Prob)$, and $X$ is another random variable on the same probability space. We shall discuss various notions of convergence of the sequence $(X_{n})$ to $X$.
+
+\begin{definition}
+    $X_{n}$ converges to $X$ as \eax{almost sure convergence}, written $X_{n} \toas X$, if there exists a set $E \in \cF$ with $\Prob(E) = 0$ such that
+    \begin{align}
+        \lim_{n \to \infty} X_{n}(\omega) = X(\omega) \quad \text{for all } \omega \in \Omega \setminus E.
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    $X_{n}$ converges to $X$ as \eax{convergence in probability}, written $X_{n} \toP X$, if
+    \begin{align}
+        \lim_{n \to \infty} \Prob(\abs{X_{n}-X} > \epsilon) = 0 \quad \text{for all } \epsilon > 0.
+    \end{align}
+\end{definition}
+Almost sure convergence is the stronger notion---
+\begin{proposition}
+    If $X_{n} \toas X$, then $X_{n} \toP X$.
+\end{proposition}
+\begin{proof}
+    Let $\epsilon > 0$. Since $X_{n} \toas X$, there exists a set $E \in \cF$ with $\Prob(E) = 0$ such that $\lim_{n \to \infty} X_{n}(\omega) = X(\omega)$ for all $\omega \in \Omega \setminus E$. Therefore, for each $\omega \in \Omega \setminus E$, there exists $N_{\epsilon}(\omega) \in \N$ such that $\abs{X_{n}(\omega)-X(\omega)} \leq \epsilon$ for all $n \geq N_{\epsilon}(\omega)$. Now define
+    \begin{align}
+        A_{k} \defeq \{\omega \in \Omega \mid \abs{X_{n}(\omega)-X(\omega)} \leq \epsilon, \; \text{for all } n \geq k\}.
+    \end{align}
+    Then $(A_{k})_{k \geq 1}$ is an increasing sequence of sets such that $\emptyset \subseteq A_{k} \uparrow \Omega\setminus E$; for any $(1 > ) \delta > 0$, there exists a natural $N \in \N$ such that $\Prob(A_{N}) \geq 1-\delta$. Then, we must have
+    \begin{align}
+        \{\abs{X_{n}-X} > \epsilon\} \subseteq \Omega \setminus A_{N} \implies 0 \leq \Prob(\abs{X_{n}-X} > \epsilon) \leq \Prob(\Omega \setminus A_{N}) \leq \delta.
+    \end{align}
+    Letting $\delta \to 0^{+}$, we get $\Prob(\abs{X_{n}-X} > \epsilon) \to 0$ as $n \to \infty$; since $\epsilon > 0$ was arbitrary, we have $X_{n} \toP X$.
+\end{proof}
+
+However, the converse does not hold. Consider the sequence of random variables $(X_{n})_{n \geq 1}$ on $([0,1],\cB([0,1]),\lambda)$ defined as
+\begin{align}
+    X_{2^{k}+j}(x) &= \1_{[j2^{-k},(j+1)2^{-k})}(x),
+    \qquad k=0,1,2,\ldots,\quad j=0,1,\ldots,2^{k}-1.
+\end{align}
+Let $X=0$. For $n=2^{k}+j$, we have
+\begin{align}
+    \Prob(\abs{X_n-X}>\epsilon) = 2^{-k} \longrightarrow 0
+    \qquad (0<\epsilon<1),
+\end{align}
+and the probability is zero for $\epsilon\geq 1$. Hence $X_n\toP 0$. On the other hand, every $x\in[0,1)$ belongs to exactly one interval at each level $k$, so $X_n(x)=1$ infinitely often, while $X_n(x)=0$ infinitely often. Thus $X_n$ does not converge almost surely to $0$ (indeed, it fails to converge for every $x\in[0,1)$).
+
+\begin{lemma}
+    Suppose $X_{n} \toP X$ and, additionally,
+    \begin{align}
+        \sum_{n=1}^{\infty} \Prob(\abs{X_{n}-X} > \epsilon) < \infty
+        \qquad \text{for all } \epsilon > 0.
+    \end{align}
+    Then $X_{n} \toas X$.
+\end{lemma}
+\begin{proof}
+    Let $\epsilon > 0$. By the Borel-Cantelli lemma, we have $\Prob(\abs{X_{n}-X} > \epsilon \text{ i.o.}) = 0$. Let $E_{\epsilon} = \{\abs{X_{n}-X} > \epsilon \text{ i.o.}\}$, so that $\Prob(E_{\epsilon}) = 0$. Then for all $\omega \in \Omega \setminus E_{\epsilon}$, there exists $N_{\epsilon}(\omega) \in \N$ such that $\abs{X_{n}(\omega)-X(\omega)} \leq \epsilon$ for all $n \geq N_{\epsilon}(\omega)$. Now define
+    \begin{align}
+        E = \bigcup_{m=1}^{\infty} E_{1/m}.
+    \end{align}
+    Then $\Prob(E) = 0$, and for all $\omega \in \Omega \setminus E$, we have $\abs{X_{n}(\omega)-X(\omega)} \leq 1/m$ for all $n$ sufficiently large, for every $m=1,2,\ldots$. Therefore, $\lim_{n\to\infty} X_{n}(\omega) = X(\omega)$ for all $\omega \in \Omega\setminus E$, and hence $X_{n} \toas X$.
+\end{proof}
+
+Let $(X_{n})_{n \geq 1}$ be a sequence of pairwise independent random variables with $\E[X_{n}] = 0$ and $\Var(X_{n}) \leq M$ for all $n$ and some constant $M > 0$. Then if $S_{n} = X_{1} + \cdots + X_{n}$, we have $S_{n}/n \toP 0$ since
+\begin{align}
+    \Prob(\abs{S_{n}/n} > \epsilon) \leq \frac{\E[\abs{\frac{S_{n}}{n}}^{2}]}{\epsilon^{2}} = \frac{\Var(S_{n}/n)}{\epsilon^{2}} = \frac{\Var(S_{n})}{n^{2}\epsilon^{2}} = \frac{\sum_{i=1}^{n} \Var(X_{i})}{n^{2}\epsilon^{2}} \leq \frac{M}{n\epsilon^{2}} \to 0 \quad \text{as } n \to \infty.
+\end{align}
+Let $(X_{n})_{n \geq 1}$ be bounded independent random variables with $\E[X_{n}] = 0$ for all $n$. Then if $S_{n} = X_{1} + \cdots + X_{n}$, we have $S_{n}/n \toas 0$; to this end, we have
+\begin{align}
+    \Prob(\abs{S_{n}/n} > \epsilon) \leq \frac{\E[\abs{S_{n}/n}^{4}]}{\epsilon^{4}} = \frac{\E[S_{n}^{4}]}{n^{4}\epsilon^{4}} \leq \frac{C(n+n^{2})M^{4}}{n^{4}\epsilon^{4}} \lesssim \frac{1}{n^{2}}.
+\end{align}
+Thus,
+\begin{align}
+    \sum_{n=1}^{\infty} \Prob(\abs{S_{n}/n} > \epsilon) < \infty,
+\end{align}
+or $\abs{S_{n}/n} \toas 0$ by the previous lemma.
