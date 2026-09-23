@@ -246,3 +246,68 @@ In the above, we use the notation $F(t,q) = F_{t}(q)$. Suppose $s,t \in (-\epsil
         \item $F_{t}(F_{s}(q)) = F_{t+s}(q)$ whenever both sides are defined.
     \end{enumerate}
 \end{definition}
+
+
+\section{Lie Algebras}
+\textit{September 23rd.}
+
+Recall that a vector field $X$ on a smooth manifold $M$ was smooth if and only if for any smooth function $f \in C^{\infty}(M)$, the function $Xf:M \to \R$ defined by $X(f)(p) = X_{p}(f)$ is smooth. That is, the map $Xf$ itself is a smooth map on $M$; if $f \in C_{p}^{\infty}$, then $Xf \in C_{p}^{\infty}$ as well. If we have another smooth vector field $Y$ on $M$, then we can define a new map $[X,Y](\cdot)(p):C^{\infty}(M) \to \R$ by
+\begin{align}
+    f \mapsto X_{p}(Yf) - Y_{p}(Xf).
+\end{align}
+This map is $\R$-linear, and it is also a derivation on $C^{\infty}(M)$; that is, for any $f,g \in C^{\infty}(M)$, we have
+\begin{align}
+    [X,Y](fg)(p) &= X_{p}(Y(fg)) - Y_{p}(X(fg)) = X_{p}(fYg + gYf) - Y_{p}(fXg + gXf) \notag \\ &= f(p)X_{p}(Yg) + g(p)X_{p}(Yf) - f(p)Y_{p}(Xg) - g(p)Y_{p}(Xf) \notag \\ &= f(p)(X_{p}(Yg) - Y_{p}(Xg)) + g(p)(X_{p}(Yf) - Y_{p}(Xf)) \notag \\ &= f[X,Y](g)(p) + g[X,Y](f)(p).
+\end{align}
+Thus, $[X,Y](\cdot)(p)$ is a derivation on $C^{\infty}(M)$, and so there exists a unique tangent vector $[X,Y]_{p} \in T_{p}M$ such that $[X,Y]_{p}(f) = [X,Y](f)(p)$ for all $f \in C^{\infty}(M)$. This defines a new vector field $[X,Y]$ on $M$, defined as
+\begin{align}
+    XY-YX = [X,Y]:M \to TM, \quad p \mapsto [X,Y]_{p}.
+\end{align}
+This is called the Lie bracket of the vector fields $X$ and $Y$, and is smooth when $X$ and $Y$ are smooth vector fields on $M$. $\mf{X}(U)$ then, the set of all smooth vector fields on an open set $U \subseteq M$, is termed a Lie algebra.
+
+\begin{definition}
+    Let $k$ be a field and $V$ be a vector space over $k$. $V$ is termed a \eax{Lie algebra} over $k$ when equipped with an operation $[\cdot,\cdot]:V \times V \to V$ called the Lie bracket, such that the following conditions hold:
+    \begin{enumerate}
+        \item bilinearity: $[av_{1}+bv_{2},w] = a[v_{1},w] + b[v_{2},w]$ and $[v,aw_{1}+bw_{2}] = a[v,w_{1}] + b[v,w_{2}]$ for all $v,v_{1},v_{2},w,w_{1},w_{2} \in V$ and $a,b \in k$,
+        \item anti-commutativity: $[v,w] = -[w,v]$ for all $v,w \in V$, and
+        \item Jacobi identity: $[v,[w,u]] + [w,[u,v]] + [u,[v,w]] = 0$ for all $v,w,u \in V$.
+    \end{enumerate}
+\end{definition}
+
+Verify that the set of smooth vector fields $\mf{X}(U)$ on an open set $U \subseteq M$ forms a Lie algebra over $\R$ with the Lie bracket $[\cdot,\cdot]:\mf{X}(U) \times \mf{X}(U) \to \mf{X}(U)$ defined above as $[X,Y] = XY - YX$ for all $X,Y \in \mf{X}(U)$.
+
+Any vector $V$ over the field $k$ can be viewed as a Lie algebra over $k$ with the trivial Lie bracket $[v,w] = 0$ for all $v,w \in V$. This is also the only abelian Lie algebra over $k$; that is, a Lie algebra $V$ over $k$ is abelian if and only if $[v,w] = 0$ for all $v,w \in V$. The vector space $M_{n}(k)$ of all $n \times n$ matrices over a field $k$ is a Lie algebra over $k$ with the Lie bracket defined as $[A,B] = AB - BA$ for all $A,B \in M_{n}(k)$. 
+
+\begin{definition}
+    Let $F:N \to M$ be a smooth map between smooth manifolds, and let $p \in N$ with the induced linear map $F_{\ast,p}:T_{p}N \to T_{F(p)}M$. If $X$ is a vector field on $N$ and $Y$ is a vector field on $M$, we say that $X$ and $Y$ are \eax{$F$-related} if $F_{\ast,p}(X_{p}) = Y_{F(p)}$ for all $p \in N$. $Y$ is called the pushforward of $X$ by $F$.
+\end{definition}
+
+\begin{lemma}
+    With notation as above, $X$ and $Y$ are $F$-related if and only if for any smooth function $g \in C^{\infty}(M)$, we have $X(g \circ F) = (Yg) \circ F$.
+\end{lemma}
+
+\begin{proof}
+    Suppose $X$ and $Y$ are $F$-related. Then for any smooth function $g \in C^{\infty}(M)$, we have
+    \begin{align*}
+        X(g \circ F) &= F_{\ast,p}(X_p)(g) = Y_{F(p)}(g) = (Yg) \circ F.
+    \end{align*}
+    Conversely, suppose that for any smooth function $g \in C^{\infty}(M)$, we have $X(g \circ F) = (Yg) \circ F$. Then for any smooth function $g \in C^{\infty}(M)$, we have
+    \begin{align*}
+        F_{\ast,p}(X_p)(g) &= X(g \circ F) = (Yg) \circ F = Y_{F(p)}(g).
+    \end{align*}
+    Thus, $F_{\ast,p}(X_p) = Y_{F(p)}$ for all $p \in N$, and so $X$ and $Y$ are $F$-related.
+\end{proof}
+
+\begin{lemma}
+    With notation as above, if $X_{1},X_{2}$ are vector fields on $N$ and $Y_{1},Y_{2}$ are vector fields on $M$ such that $X_{i}$ and $Y_{i}$ are $F$-related for $i=1,2$, then the Lie brackets $[X_{1},X_{2}]$ and $[Y_{1},Y_{2}]$ are also $F$-related.
+\end{lemma}
+\begin{proof}
+    Suppose $X_{1},X_{2}$ are vector fields on $N$ and $Y_{1},Y_{2}$ are vector fields on $M$ such that $X_{i}$ and $Y_{i}$ are $F$-related for $i=1,2$. Then for any smooth function $g \in C^{\infty}(M)$, we have
+    \begin{align*}
+        [X_{1},X_{2}](g \circ F) &= X_{1}(X_{2}(g \circ F)) - X_{2}(X_{1}(g \circ F)) \\
+        &= X_{1}((Y_{2}g) \circ F) - X_{2}((Y_{1}g) \circ F) \\
+        &= (Y_{1}(Y_{2}g)) \circ F - (Y_{2}(Y_{1}g)) \circ F \\
+        &= ([Y_{1},Y_{2}]g) \circ F.
+    \end{align*}
+    Thus, by the previous lemma, we have that $[X_{1},X_{2}]$ and $[Y_{1},Y_{2}]$ are $F$-related.
+\end{proof}
