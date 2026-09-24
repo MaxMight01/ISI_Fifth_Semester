@@ -309,6 +309,7 @@ We show more properties of the convolution.
 \begin{proof}
     Let $f \in C[0,1]$. Without the loss of generality, we may assume $f(0) = f(1) = 0$, since we can set $g(x) = f(x)-f(0)-x(f(1)-f(0))$ and approximate $g$ instead. Extend $f$ to a continuous function on $\R$ by setting $f(x) = 0$ for $x \notin [0,1]$, so that $f \in C_{c}(\R) \subseteq L^{1}(\R)$. Let $Q_{n}$ be the function defined as $Q_{n}(x) = c_{n}(1-x^{2})^{n}$ for $x \in [-1,1]$ and $Q_{n}(x) = 0$ for $x \notin [-1,1]$, where $c_{n}$ is a normalization constant. Then $Q_{n} \in C_{c}(\R)$ is non-negative, even, and monotonically decreasing on $[0,\infty)$, with $\int_{\R} Q_{n}(x) \, dx = 1$. Define $P_{n}(x) = f \ast Q_{n}(x) = \int_{0}^{1} f(t)Q_{n}(t-x) \, dt$ for $x \in [0,1]$. 
 \end{proof}
+(INCOMPLETE)
 
 \begin{definition}    
     Let $E$ be a set. A collection of functions $\cA \subseteq \C^{E}$ is said to be an \eax{algebra} if the following hold.
@@ -327,3 +328,51 @@ Examples include the set of polynomials on $[0,1]$, the set of trigonometric pol
         \item For each $x \in E$, there exists $g \in \cA$ such that $g(x) \neq 0$; in this case, we say that $\cA$ vanishes nowhere on $E$.
     \end{enumerate}
 \end{definition}
+
+\textit{September 24th.}
+
+\begin{theorem}
+    Let $\cA \subseteq \C^{E}$ be an algebra over $E$, with $\abs{E} \geq 2$, such that $\cA$ separate points on $E$ and vanishes nowhere on $E$. Take $x_{1} \neq x_{2}$ on $E$, and $c_{1},c_{2} \in \C$. Then there exists $f \in \cA$ such that $f(x_{1}) = c_{1}$ and $f(x_{2}) = c_{2}$.
+\end{theorem}
+\begin{proof}
+    Note that there exist $g,h,k \in \cA$ such that $g(x_{1}) \neq g(x_{2})$, $h(x_{1}) \neq 0$, and $k(x_{2}) \neq 0$. Then set $u = gk-g(x_{1})k$ and $v = gh-g(x_{2})h$, so that $u,v \in \cA$. We have $u(x_{1}) = v(x_{2}) = 0$, and $u(x_{2}) \neq 0$ and $v(x_{1}) \neq 0$. Now define
+    \begin{align}
+        f = c_{1}\frac{v}{v(x_{1})} + c_{2}\frac{u}{u(x_{2})} \in \cA.
+    \end{align}
+    Then $f(x_{1}) = c_{1}$ and $f(x_{2}) = c_{2}$.
+\end{proof}
+
+\begin{theorem}[The \eax{discrete Stone-Weierstrass theorem}]
+    Let $\cA \subseteq \R^{E}$ be an algebra of real-valued functions on a finite set $E = \{x_{1},\ldots,x_{n}\}$. If $\cA$ separates points on $E$ and vanishes nowhere on $E$, then $\cA = \R^{E}$.
+\end{theorem}
+\begin{proof}
+    Let $f \in \R^{E}$. For each $i = 1,\ldots,n$, there exists $g_{i} \in \cA$ such that $g_{i}(x_{i}) = f(x_{i})$ and $g_{i}(x_{j}) = 0$ for all $j \neq i$. Then $f = g_{1} + \cdots + g_{n} \in \cA$.
+\end{proof}
+
+\begin{theorem}[The \eax{Stone-Weierstrass theorem}]
+    Let $\cA \subseteq C(K)$ be an algebra of real-valued continuous functions on a compact Hausdorff space $K$. If $\cA$ separates points on $K$ and vanishes nowhere on $K$, then $\cA$ is dense in $(C(K),\norm{\cdot}_{\infty})$.
+\end{theorem}
+\begin{proof}
+    We show that $\overline{\cA} = C(K)$, where $\overline{\cA}$ is the uniform closure of $\cA$. Note that $\overline{\cA}$ is an algebra, separates points on $K$, and vanishes nowhere on $K$. If $f \in \overline{\cA}$, then $\abs{f} \in \overline{\cA}$; consider the map $x \mapsto \abs{x}$ on $[-a,a]$ for $a > 0$. By the Weierstrass approximation theorem, there is a sequence of polynomial functions $p_{n}$ on $[-a,a]$ such that $p_{n}(x) \to \abs{x}$ on $[-a,a]$ uniformly. For every $\eps > 0$, there exists a polynomial function $p$ on $[-a,a]$ such that $\abs{p(x)-\abs{x}} < \eps$ for all $x \in [-a,a]$. Thus, set $g = p(f) \in \overline{\cA}$, and $\norm{g-\abs{f}}_{\infty} < \eps$. Hence $\abs{f} \in \overline{\cA}$.
+
+    By the above, if $f,g$ are in $\overline{\cA}$, then so are $\max\{f,g\}$ and $\min\{f,g\}$. Indeed, $\max\{f,g\} = \frac{1}{2}(f+g+\abs{f-g})$ and $\min\{f,g\} = \frac{1}{2}(f+g-\abs{f-g})$. We claim that if $f \in C(K)$, $x \in K$, and $\eps > 0$, then there exists $g_{x} \in \overline{\cA}$ such that $g_{x}(x) = f(x)$, and $g_{x}(t) > f(t)-\eps$ for all $t \in K$; to this end, let $y \in K$ with $y \neq x$. By the hypothesis, there exists $h_{y} \in \overline{\cA}$ such that $h_{y}(x) = f(x)$ and $h_{y}(y) = f(y)$. By continuity, there is a neighbourhood $J_{y}$ of $x$ such that $h_{y}(t) > f(t)-\eps$ for all $t \in J_{y}$. Since $y$ was arbitrary, the collection $\{J_{y}\}_{y \in K \setminus \{x\}}$ is an open cover of $K$. $K$ being compact, there exists a finite subcover $\{J_{y_{1}},\ldots,J_{y_{n}}\}$, and we can set $g_{x} = \max\{h_{y_{1}},\ldots,h_{y_{n}}\} \in \overline{\cA}$. On $K$, we have $g_{x}(t) > f(t)-\eps$ for all $t \in K$, and $g_{x}(x) = f(x)$.
+
+    Via the above, we can show that given $f \in C(K)$ and $\eps > 0$, there exists $h \in \overline{\cA}$ such that $\norm{f-h}_{\infty} < \eps.$ Indeed, for $x \in K$, there exists $g_{x} \in \overline{\cA}$ such that $g_{x}(x) = f(x)$ and $g_{x}(t) > f(t)-\eps$ for all $t \in K$. By continuity, again, there is a neighbourhood $N_{x}$ of $x$ such that $g_{x}(t) < f(t) + \eps$ for all $t \in N_{x}$. The collection $\{N_{x}\}_{x \in K}$ is an open cover of $K$, and by compactness, there exists a finite subcover $\{N_{x_{1}},\ldots,N_{x_{m}}\}$. Set $h = \min\{g_{x_{1}},\ldots,g_{x_{m}}\} \in \overline{\cA}$. Then for all $t \in K$, we have $f(t)-\eps < h(t) < f(t)+\eps$, so that $\norm{f-h}_{\infty} < \eps$. Therefore $\overline{\cA} = C(K)$.
+\end{proof}
+
+An algebra $\cA \subseteq C(K;\C)$ is said to be \eax{self-adjoint} if $f \in \cA$ implies $\overline{f} \in \cA$, where $\overline{f}(x) = \overline{f(x)}$ for all $x \in K$. The following is a generalization of the Stone-Weierstrass theorem to complex-valued functions.
+
+\begin{theorem}
+    Suppose $\cA \subseteq C(K;\C)$ is a self-adjoint algebra of complex-valued continuous functions on a compact Hausdorff space $K$, such that $\cA$ separates points on $K$ and vanishes nowhere on $K$. Then $\cA$ is dense in $(C(K;\C),\norm{\cdot}_{\infty})$.
+\end{theorem}
+\begin{proof}
+    Let $\cA_{\R} = \{\Re(f), \Im(f) \mid f \in \cA\}$, the real and imaginary parts of functions in $\cA$. Let $h,k \in \cA_{\R}$ be such that $h = \Re(f)$ and $k = \Im(g) = \Re(-ig)$ for some $f,g \in \cA$. Then $h+k = \Re(f-ig) \in \cA_{\R}$, and $\lambda h = \Re(\lambda f) \in \cA_{\R}$ for $\lambda \in \R$. Also, $hk = \frac{1}{4}(\abs{f+g}^{2}-\abs{f-g}^{2}) \in \cA_{\R}$, since $\abs{f}^{2} = f\overline{f} \in \cA$ by self-adjointness. Hence $\cA_{\R}$ is an algebra of real-valued continuous functions on $K$. It separates points on $K$ and vanishes nowhere on $K$, since if $x,y \in K$ with $x \neq y$, there exists $f \in \cA$ such that $f(x) \neq f(y)$, so that either $\Re(f)(x) \neq \Re(f)(y)$ or $\Im(f)(x) \neq \Im(f)(y)$; also, for each $x \in K$, there exists $f \in \cA$ such that $f(x) \neq 0$, so that either $\Re(f)(x) \neq 0$ or $\Im(f)(x) \neq 0$. By the Stone-Weierstrass theorem, $\cA_{\R}$ is dense in $(C(K;\R),\norm{\cdot}_{\infty})$. Since every function in $\cA$ can be written as a linear combination of two functions in $\cA_{\R}$, it follows that $\cA$ is dense in $(C(K;\C),\norm{\cdot}_{\infty})$.
+\end{proof}
+
+\begin{example}
+    Let $K = [0,1]$, and let $\cA$ be the set
+    \begin{align}
+        \left\{ x \mapsto \sum_{n=-N}^{N} a_{n}e^{2\pi i n x} \;\; \Bigg| \;\; N \in \N_{0}, \; a_{n} \in \C \right\}.
+    \end{align}
+    $\cA$, here, is termed the set of \eax{trigonometric polynomials}. Note that $f(0) = f(1)$ for all $f \in \cA$, so $\cA$ does not separate points on $K$. However, if we identify $0$ and $1$, then $\cA$ separates points on the resulting quotient space, which is homeomorphic to the unit circle. Then $\cA$ is a self-adjoint algebra of complex-valued continuous functions on the unit circle that separates points and vanishes nowhere, so by the Stone-Weierstrass theorem, $\cA$ is dense in $(C(S^{1};\C),\norm{\cdot}_{\infty})$.
+\end{example}
