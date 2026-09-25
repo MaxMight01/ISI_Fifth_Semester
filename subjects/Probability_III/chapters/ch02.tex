@@ -181,3 +181,101 @@ Thus,
     \sum_{n=1}^{\infty} \Prob(\abs{S_{n}/n} > \epsilon) < \infty,
 \end{align}
 or $\abs{S_{n}/n} \toas 0$ by the previous lemma.
+
+\section{Second Moment Method}
+\textit{September 25th.}
+
+Let $X \geq 0$ be a non-negative random variable. Given just this, note that $\Prob(X > 0)$ cannot have a lower bound since we could very well define $X$ to be $0$ with probability $1-\epsilon$ and $1$ with probability $\epsilon$, for any $\epsilon > 0$. If we specify that $\E[X]$ has to be `large', we stil cannot guarantee that $\Prob(X > 0)$ is large, since we could define $X$ to be $0$ with probability $1-\epsilon$ and $1/\epsilon$ with probability $\epsilon$, for any $1 > \epsilon > 0$.
+
+Suppose we are give $\mu = \E[X]$. Then by Markov's inequality, we have
+\begin{align}
+    \Prob(X > \frac{\mu}{2}) = \Prob(\abs{X-\mu} \leq \frac{\mu}{2}) + \Prob(X > \frac{3 \mu}{2}) \geq 1 - \Prob(\abs{X-\mu} > \frac{\mu}{2}) \geq 1 - \frac{4\Var(X)}{\mu^{2}} \geq 1-4\delta
+\end{align}
+when $\Var(X) \leq \delta \mu^{2}$ for some $\delta > 0$. Thus, if $\Var(X)$ is small compared to $\E[X]^{2}$, then $X$ is concentrated around its mean, and hence $\Prob(X > 0)$ is large. Note that the choice of $\mu/2$ is arbitrary; we have the following generalization.
+\begin{lemma}[The \eax{second moment method}]
+    Let $X \geq 0$ be a non-negative random variable, and $0 \leq \alpha \leq 1$. Then
+    \begin{align}
+        \Prob(X > \alpha \E[X]) \geq (1-\alpha)^{2} \frac{\E[X]^{2}}{\E[X^{2}]}.
+    \end{align}
+    In particular,
+    \begin{align}
+        \Prob(X > 0) \geq \frac{\E[X]^{2}}{\E[X^{2}]}.
+    \end{align}
+\end{lemma}
+\begin{proof}
+    Recall the Cauchy-Schwarz inequality, which states that for any random variables $X$ and $Y$, we have $\E[XY]^{2} \leq \E[X^{2}]\E[Y^{2}]$. Let $Y = \1_{\{X > \alpha \E[X]\}}$. Then $\E[Y^{2}] = \E[Y] = \Prob(X > \alpha \E[X])$, and $\E[XY] = \E[X\1_{\{X > \alpha \E[X]\}}] = \E[X] - \E[X\1_{\{X \leq \alpha \E[X]\}}] \geq (1-\alpha)\E[X]$. Therefore, by Cauchy-Schwarz,
+    \begin{align}
+        \Prob(X > \alpha \E[X]) = \E[Y^{2}] \geq \frac{\E[XY]^{2}}{\E[X^{2}]} \geq (1-\alpha)^{2} \frac{\E[X]^{2}}{\E[X^{2}]}.
+    \end{align}
+\end{proof}
+
+We may also prove the Borel-Cantelli lemma using the second moment method, the statement being that if $A_{1},A_{2},\ldots$ are independent events (or simply pairwise independent) with $\sum_{n=1}^{\infty} \Prob(A_{n}) = \infty$, then $\Prob(A_{n} \text{ i.o.}) = 1$. 
+\begin{proof}
+    Let $B_{n} = \bigcup_{i=n}^{\infty} A_{i}$. Then $B_{n} \downarrow \{A_{n} \text{ i.o.}\}$. Fix $n$ and define $S_{k} \defeq \sum_{j=n}^{k} \1_{A_{j}}$ for $k \geq n$. Then, with $\Prob(A_{i}) = \alpha_{i}$,
+    \begin{align}
+        \Prob(S_{k} \geq 1) = \Prob(S_{k} > 0) \geq \frac{\E[S_{k}]^{2}}{\E[S_{k}^{2}]} &= \frac{(\sum_{j=n}^{k} \Prob(A_{j}))^{2}}{\sum_{j=n}^{k} \Prob(A_{j}) + 2\sum_{n \leq i < j \leq k} \Prob(A_{i} \cap A_{j})} \notag \\ &= \frac{(\sum_{j=n}^{k} \alpha_{j})^{2}}{\sum_{j=n}^{k} \alpha_{j} + 2\sum_{n \leq i < j \leq k} \alpha_{i} \alpha_{j}} = \frac{(\sum_{i=n}^{k} \alpha_{i})^{2}}{(\sum_{i=n}^{k} \alpha_{i})+(\sum_{i=n}^{k} \alpha_{i})^{2}} \notag \\ &\geq \dfrac{1}{1+\frac{1}{\sum_{i=n}^{k} \alpha_{i}}}.
+    \end{align}
+    Letting $k \to \infty$, we get
+    \begin{align}
+        \Prob(B_{n}) = \lim_{k \to \infty} \Prob(S_{k} \geq 1) \geq 1.
+    \end{align}
+    Since this holds for all $n$, we have $\Prob(A_{n} \text{ i.o.}) = 1$.
+\end{proof}
+
+\subsection{The Coupon Collector Problem}
+$n$ different books are placed on a bookshelf. Every night, a book is chosen uniformly at random, read, and then returned to the shelf. Let $T_{n}$ be the number of days until all $n$ books have been read. We want to find $\E[T_{n}]$. To this end, define $Z_{1} = 1$, and for $2 \leq k \leq n$, let $Z_{k}$ be the number of days after the first $k-1$ books have been read until a new book is read. Then $T_{n} = Z_{1} + Z_{2} + \cdots + Z_{n}$. Note that $Z_{2} \sim \Geom(\frac{n-1}{n})$, since there are $n-1$ books that have not been read yet with probability $\frac{n-1}{n}$ of reading a new book, and similarly $Z_{k} \sim \Geom(\frac{n-k+1}{n})$ for $2 \leq k \leq n$. Therefore, we have
+\begin{align}
+    \E[T_{n}] = \sum_{k=1}^{n} \E[Z_{k}] = \sum_{k=1}^{n} \frac{n}{n-k+1} = n\sum_{k=1}^{n} \frac{1}{k} \sim n\log n.
+\end{align}
+Now let $\theta_{n}$ be a sequence of positive numbers such that $\theta_{n} \to \infty$ as $n \to \infty$. We claim that
+\begin{align}
+    \Prob(\abs{T_{n}-n \log n} \geq n \theta_{n}) \to 0 \quad \text{as } n \to \infty.
+\end{align}
+To show this, set $t \in \N$, and define
+\begin{align}
+    S_{t} \defeq \sum_{j=1}^{n} \1_{B_{j}},
+\end{align}
+where $B_{j}$ is the event that book $j$ has not been picked in the first $t$ days. Then $S_{t}$ is the number of books that have not been picked in the first $t$ days, and hence $\{T_{n} > t\} = \{S_{t} \geq 1\} = \{S_{t} > 0\}$. Computing moments of $S_{t}$, while later setting $t = n \log n + n \theta_{n}$, we have
+\begin{align}
+    \E[S_{t}] = \sum_{j=1}^{n} \Prob(B_{j}) = n\left(1-\frac{1}{n}\right)^{t} \geq ne^{-(\frac{1}{n}+\frac{1}{n^{2}})t} = e^{\theta_{n} - \frac{1}{n}(\log n -\theta_{n})}.
+\end{align}
+and
+\begin{align}
+    \E[S_{t}^{2}] = \sum_{j=1}^{n} \Prob(B_{j}) + 2\sum_{1 \leq i < j \leq n} \Prob(B_{i} \cap B_{j}) &= n\left(1-\frac{1}{n}\right)^{t} + n(n-1)\left(1-\frac{2}{n}\right)^{t} \notag \\
+    &\leq ne^{-\frac{t}{n}} + n^{2}e^{-\frac{2t}{n}} = e^{\theta_{n}}+e^{2\theta_{n}}.
+\end{align}
+Therefore, by the second moment method, we have
+\begin{align}
+    \Prob(T_{n} > n \log n - n \theta_{n}) = \Prob(S_{t} > 0) \geq \frac{\E[S_{t}]^{2}}{\E[S_{t}^{2}]} \geq \frac{e^{2\theta_{n}-\frac{2}{n}(\log n -\theta_{n})}}{e^{\theta_{n}}+e^{2\theta_{n}}} \implies \Prob(T_{n} > n \log n - n \theta_{n}) \xrightarrow{n \to \infty} 1.
+\end{align}
+On the other hand, setting $t = n \log n + n \theta_{n}$ and using Markov's inequality, we have
+\begin{align}
+    \Prob(T_{n} > n \log n + n \theta_{n}) = \Prob(S_{t} \geq 1) \leq \E[S_{t}] \leq n\left(1-\frac{1}{n}\right)^{t} &\leq ne^{-\frac{1}{n} n(\log n + \theta_{n})} = e^{-\theta_{n}} \notag \\ &\implies \Prob(T_{n} > n \log n + n \theta_{n}) \xrightarrow{n \to \infty} 0.
+\end{align}
+Therefore, we conclude that
+\begin{align}
+    \Prob(\abs{T_{n}-n \log n} \geq n \theta_{n}) = \Prob(T_{n} > n \log n + n \theta_{n}) + \Prob(T_{n} < n \log n - n \theta_{n}) \xrightarrow{n \to \infty} 0.
+\end{align}
+Dividing by $n \log n$, and setting $\theta_{n} = \epsilon \log n$ for any $\epsilon > 0$, we get
+\begin{align}
+    \frac{T_{n}}{n \log n} \toP 1.
+\end{align}
+
+\subsection{Random Series}
+Let $(a_{n})_{n \geq 0}$ be a sequence of independent and identically distribution random variables with $a_{n} \sim \Exp(1)$, which has a density function $e^{-x}\1_{x \geq 0}$. Now define
+\begin{align}
+    f(t) = \sum_{n=0}^{\infty} a_{n} t^{n} \qquad \text{for all } t \in \R.
+\end{align}
+This is a random power series, and we want to find the radius of convergence, $R$, of this series. We know that $R$ is related to the coefficients $a_{n}$ as
+\begin{align}
+    \frac{1}{R} = \limsup_{n \to \infty} \abs{a_{n}}^{1/n}.
+\end{align}
+This limit is a random variable which is measurable with respect to the tail-$\sigma$-algebra of the sequence $(a_{n})_{n \geq 0}$, and hence by Kolmogorov's zero-one law, there exists a constant $c \in [0,\infty]$ such that $\Prob(R = c) = 1$. We claim that $c = 1$. First note that if we set $t = 1+\epsilon$ for some $\epsilon > 0$, then
+\begin{align}
+    \Prob(\abs{a_{n}} > t^{n}) = e^{-t^{n}} \leq \frac{1}{(1+\epsilon)^{n}} \quad \text{for all } n \text{ sufficiently large}.
+\end{align}
+Thus, $\sum_{n=0}^{\infty} \Prob(\abs{a_{n}} > t^{n}) < \infty$, and hence by the Borel-Cantelli lemma, we have $\Prob(\abs{a_{n}}^{1/n} > t \text{ i.o.}) = 0$, or $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} > t) = 0$. Since this holds for all $t > 1$, we have $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} > 1) = 0$. On the other hand, if we set $t = 1-\epsilon$ for some $\epsilon > 0$, then 
+\begin{align}
+    \sum_{n=0}^{\infty} \Prob(\abs{a_{n}} > t^{n}) = \sum_{n=0}^{\infty} e^{-t^{n}} = \infty,
+\end{align}
+so that by the Borel-Cantelli lemma, we have $\Prob(\abs{a_{n}}^{1/n} > t \text{ i.o.}) = 1$, or $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} > t) = 1$. Since this holds for all $t < 1$, we have $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} < 1) = 0$. Therefore, we conclude that $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} = 1) = 1$, and hence $\Prob(R = 1) = 1$.
