@@ -248,7 +248,7 @@ In the above, we use the notation $F(t,q) = F_{t}(q)$. Suppose $s,t \in (-\epsil
 \end{definition}
 
 
-\section{Lie Algebras}
+\section{Lie Algebras and Lie Groups}
 \textit{September 23rd.}
 
 Recall that a vector field $X$ on a smooth manifold $M$ was smooth if and only if for any smooth function $f \in C^{\infty}(M)$, the function $Xf:M \to \R$ defined by $X(f)(p) = X_{p}(f)$ is smooth. That is, the map $Xf$ itself is a smooth map on $M$; if $f \in C_{p}^{\infty}$, then $Xf \in C_{p}^{\infty}$ as well. If we have another smooth vector field $Y$ on $M$, then we can define a new map $[X,Y](\cdot)(p):C^{\infty}(M) \to \R$ by
@@ -311,3 +311,26 @@ Any vector $V$ over the field $k$ can be viewed as a Lie algebra over $k$ with t
     \end{align*}
     Thus, by the previous lemma, we have that $[X_{1},X_{2}]$ and $[Y_{1},Y_{2}]$ are $F$-related.
 \end{proof}
+
+\textit{September 25th.}
+\begin{definition}
+    A \eax{Lie group} $G$ is both a group and a smooth manifold such that the maps
+    \begin{align}
+        G \times G \to G, \; \; (g,h) \mapsto gh, \qquad G \to G, \; \; g \mapsto g^{-1}.
+    \end{align}
+    are smooth maps.
+\end{definition}
+For example, both $GL_{n}(\R)$ and $SL_{n}(\R)$ are Lie groups. Similarly, $O(n)$ is also a Lie group. $(\R^{n},+)$ is also a Lie group. If $G$ and $H$ are both Lie groups, then so is $G \times H$.
+
+\begin{definition}
+    If $G$ and $H$ are Lie groups, a \eax{map of Lie groups} $f:G \to H$ is a map that is both a homomorphism of groups and a smooth map between smooth manifolds.
+\end{definition}
+The determinant $\det:GL_{n}(\R) \to \R^{\ast}$ is a map of Lie groups.
+\begin{definition}
+    Let $G$ be a Lie group. A subset $H \subseteq G$ is termed a \eax{Lie subgroup} if $H$ is a subgroup and an immersed manifold of $G$, and the product and inverse operations restricted to $H$ remain smooth.
+\end{definition}
+\begin{example}
+    We look at the space $S^{1} \times S^{1} = \R^{2}/\Z^{2}$. Let $f$ be the natural quotient map $f:\R^{2} \to \R^{2}/\Z^{2}$. Look at the map $g_{\alpha}:\R\to\R^{2}$ defined as $t \mapsto (t,\alpha t)$ for some $\alpha \in \R$. Let $L_{\alpha} = g_{\alpha}(\R) = \{(t,\alpha t) \mid t \in \R\}$ be the image line, and now set $H_{\alpha} = f(L_{\alpha}) = f \circ g_{\alpha}(\R)$. We claim that $f \circ g_{\alpha}$ is a one-to-one immersion, and further that $H_{\alpha}$ is a closed curve if and only if $\alpha$ is rational.
+
+    The map $f$ may be explicitly written as $(s,t) \mapsto (e^{2\pi i s}, e^{2\pi i t})$. Note that it is enough to prove that $f^{-1}(H_{\alpha}) = \{(t+n,\alpha t + m) \mid t \in \R, n,m \in \Z\}$ is dense in $\R^{2}$ if and only if $\alpha$ is irrational. If $\alpha = \frac{p}{q}$ is rational, then $f^{-1}(H_{\alpha}) = \{(t+n,\frac{p}{q}t + m) \mid t \in \R, n,m \in \Z\}$. Then for any $t \in \R$, we have $(t+n,\frac{p}{q}t + m) = (t+n,\frac{p}{q}(t+qn) + (m-pn))$, and so $f^{-1}(H_{\alpha}) = \{(t+n,\frac{p}{q}t + m) \mid t \in [0,q), n,m \in \Z\}$. This is a union of $q$ lines in $\R^{2}$, and so it cannot be dense in $\R^{2}$. Conversely, if $\alpha$ is irrational, then for any $(x,y) \in \R^{2}$ and $\epsilon > 0$, we can find integers $n,m$ such that $\abs{x - n} < \epsilon$ and $\abs{y - m - \alpha n} < \epsilon$. This shows that $f^{-1}(H_{\alpha})$ is dense in $\R^{2}$ if and only if $\alpha$ is irrational.
+\end{example}
