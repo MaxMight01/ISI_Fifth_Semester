@@ -334,3 +334,120 @@ The determinant $\det:GL_{n}(\R) \to \R^{\ast}$ is a map of Lie groups.
 
     The map $f$ may be explicitly written as $(s,t) \mapsto (e^{2\pi i s}, e^{2\pi i t})$. Note that it is enough to prove that $f^{-1}(H_{\alpha}) = \{(t+n,\alpha t + m) \mid t \in \R, n,m \in \Z\}$ is dense in $\R^{2}$ if and only if $\alpha$ is irrational. If $\alpha = \frac{p}{q}$ is rational, then $f^{-1}(H_{\alpha}) = \{(t+n,\frac{p}{q}t + m) \mid t \in \R, n,m \in \Z\}$. Then for any $t \in \R$, we have $(t+n,\frac{p}{q}t + m) = (t+n,\frac{p}{q}(t+qn) + (m-pn))$, and so $f^{-1}(H_{\alpha}) = \{(t+n,\frac{p}{q}t + m) \mid t \in [0,q), n,m \in \Z\}$. This is a union of $q$ lines in $\R^{2}$, and so it cannot be dense in $\R^{2}$. Conversely, if $\alpha$ is irrational, then for any $(x,y) \in \R^{2}$ and $\epsilon > 0$, we can find integers $n,m$ such that $\abs{x - n} < \epsilon$ and $\abs{y - m - \alpha n} < \epsilon$. This shows that $f^{-1}(H_{\alpha})$ is dense in $\R^{2}$ if and only if $\alpha$ is irrational.
 \end{example}
+
+\subsection{Matrix Lie Groups and Lie Algebras}
+\textit{September 28th.}
+
+\begin{definition}
+    For a matrix $A \in M_{n}(\R)$, we define the exponential map $\exp:M_{n}(\R) \to GL_{n}(\R)$ as
+    \begin{align}
+        \exp(A) = e^{A} = \sum_{k=0}^{\infty} \frac{A^{k}}{k!} = I + A + \frac{A^{2}}{2!} + \frac{A^{3}}{3!} + \cdots
+    \end{align}
+\end{definition}
+To show that the exponential map is well-defined and lands in $GL_{n}(\R)$, we need to show that the series converges and that the resulting matrix is invertible. For $X \in M_{n}(\R)$, define the norm $\norm{X} = \sqrt{\sum_{i,j=1}^{n} x_{ij}^{2}}$; this norm is also sub-multiplicative, meaning that $\norm{XY} \leq \norm{X}\norm{Y}$ for all $X,Y \in M_{n}(\R)$. Then, looking at the partial sums of the series, we have
+\begin{align}
+    \norm{\sum_{k=0}^{N} \frac{A^{k}}{k!}} \leq \sum_{k=0}^{N} \frac{\norm{A}^{k}}{k!} \leq \norm{I}+\sum_{k=1}^{\infty} \frac{\norm{A}^{k}}{k!} = e^{\norm{A}} + \sqrt{n} - 1
+\end{align}
+which implies that the series converges absolutely, and hence converges. We also state a few properties of the trace map $\tr:M_{n}(\R) \to \R$ defined as $\tr(A) = \sum_{i=1}^{n} a_{ii}$ for $A = (a_{ij}) \in M_{n}(\R)$; in particular, the following properties hold:
+\begin{enumerate}
+    \item $\tr(AB) = \tr(BA)$ for all $A,B \in M_{n}(\R)$.
+    \item If $A \in GL_{n}(\R)$, then $\tr(AXA^{-1}) = \tr(X)$ for all $X \in M_{n}(\R)$.
+    \item For $A \in M_{n}(\R)$, $\tr(A) = \sum_{i=1}^{n} \lambda_{i}$, where $\lambda_{1},\ldots,\lambda_{n}$ are the (complex) eigenvalues of $A$.
+    \item For all $A \in M_{n}(\R)$, there exists $B \in GL_{n}(\C)$ such that $BAB^{-1}$ is upper triangular, and has the eigenvalues of $A$ on the diagonal. In particular, $\det(A) = \prod_{i=1}^{n} \lambda_{i}$, where $\lambda_{1},\ldots,\lambda_{n}$ are the (complex) eigenvalues of $A$.
+\end{enumerate}
+
+\begin{proposition}
+    For $A \in M_{n}(\R)$, $\det e^{A} = e^{\tr(A)}$.
+\end{proposition}
+\begin{proof}
+    Without the loss of generality, we may assume that $A$ is upper triangular, with eigenvalues $\lambda_{1},\ldots,\lambda_{n}$ on the diagonal (if not, we can find $B \in GL_{n}(\C)$ such that $BAB^{-1}$ is upper triangular, and $\det e^{A} = \det e^{BAB^{-1}}$ and $\tr(A) = \tr(BAB^{-1})$). Then $e^{A}$ is also upper triangular, with eigenvalues $e^{\lambda_{1}},\ldots,e^{\lambda_{n}}$ on the diagonal. Therefore, we have
+    \begin{align}
+        \det e^{A} = \prod_{i=1}^{n} e^{\lambda_{i}} = e^{\sum_{i=1}^{n} \lambda_{i}} = e^{\tr(A)}.
+    \end{align}
+\end{proof}
+In particular, if $A \in M_{n}(\R)$, then $e^{A} \in GL_{n}(\R)$, and so the exponential map $\exp:M_{n}(\R) \to GL_{n}(\R)$ is well-defined. We use this exponential map with smooth curves. Define $c:\R \to GL_{n}(\R) \subseteq M_{n}(\R)$ as $c(t) = e^{tA}$ for some $A \in M_{n}(\R)$. Then $c$ is a smooth curve in $GL_{n}(\R)$, with $c(0) = I$ and $c'(0) = A$. In fact, the derivative is given as
+\begin{align}
+    c'(t) = \frac{d}{dt} e^{tA} = \frac{d}{dt} \left( \sum_{k=0}^{\infty} \frac{t^{k}A^{k}}{k!} \right) = \sum_{k=1}^{\infty} \frac{kt^{k-1}A^{k}}{k!} = \sum_{k=1}^{\infty} \frac{t^{k-1}A^{k}}{(k-1)!} = A \sum_{k=0}^{\infty} \frac{t^{k}A^{k}}{k!} = Ae^{tA}.
+\end{align}
+
+Now, let $G$ be a Lie group, and let $g \in G$. Define the left translation map $\ell_{g}:G \to G$ as $\ell_{g}(h) = gh$ for all $h \in G$. Then $\ell_{g}$ is a diffeomorphism of $G$, with inverse $\ell_{g^{-1}}$. Let $G = GL_{n}(\R)$. Then the induced linear map at the identity is
+\begin{align}
+    (\ell_{g})_{\ast,I}:T_{I}(GL_{n}(\R)) \to T_{g}(GL_{n}(\R))
+\end{align}
+With $c:\R \to GL_{n}(\R)$ a smooth curve with $c(0) = I$ and $c'(0) = A$, we have
+\begin{align}
+    (\ell_{g})_{\ast,I}(A) = (\ell_{g} \circ c)'(0) = (gc)'(0) = g c'(0) = gA.
+\end{align}
+The exact same map is induced. If we instead look at the map $\det:GL_{n}(\R) \to \R^{\ast}$, then the induced linear map at the identity is
+\begin{align}
+    (\det)_{\ast,I}:T_{I}(GL_{n}(\R)) \to T_{1}(\R^{\ast})
+\end{align}
+and repeating the above, we have
+\begin{align}
+    (\det)_{\ast,I}(A) = (\det \circ c)'(0) = \frac{d}{dt} \det(c(t))\bigg|_{t=0} = \frac{d}{dt} \det(e^{tA})\bigg|_{t=0} = \frac{d}{dt} e^{\tr(tA)}\bigg|_{t=0} = \tr(A).
+\end{align}
+That is, the induced linear map $(\det)_{\ast,I}:T_{I}(GL_{n}(\R)) \to T_{1}(\R^{\ast})$ is given as $A \mapsto \tr(A)$. Now, pre-add the inclusion map $i:SL_{n}(\R) \to GL_{n}(\R)$, and consider the composition $\det \circ i:SL_{n}(\R) \to \R^{\ast}$. Then the induced linear map at the identity is
+\begin{align}
+    (\det \circ i)_{\ast,I}:T_{I}(SL_{n}(\R)) \to T_{1}(\R^{\ast}).
+\end{align}
+But with the chain rule for induced linear maps, we have
+\begin{align}
+    (\det \circ i)_{\ast,I} = (\det)_{\ast,I} \circ (i)_{\ast,I}:T_{I}(SL_{n}(\R)) \to T_{1}(\R^{\ast}), \qquad A \mapsto \tr(A) = 0.
+\end{align}
+That is, the induced linear map $(\det \circ i)_{\ast,I}:T_{I}(SL_{n}(\R)) \to T_{1}(\R^{\ast})$ is the zero map. This shows that $T_{I}(SL_{n}(\R)) = \ker((\det \circ i)_{\ast,I}) = \{A \in M_{n}(\R) \mid \tr(A) = 0\}$, which is a vector space of dimension $n^{2}-1$. From here, we define
+\begin{align}
+    \mf{sl}_{n}(\R) \defeq T_{I}(SL_{n}(\R)) = \{A \in M_{n}(\R) \mid \tr(A) = 0\},
+\end{align}
+the space of traceless matrices. Moving on, we look at the Lie algebra of $O(n)$. Let $G = O(n) \subseteq GL_{n}(\R)$ and consider the map $f:GL_{n}(\R) \to GL_{n}(\R)$ defined as $f(A) = A^{T}A$. Then $O(n) = f^{-1}(I)$, and so the induced linear map at the identity is
+\begin{align}
+    f_{\ast,I}:T_{I}(GL_{n}(\R)) \to T_{I}(GL_{n}(\R)).
+\end{align}
+Pre-composing the smooth curve $c:\R \to GL_{n}(\R)$ defined as $c(t) = e^{tA}$, we have
+\begin{align}
+    f_{\ast,I}(A) = (f \circ c)'(0) = (f(e^{tA}))'(0) = (e^{tA^T}e^{tA})'(0) = (e^{t(A^T+A)})'(0).
+\end{align}
+Thus, we have $T_{I}(O(n)) = \ker(f_{\ast,I}) = \{A \in M_{n}(\R) \mid A^{T}+A = 0\}$, which is a vector space of dimension $\frac{n(n-1)}{2}$. From here, we define
+\begin{align}
+    \mf{so}_{n}(\R) \defeq T_{I}(O(n)) = \{A \in M_{n}(\R) \mid A^{T}+A = 0\},
+\end{align}
+the space of skew-symmetric matrices. We also denote $\mf{gl}_{n}(\R) \defeq T_{I}(GL_{n}(\R)) = M_{n}(\R)$, the space of all $n \times n$ matrices. These structures are all Lie algebras (subalgebras of $\mf{gl}_{n}(\R)$) with the Lie bracket defined as $[A,B] = AB - BA$ for all $A,B \in \mf{gl}_{n}(\R)$. In particular, we have the inclusions
+\begin{align}
+    \mf{so}_{n}(\R) \subseteq \mf{sl}_{n}(\R) \subseteq \mf{gl}_{n}(\R).    
+\end{align}
+It is left as an exercise to show that the Lie bracket is closed on $\mf{so}_{n}(\R)$ and $\mf{sl}_{n}(\R)$.
+
+One may show that if $AB = BA$, then $e^{A+B} = e^{A}e^{B}$, and $(e^{A})^{-1} = e^{-A}$. 
+
+\begin{definition}
+    Let $G$ be a Lie group, and $X$ be a (not necessarily smooth) vector field on $G$. $X$, then, is called a \eax{left-invariant vector field} on $G$ if $(\ell_{g})_{\ast}X = X$ for all $g \in G$, or
+    \begin{align}
+        (\ell_{g})_{\ast}X_{h} = X_{\ell_{g}(h)} = X_{gh}
+    \end{align}
+    for any $g,h \in G$. That is, $X$ is left-invariant if it is invariant under the pushforward of left translation by any element of $G$.
+\end{definition}
+If we pick the identity $e \in G$, the above property of the vector field $X$ boils down to the property that $X_{g} = (\ell_{g})_{\ast}X_{e}$ for all $g \in G$. That is, a left-invariant vector field is completely determined by its value at the identity.
+
+\begin{proposition}
+    Any left-invariant vector field on a Lie group $G$ is smooth.
+\end{proposition}
+\begin{proof}
+    Let $X$ be a left-invariant vector field on a Lie group $G$. Note that it is enough to prove that if $f \in C^{\infty}(G)$, then $Xf \in C^{\infty}(G)$. Let $g \in G$, and let $c:\R \to G$ be a smooth curve with $c(0) = e$ and $c'(0) = X_{e}$. Then, we have
+    \begin{align}
+        (Xf)(g) = X_{g}(f) = (\ell_{g})_{\ast}X_{e}(f) = X_{e}(f \circ \ell_{g}) = \frac{d}{dt} (f \circ \ell_{g} \circ c(t))\bigg|_{t=0}.
+    \end{align}
+    The map $(g,t) \mapsto f \circ \ell_{g} \circ c(t)$ is smooth, and so the map $g \mapsto (Xf)(g)$ is smooth as well. Thus, $Xf \in C^{\infty}(G)$, and so $X$ is a smooth vector field on $G$.
+\end{proof}
+
+Suppose $X$ and $Y$ are two left-invariant vector fields on a Lie group $G$. That means, $X$ and $X$, and $Y$ and $Y$ are $\ell_{g}$-related for all $g \in G$. Thus, by the result above, $[X,Y]$ and $[X,Y]$ must be $\ell_{g}$-related, which tells us $[X,Y]$ is a left-invariant vector field on $G$. Thus, we have, from before,
+\begin{align}
+    \mf{X}(G) = \{X:G \to TG \mid X \text{ is smooth}\},
+\end{align}
+the set of all smooth vector fields on $G$ along with the Lie bracket $[X,Y] = XY-YX$ is a Lie algebra, and
+\begin{align}
+    L(G) \defeq \{X:G \to TG \mid X \text{ is left-invariant}\} \subseteq \mf{X}(G)
+\end{align}
+is a Lie subalgebra of $\mf{X}(G)$. That is, there is a bijection between left-invariant vector fields on $G$ and the tangent space at the identity $T_{e}G$. In particular, we have
+\begin{align}
+    L(G) \cong T_{e}G, \qquad X \mapsto X_{e}
+\end{align}
+where the inverse map is given as $v \mapsto X_{v}$, where $X_{v}$ is the unique left-invariant vector field on $G$ such that $X_{v,e} = v$. Thus, we have that $L(G)$ is a finite-dimensional Lie algebra over $\R$, with dimension $\dim L(G) = \dim T_{e}G = \dim G$. This bijection is as $\R$-linear spaces, and the Lie bracket on $L(G)$ is given as $[X_{v},X_{w}] = X_{[v,w]}$ for all $v,w \in T_{e}G$. The Lie algebra $L(G)$ is called the Lie algebra of the Lie group $G$. In particular, we have that $L(GL_{n}(\R)) = \mf{gl}_{n}(\R)$, $L(SL_{n}(\R)) = \mf{sl}_{n}(\R)$, and $L(O(n)) = \mf{so}_{n}(\R)$.
