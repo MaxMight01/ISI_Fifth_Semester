@@ -311,6 +311,8 @@ We show more properties of the convolution.
 \end{proof}
 (INCOMPLETE)
 
+\section{Algebras of Functions}
+
 \begin{definition}    
     Let $E$ be a set. A collection of functions $\cA \subseteq \C^{E}$ is said to be an \eax{algebra} if the following hold.
     \begin{enumerate}
@@ -376,3 +378,107 @@ An algebra $\cA \subseteq C(K;\C)$ is said to be \eax{self-adjoint} if $f \in \c
     \end{align}
     $\cA$, here, is termed the set of \eax{trigonometric polynomials}. Note that $f(0) = f(1)$ for all $f \in \cA$, so $\cA$ does not separate points on $K$. However, if we identify $0$ and $1$, then $\cA$ separates points on the resulting quotient space, which is homeomorphic to the unit circle. Then $\cA$ is a self-adjoint algebra of complex-valued continuous functions on the unit circle that separates points and vanishes nowhere, so by the Stone-Weierstrass theorem, $\cA$ is dense in $(C(S^{1};\C),\norm{\cdot}_{\infty})$.
 \end{example}
+
+\section{Fourier Series}
+\textit{September 28th.}
+
+Let $f \in L^{1}(S^{1})$, or $f \in L^{1}[0,1]$ with $f(0) = f(1)$. Recall that the $n$-th Fourier coefficient of $f$ is defined as
+\begin{align}
+    \hat{f}(n) = \int_{0}^{1} f(x)e^{-2\pi i n x} \, dx, \qquad n \in \Z.
+\end{align}
+If we identify $c_{n} \equiv c_{n}(f) = \hat{f}(n)$, then we have the map
+\begin{align}
+    L^{1}(S^{1}) \to \C^{\Z}, \qquad f \mapsto (\ldots,c_{-2},c_{-1},c_{0},c_{1},c_{2},\ldots),
+\end{align}
+for any $f \in L^{1}(S^{1})$. The \eax{Fourier series} of $f$, then, is the formal series
+\begin{align}
+    x \mapsto \sum_{n \in \Z} c_{n}(f)e^{2\pi i n x}, \qquad x \in [0,1].
+\end{align}
+In particular, let us find the Fourier coefficients of $f(x) = e^{2\pi i m x}$ for $m \in \Z$. We have
+\begin{align}
+    c_{n}(f) = \int_{0}^{1} e^{2 \pi i m x}e^{-2 \pi i n x} \, dx = \int_{0}^{1} e^{2 \pi i (m-n) x} \, dx = \begin{cases}
+        1, & m=n, \\
+        0, & m \neq n
+    \end{cases} = \delta_{mn}.
+\end{align}
+That is, the Fourier series of $f$ is simply $f$ itself. More generally, if we take finite linear combinations of such functions, we obtain the set of trigonometric polynomials, and the Fourier series of a trigonometric polynomial is simply the polynomial itself.
+
+\begin{lemma}[The \eax{Riemann-Lebesgue lemma}]
+    If $f \in L^{1}(S^{1})$, then $\lim_{n \to \infty} c_{n}(f) = 0$ and $\lim_{n \to -\infty} c_{n}(f) = 0$.
+\end{lemma}
+\begin{proof}
+    Let $I = [a,b]$ be a subinterval of $[0,1]$, and let $f = \chi_{I}$ be the indicator function of $I$. Then
+    \begin{align}
+        c_{n}(\chi_{I}) = \int_{0}^{1} \chi_{I}(x)e^{-2\pi i n x} \, dx = \int_{a}^{b} e^{-2\pi i n x} \, dx = \frac{e^{-2\pi i n b}-e^{-2\pi i n a}}{-2\pi i n} \to 0 \quad \text{as } n \to \pm\infty.
+    \end{align}
+    The result also follows for simple functions. For general $f \in L^{1}[0,1]$, let $(f_{k})_{k \geq 1}$ be a sequence of step functions such that $f_{k} \to f$ in $L^{1}[0,1]$. Then
+    \begin{align}
+        \abs{c_{n}(f)} \leq \abs{c_{n}(f)-c_{n}(f_{k})} + \abs{c_{n}(f_{k})} \leq \norm{f-f_{k}}_{1} + \abs{c_{n}(f_{k})}.
+    \end{align}
+    Now, for $\eps > 0$, choose $k$ large enough that $\norm{f-f_{k}}_{1} < \eps/2$. Then choose $N$ large enough that $\abs{c_{n}(f_{k})} < \eps/2$ for all $\abs{n} > N$. Hence, for all $\abs{n} > N$, we have $\abs{c_{n}(f)} < \eps$, and the result follows.
+\end{proof}
+Therefore, the map $L^{1}(S^{1}) \to \C^{\Z}$, $f \mapsto (c_{n}(f))_{n \in \Z}$, is a bounded linear map, actually lands in $\ell^{\infty}(\Z) \subseteq \C^{\Z}$, and is continuous with respect to the $L^{1}$-norm on $L^{1}(S^{1})$ and the $\ell^{\infty}$-norm on $\ell^{\infty}(\Z)$. We provide another proof of this lemma for continuous functions, while making use of the \eax{modulus of continuity} of a function. For $f \in C(S^{1})$, define the modulus of continuity $\omega_{f} : [0,1] \to [0,\infty)$ by
+\begin{align}
+    \omega_{f}(\delta) = \sup_{\abs{h}\leq \delta} \sup_{\theta} \abs{f(\theta+h)-f(\theta)}.
+\end{align}
+That is, we are looking at the maximum perturbation of $f$ over all intervals of length $\delta$.
+
+\begin{theorem}
+    Let $f \in C(S^{1})$. Then
+    \begin{align}
+        \abs{\hat{f}(n)} \leq \frac{1}{2}\omega_{f}\left( \frac{1}{2\abs{n}} \right),
+    \end{align}
+    implying $\hat{f}(n) \to 0$ as $\abs{n} \to \infty$.
+\end{theorem}
+\begin{proof}
+    Let $h = 1/2n$. Then
+    \begin{align}
+        \int_{0}^{1}f(\theta)e^{-2\pi i n \theta} \, d\theta = \hat{f}(n) = \int_{0}^{1}f(\theta+h)e^{-2\pi i n(\theta+h)} \, d\theta = -\int_{0}^{1}f(\theta+h)e^{-2\pi i n \theta} \, d\theta.
+    \end{align}
+    Adding these two integrals, we get
+    \begin{align}
+        \hat{f}(n) = \frac{1}{2} \int_{0}^{1} \left(f(\theta)-f(\theta+h)\right)e^{-2\pi i n \theta} \, d\theta,
+    \end{align}
+    or
+    \begin{align}
+        \abs{\hat{f}(n)} \leq \frac{1}{2} \int_{0}^{1} \abs{f(\theta)-f(\theta+h)} \, d\theta \leq \frac{1}{2}\omega_{f}(h) = \frac{1}{2}\omega_{f}\left( \frac{1}{2\abs{n}} \right).
+    \end{align}
+    Since $f \in C(S^{1})$, $\omega(\delta) \to 0$ as $\delta \to 0^{+}$, and the result follows.
+\end{proof}
+
+The same style of proof may be repeated for the theorem below and, hence, we omit the details.
+
+\begin{theorem}
+    Let $f$ be H\"older continuous of order $\alpha$; that is,
+    \begin{align}
+        \abs{f(\theta+h)-f(\theta)} \leq \abs{h}^{\alpha}.
+    \end{align}
+    Then
+    \begin{align}
+        \abs{c_{n}(f)} \leq \frac{C}{2^{1+\alpha}}\abs{n}^{-\alpha}.
+    \end{align}
+\end{theorem}
+
+\begin{theorem}
+    Let $f \in C^{1}(S^{1})$. Then $c_{n}(f') = (2 \pi i n)c_{n}(f)$, and
+    \begin{align}
+        \abs{c_{n}(f)} \leq \frac{\norm{f'}_{1}}{2\pi\abs{n}}.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    We have
+    \begin{align}
+        c_{n}(f') = \int_{0}^{1} f'(\theta)e^{-2\pi i n \theta} \, d\theta = \left[f(\theta)e^{-2\pi i n \theta}\right]_{0}^{1} + 2\pi i n \int_{0}^{1} f(\theta)e^{-2\pi i n \theta} \, d\theta = (2\pi i n)c_{n}(f).
+    \end{align}
+    Hence, $\abs{c_{n}(f)} = \frac{1}{2\pi\abs{n}}\abs{c_{n}(f')} \leq \frac{\norm{f'}_{1}}{2\pi\abs{n}}$.
+\end{proof}
+
+\begin{corollary}
+    Let $f \in C^{k}(S^{1})$. Then $c_{n}(f^{(k)}) = (2\pi i n)^{k}c_{n}(f)$, and
+    \begin{align}
+        \abs{c_{n}(f)} \leq \frac{C}{(2\pi\abs{n})^{k}}.
+    \end{align}
+\end{corollary}
+\begin{corollary}
+    Let $f \in C^{\infty}(S^{1})$. Then $\lim_{\abs{n} \to \infty} \abs{n}^{k}\abs{c_{n}(f)} = 0$ for all $k \geq 0$.
+\end{corollary}
