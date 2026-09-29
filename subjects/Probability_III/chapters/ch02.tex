@@ -279,3 +279,81 @@ Thus, $\sum_{n=0}^{\infty} \Prob(\abs{a_{n}} > t^{n}) < \infty$, and hence by th
     \sum_{n=0}^{\infty} \Prob(\abs{a_{n}} > t^{n}) = \sum_{n=0}^{\infty} e^{-t^{n}} = \infty,
 \end{align}
 so that by the Borel-Cantelli lemma, we have $\Prob(\abs{a_{n}}^{1/n} > t \text{ i.o.}) = 1$, or $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} > t) = 1$. Since this holds for all $t < 1$, we have $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} < 1) = 0$. Therefore, we conclude that $\Prob(\limsup_{n \to \infty} \abs{a_{n}}^{1/n} = 1) = 1$, and hence $\Prob(R = 1) = 1$.
+
+\section{Law of Large Numbers}
+
+\textit{September 29th.}
+
+\begin{theorem}[The \eax{basic weak law of large numbers}]
+    Let $(X_{n})_{n \geq 1}$ be a sequence of independent and identically distributed random variables with $\E[\abs{X_{1}}] < \infty$ and $\Var(X_{1}) < \infty$. Then
+    \begin{align}
+        \frac{S_{n}}{n} =\frac{X_{1} + \cdots + X_{n}}{n} \toP \mu = \E[X_{1}].
+    \end{align}
+\end{theorem}
+\begin{proof}
+    We wish to show that for all $\epsilon > 0$, we have $\Prob(\abs{S_{n}/n - \mu} > \epsilon) \to 0$ as $n \to \infty$. To this end, we first note that by Chebyshev's inequality, we have
+    \begin{align}
+        \Prob\left( \abs{\frac{S_{n}}{n}-\mu} > \epsilon \right) = \Prob\left( \abs{\sum_{i=1}^{n}(X_{i}-\mu)} > n\epsilon \right) \leq \frac{\E\left[ \left( \sum_{i=1}^{n}(X_{i}-\mu) \right)^2 \right]}{n^2\epsilon^2} = \frac{n \Var(X_{1})}{n^2\epsilon^2} = \frac{\Var(X_{1})}{n\epsilon^2} \xrightarrow{n \to \infty} 0.
+    \end{align}
+\end{proof}
+
+We can use the weak law of large numbers to prove the Weierstrass approximation theorem, which states that any continuous function on $[0,1]$ can be uniformly approximated by polynomials. To this end, we make use of the \eax{Bernstein polynomials}, which are defined as follows. For a continuous function $f:[0,1] \to \R$, define the $n$-th Bernstein polynomial of $f$ as
+\begin{align}
+    Q_{n,f}:[0,1] \to \R, \qquad Q_{n,f}(p) = \sum_{k=0}^{n} f\left(\frac{k}{n}\right) \binom{n}{k} p^{k}(1-p)^{n-k}.
+\end{align}
+Note that if $S_{n} \sim \Bin(n,p)$, then $\Prob(S_{n}=k) = \binom{n}{k} p^{k}(1-p)^{n-k}$, and hence $Q_{n,f}(p) = \E[f(S_{n}/n)]$. Let $S_{n} = X_{1}+X_{2}+\cdots+X_{n}$, where $X_{1},\ldots,X_{n} \sim \Ber(p)$ are independent. Then, we have
+\begin{align}
+    \abs{Q_{n,f}(p)-f(p)} \leq \E\left[ \abs{f\left(\frac{S_{n}}{n}\right) - f(p)} \right].
+\end{align}
+Splitting via the indicator function of $\{\abs{\frac{S_{n}}{n}-p} > \delta \}$ for some $\delta > 0$ we choose later, we have
+\begin{align}
+    \E\left[ \abs{f\left(\frac{S_{n}}{n}\right) - f(p)} \right] = \E\left[ \abs{f\left(\frac{S_{n}}{n}\right) - f(p)} \cdot \1_{\abs{\frac{S_{n}}{n}-p} \leq \delta } \right] + \E\left[ \abs{f\left(\frac{S_{n}}{n}\right) - f(p)} \cdot \1_{\abs{\frac{S_{n}}{n}-p} > \delta} \right].
+\end{align}
+By the uniform continuity of $f$, given $\epsilon > 0$, there exists $\delta > 0$ such that $\abs{f(x)-f(y)} < \epsilon/2$ whenever $\abs{x-y} \leq \delta$. Thus, the first of these terms may simply be bounded by $\epsilon/2$. For the second term, we have
+\begin{align}
+    \E\left[ \abs{f\left(\frac{S_{n}}{n}\right) - f(p)} \cdot \1_{\abs{\frac{S_{n}}{n}-p} > \delta} \right] &\leq 2\norm{f}_{\infty} \Prob\left(\abs{\frac{S_{n}}{n}-p} > \delta\right) \leq 2\norm{f}_{\infty} \frac{\Var(S_{n}/n)}{\delta^{2}} = 2\norm{f}_{\infty} \frac{p(1-p)}{n\delta^{2}}.
+\end{align}
+With $c_{f} = 2\norm{f}_{\infty}(1/4)$, the second term is bounded by $c_{f}/(n\delta^{2})$, which goes to $0$ as $n \to \infty$. Therefore, we have $\abs{Q_{n,f}(p)-f(p)} < \epsilon$ for all $n$ sufficiently large, and hence $Q_{n,f} \to f$ uniformly on $[0,1]$.
+
+We now prove the weak law of large numbers, where we drop the assumption of finite variance.
+\begin{theorem}[The \eax{weak law of large numbers}]
+    Let $(X_{n})_{n \geq 1}$ be a sequence of independent and identically distributed random variables with $\E[\abs{X_{1}}] < \infty$. Then
+    \begin{align}
+        \frac{S_{n}}{n} =\frac{X_{1} + \cdots + X_{n}}{n} \toP \mu = \E[X_{1}].
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Note that it suffices to prove the result for $\mu = 0$, since we can always replace $X_{n}$ with $X_{n}-\mu$. Since we have the basic weak law of large numbers for random variables with finite variance, we will approximate $X_{n}$ with a truncated version of itself to reduce to the finite variance case. To this end, for each $n \geq 1$, we can split $X_{j}$ into two parts as
+    \begin{align}
+        X_{j} = X_{j} \1_{\abs{X_{j}} \leq A_{n}} + X_{j} \1_{\abs{X_{j}} > A_{n}} = Y_{j,n} + Z_{j,n},
+    \end{align}
+    where $(A_{n})_{n \geq 1}$ is a sequence of positive numbers the diverge properly to infinity, that we choose later. The first of these terms converges pointwise to $X_{j}$ as $n \to \infty$, and is bounded uniformly; by the dominated convergence theorem, we have $\E[X_{j} \1_{\abs{X_{j}} \leq A_{n}}] \to \E[X_{j}] = 0$ as $n \to \infty$. The second of these terms converges pointwise to $0$ as $n \to \infty$, and is bounded by $\abs{X_{j}}$; again by the dominated convergence theorem, we have $\E[X_{j} \1_{\abs{X_{j}} > A_{n}}] \to 0$ as $n \to \infty$. Let $\mu_{n} = \E[Y_{1,n}] = -\E[Z_{1,n}]$. Then $\mu_{n} \to 0$ as $n \to \infty$. Now, each $S_{n}$ may be split as $S_{n} = S_{n}^{Y} + S_{n}^{Z}$, where $S_{n}^{Y} = Y_{1,n} + \cdots + Y_{n,n}$ and $S_{n}^{Z} = Z_{1,n} + \cdots + Z_{n,n}$. Then, for any $\epsilon > 0$, we have
+    \begin{align}
+        \Prob\left(\abs{\frac{S_{n}}{n}} > \delta \right) = \Prob\left(\abs{\frac{S_{n}^{Y}}{n} + \frac{S_{n}^{Z}}{n}} > \delta \right) \leq \Prob\left(\abs{\frac{S_{n}^{Y}}{n} - \mu_{n}} > \frac{\delta}{2} \right) + \Prob\left(\abs{\frac{S_{n}^{Z}}{n} + \mu_{n}} > \frac{\delta}{2} \right).
+    \end{align}
+    Via Chebyshev's, the first of these terms is bounded as
+    \begin{align}
+        \Prob\left(\abs{\frac{S_{n}^{Y}}{n} - \mu_{n}} > \frac{\delta}{2} \right) \leq \frac{4\Var(Y_{1,n})}{n\delta^{2}}
+    \end{align}
+    For $\delta > 0$ fixed, let us estimate this for large enough $n$ such that $\abs{\mu_{n}} < \frac{\delta}{4}$. For the second term, we have
+    \begin{align}
+        \Prob\left(\abs{\frac{S_{n}^{Z}}{n} + \mu_{n}} > \frac{\delta}{2} \right) &\leq \Prob\left(\abs{\frac{S_{n}^{Z}}{n}} > \frac{\delta}{4} \right) \leq \Prob(\text{at least one of the } Z_{j,n} \text{ is non-zero}) \leq n \Prob(\abs{X_{1}} > A_{n}).
+    \end{align}
+    Combining, we obtain
+    \begin{align}
+        \Prob\left(\abs{\frac{S_{n}}{n}} > \delta \right) \leq \frac{4\Var(Y_{1,n})}{n\delta^{2}} + n \Prob(\abs{X_{1}} > A_{n}) \leq \frac{4 A_{n} \E[\abs{X_{1}}]}{n\delta^{2}} + \frac{n\E[\abs{X_{1}} \cdot \1_{\abs{X_{1}} > A_{n}}]}{A_{n}}.
+    \end{align}
+    We now wish to choose $A_{n}$ such that both of these terms go to $0$ as $n \to \infty$. So, given $\epsilon > 0$, choosen $A_{n} = \epsilon n \delta^{2}/4\E[\abs{X_{1}}]$. Then, we have
+    \begin{align}
+        \Prob\left(\abs{\frac{S_{n}}{n}} > \delta \right) \leq \epsilon + \frac{4\E[\abs{X_{1}}]}{\delta^{2}} \epsilon \E[\abs{X_{1}} \cdot \1_{\abs{X_{1}} > A_{n}}] \xrightarrow{n \to \infty} 2\epsilon.
+    \end{align}
+    Since $\epsilon > 0$ was arbitrary, we conclude that $\Prob(\abs{S_{n}/n} > \delta) \to 0$ as $n \to \infty$, and hence $S_{n}/n \toP 0$.
+\end{proof}
+
+\begin{example}
+    Let $X_{1},X_{2},\ldots \sim \Exp(1)$ be independent and identically distributed random variables, and set $M_{n} \defeq \max\{X_{1},\ldots,X_{n}\}$. Then $M_{n}/\log n \toP 1$ as $n \to \infty$. To see this, note that
+    \begin{align}
+        \Prob(M_{n} > (1+\epsilon)\log n) = 1 - \Prob(X_{1} \leq (1+\epsilon)\log n)^{n} = 1 - (1-n^{-(1+\epsilon)})^{n} \to 0,
+    \end{align}
+    as $n \to \infty$.
+\end{example}
