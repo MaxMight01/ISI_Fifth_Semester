@@ -451,3 +451,76 @@ is a Lie subalgebra of $\mf{X}(G)$. That is, there is a bijection between left-i
     L(G) \cong T_{e}G, \qquad X \mapsto X_{e}
 \end{align}
 where the inverse map is given as $v \mapsto X_{v}$, where $X_{v}$ is the unique left-invariant vector field on $G$ such that $X_{v,e} = v$. Thus, we have that $L(G)$ is a finite-dimensional Lie algebra over $\R$, with dimension $\dim L(G) = \dim T_{e}G = \dim G$. This bijection is as $\R$-linear spaces, and the Lie bracket on $L(G)$ is given as $[X_{v},X_{w}] = X_{[v,w]}$ for all $v,w \in T_{e}G$. The Lie algebra $L(G)$ is called the Lie algebra of the Lie group $G$. In particular, we have that $L(GL_{n}(\R)) = \mf{gl}_{n}(\R)$, $L(SL_{n}(\R)) = \mf{sl}_{n}(\R)$, and $L(O(n)) = \mf{so}_{n}(\R)$.
+\\ \\
+\textit{September 30th.}
+
+We state a few facts, summarising the above discussion.
+\begin{enumerate}
+    \item Any left-invariant vector field $X$ on a Lie group $G$ is smooth.
+    \item If $X$ annd $Y$ are two left-invariant vector fields on $G$, then $[X,Y]$ is also a left-invariance vector field.
+    \item $L(G)$, the set of all (smooth) left-invariant vector fields on $G$, is a Lie subalgebra of $\mf{X}(G)$, the Lie algebra of all smooth vector fields on $G$.
+    \item There is an $\R$-linear isomorphism $T_{e}G \cong L(G)$; specifically, the map $X \mapsto X_{e}$ for $X \in L(G)$ and the map $A \mapsto \tilde{A}$ for $A \in T_{e}G$, define as $(\tilde{A})_{h} = (\ell_{h})_{\ast}A$ for all $h \in G$, are inverses of each other.
+    \item $T_{e}G$ becomes a Lie algebra via the above isomorphism, with the Lie bracket defined as $[A,B] = [\tilde{A},\tilde{B}]_{e}$ for all $A,B \in T_{e}G$.
+\end{enumerate}
+
+For $F:G \to H$ is a homomorphism of Lie groups, define $F_{\ast}:L(G) \to L(H)$ as $F_{\ast}X = \widetilde{F_{\ast,e}(X_{e})}$ for all $X \in L(G)$. Then $F_{\ast}$ is a homomorphism of Lie algebras. $F_{\ast}$ is termed the pushforward of a left-invariant vector field $X$ on $G$ by the homomorphism $F$.
+
+\begin{proposition}
+    Let $F:G \to H$ be a homomorphism of Lie groups. Let $X \in L(G)$ and $F_{\ast}X \in L(H)$ be the pushforward of $X$ by $F$. Then $X$ and $F_{\ast}X$ are $F$-related.
+\end{proposition}
+\begin{proof}
+    We are to show that $F_{\ast,g}(X_{g}) = (F_{\ast}X)_{F(g)}$ for all $g \in G$. We have, via $X_{g} = (\ell_{g})_{\ast,e}(X_{e})$,
+    \begin{align}
+        F_{\ast,g}((\ell_{g})_{\ast,e}(X_{e})) &= (F \circ \ell_{g})_{\ast,e}(X_{e}) = (\ell_{F(g)} \circ F)_{\ast,e}(X_{e}) \notag \\ &= (\ell_{F(g)})_{\ast,F(e)}(F_{\ast,e}(X_{e})) = (\ell_{F(g)})_{\ast,F(e)}((F_{\ast}X)_{F(e)}) = (F_{\ast}X)_{F(g)}.
+    \end{align}
+\end{proof}
+
+\begin{proposition}
+    Let $F:G \to H$ be a homormophism of Lie groups, and set $\mf{g} = T_{e}G$ and $\mf{h} = T_{e}H$, their associated Lie algebras. Then the induced linear map $F_{\ast,e}:\mf{g} \to \mf{h}$ is a homomorphism of Lie algebras.
+\end{proposition}
+\begin{proof}
+    Let $A,B \in \mf{g}$. Since $\tilde{A}$ and $F_{\ast}\tilde{A}$, and $\tilde{B}$ and $F_{\ast}\tilde{B}$ are $F$-related, we have that $[\tilde{A},\tilde{B}]$ and $[F_{\ast}\tilde{A},F_{\ast}\tilde{B}]$ are also $F$-related. Thus, we have
+    \begin{align}
+        F_{\ast,e}([A,B]) = F_{\ast,e}([\tilde{A},\tilde{B}]_{e}) = [F_{\ast}\tilde{A},F_{\ast}\tilde{B}]_{F(e)} = [F_{\ast,e}(A),F_{\ast,e}(B)].
+    \end{align}
+\end{proof}
+
+\begin{theorem}
+    Let $G$ be a Lie group, and $\mf{g} = T_{e}G$ be its associated Lie algebra. Let $\mf{h} \subseteq \mf{g}$ be a Lie subalgebra. Then there exists a unique connected Lie subgroup $H \subseteq G$ such that $T_{e}H = \mf{h}$.
+\end{theorem}
+
+\begin{corollary}
+    There exists a bijective correspondence between connected Lie subgroups of a Lie group $G$ and Lie subalgebras of its associated Lie algebra $\mf{g} = T_{e}G$.
+\end{corollary}
+
+\begin{theorem}
+    Let $H$ be a Lie subgroup of a Lie group $G$. Then $H$ is a closed subgroup of $G$ if and only if $H$ is a regular submanifold of $G$.
+\end{theorem}
+
+\begin{theorem}
+    Let $G$ and $H$ be Lie groups with associated Lie algebras $\mf{g}$ and $\mf{h}$, respectively. Suppose $G$ is simply connected. Then, given a Lie algebra homomorphism $\psi:\mf{g} \to \mf{h}$, there exists a unique homomorphism of Lie groups $\varphi:G \to H$ such that $\varphi_{\ast,e} = \psi$.
+\end{theorem}
+
+\begin{corollary}
+    If $G$ and $H$ are simply connected Lie groups with isomorphic associated Lie algebras $\mf{g}$ and $\mf{h}$, then $G$ and $H$ are isomorphic as Lie groups.
+\end{corollary}
+
+\begin{corollary}
+    There exits a bijective correspondence between isomorphism classes of Lie algebras and isomorphism classes of simply connected Lie groups.
+\end{corollary}
+
+\begin{theorem}
+    Let $G$ and $H$ be Lie groups. Then any continuous Lie group homomorphism $\varphi:G \to H$ is smooth.
+\end{theorem}
+
+\begin{corollary}
+    A second countable Hausdorff locally Euclidean topological group $G$ has at most one differentiable structure making it into a Lie group.
+\end{corollary}
+
+\begin{theorem}
+    Let $G$ be a lie group, and $H$ be a closed (not necessarily Lie) subgroup of $G$. Then $H$ has a unique manifold structure making it into a Lie subgroup of $G$.
+\end{theorem}
+
+\begin{theorem}
+    Let $\psi:G \to H$ be a homomorphism of Lie groups, and set $A = \ker \psi$ and $\mf{A} = \ker \psi_{\ast,e}$, where $\psi_{\ast,e}:\mf{g} \to \mf{h}$ is the induced linear map between the associated Lie algebras. Then $A$ is a closed Lie subgroup of $G$ whose associated Lie algebra is $\mf{A}$.
+\end{theorem}
