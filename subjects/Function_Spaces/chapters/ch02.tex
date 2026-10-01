@@ -482,3 +482,117 @@ The same style of proof may be repeated for the theorem below and, hence, we omi
 \begin{corollary}
     Let $f \in C^{\infty}(S^{1})$. Then $\lim_{\abs{n} \to \infty} \abs{n}^{k}\abs{c_{n}(f)} = 0$ for all $k \geq 0$.
 \end{corollary}
+
+\section{Hilbert Space and Orthonormality}
+\textit{October 1st.}
+
+\begin{definition}
+    Let $H$ be a vector space over $\C$. An \eax{inner product} on $H$ is a map $\langle \cdot, \cdot \rangle : H \times H \to \C$ such that for all $x,y,z \in H$ and $\lambda \in \C$, the following hold.
+    \begin{enumerate}
+        \item $\langle x,y\rangle = \overline{\langle y,x\rangle}$.
+        \item $\langle x+y,z\rangle = \langle x,z\rangle + \langle y,z\rangle$.
+        \item $\langle \lambda x,y\rangle = \lambda\langle x,y\rangle$.
+        \item $\langle x,x\rangle > 0$ if $x \neq 0$.
+    \end{enumerate}
+    The norm induced by the inner product is defined as $\norm{x} = \sqrt{\langle x,x\rangle}$ for $x \in H$. If $H$ is complete with respect to the metric $d(x,y) = \norm{x-y}$, then $H$ is called a \eax{Hilbert space}.
+\end{definition}
+
+
+\begin{example}
+    Let $H = \C^{n}$, and define the inner product $\ip{x,y} = \sum_{j=1}^{n} x_{j}\overline{y_{j}}$ for $x,y \in \C^{n}$. Then we know that $(\C^{n},\langle \cdot, \cdot \rangle)$ is a valid inner product space. We claim that this space is also complete. Let $(x^{(k)})_{k \geq 1}$ be a Cauchy sequence in $\C^{n}$. Then for each $j = 1,\ldots,n$, the sequence $(x_{j}^{(k)})_{k \geq 1}$ is a Cauchy sequence in $\C$, which is complete, so there exists $x_{j} \in \C$ such that $x_{j}^{(k)} \to x_{j}$ as $k \to \infty$. Set $x = (x_{1},\ldots,x_{n}) \in \C^{n}$. Then $x^{(k)} \to x$ as $k \to \infty$, and hence $\C^{n}$ is complete.
+\end{example}
+
+\begin{example}
+    Let $H = L^{2}[0,1]$, and define the inner product $\ip{f,g} = \int_{0}^{1} f(x)\overline{g(x)} \, dx$ for $f,g \in L^{2}[0,1]$. Then $(L^{2}[0,1],\langle \cdot, \cdot \rangle)$ is a valid inner product space. We claim that this space is also complete. Let $(f_{k})_{k \geq 1}$ be a Cauchy sequence in $L^{2}[0,1]$. Then there exists a subsequence $(f_{k_{j}})_{j \geq 1}$ such that $\norm{f_{k_{j+1}}-f_{k_{j}}}_{2} < 2^{-j}$ for all $j \geq 1$. Define $g_{j} = f_{k_{j+1}}-f_{k_{j}}$ for $j \geq 1$. Then
+    \begin{align}
+        \sum_{j=1}^{\infty} \norm{g_{j}}_{2} \leq \sum_{j=1}^{\infty} 2^{-j} = 1.
+    \end{align}
+    Hence, by the triangle inequality, we have
+    \begin{align}
+        \norm{\sum_{j=1}^{N} g_{j}}_{2} \leq \sum_{j=1}^{N} \norm{g_{j}}_{2} \leq 1,
+    \end{align}
+    so that $\sum_{j=1}^{N} g_{j}$ is bounded in $L^{2}[0,1]$. By the completeness of $L^{2}[0,1]$, there exists $g \in L^{2}[0,1]$ such that $\sum_{j=1}^{N} g_{j} \to g$ as $N \to \infty$. Then $f_{k_{N}} = f_{k_{1}} + \sum_{j=1}^{N-1} g_{j} \to f_{k_{1}} + g$ as $N \to \infty$, so that $(f_{k})_{k \geq 1}$ converges to $f = f_{k_{1}} + g \in L^{2}[0,1]$. Hence $L^{2}[0,1]$ is complete.
+\end{example}
+
+Also recall that two vector $x,y \in H$ are said to be orthogonal if $\ip{x,y} = 0$. A set of vectors $\{x_{j}\}_{j \in J}$ is said to be orthonormal if $\ip{x_{j},x_{k}} = \delta_{jk}$ for all $j,k \in J$. Any orthonormal set of vectors is linearly independent.
+
+Given any inner product space, possibly infinite dimensional, take the collection of orthonormal sets. Note that $\{\frac{x}{\norm{x}}\}$ is a non-empty orthonormal set for $x \neq 0$, so this collection is non-empty. Partially order this collection via inclusion. Then any chain, here, has a least upper bound, the union of all collections in the chain. Thus, by Zorn's lemma, there exists a maximal orthonormal set $\{e_{j}\}_{j \in J}$. This set is called an \eax{orthonormal basis} of $H$. However, the set itself may not be a basis in the usual sense, since it may not span $H$. 
+
+For example, consider the space $H = \ell^{2}(\N)$, the space of all complex-valued square-summable sequences, and let $\{\delta_{m}\}_{m \in \N}$ be the standard orthonormal basis of $H$, where $\delta_{m} = (0,\ldots,0,1,0,\ldots)$ with $1$ in the $m$-th position. Then $\{\delta_{m}\}_{m \in \N}$ is an orthonormal basis of $H$, but it does not span $H$, since there exist elements in $H$ that cannot be expressed as finite linear combinations of the $\delta_{m}$'s. For instance, the element $(\frac{1}{n})_{n \in \N} \in H$ cannot be expressed as a finite linear combination of the $\delta_{m}$'s. What is true is that the span of $\{e_{j}\}_{j \in J}$ is dense in $H$, so that for any $x \in H$ and $\eps > 0$, there exists a finite linear combination of the $e_{j}$'s that approximates $x$ within $\eps$.
+
+\begin{theorem}
+    Let $\{e_{0},e_{1},\ldots\}$ be an orthonormal basis of a Hilbert space $H$, and let $s_{n} = \sum_{k=0}^{n} \ip{x,e_{k}}e_{k}$ and $t_{n} = \sum_{k=0}^{n} b_{k} e_{k}$ for $x \in H$ and $b_{k} \in \C$. Then
+    \begin{align}
+        \norm{x-s_{n}} \leq \norm{x-t_{n}},
+    \end{align}
+    and equality holds if and only if $b_{k} = \ip{x,e_{k}}$ for all $k = 0,1,\ldots,n$.
+\end{theorem}
+In other words, the theorem states that the orthogonal projection of $x$ onto the span of $\{e_{0},\ldots,e_{n}\}$ is the best approximation of $x$ in that subspace, and the coefficients of this projection are given by the inner products $\ip{x,e_{k}}$.
+
+\begin{proof}
+    We have
+    \begin{align}
+        \norm{x-t_{n}}^{2} = \ip{x-t_{n},x-t_{n}} = \ip{x,x} - \sum_{k=0}^{n} b_{k}\ip{x,e_{k}} - \sum_{k=0}^{n} \overline{b_{k}}\ip{e_{k},x} + \sum_{j,k=0}^{n} b_{j}\overline{b_{k}}\ip{e_{j},e_{k}}.
+    \end{align}
+    Since $\{e_{0},\ldots,e_{n}\}$ is orthonormal, we have $\ip{e_{j},e_{k}} = \delta_{jk}$, so that the last term simplifies to $\sum_{k=0}^{n} \abs{b_{k}}^{2}$. Thus,
+    \begin{align}
+        \norm{x-t_{n}}^{2} = \norm{x}^{2} - 2\Re\left(\sum_{k=0}^{n} b_{k}\ip{x,e_{k}}\right) + \sum_{k=0}^{n} \abs{b_{k}}^{2}.
+    \end{align}
+    Now, consider the expression $\sum_{k=0}^{n} (b_{k}-\ip{x,e_{k}})\overline{(b_{k}-\ip{x,e_{k}})}$, which is non-negative. Expanding this, we get
+    \begin{align}
+        0 &\leq \sum_{k=0}^{n} (\abs{b_{k}}^{2} - 2\Re(b_{k}\overline{\ip{x,e_{k}}}) + \abs{\ip{x,e_{k}}}^{2}) = \sum_{k=0}^{n} \abs{b_{k}}^{2} - 2\Re\left(\sum_{k=0}^{n} b_{k}\overline{\ip{x,e_{k}}}\right) + \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2}.
+    \end{align}
+    Rearranging, we obtain
+    \begin{align}
+        2\Re\left(\sum_{k=0}^{n} b_{k}\overline{\ip{x,e_{k}}}\right) \leq \sum_{k=0}^{n} \abs{b_{k}}^{2} + \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2}.
+    \end{align}
+    But we also have
+    \begin{align}
+        \norm{x-s_{n}}^{2} = \norm{x}^{2} - 2\Re\left(\sum_{k=0}^{n} \ip{x,e_{k}}\overline{\ip{x,e_{k}}}\right) + \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2} = \norm{x}^{2} - \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2}.
+    \end{align}
+    Therefore,
+    \begin{align}
+        \norm{x-s_{n}}^{2} \leq \norm{x-t_{n}}^{2},
+    \end{align}
+    which proves the theorem.
+\end{proof}
+
+\begin{theorem}
+    Let $\{e_{0},e_{1},\ldots\}$ be an orthonormal basis of a Hilbert space $H$.
+    \begin{enumerate}
+        \item The series $\sum_{n=0}^{\infty} \abs{\ip{x,e_{n}}}^{2}$ converges for all $x \in H$, and satisfies the \eax{Bessel's inequality} $\sum_{n=0}^{\infty} \abs{\ip{x,e_{n}}}^{2} \leq \norm{x}^{2}$.
+        \item The equation $\sum_{n=0}^{\infty} \abs{\ip{x,e_{n}}}^{2} = \norm{x}^{2}$ holds for some $x \in H$ if and only if $\lim_{n \to \infty} \norm{x-s_{n}} = 0$, where $s_{n} = \sum_{k=0}^{n} \ip{x,e_{k}}e_{k}$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Let $s_{n} = \sum_{k=0}^{n} \ip{x,e_{k}}e_{k}$, and let $t_{n} = 0$. Then by the previous theorem, we have
+    \begin{align}
+        \norm{x-s_{n}}^{2} \leq \norm{x}^{2}.
+    \end{align}
+    Expanding $\norm{x-s_{n}}^{2}$, we get
+    \begin{align}
+        \norm{x-s_{n}}^{2} = \ip{x-s_{n},x-s_{n}} = \norm{x}^{2} - 2\Re\left(\sum_{k=0}^{n} \ip{x,e_{k}}\overline{\ip{x,e_{k}}}\right) + \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2} = \norm{x}^{2} - \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2}.
+    \end{align}
+    Therefore,
+    \begin{align}
+        0 &\leq \norm{x-s_{n}}^{2} = \norm{x}^{2} - \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2},\\
+        \sum_{k=0}^{n} \abs{\ip{x,e_{k}}}^{2} &\leq \norm{x}^{2}.
+    \end{align}
+    Since this holds for all $n$, the series $\sum_{n=0}^{\infty} \abs{\ip{x,e_{n}}}^{2}$ converges and satisfies Bessel's inequality.
+
+    For the second part, if $\lim_{n \to \infty} \norm{x-s_{n}} = 0$, then taking the limit in the previous inequality gives
+    \begin{align}
+        0 = \lim_{n\to\infty}\norm{x-s_n}^2 = \norm{x}^{2}-\lim_{n\to\infty}\sum_{k=0}^{n}\abs{\ip{x,e_k}}^2,
+    \end{align}
+    which implies that $\sum_{n=0}^{\infty}\abs{\ip{x,e_n}}^2=\norm{x}^2$. Conversely, if $\sum_{n=0}^{\infty}\abs{\ip{x,e_n}}^2=\norm{x}^2$, then
+    \begin{align}
+        \lim_{n\to\infty}\norm{x-s_n}^2 = \norm{x}^{2}-\lim_{n\to\infty}\sum_{k=0}^{n}\abs{\ip{x,e_k}}^2 = 0,
+    \end{align}
+    which means that $\lim_{n \to \infty} \norm{x-s_{n}} = 0$.
+\end{proof}
+
+Note that if $\{e_{0},e_{1},\ldots\}$ is an orthonormal basis of $H$, then $\spanof\{e_{0},e_{1},\ldots\}$ is dense in $H$. Hence, for any $x \in H$, we an write it as $x = \sum_{n=0}^{\infty} \ip{x,e_{n}}e_{n}$, where the series converges in the norm of $H$, with $\norm{x}^{2} = \sum_{n=0}^{\infty} \abs{\ip{x,e_{n}}}^{2}$. This is \eax{Parseval's identity}, which is a generalization of the Pythagorean theorem to infinite-dimensional Hilbert spaces. For the Hilbert space $L^{2}[0,1]$, the set $\{e^{2\pi i n x}\}_{n \in \Z}$ is an orthonormal basis, and hence for any $f \in L^{2}[0,1]$, we can write
+\begin{align}
+    f(x) = \sum_{n \in \Z} c_{n}(f)e^{2\pi i n x}, \qquad c_{n}(f) = \int_{0}^{1} f(x)e^{-2\pi i n x} \, dx,
+\end{align}
