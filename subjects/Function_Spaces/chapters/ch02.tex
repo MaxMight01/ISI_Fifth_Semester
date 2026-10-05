@@ -596,3 +596,44 @@ Note that if $\{e_{0},e_{1},\ldots\}$ is an orthonormal basis of $H$, then $\spa
 \begin{align}
     f(x) = \sum_{n \in \Z} c_{n}(f)e^{2\pi i n x}, \qquad c_{n}(f) = \int_{0}^{1} f(x)e^{-2\pi i n x} \, dx,
 \end{align}
+
+\textit{October 5th.}
+Thus, if $H$ is a Hilbert space with a countable orthonormal basis $\{e_{0},e_{1},\ldots\}$, then $H$ is isometrically isomorphic to $\ell^{2}(\N)$ via the map
+\begin{align}
+    H \to \ell^{2}(\N), \qquad x \mapsto (\ip{x,e_{0}},\ip{x,e_{1}},\ldots).
+\end{align}
+
+\begin{theorem}[The \eax{Riesz-Fischer theorem}]
+    Let $\{\varphi_{0},\varphi_{1},\ldots\}$ be an orthonormal system for $L^{2}[0,1]$, and let $\{c_{n}\}_{n=0}^{\infty}$ be a square-summable sequence of complex numbers. Then there exists a unique $f \in L^{2}[0,1]$ such that $c_{n} = \ip{f,\varphi_{n}}$ for all $n \geq 0$, and $\norm{f}^{2} = \sum_{n=0}^{\infty} \abs{c_{n}}^{2}$.
+\end{theorem}
+\begin{proof}
+    Define $s_{n} = \sum_{k=0}^{n} c_{k}\varphi_{k}$. Then $\norm{s_{n}-s_{m}}^{2} = \sum_{k=m+1}^{n} \abs{c_{k}}^{2}$ for $n > m$, which tends to $0$ as $m,n \to \infty$ since $\{c_{n}\}$ is a square-summable sequence. Hence, $(s_{n})_{n \geq 0}$ is a Cauchy sequence in $L^{2}[0,1]$, which is complete, so there exists $f \in L^{2}[0,1]$ such that $s_{n} \to f$ as $n \to \infty$. Then
+    \begin{align}
+        \ip{f,\varphi_{n}} = \lim_{m \to \infty} \ip{s_{m},\varphi_{n}} = \lim_{m \to \infty} c_{n} = c_{n},
+    \end{align}
+    and
+    \begin{align}
+        \norm{f}^{2} = \lim_{n \to \infty} \norm{s_{n}}^{2} = \lim_{n \to \infty} \sum_{k=0}^{n} \abs{c_{k}}^{2} = \sum_{n=0}^{\infty} \abs{c_{n}}^{2}.
+    \end{align}
+\end{proof}
+
+\begin{theorem}[\eax{Carleson's theorem}]
+    Let $f \in L^{2}[0,1]$. Then the Fourier series of $f$ converges to $f$ pointwise almost everywhere on $[0,1]$.
+\end{theorem}
+
+For a function $f \in L^{1}[0,1]$, we can define the $n$-th partial sum of the Fourier series of $f$ as
+\begin{align}
+    (s_{N}f)(\theta) = \sum_{n=-N}^{N} \hat{f}(n) e^{2 \pi i n \theta}.
+\end{align}
+If we define the Dirichlet kernel $D_{N}(\theta) = \sum_{n=-N}^{N} e^{2 \pi i n \theta}$, then we can write
+\begin{align}
+    (s_{N}f)(\theta) = \sum_{n=-N}^{N} \int_{0}^{1} f(t) e^{-2 \pi i n (\theta-t)} \, dt = (f \ast D_{N})(\theta).
+\end{align}
+Some properties of $D_{N}$ include $\int_{0}^{1} D_{N}(\theta) \, d\theta = 1$ and $\norm{D_{N}}_{1}$ grows as $\frac{4}{\pi^{2}} \log N$. From here, also arises Fej\'er's kernel, defined as $\sigma_{N}f = \frac{1}{N}\sum_{n=0}^{N-1} s_{n}f$, which is the Ces\`aro mean of the partial sums of the Fourier series. In particular, denoting $F_{N} = \frac{1}{N}\sum_{n=0}^{N-1} D_{k} = \frac{1}{N} \left( \frac{\sin(N\pi t)}{\sin(\pi t)} \right)^{2}$, we have $\sigma_{N}f = f \ast F_{N}$. These $F_{n}$'s are non-negative, integrate to $1$, and for $\delta \leq \abs{t} \leq \frac{1}{2}$, we have
+\begin{align}
+    F_{N}(t) \leq \frac{1}{N \sin^{2}(\pi \delta)} \to 0 \quad \text{as } N \to \infty;
+\end{align}
+the mass concentrates at $0$ as $N \to \infty$. Also, rearranging the terms in $F_{N}$ gives
+\begin{align}
+    F_{N+1}(t) = \sum_{n=-N}^{N} \left(1 - \frac{\abs{n}}{N}\right) e^{2 \pi i n t}.
+\end{align}
