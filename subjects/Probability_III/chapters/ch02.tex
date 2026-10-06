@@ -357,3 +357,102 @@ We now prove the weak law of large numbers, where we drop the assumption of fini
     \end{align}
     as $n \to \infty$.
 \end{example}
+
+
+\section{$L^{p}$ Spaces}
+\textit{October 6th.}
+
+Fix a probability space $(\Omega,\cF,\Prob)$. For $0 < p <\infty$, define the set
+\begin{align}
+    V_{p} = \{X:\Omega \to \R \mid \E[\abs{X}^{p}] < \infty\}
+\end{align}
+and (for $p = \infty$) define
+\begin{align}
+    V_{\infty} = \{X:\Omega \to \R \mid \exists M > 0 \text{ such that } \Prob(\abs{X} > M) = 0\}.
+\end{align}
+
+\begin{proposition}
+    $V_{p}$ and $V_{\infty}$ are real vector spaces with respect to the obvious operations of addition and scalar multiplication.
+\end{proposition}
+\begin{proof}
+    For $p \geq 1$, let $X,Y \in V_{p}$ and $\alpha \in \R$. Then, by the triangle inequality and convexity of $x \mapsto x^{p}$, we have
+    \begin{align}
+        \E[\abs{X+Y}^{p}] \leq 2^{p-1}(\E[\abs{X}^{p}] + \E[\abs{Y}^{p}]) < \infty,
+    \end{align}
+    and
+    \begin{align}
+        \E[\abs{\alpha X}^{p}] = \abs{\alpha}^{p}\E[\abs{X}^{p}] < \infty.
+    \end{align}
+    Hence $V_{p}$ is closed under addition and scalar multiplication. For $p < 1$, we use the fact that $\abs{x+y}^{p} \leq \abs{x}^{p} + \abs{y}^{p}$, and the fact that $\abs{\alpha x}^{p} = \abs{\alpha}^{p}\abs{x}^{p}$. The proof for $V_{\infty}$ is similar.
+\end{proof}
+
+We now wish to define a norm on $V_{p}$ and $V_{\infty}$; the obvious candidate is to define $\norm{X}_{p} = \E[\abs{X}^{p}]^{1/p}$ for $0 < p < \infty$, and $\norm{X}_{\infty} = \inf\{M > 0 \mid \Prob(\abs{X} > M) = 0\}$. However, this is not a norm since $\norm{X}_{p} = 0$ implies $X = 0$ only almost surely and not exactly. The definiteness property fails. Hence, to rectify this, we define an equivalence relation on $V_{p}$ and $V_{\infty}$ as follows. For $X,Y \in V_{p}$, we say that $X \sim Y$ if $\Prob(X \neq Y) = 0$, and similarly for $X,Y \in V_{\infty}$. Then, we define the quotient spaces
+\begin{align}
+    L^{p} = V_{p}/\sim \qquad \text{and} \qquad L^{\infty} = V_{\infty}/\sim.
+\end{align}
+The norms $\norm{\cdot}_{p}$ and $\norm{\cdot}_{\infty}$ are now definite on $L^{p}$ and $L^{\infty}$, respectively. For $p < 1$, the triangle inequality still fails. Hence, $L_{\infty}$ and $L_{p}$ for $p \geq 1$ are normed vector spaces. In fact, these are Banach spaces via the Riesz-Fischer theorem, which states that $L^{p}$ and $L^{\infty}$ are complete with respect to their respective norms. We will assume this theorem without proof. The $L^{2}$ space is particularly important, since it is a Hilbert space with respect to the inner product $\ip{X,Y} = \E[XY]$.
+
+\begin{proposition}
+    Let $1 \leq p \leq q \leq \infty$. Then $L^{q} \subseteq L^{p}$.
+\end{proposition}
+\begin{proof}
+    If $q = \infty$, then $\abs{X} \leq \norm{X}_{\infty}$ almost surely,
+    and hence $X \in L^{p}$. Now suppose that $q < \infty$ and let
+    $X \in L^{q}$. If $p=q$, the result is immediate. For $p<q$, we have
+    \begin{align}
+        \E[\abs{X}^{p}] = \E[\abs{X}^{p}\1_{\abs{X} \leq 1}] + \E[\abs{X}^{p}\1_{\abs{X} > 1}] \leq 1 + \E[\abs{X}^{q}\1_{\abs{X} > 1}] \leq 1 + \E[\abs{X}^{q}] < \infty,
+    \end{align}
+    and hence $X \in L^{p}$.
+\end{proof}
+
+To show triangle inequality for $L^{p}$, $p \geq 1$, we require convex functions.
+\begin{definition}
+    A function $\varphi:(a,b) \to \R$ is a \eax{convex function} if $\varphi$ is continuous and given any $u \in (a,b)$, there exists a linear function $L_{u}(x) = \alpha_{u}x + \beta_{u}$ such that $L_{u}(u) = \varphi(u)$ and $L_{u}(x) \leq \varphi(x)$ for all $x \in (a,b)$. In other words, there exists a line passing through $(u,\varphi(u))$ that lies below the graph of $\varphi$.
+\end{definition}
+
+\begin{lemma}[\eax{Jensen's inequality}]
+    Let $\varphi:\R \to \R$ be a convex function, and suppose $X,\varphi(X) \in L^{1}$. Then $\varphi(\E[X]) \leq \E[\varphi(X)]$.
+\end{lemma}
+\begin{proof}
+    Set $a = \E[X]$. Then, by the definition of convexity, there exists a linear function $y = m(x-a) + \varphi(a)$ such that $y \leq \varphi(x)$ for all $x \in \R$, or $m(X-a) + \varphi(a) \leq \varphi(X)$. Taking expectations gives 
+    \begin{align}
+        \varphi(\E[X]) = \varphi(a) \leq \E[\varphi(X)].
+    \end{align}
+\end{proof}
+
+\begin{lemma}[\eax{Minkowski's inequality}]
+    Let $1 \leq p < \infty$. Then for any $X,Y \in L^{p}$, we have
+    \begin{align}
+        \norm{X+Y}_{p} \leq \norm{X}_{p} + \norm{Y}_{p}.
+    \end{align}.
+\end{lemma}
+\begin{proof}
+    Set $X' = X/\norm{X}_{p}$ and $Y' = Y/\norm{Y}_{p}$. Then $\norm{X'}_{p} = \norm{Y'}_{p} = 1$. Also set $a = \frac{\norm{X}_{p}}{\norm{X}_{p}+\norm{Y}_{p}}$ and $b = \frac{\norm{Y}_{p}}{\norm{X}_{p}+\norm{Y}_{p}}$. Since $x \mapsto x^{p}$ is convex, we have
+    \begin{align}
+        \abs{aX'+bY'}^{p} \leq a\abs{X'}^{p} + b\abs{Y'}^{p} \implies \E[\abs{aX'+bY'}^{p}] \leq a\E[\abs{X'}^{p}] + b\E[\abs{Y'}^{p}] = a+b = 1.
+    \end{align}
+    Rearranging gives
+    \begin{align}
+        \norm{X+Y}_{p} &= (\E[\abs{X+Y}^{p}])^{1/p} = (\E[\abs{(a+b)(X'+Y')}^{p}])^{1/p} \notag \\ &= (a+b)(\E[\abs{aX'+bY'}^{p}])^{1/p} \leq a+b = \norm{X}_{p} + \norm{Y}_{p}.
+    \end{align}
+\end{proof}
+
+\begin{theorem}[\eax{Hölder's inequality}]
+    Let $1 < p,q < \infty$ be such that $\frac{1}{p}+\frac{1}{q} = 1$. Then for any $X \in L^{p}$ and $Y \in L^{q}$, we have $XY \in L^{1}$ and
+    \begin{align}
+        \E[\abs{XY}] \leq \norm{X}_{p}\norm{Y}_{q}.
+    \end{align}
+\end{theorem}
+Note that the case $p = q = 2$ is a special case of this theorem, and is known as the Cauchy-Schwarz inequality.
+\begin{proof}
+    We first show that $\frac{a^{p}}{p} + \frac{b^{q}}{q} \geq ab$ for all $a,b > 0$. To see this, note that the function $f(a) = \frac{a^{p}}{p} - ab + \frac{b^{q}}{q}$ is convex in $a$, and has a unique minimum at $a = b^{1/(p-1)}$. Evaluating $f$ at this point gives
+    \begin{align}
+        f(b^{1/(p-1)}) = \frac{b^{p/(p-1)}}{p} - b^{p/(p-1)} + \frac{b^{q}}{q} = b^{q}\left(\frac{1}{p}-1+\frac{1}{q}\right) = 0.
+    \end{align}
+    This shows that $\frac{a^{p}}{p} + \frac{b^{q}}{q} \geq ab$ for all $a,b > 0$. Now, let $X \in L^{p}$ and $Y \in L^{q}$, and set $X' = X/\norm{X}_{p}$ and $Y' = Y/\norm{Y}_{q}$. Then $\norm{X'}_{p} = \norm{Y'}_{q} = 1$. Applying the inequality above with $a = \abs{X'}$ and $b = \abs{Y'}$, we have
+    \begin{align}
+        \abs{X'Y'} \leq \frac{\abs{X'}^{p}}{p} + \frac{\abs{Y'}^{q}}{q} \implies \E[\abs{X'Y'}] \leq \frac{\E[\abs{X'}^{p}]}{p} + \frac{\E[\abs{Y'}^{q}]}{q} = \frac{1}{p} + \frac{1}{q} = 1.
+    \end{align}
+    Multiplying both sides by $\norm{X}_{p}\norm{Y}_{q}$ gives the desired result.
+\end{proof}
+With the norm defined on $L^{p}$, we can define convergence in $L^{p}$ by saying that a sequence $(X_{n})_{n \geq 1}$ converges to $X$ in $L^{p}$ if $\norm{X_{n}-X}_{p} \to 0$ as $n \to \infty$.
