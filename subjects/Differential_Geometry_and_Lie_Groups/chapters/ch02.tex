@@ -525,7 +525,7 @@ For $F:G \to H$ is a homomorphism of Lie groups, define $F_{\ast}:L(G) \to L(H)$
     Let $\psi:G \to H$ be a homomorphism of Lie groups, and set $A = \ker \psi$ and $\mf{A} = \ker \psi_{\ast,e}$, where $\psi_{\ast,e}:\mf{g} \to \mf{h}$ is the induced linear map between the associated Lie algebras. Then $A$ is a closed Lie subgroup of $G$ whose associated Lie algebra is $\mf{A}$.
 \end{theorem}
 
-\section{}
+\section{Differential Forms}
 \textit{October 5th.}
 
 We translate our theory of differential forms on $\R^{n}$ onto smooth manifolds. A 1-form on a manifold $M$ is section of the cotangent bundle $T^{\ast}M$. That is, a 1-form $\omega$ on $M$ is a map $\omega:M \to T^{\ast}M = \bigsqcup_{p \in M} T^{\ast}_{p}M$ such that $\omega(p) \in T^{\ast}_{p}M$ for all $p \in M$. This is analagous to a vector field $X$ which is a map $X:M \to TM = \bigsqcup_{p \in M} T_{p}M$ such that $X(p) \in T_{p}M$ for all $p \in M$. Given a smooth function $f:M \to \R$, we have the differential $df:M \to T^{\ast}M$ defined as $df(p) = df_{p}$, where $df_{p}:T_{p}M \to \R$ is the linear map defined as $df_{p}(X_{p}) = X_{p}(f)$ for all $X_{p} \in T_{p}M$. In particular, we have that $df$ is a 1-form on $M$.
@@ -599,3 +599,38 @@ Let $F:N \to M$ be a smooth map between smooth manifolds $N$ and $M$. Then the d
     \end{align}
     Since $F_{\ast,p}\left(\frac{\partial}{\partial y^{j}}\right)$ is a smooth vector field on $N$, we have that $dx^{i}(F_{\ast,p}\left(\frac{\partial}{\partial y^{j}}\right))$ is a smooth function on $N$. Therefore, each of the functions $b_{j}$ are smooth, and so $F^{\ast}\omega$ is a smooth 1-form on $N$.
 \end{proof}
+
+\subsection{$k$-forms}
+\noindent \textit{October 7th.}
+
+Moving on to $k$-forms, recall that $A_{k}(V)$ is the space of all alternating $k$-linear maps $\omega:V^{k} \to \R$ on a finite-dimensional vector space $V$. It is of dimension $\binom{n}{k}$, and if $\{\alpha_{1},\ldots,\alpha_{n}\}$ is a basis for $V^{\ast}$, then the wedge products $\{\alpha_{i_{1}} \wedge \cdots \wedge \alpha_{i_{k}} \mid 1 \leq i_{1} < \cdots < i_{k} \leq n\}$ form a basis for $A_{k}(V)$. We can extend this notion to smooth manifolds.
+
+Let $M$ be a smooth manifold of dimension $n$, and let $p \in M$. We have
+\begin{align}
+    A_{k}(T_{p}M) \defeq \{\omega_{p}:T_{p}M^{k} \to \R \mid \omega_{p} \text{ is alternating and $k$-linear}\} = \bigwedge^{k}T_{p}^{\ast}M.
+\end{align}
+A $k$-form on $M$ is a map
+\begin{align}
+    \omega:M \to \bigsqcup_{p \in M} A_{k}(T_{p}M) = \bigsqcup_{p \in M} \bigwedge^{k}T_{p}^{\ast}M
+\end{align}
+such that $\omega(p) \in A_{k}(T_{p}M)$ for all $p \in M$. If we denote $\cI_{k,n} = \{(i_{1},\ldots,i_{k}) \mid 1 \leq i_{1} < \cdots < i_{k} \leq n\}$, then we have that $\dim \bigwedge^{k} T_{p}^{\ast}M = \binom{n}{k}$, and if $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ is a chart on $M$, then the wedge products $\{(dx^{I})_{p} = (dx^{i_{1}})_{p} \wedge \cdots \wedge (dx^{i_{k}})_{p} \mid (i_{1},\ldots,i_{k}) \in \cI_{k,n}\}$ form a basis for $\bigwedge^{k}T_{p}^{\ast}M$. Thus, any $\omega_{p} \in A_{k}(T_{p}M)$ can be written as
+\begin{align}
+    \omega_{p} = \sum_{I \in \cI_{k,n}} a_{I}(p)(dx^{I})_{p}
+\end{align}
+where $a_{I}(p)$'s are real numbers. More generally, any $k$-form $\omega$ on $U$ can be written as
+\begin{align}
+    \omega = \sum_{I \in \cI_{k,n}} a_{I} dx^{I}
+\end{align}
+where $a_{I}:U \to \R$ are real-valued functions on $U$. If $f_{1},\ldots,f_{k} \in C^{\infty}(U)$ are smooth functions on $U$, then we have
+\begin{align}
+    (df_{1} \wedge \cdots \wedge df_{k})\left( \frac{\partial}{\partial x^{i_{1}}}, \ldots, \frac{\partial}{\partial x^{i_{k}}} \right) = \det\left( \frac{\partial f_{j}}{\partial x^{i_{l}}} \right)_{1 \leq j,l \leq k}.
+\end{align}
+We also have the notion of bundles of $k$-forms on $M$. The case $k=1$ gives the cotangent bundle $T^{\ast}M$. These bundles are defined as
+\begin{align}
+    \bigwedge^{k}T^{\ast}M = \bigsqcup_{p \in M} \bigwedge^{k}T_{p}^{\ast}M = \bigsqcup_{p \in M} A_{k}(T_{p}M)
+\end{align}
+with projection $\pi:\bigwedge^{k}T^{\ast}M \to M$ defined as $\pi(\omega_{p}) = p$ for all $\omega_{p} \in \bigwedge^{k}T_{p}^{\ast}M$. A $k$-form on $M$, then, is a section of the bundle $\bigwedge^{k}T^{\ast}M$. To induce a topology on $\bigwedge^{k}T^{\ast}M$, we can use the charts on $M$ as we did with the tangent and cotangent bundles. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$. Also adopt the notation $\bigwedge^{k}T^{\ast}U = \pi^{-1}(U) = \bigsqcup_{p \in U} \bigwedge^{k}T_{p}^{\ast}M$. Then we have the bijective map
+\begin{align}
+    \tilde{\varphi}:\bigwedge^{k}T^{\ast}U \to \varphi(U) \times \R^{\binom{n}{k}}, \qquad \omega_{p} \mapsto (\varphi(p),a_{I_{1}}(p),\ldots,a_{I_{\binom{n}{k}}}(p)).
+\end{align}
+With the standard topology on $\varphi(U) \times \R^{\binom{n}{k}}$, we can give $\bigwedge^{k}T^{\ast}U$ the topology induced by $\tilde{\varphi}$. Then, letting $\cB_{U}$ be the collection of all open sets in $\bigwedge^{k}T^{\ast}U$, we can give $\bigwedge^{k}T^{\ast}M$ the topology generated by $\cB = \bigcup_{(U,\varphi)} \cB_{U}$, where the union is taken over all charts $(U,\varphi)$ on $M$. The exact same analysis as tangent bundles shows that $\bigwedge^{k}T^{\ast}M$ is a smooth manifold of dimension $n + \binom{n}{k}$, and the projection $\pi:\bigwedge^{k}T^{\ast}M \to M$ is a smooth map. The case for $k = 0$ is trivial, as $\bigwedge^{0}T^{\ast}M = M \times \R$ is a smooth manifold of dimension $n+1$, and the projection $\pi:\bigwedge^{0}T^{\ast}M \to M$ is the projection onto the first factor. A smooth $k$-form $\omega$ on $M$ is a smooth section of $\pi$. That is, $\omega$ is smooth if $\omega:M \to \bigwedge^{k}T^{\ast}M$ is a smooth map between smooth manifolds. Also, a $k$-form $\omega$ on $M$ is smooth if and only if for any chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ on $M$, the functions $a_{I}:U \to \R$ defined as $\omega = \sum_{I \in \cI_{k,n}} a_{I} dx^{I}$ are smooth. Again, for $k = 0$, a smooth section of $\pi:M \times \R \to M$ is a smooth map $f:M \to M \times \R$ such that $\pi(f(p)) = p$ for all $p \in M$. That is, $f(p) = (p,g(p))$ for some smooth function $g:M \to \R$. Thus, a smooth 0-form on $M$ is simply a smooth function on $M$.
