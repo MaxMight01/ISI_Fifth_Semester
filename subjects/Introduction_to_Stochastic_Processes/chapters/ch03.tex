@@ -231,3 +231,144 @@ The following serves as a process of checking the conditions for the optimal sto
     \item $\E[T] < \infty$ and there exists $c > 0$ such that $\abs{Z_{n} - Z_{n-1}} < c$ for all $n \geq 2$.
     \item $T:\Omega \to \N$, and $\sup_{\omega \in \Omega} T(\omega) < \infty$.
 \end{enumerate}
+
+\section{Kolmogorov's Maximal Inequalities}
+\textit{October 7th.}
+
+Recall the inequalities of Markov and Chebyshev. Let $X$ be a non-negative random variable, and let $a > 0$. Then, we have
+\begin{align}
+    \Prob(X > a) \leq \frac{\E[X]}{a}, \qquad \Prob(\abs{X-\E[X]} \geq a) \leq \frac{\Var(X)}{a^{2}}.
+\end{align}
+
+\begin{theorem}[\eax{Kolmogorov's maximal inequality}]
+    Let $\{Z_{n}\}_{n \geq 1}$ be a martingale, with $\E[Z_{n}^{2}] < \infty$ for all $n \geq 1$. Then, for any all $n \geq 1$ and $b > 0$, we have
+    \begin{align}
+        \Prob\left( \max_{1 \leq i \leq n} \abs{Z_{i}} > b \right) \leq \frac{\E[Z_{n}^{2}]}{b^{2}}.
+    \end{align}
+\end{theorem}
+
+If $h:\R \to \R$ is a convex function, then by Jensen's inequality, we have
+\begin{align}
+    \E[h(Z_{n}) \mid z_{n-1},\ldots,z_{1}] \geq h(\E[Z_{n} \mid z_{n-1},\ldots,z_{1}]) = h(z_{n-1}),
+\end{align}
+which is the property of a submartingale.
+\begin{definition}
+    A sequence of random variables $\{Z_{n}\}_{n \geq 1}$ is a \eax{submartingale} if $\E[\abs{Z_{n}}] < \infty$ for all $n \geq 1$, and
+    \begin{align}
+        \E[Z_{n} \mid z_{n-1},\ldots,z_{1}] \geq z_{n-1}
+    \end{align}
+\end{definition}
+As above, if $\{Z_{n}\}_{n \geq 1}$ is a martingale, then $\{h(Z_{n})\}_{n \geq 1}$ is a submartingale for any convex function $h:\R \to \R$. In particular, $\{Z_{n}^{2}\}_{n \geq 1}$, $\{\abs{Z_{n}}\}_{n \geq 1}$, and $\{\abs{Z_{n}}\}_{n \geq 1}$ are submartingales.
+
+\begin{proposition}
+    Let $\{Z_{n}\}_{n \geq 1}$ be a non-negative submartingale. Then for any $n \geq 1$ and $a > 0$, we have
+    \begin{align}
+        \Prob\left( \max_{1 \leq i \leq n} Z_{i} > a \right) \leq \frac{\E[Z_{n}]}{a}.
+    \end{align}
+\end{proposition}
+We shall first use this proposition to prove Kolmogorov's maximal inequality.
+\begin{proof}[Proof of Kolmogorov's maximal inequality]
+    Suppose $\{Z_{n}\}_{n \geq 1}$ is a martingale with all finite second moments. Then $\{Z_{n}^{2}\}_{n \geq 1}$ is a submartingale, and the above proposition gives
+    \begin{align}
+        \Prob\left(\max_{1 \leq i \leq n} \abs{Z_{i}} > a\right) = \Prob\left(\max_{1 \leq i \leq n} Z_{i}^{2} > a^{2}\right) \leq \frac{\E[Z_{n}]^{2}}{a^{2}}.
+    \end{align}
+\end{proof}
+
+\begin{proof}
+    Let $J = \min\{k \geq 1 \mid Z_{k} \geq a\} \wedge m$ for some $m \geq 1$. Then $Z_{J} \geq a$ holds if and only if $Z_{n} \geq a$ for all $n \geq m$. Then, we have
+    \begin{align}
+        \Prob\left( \max_{1 \leq i \leq m} Z_{i} > a \right) = \Prob(Z_{J} \geq a) &\leq \frac{\E[Z_{J}]}{a} = \frac{1}{a} \sum_{k=1}^{m-1} \E[Z_{k} \1_{\{J=k\}}] + \frac{1}{a} \E[Z_{m} \1_{\{J=m\}}] \notag \\
+        &= \frac{1}{a} \sum_{k=1}^{m-1} \E[\E[Z_{m} \1_{\{J=k\}} \mid \cA_{k}]] + \frac{1}{a} \E[Z_{m} \1_{\{J=m\}}] \notag \\
+        &= \frac{1}{a} \sum_{k=1}^{m-1} \E[\1_{\{J=k\}} \E[Z_{m} \mid \cA_{k}]] + \frac{1}{a} \E[Z_{m} \1_{\{J=m\}}] \notag \\
+        &\leq \frac{1}{a} \sum_{k=1}^{m-1} \E[\1_{\{J=k\}} Z_{k}] + \frac{1}{a} \E[Z_{m} \1_{\{J=m\}}] = \frac{1}{a} \sum_{k=1}^{m} \E[Z_{k} \1_{\{J=k\}}] = \frac{\E[Z_{m}]}{a}.
+    \end{align}
+\end{proof}
+
+\begin{proposition}
+    Let $\{Z_{n}\}_{n \geq 1}$ be a non-negative martingale. Then
+    \begin{align}
+        \Prob\left( \sup_{n \geq 1} Z_{n} > a \right) \leq \frac{\E[Z_{1}]}{a}
+    \end{align}
+    for all $a > 0$.
+\end{proposition}
+
+\begin{proof}
+    For $m \geq 1$, define $A_{m} = \{\max_{1 \leq i \leq m} Z_{i} > a\} = \bigcup_{i=1}^{m} \{Z_{i} > a\}$. Then, $A_{m} \subseteq A_{m+1}$; but note that $\bigcup_{m=1}^{\infty} A_{m} = \bigcup_{n=1}^{\infty} \{Z_{n} > a\}$ is \textit{not} the same as $\{\sup_{n \geq 1} Z_{n} > a\}$, as the latter is the event that $Z_{n} > a$ for infinitely many $n$, and the former is the event that $Z_{n} > a$ for some $n$. Let $\eps_{0} \in (0,a)$. Then, we have
+    \begin{align}
+        \Prob\left( \sup_{i \geq 1} Z_{i} \geq a \right) = \Prob\left( \bigcap_{\eps > 0} \bigcup_{i \geq 1} \{Z_{i} \geq a - \eps\} \right) \leq \Prob(\bigcup_{i \geq 1} \{Z_{i} \geq a - \eps_{0}\}).
+    \end{align}
+    Let $b = a-\eps_{0}$. By the previous proposition, we have
+    \begin{align}
+        \Prob\left( \max_{1 \leq i \leq m} Z_{i} \geq b \right) \leq \frac{\E[Z_{1}]}{b}.
+    \end{align}
+    Taking the limit as $m \to \infty$ gives
+    \begin{align}
+        \Prob\left( \bigcup_{i=1}^{\infty} \{Z_{i} \geq b\} \right) \leq \frac{\E[Z_{1}]}{b}.
+    \end{align}
+    Combining the above inequalities gives
+    \begin{align}
+        \Prob\left( \sup_{i \geq 1} Z_{i} \geq a \right) \leq \frac{\E[Z_{1}]}{b} = \frac{\E[Z_{1}]}{a-\eps_{0}}.
+    \end{align}
+    Letting $\eps_{0} \to 0$ gives the desired result.
+\end{proof}
+
+\begin{theorem}[Convergence theorem]
+    Let $\{Z_{n}\}_{n \geq 1}$ be a martingale.
+    \begin{enumerate}
+        \item If $Z_{n} \geq 0$ for all $n \geq 1$, then there exists a random variable $Z$ such that $Z_{n} \xrightarrow{n \to \infty} Z$ with probability $1$.
+        \item If $\sup_{n \geq 1} \E[\abs{Z_{n}}] < \infty$, then there exists a random variable $Z$ such that $Z_{n} \xrightarrow{n \to \infty} Z$ with probability $1$.
+        \item If $\sup_{n \geq 1} \E[Z_{n}^{2}] < \infty$, then there exists a random variable $Z$ such that $Z_{n} \xrightarrow{n \to \infty} Z$ with probability $1$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    Note that 2.~implies 1.~since if $Z_{n} \geq 0$, then $\E[\abs{Z_{n}}] = \E[Z_{n}] = \E[Z_{1}]$ implies that $\sup_{n \geq 1} \E[\abs{Z_{n}}] < \infty$. Also, 2.~implies 3.~since $\E[\abs{Z_{n}}]^{2} \leq \E[Z_{n}^{2}]$ by Jensen's inequality. For a proof of 3., note that $\sup_{n \geq 1} \E[Z_{n}^{2}] < \infty$ implies that $\{Z_{n}^{2}\}_{n \geq 1}$ is a submartingale with bounded expectation. Taking expectation on $\E[Z_{n}^{2} \mid Z_{n-1},\ldots,Z_{1}] \geq \E[Z_{n-1}^{2}]$ gives $\E[Z_{n}^{2}] \geq \E[Z_{n-1}^{2}]$, and hence $\E[Z_{n}^{2}]$ is non-decreasing. Since it is bounded, we have $\E[Z_{n}^{2}] \xrightarrow{n \to \infty} \alpha$ for some $0 \leq \alpha < \infty$. Now fix $m \geq 1$, and set $Y_{n} = Z_{n+m}-Z_{m}$ for $n \geq 1$. Then, $\{Y_{n}\}_{n \geq 1}$ is a martingale, and Kolmogorov's maximal inequality gives
+    \begin{align}
+        \Prob\left( \max_{1 \leq i \leq n} \abs{Y_{i}} > b \right) \leq \frac{\E[Y_{n}^{2}]}{b^{2}}
+    \end{align}
+    for all $b > 0$, and also $\E[Y_{n}^{2}] = \E[Z_{n+m}^{2}] - 2\E[Z_{n+m}Z_{m}] + \E[Z_{m}^{2}]$. Since $\{Z_{n}\}_{n \geq 1}$ is a martingale, we have $\E[Z_{n+m} \mid Z_{m},\ldots,Z_{1}] = Z_{m}$, and hence $\E[Z_{n+m}Z_{m}] = \E[\E[Z_{n+m}Z_{m} \mid Z_{m},\ldots,Z_{1}]] = \E[Z_{m}^{2}]$. Thus, $\E[Y_{n}^{2}] = \E[Z_{n+m}^{2}] - \E[Z_{m}^{2}]$, which is bounded by $\alpha - \E[Z_{m}^{2}]$ as $n \to \infty$. So,
+    \begin{align}
+        \Prob\left( \max_{1 \leq i \leq n} \abs{Z_{i+m}-Z_{i}} > b\right) \leq \frac{\E[Z_{n+m}^{2}]-\E[Z_{m}^{2}]}{b^{2}}
+    \end{align}
+    for all $n,m \geq 1$. Letting $n \to \infty$ on both sides gives
+    \begin{align}
+        \Prob\left( \bigcup_{i \geq 1} \{\abs{Z_{i+m}-Z_{i}} > b\} \right) \leq \frac{\alpha - \E[Z_{m}^{2}]}{b^{2}}.
+    \end{align}
+    Now letting $m \to \infty$ gives
+    \begin{align}
+        \lim_{m \to \infty} \Prob\left( \bigcup_{i \geq 1} \{\abs{Z_{i+m}-Z_{i}} > b\} \right) = 0 \qquad \text{ for all } b > 0.
+    \end{align}
+    We claim that this implies that $\{Z_{n}\}_{n \geq 1}$ is a Cauchy sequence with probability $1$. Indeed, look at
+    \begin{align}
+        A = \bigcap_{b > 0} \bigcup_{N=1}^{\infty} \bigcap_{m = N+1}^{\infty} \bigcap_{i=N+1}^{\infty} \{\abs{Z_{i+m}-Z_{i}} < b\}.
+    \end{align}
+    Then, $A$ is the event that $\{Z_{n}\}_{n \geq 1}$ is a Cauchy sequence; it is enough to show that $\Prob(A) = 1$. Let $l \geq 1$ and set $b = \frac{1}{2^{l}}$. By the above, there exists $k_{l}$ such that
+    \begin{align}
+        \Prob\left( \bigcup_{i \geq 1} \abs{Z_{i+k_{l}}-Z_{i}} > \frac{1}{2^{l}} \right) \leq \frac{1}{2^{l}}.
+    \end{align}
+    This implies
+    \begin{align}
+        \sum_{l \geq 1} \Prob\left( \bigcup_{i \geq 1} \abs{Z_{i+k_{l}}-Z_{i}} > \frac{1}{2^{l}} \right) < \infty \implies \sum_{l \geq 1} \Prob\left(  \abs{Z_{i+k_{l}}-Z_{i}} \leq \frac{1}{2^{l}} \right) < \infty.
+    \end{align}
+    By the Borel-Cantelli lemma, we receive
+    \begin{align}
+        \Prob\left( \bigcap_{n=1}^{\infty} \bigcup_{m=n}^{\infty} A_{m} \right) = 0.
+    \end{align}
+    Taking complements gives $\Prob(A) = 1$, and hence $\{Z_{n}\}_{n \geq 1}$ is a Cauchy sequence with probability $1$. Since $\R$ is complete, there exists a random variable $Z$ such that $Z_{n} \xrightarrow{n \to \infty} Z$ with probability $1$.
+
+    Now, for a proof of 2., for all $a,b \in \Q$, define $\bigwedge_{a,b} = \{\omega \in \Omega \mid \liminf_{n \to \infty} Z_{n} < a < b < \limsup_{n \to \infty} Z_{n}\}$ where $(Z_{n})_{n \geq 1}$ is a martingale. Then the probability that $\{Z_{n}\}_{n \geq 1}$ does not converge and does not properly diverge is $\Prob(\bigcup_{a,b \in \Q} \bigwedge_{a,b})$. By subadditivity of the probability measure, we have
+    \begin{align}
+        \Prob\left(\bigcup_{a,b \in \Q} \bigwedge_{a,b}\right) \leq \sum_{a,b \in \Q} \Prob\left(\bigwedge_{a,b}\right).
+    \end{align}
+    We claim that $\Prob(\bigwedge_{a,b}) = 0$ for all $a,b \in \Q$. 
+    To this end, let fix $a,b \in \Q$. Also set $S_{1} = \min\{n \geq 1 \mid Z_{n} < a\}$, $t_{n} = \min\{k \geq S_{n-1} \mid Z_{k} > b\}$, and $S_{n} = \min\{k \geq t_{n-1} \mid Z_{k} < a\}$. Now define $U_{N}(a,b) = \max\{k \geq 1 \mid S_{1} < t_{1} < S_{2} < t_{2} < \ldots < S_{k} < t_{k} \leq N\}$, the number of upcrossings of the interval $(a,b)$ by time $N$. Then, note that $U_{N}(a,b) \to U_{a,b}$ as $N \to \infty$; the event $\bigwedge_{a,b} = \{U_{a,b} = \infty\}$. So it is enough to show that $\Prob(U_{a,b} = \infty) = 0$. Now, set $V_{1} = \1_{\{Z_{1} < a\}}$ and $V_{n} = 1_{\{V_{n-1}=1,Z_{n-1} \leq b\}} + \1_{\{V_{n-1}=0,Z_{n-1} < a\}}$ for $n \geq 2$. Then set $Z_{N}^{V} = \sum_{k=1}^{N} V_{k}(Z_{k}-Z_{k-1})$. Then, $\{Z_{N}^{V}\}_{N \geq 1}$ is a martingale, and $Z_{N}^{V} \leq (b-a)U_{N}(a,b) + (Z_{N}-a)^{+}$. Taking expectations gives
+    \begin{align}
+        \E[U_{N}(a,b)] \leq \frac{1}{b-a} (\E[Z_{N}^{V}] + \E[(Z_{N}-a)^{-}]) \leq \frac{1}{b-a} (\E[Z_{1}] + \E[\abs{Z_{n}}] + a) \leq c.
+    \end{align}
+    [proof incomplete]
+
+    Thus, the probability that $\{Z_{n}\}_{n \geq 1}$ does not converge and does not properly diverge is $0$. However, using Fatou's lemma, we know that
+    \begin{align}
+        \E[\abs{Z}] = \E[\liminf_{n \to \infty} \abs{Z_{n}}] \leq \liminf_{n \to \infty} \E[\abs{Z_{n}}] < \infty
+    \end{align}
+    or that $\Prob(Z \in \R) = 1$. Hence, $\{Z_{n}\}_{n \geq 1}$ converges with probability $1$.
+\end{proof}
