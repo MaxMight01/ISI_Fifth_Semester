@@ -637,3 +637,44 @@ the mass concentrates at $0$ as $N \to \infty$. Also, rearranging the terms in $
 \begin{align}
     F_{N+1}(t) = \sum_{n=-N}^{N} \left(1 - \frac{\abs{n}}{N}\right) e^{2 \pi i n t}.
 \end{align}
+
+
+\subsection{Pointwise Convergence of Fourier Series}
+\noindent \textit{October 8th.}
+
+We will prove this in a series of steps. Let $f \in L^{1}(S^{1})$ and $x_{0} \in S^{1}$.
+\begin{enumerate}
+    \item We have
+    \begin{align}
+        (s_{N}f(x_{0}) - f(x_{0})) = \int_{-1/2}^{1/2} (f(x_{0}-t)-f(x_{0}))D_{N}(t) \, dt.
+    \end{align}
+    To show this, simply write $s_{N}f(x_{0}) = (f\ast D_{N})(x_{0}) = \int_{-1/2}^{1/2} f(x_{0}-t)D_{N}(t) \, dt$, and then use the fact that $\int_{-1/2}^{1/2} D_{N}(t) \, dt = 1$.
+    \item Dini's criterion: suppose
+    \begin{align}
+        \int_{\abs{t} < \delta} \frac{\abs{f(x_{0}-t)-f(x_{0})}}{\abs{t}} \, dt < \infty
+    \end{align}
+    for some $\delta > 0$. Then $s_{N}f(x_{0}) \to f(x_{0})$ as $N \to \infty$. This can be done as
+    \begin{align}
+        \abs{s_{N}f(x_{0}) - f(x_{0})} = \abs{\int_{-1/2}^{1/2} \frac{f(x_{0}-t)-f(x_{0})}{\sin \pi t} \sin(2N+1)\pi t \, dt}
+    \end{align}
+    which goes to zero as $N \to \infty$, after bounding the integral over $\abs{t} < \delta$ and $\abs{t} \geq \delta$ separately.
+
+    \item If $\abs{f(x)-f(x_{0})} \leq C\abs{x-x_{0}}^{\alpha}$ for some $\alpha > 0$, then $s_{N}f(x_{0}) \to f(x_{0})$ as $N \to \infty$. This follows from Dini's criterion, since
+    \begin{align}
+        \int_{\abs{t} < \delta} \frac{\abs{f(x_{0}-t)-f(x_{0})}}{\abs{t}} \, dt \leq C\int_{\abs{t} < \delta} \abs{t}^{\alpha-1} \, dt = \frac{C}{\alpha}\delta^{\alpha} < \infty.
+    \end{align}
+
+    \item If $f$ has one-sided limits $f(x_{0}^{\pm})$, and one-sided derivatives at $x_{0}$, then $s_{N}f(x_{0}) \to \frac{1}{2}(f(x_{0}^{+})+f(x_{0}^{-}))$ as $N \to \infty$. Indeed,
+    \begin{align}
+        \int_{\abs{t} < \delta} \frac{\abs{f(x_{0}-t)-f(x_{0}^{-})}}{\abs{t}} \, dt < \infty, \qquad \int_{\abs{t} < \delta} \frac{\abs{f(x_{0}+t)-f(x_{0}^{+})}}{\abs{t}} \, dt < \infty,
+    \end{align}
+    and the result follows.
+
+    \item If $f \equiv 0$ in a neighbourhood of $x_{0}$, then $s_{N}f(x_{0}) \to 0$ as $N \to \infty$. This follows from the previous step, since $f(x_{0}^{\pm}) = 0$ and the one-sided derivatives are also zero.
+    
+    \item If $f$ is Lipschitz continuous, then $s_{N}f(x_{0}) \to f(x_{0})$ uniformly. To this end, note that if $f$ is Lipschitz continuous, then there exists a constant $L > 0$ such that $\abs{f(x)-f(y)} \leq L\abs{x-y}$ for all $x,y \in S^{1}$. Hence, for any $x_{0} \in S^{1}$ and $\delta > 0$, we have
+    \begin{align}
+        \int_{\abs{t} < \delta} \frac{\abs{f(x_{0}-t)-f(x_{0})}}{\abs{t}} \, dt \leq L\int_{\abs{t} < \delta} dt = 2L\delta < \infty.
+    \end{align}
+    This shows that the integral is finite, and hence the convergence is uniform.
+\end{enumerate}
