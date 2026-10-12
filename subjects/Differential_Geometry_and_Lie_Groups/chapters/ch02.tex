@@ -647,4 +647,56 @@ From here, we define
 \begin{align}
     \Omega^{k}(M) = \{\omega:M \to \bigwedge^{k}T^{\ast}M \mid \omega \text{ is smooth}\},
 \end{align}
-the vector space of all smooth $k$-forms on $M$, which is also a $C^{\infty}(M)$-module via $(f\omega)(p) = f(p)\omega_{p}$ for all $f \in C^{\infty}(M)$, $\omega \in \Omega^{k}(M)$, and $p \in M$. 
+the vector space of all smooth $k$-forms on $M$, which is also a $C^{\infty}(M)$-module via $(f\omega)(p) = f(p)\omega_{p}$ for all $f \in C^{\infty}(M)$, $\omega \in \Omega^{k}(M)$, and $p \in M$.
+\\ \\
+\textit{October 12th.}
+
+The wedge product of forms is also defined here, as follows. Let $\omega \in \Omega^{k}(M)$ and $\eta \in \Omega^{l}(M)$ be $k$- and $l$-forms on a smooth manifold $M$. Then we can define the wedge product $\omega \wedge \eta$ as the $(k+l)$-form on $M$ defined as
+\begin{align}
+    (\omega \wedge \eta)_{p} = \omega_{p} \wedge \eta_{p} = \frac{1}{k!l!} \sum_{\sigma \in S_{k+l}} \sgn(\sigma) \omega_{p}(X_{\sigma(1)},\ldots,X_{\sigma(k)}) \eta_{p}(X_{\sigma(k+1)},\ldots,X_{\sigma(k+l)})
+\end{align}
+for all $p \in M$ and $X_{1},\ldots,X_{k+l} \in T_{p}M$.
+\begin{proposition}
+    If $\omega \in \Omega^{k}(M)$ and $\eta \in \Omega^{l}(M)$ are smooth $k$- and $l$-forms on a smooth manifold $M$, then $\omega \wedge \eta$ is a smooth $(k+l)$-form on $M$.
+\end{proposition}
+\begin{proof}
+    Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$. Then we have
+    \begin{align}
+        \omega = \sum_{I \in \cI_{k,n}} a_{I} dx^{I}, \qquad \eta = \sum_{J \in \cI_{l,n}} b_{J} dx^{J}
+    \end{align}
+    for some smooth functions $a_{I}:U \to \R$ and $b_{J}:U \to \R$. Then we have
+    \begin{align}
+        (\omega \wedge \eta) = \sum_{I,J} a_{I}b_{J} dx^{I} \wedge dx^{J}.
+    \end{align}
+    Since the product of smooth functions is smooth, we have that each of the functions $a_{I}b_{J}$ are smooth. Thus, $\omega \wedge \eta$ is a smooth $(k+l)$-form on $M$.
+\end{proof}
+Again, the wedge product is $\R$-bilinear, $C^{\infty}(M)$-bilinear, associative, and anti-commutative. From here, for a smooth manifold $M$ of dimension $n$, we define
+\begin{align}
+    \Omega^{\ast}(M) = \bigoplus_{k=0}^{n} \Omega^{k}(M) = \bigoplus_{k=0}^{\infty} \Omega^{k}(M),
+\end{align}
+which is a graded $\R$-algebra with respect to the wedge product. A smooth map $F:N \to M$ between smooth manifolds $N$ and $M$, then, induces a graded $\R$-algebra homomorphism $F^{\ast}:\Omega^{\ast}(M) \to \Omega^{\ast}(N)$. We first show the pullback for general $k$-forms. For a $k$-form $\omega$ on $M$, we have
+\begin{align}
+    (F^{\ast}\omega)_{p}(X_{1},\ldots,X_{k}) = \omega_{F(p)}(F_{\ast,p}(X_{1}),\ldots,F_{\ast,p}(X_{k}))
+\end{align}
+for all $p \in N$ and $X_{1},\ldots,X_{k} \in T_{p}N$. Then we have
+\begin{align}
+    (F^{\ast}(\omega \wedge \eta))_{p}(X_{1},\ldots,X_{k+l}) &= (\omega \wedge \eta)_{F(p)}(F_{\ast,p}(X_{1}),\ldots,F_{\ast,p}(X_{k+l})) \notag \\ &= \frac{1}{k!l!} \sum_{\sigma \in S_{k+l}} \sgn(\sigma) \omega_{F(p)}(F_{\ast,p}(X_{\sigma(1)}),\ldots,F_{\ast,p}(X_{\sigma(k)})) \notag \\ &\qquad \cdot \eta_{F(p)}(F_{\ast,p}(X_{\sigma(k+1)}),\ldots,F_{\ast,p}(X_{\sigma(k+l)})) \notag \\ &= (F^{\ast}\omega \wedge F^{\ast}\eta)_{p}(X_{1},\ldots,X_{k+l})
+\end{align}
+and
+\begin{align}
+    (F^{\ast}(f\omega+g\eta))_{p}(X_{1},\ldots,X_{k}) &= (f\omega+g\eta)_{F(p)}(F_{\ast,p}(X_{1}),\ldots,F_{\ast,p}(X_{k})) \notag \\ &= f(F(p))\omega_{F(p)}(F_{\ast,p}(X_{1}),\ldots,F_{\ast,p}(X_{k})) + g(F(p))\eta_{F(p)}(F_{\ast,p}(X_{1}),\ldots,F_{\ast,p}(X_{k})) \notag \\ &= (F^{\ast}f)(p)(F^{\ast}\omega)_{p}(X_{1},\ldots,X_{k}) + (F^{\ast}g)(p)(F^{\ast}\eta)_{p}(X_{1},\ldots,X_{k}) \notag \\ &= ((F^{\ast}f)(F^{\ast}\omega) + (F^{\ast}g)(F^{\ast}\eta))_{p}(X_{1},\ldots,X_{k})
+\end{align}
+showing that $F^{\ast}(\omega \wedge \eta) = F^{\ast}\omega \wedge F^{\ast}\eta$ and $F^{\ast}(f\omega+g\eta) = (F^{\ast}f)(F^{\ast}\omega) + (F^{\ast}g)(F^{\ast}\eta)$ for all $\omega,\eta \in \Omega^{\ast}(M)$ and $f,g \in C^{\infty}(M)$. Now, we show that if $\omega \in \Omega^{k}(M)$, then $F^{\ast}\omega \in \Omega^{k}(N)$. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$, and let $(V,\psi) = (V,y^{1},\ldots,y^{m})$ be a chart on $N$, with $F(U) \subseteq V$. Then $F^{\ast}\omega$ is smooth since
+\begin{align}
+    (F^{\ast}\omega)_{p} = F^{\ast}_{p}(\omega_{F(p)}) &= \sum_{I \in \cI_{k,n}} a_{I}(F(p)) F^{\ast}_{p}(dx^{I}) = \sum_{I \in \cI_{k,n}} a_{I}(F(p)) d(x^{i_{1}} \circ F)_{p} \wedge \cdots \wedge d(x^{i_{k}} \circ F)_{p} \notag \\
+    &= \sum_{I \in \cI_{k,n}} a_{I}(F(p)) d(F^{\ast}x^{i_{1}})_{p} \wedge \cdots \wedge d(F^{\ast}x^{i_{k}})_{p}
+\end{align}
+where each function $a_{I} \circ F$ and each function $x^{i} \circ F$ is smooth on $F^{-1}(U)$. Hence, $F^{\ast}\omega$ is a smooth $k$-form on $N$.
+
+\subsection{Exterior Differentiation}
+
+Let $A = \bigoplus_{n=0}^{\infty} A_{n}$ be a graded algebra over $\R$. An $\R$-linear map $D:A \to A$ is said to be an antiderivation of degree $+1$ if $D(ab) = (Da)b + (-1)^{\deg a}a(Db)$ for all $a \in A_{k}$ and $b \in A_{l}$, and $Da \in A_{k+1}$ whenever $a \in A_{k}$. In particular, let $A = \Omega^{\ast}(M)$ be the graded algebra of smooth differential forms on a smooth manifold $M$, and define the exterior derivative $d:\Omega^{\ast}(M) \to \Omega^{\ast}(M)$ as the $\R$-linear map defined as
+\begin{align}
+    d\left(\sum a_{I} dx^{I}\right) = \sum da_{I} \wedge dx^{I}
+\end{align}
+after coordinates are chosen. Then $d$ is an antiderivation of degree $+1$, satisfies $d^{2} = 0$, and for any $f \in C^{\infty}(M)$, $df \in \Omega^{1}(M)$ is the differential of $f$. Moreover, if $D$ is any antiderivation of degree $+1$ on $\Omega^{\ast}(M)$ such that $D^{2} = 0$ and $Df = df$ for all $f \in C^{\infty}(M)$, then $D = d$. That is, the exterior derivative is the unique antiderivation of degree $+1$ on $\Omega^{\ast}(M)$ that squares to zero and agrees with the differential on smooth functions.

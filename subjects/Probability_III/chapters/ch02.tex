@@ -456,3 +456,121 @@ Note that the case $p = q = 2$ is a special case of this theorem, and is known a
     Multiplying both sides by $\norm{X}_{p}\norm{Y}_{q}$ gives the desired result.
 \end{proof}
 With the norm defined on $L^{p}$, we can define convergence in $L^{p}$ by saying that a sequence $(X_{n})_{n \geq 1}$ converges to $X$ in $L^{p}$ if $\norm{X_{n}-X}_{p} \to 0$ as $n \to \infty$.
+
+
+\section{Central Limit Theorem}
+\textit{October 9th.}
+
+Recall that central limit theorem.
+\begin{theorem}[The \eax{central limit theorem}]
+    Let $X_{1},X_{2},\ldots$ be a sequence of independent and identically distributed random variables with $\E[X_{1}] = 0$ and $\Var(X) = 1$. Then
+    \begin{align}
+        \frac{S_{n}}{\sqrt{n}} = \frac{X_{1} + \cdots + X_{n}}{\sqrt{n}} \xrightarrow{d} X
+    \end{align}
+    where $X \sim N(0,1)$.
+\end{theorem}
+The proof of this theorem will be proved in full generality later; for now, we make some further assumptions to simplify the proof.
+
+\begin{lemma}
+    Let $(Y_{n})_{n \geq 1}$ be a sequence of random variables, and $Y$ a random variable. Then $Y_{n} \xrightarrow{d} Y$ if and only if $\E[f(Y_{n})] \to \E[f(Y)]$ for all bounded continuous functions $f:\R \to \R$.
+\end{lemma}
+\begin{proof}
+    Suppose first that $Y_{n} \xrightarrow{d} Y$. Then, by the definition of convergence in distribution, $\E[f(Y_{n})] \to \E[f(Y)]$ for every bounded continuous function $f:\R \to \R$.
+
+    Conversely, suppose that $\E[f(Y_{n})] \to \E[f(Y)]$ for all bounded continuous functions $f:\R \to \R$. Let $F_{n}$ and $F$ be the cumulative distribution functions of $Y_{n}$ and $Y$, respectively. Fix a continuity point $t$ of $F$. For each $k \geq 1$, define the function $f_{k}:\R \to \R$ as
+    \begin{align}
+        f_{k}(x) = \begin{cases}
+            1 &\text{if } x \leq t, \\
+            1-k(x-t) &\text{if } t < x \leq t+\frac{1}{k}, \\
+            0 &\text{if } x > t+\frac{1}{k}.
+        \end{cases}
+    \end{align}
+    Note that for any random variable $X$,
+    \begin{align}
+        F_{X}(t) \leq \E[f_{k}(X)] \leq F_{X}(t+1/k).
+    \end{align}
+    Therefore, for fixed $k$,
+    \begin{align}
+        \limsup_{n\to\infty}F_{n}(t) \leq \E[f_{k}(Y)] \leq F(t+1/k).
+    \end{align}
+    Letting $k\to\infty$ and using the continuity of $F$ at $t$ gives
+    \begin{align}
+        \limsup_{n\to\infty}F_{n}(t) \leq F(t).
+    \end{align}
+    To obtain the reverse inequality, define the bounded continuous function $g_{k}:\R\to\R$ by
+    \begin{align}
+        g_{k}(x) = \begin{cases}
+            0 &\text{if } x < t-\frac{1}{k},\\
+            k(x-t)+1 &\text{if } t-\frac{1}{k} \leq x < t,\\
+            1 &\text{if } x \geq t.
+        \end{cases}
+    \end{align}
+    Since $\1_{[t,\infty)}\leq g_{k}$, we have
+    \begin{align}
+        1-F_{n}(t) = \Prob(Y_{n}>t) \leq \E[g_{k}(Y_{n})] \to \E[g_{k}(Y)] \leq \Prob(Y\geq t-1/k)=1-F(t-1/k).
+    \end{align}
+    Hence
+    \begin{align}
+        \liminf_{n\to\infty}F_{n}(t) \geq F(t-1/k).
+    \end{align}
+    Letting $k\to\infty$ and using the continuity of $F$ at $t$ gives $\liminf_{n\to\infty}F_{n}(t)\geq F(t)$. Thus $F_{n}(t)\to F(t)$ at every continuity point of $F$, and consequently $Y_{n}\xrightarrow{d}Y$.
+\end{proof}
+
+\subsection{Characteristic Functions}
+For a random variable $X$, we define the \eax{characteristic function} of $X$ as
+\begin{align}
+    \psi_{X}:\R \to \C, \qquad \psi_{X}(t) = \E[e^{itX}] = \E[\cos(tX)] + i\E[\sin(tX)].
+\end{align}
+
+\begin{lemma}
+    Let $(Y_{n})_{n \geq 1}$ be a sequence of random variables, and $Y$ a random variable. Then $\E[e^{itY_{n}}] \to \E[e^{itY}]$ for all $t \in \R$ implies that $Y_{n} \xrightarrow{d} Y$.
+\end{lemma}
+
+\begin{proof}
+    Let $\psi_{n}$ and $\psi$ denote the characteristic functions of $Y_{n}$ and $Y$, respectively. We first show that $(Y_{n})_{n\geq 1}$ is tight. Fix $T>0$. By the assumed pointwise convergence and dominated convergence,
+    \begin{align}
+        \sup_{n\geq 1}\int_{-T}^{T}(1-\Re\psi_{n}(t))\,dt < \infty.
+    \end{align}
+    On the other hand,
+    \begin{align}
+        \int_{-T}^{T}(1-\cos(tx))\,dt
+        =2T-\frac{2\sin(Tx)}{x}
+        \geq 2T-\frac{2}{|x|}.
+    \end{align}
+    Thus, for $R>0$ with $2T-2/R>0$,
+    \begin{align}
+        \sup_{n\geq 1}\Prob(|Y_{n}|>R)
+        \leq \frac{1}{2T-2/R}\sup_{n\geq 1}\int_{-T}^{T}(1-\Re\psi_{n}(t))\,dt.
+    \end{align}
+    First choosing $T$ sufficiently large and then $R$ sufficiently large shows that $(Y_{n})_{n\geq 1}$ is tight.
+
+    By tightness, every subsequence of $(Y_{n})_{n\geq 1}$ has a further subsequence, denoted by $(Y_{n_{j}})_{j\geq 1}$, which converges in distribution to some random variable $W$. For each $t\in\R$, the first lemma gives
+    \begin{align}
+        \E[e^{itW}] = \lim_{j\to\infty}\E[e^{itY_{n_{j}}}] = \E[e^{itY}].
+    \end{align}
+    Therefore $W$ and $Y$ have the same distribution, since characteristic functions determine distributions. Hence every subsequence has a further subsequence converging in distribution to $Y$, which implies that $Y_{n}\xrightarrow{d}Y$.
+\end{proof}
+
+Using this lemma, we may prove the central limit theorem assuming finite third moment.
+
+\begin{proof}[Proof of the central limit theorem]
+    By the above lemma, it suffices to show that $\E[e^{it S_{n}/\sqrt{n}}] \to \psi_{Z}(t)$ for all $t \in \R$, where $Z \sim N(0,1)$. Via independence, we have
+    \begin{align}
+        \E\left[ e^{it S_{n}/\sqrt{n}} \right] = \psi_{X_{1}} \left( \frac{t}{\sqrt{n}} \right)^{n}.
+    \end{align}
+    Since $\E[X_{1}]=0$ and $\E[X_{1}^{2}]=1$, Taylor's theorem gives
+    \begin{align}
+        \psi_{X_{1}}(u)=1-\frac{u^{2}}{2}+o(u^{2}) \qquad (u\to 0).
+    \end{align}
+    Consequently,
+    \begin{align}
+        \psi_{X_{1}}\left(\frac{t}{\sqrt{n}}\right)^{n}
+        =\left(1-\frac{t^{2}}{2n}+o\left(\frac{1}{n}\right)\right)^{n}
+        \to e^{-t^{2}/2}.
+    \end{align}
+    Finally, if $Z\sim N(0,1)$, then completing the square in the Gaussian integral gives
+    \begin{align}
+        \psi_{Z}(t)=\E[e^{itZ}]=e^{-t^{2}/2}.
+    \end{align}
+    Therefore $\E[e^{itS_{n}/\sqrt{n}}]\to\psi_{Z}(t)$ for every $t\in\R$, and the above lemma proves the result.
+\end{proof}
