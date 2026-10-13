@@ -574,3 +574,34 @@ Using this lemma, we may prove the central limit theorem assuming finite third m
     \end{align}
     Therefore $\E[e^{itS_{n}/\sqrt{n}}]\to\psi_{Z}(t)$ for every $t\in\R$, and the above lemma proves the result.
 \end{proof}
+
+\noindent \textit{October 13th.}
+
+We now prove the central limit theorem in full generality.
+\begin{proof}[Proof of the central limit theorem]
+    Let $X_{1},X_{2},\ldots$ be independent and identically distributed random variables with $\E[X_{1}]=0$ and $\Var(X_{1})=1$. Now let $Y_{1},Y_{2},\ldots$ be independent and identically distributed random variables with $Y_{1}\sim N(0,1)$. Now, for $0 \leq k \leq n$, define
+    \begin{align}
+        V_{k} &\defeq \frac{1}{\sqrt{n}}(X_{1}+X_{2}+\cdots+X_{k}+Y_{k+1}+Y_{k+2}+\cdots+Y_{n}), \\ U_{k} &\defeq \frac{1}{\sqrt{n}}(X_{1}+X_{2}+\cdots+X_{k-1} + Y_{k+1}+Y_{k+2}+\cdots+Y_{n}).
+    \end{align}
+    Then $V_{0} = S_{n}^{Y}/\sqrt{n}$ and $V_{n} = S_{n}^{X}/\sqrt{n}$. Since showing that $V_{n} \xrightarrow{d} V_{0}$ is equivalent to showing that $\E[f(V_{n})] \to \E[f(V_{0})]$ for all bounded smooth functions $f:\R \to \R$, it suffices to show
+    \begin{align}
+        \E[f(S_{n}^{X}/\sqrt{n})] = \E[f(V_{n})] \xrightarrow{d} \E[f(Z)] = \E[f(V_{0})],
+    \end{align}
+    where $f$ is a bounded smooth function and $Z \sim N(0,1)$. Now, we write $\E[f(V_{n})-f(V_{0})]$ as the telescoping sum $\sum_{k=1}^{n} \E[f(V_{k})-f(V_{k-1})]$. Note that each term in this sum may be written as $\E[f(V_{k})-f(V_{k-1})] = \E[f(V_{k})-f(U_{k})] - \E[f(V_{k-1})-f(U_{k})]$. To estimate the first of these terms, we use Taylor's theorem to write
+    \begin{align}
+        f(V_{k})-f(U_{k}) = f'(U_{k})\frac{X_{k}}{\sqrt{n}} + f''(U_{k})\frac{X_{k}^{2}}{2n} + f'''(W_{k})\frac{X_{k}^{3}}{6n^{3/2}} \implies \E[f(V_{k})-f(U_{k})] = \E[f''(U_{k})/2n] + (\cdots),
+    \end{align}
+    and similarly
+    \begin{align}
+        f(V_{k-1})-f(U_{k}) = f'(U_{k})\frac{Y_{k}}{\sqrt{n}} + \frac{1}{2}f''(U_{k})\frac{Y_{k}^{2}}{n} + \frac{1}{6}f'''(W'_{k})\frac{Y_{k}^{3}}{n^{3/2}} \implies \E[f(V_{k-1})-f(U_{k})] = \E[f''(U_{k})/2n] + (\cdots),
+    \end{align}
+    which gives
+    \begin{align}
+        \abs{\E[f(V_{k})-f(V_{k-1})]} \leq \abs{\E[f(V_{k})-f(U_{k})]} + \abs{\E[f(V_{k-1})-f(U_{k})]} \leq \frac{\norm{f'''}_{\infty}}{6n^{3/2}}\E[\abs{X_{k}}^{3}+\abs{Y_{k}}^{3}] \leq \frac{C}{n^{3/2}}.
+    \end{align}
+    Therefore,
+    \begin{align}
+        \E[f(V_{n})-f(V_{0})] = \sum_{k=1}^{n} \E[f(V_{k})-f(V_{k-1})] \leq \frac{C}{\sqrt{n}} \to 0,
+    \end{align}
+    as desired.
+\end{proof}
