@@ -1,0 +1,127 @@
+\chapter{APPLICATIONS}
+
+
+% \section{Markov Chains}
+\textit{October 14th.}
+
+\begin{example}
+    A monkey randomly chooses an alphabet key on a typewriter uniformly; let $u_{i}$ be the key chosen at $i$-th time. What is the chance the monkey types out ``ISP IS BORING''?
+\end{example}
+In particular, let
+\begin{align}
+    \tau = \min\{n \geq 11 \mid (u_{n-10},\ldots,u_{n}) = (I,S,P,I,S,B,O,R,I,N,G)\}.
+\end{align}
+We ask if $\E[\tau]$ is finite. The Markov chain method is as follows; for all $k \geq 1$, define $Y_{k} = (u_{k},\ldots,u_{k+10})$. As $u_{i} \sim \Unif\{A,B,\ldots,Z\}$, $\{Y_{k}\}_{k \geq 1}$ turns into a Markov chain. Using $h(x) = \E[\tau \mid Y_{1} = x]$, we may set up a recurrence relation and solve for $h$ by hand to obtain an answer. This is computationally expensive by hand.
+
+A better approach is to use martingales. Let $(Y_{1},\ldots,Y_{11}) = (I,S,P,\ldots,I,N,G)$, and set $Z_{0}^{1} = 1$ to be the capital of gambler $1$ at time $t = 0$. At time $t = 1$, the gambler places a bet that $u_{1} = I$. If $u_{1} = I$, then the gambler gets $26$ capital, and if $u_{1} \neq I$, the gambler gets $0$ capital and exits the casino. The expected gain here is then
+\begin{align}
+    \frac{1}{26}(26-1) + \frac{25}{26}(-1) = 0.
+\end{align}
+At time $t = 2$, the gambler bets all the gain, $26$ capital, that $u_{2} = S$. If $u_{2} = S$, the gambler gets $(26)^{2}$ capital, and if $u_{2} \neq S$, the gambler loses and exits the casino. The expected gain here is, again, $0$. Repeat this until $t = 11$, and $Z_{t}^{1} = Z_{11}^{1}$ for all $t \geq 10$, where $Z_{n}^{1}$ is the current capital; that is,
+\begin{align}
+    Z_{n}^{1} = \begin{cases}
+        26 \cdot Z_{n-1}^{1} \1_{\{u_{n} = \psi_{n}\}} &\text{ if } 1 \leq n \leq 11,\\
+        Z_{11}^{1} &\text{ if } n \geq 12.
+    \end{cases}
+\end{align}
+Now, a second gambler enters the casino at time $t = 2$ and places a bet of $1$ that $u_{2} = I$. If $u_{2} = I$, the second gambler gets $26$ capital, and $0$ otherwise. Continue similarly till $t = 12$. So, for any $k \geq 1$, gambler $k$ enters at time $t = k$ and starts with capital $1$ for bet $u_{k} = I$, with capital at each step as
+\begin{align}
+    Z_{n}^{k} = \begin{cases}
+        1 &\text{ if } n < k,\\
+        26 \cdot Z_{n-1}^{k} \1_{\{u_{n}=\psi_{n-k+1}\}} &\text{ if } k \leq n \leq k+10,\\
+        Z_{k+10}^{k} &\text{ if } n \geq k + 11.
+    \end{cases}
+\end{align}
+Now, finally, define
+\begin{align}
+    M_{n} = \sum_{k=1}^{n}(1-Z_{n}^{k}) = n - \sum_{k=1}^{n}Z_{n}^{k}.
+\end{align}
+the gain of the casino. We make three claims:
+\begin{enumerate}
+    \item $(M_{n})_{n \geq 1}$ is a martingale.
+    \item $\tau$ is a stopping time for this martingale.
+    \item The OST applies.
+\end{enumerate}
+To show $(M_{n})_{n \geq 1}$ is a martingale, we first have
+\begin{align}
+    \abs{M_{n}} \leq n + n(26)^{11} < \infty,
+\end{align}
+so they are integrable. Moreover,
+\begin{align}
+    \E[M_{n} \mid M_{n-1},\ldots,M_{1}] &= n - \E\left[ \sum_{k=1}^{n-11} Z_{n-1}^{k} + \sum_{k=n-10}^{n}26 \cdot Z_{n-1}^{k} \1_{\{u_{n}=\psi_{n-k+1}\}} \mid u_{n-1},\ldots,u_{1} \right] \notag \\
+    &= n - \sum_{k=1}^{n-11} Z_{n-1}^{k} + 26\sum_{k=n-10}^{n} Z_{n-1}^{k} \Prob(u_{n} = \psi_{n-k+1}) \notag \\
+    &= n - \sum_{k=1}^{n-11} Z_{n-1}^{k} - \sum_{k=n-10}^{n} Z_{n-1}^{k} = n-1-\sum_{k=1}^{n-1}Z_{n-1}^{k} = M_{n-1},
+\end{align}
+showing that $(M_{n})_{n \geq 1}$ is a martingale. For the second claim, note that $\{\tau \leq n\} = \bigcup_{k=1}^{n}\{(u_{k},\ldots,u_{k+10}) = (I,S,P,\ldots,I,N,G)\} \in \sigma(u_{1},\ldots,u_{n})$, so $\tau$ is a stopping time. Now, $M_{n} = n-\sum_{k=1}^{n} Z_{n}^{k}$, and $\E[M_{1}] = 1 - \E[Z_{1}^{1}] = 0$. Note that $Z_{\tau}^{k} = 0$ for all $k \leq \tau-10$, and $Z_{\tau}^{k} = 0$ for all $\tau-10 < k \leq \tau$ except for $k = \tau-10$, where $Z_{\tau}^{\tau-10} = 26^{11}$. If the OST applies, then $\E[M_{\tau}] = \E[M_{1}] = 0$, so
+\begin{align}
+    \E[\tau] = \E[M_{\tau}] + (26)^{11} = (26)^{11} < \infty.
+\end{align}
+Thus, we are only left to show that the OST applies. If we let $W_{k}$ denote the $k$-th 11-block of $u$'s, then the $W_{k}$'s are independent and identically distributed. If $S$ is the first $k$ such that $W_{k} = (I,S,P,\ldots,I,N,G)$, then $\tau \leq 11S$. But this implies
+\begin{align}
+    \E[\tau] \leq 11\E[S] = 11 \cdot 26^{11} < \infty,
+\end{align}
+so $\tau$ is integrable. Now, the increments in $M_{n}$ are handled as
+\begin{align}
+    \abs{M_{n}-M_{n-1}} &= \abs{\sum_{k=1}^{n-1}(Z_{n-1}^{k}-Z_{n}^{k})-Z_{n}^{n}+1} \leq \abs{\sum_{k=1}^{n-1}(Z_{n-1}^{k}-Z_{n}^{k})} + 25 \notag \\ &\leq 25\sum_{k=n-10}^{n-1}\abs{Z_{n-1}^{k}} + 25 \leq 25(26)^{11}10+25.
+\end{align}
+The OST applies, and we are done.
+
+\begin{example}
+    Let $S_{n}$ be the permutation group on $n$ elements, $S_{n} = \{\sigma: \{1,\ldots,n\} \to \{1,\ldots,n\} \mid \sigma \text{ is bijective}\}$. Let $\pi \in S_{n}$. An increasing subsequence of $\pi$ is a sequence $1 \leq i_{1} < i_{2} < \ldots < i_{k} \leq n$ such that $\pi(i_{1}) < \pi(i_{2}) < \ldots < \pi(i_{k})$. Let $L_{n}(\pi)$ denote the length of the longest increasing subsequence of $\pi$, where $\pi$ is chosen uniformly at random from $S_{n}$. What is the asymptotic behavior of $L_{n} = L_{n}(\pi)$ as $n \to \infty$?
+\end{example}
+
+We show the following theorem.
+\begin{theorem}
+    The following hold for $L_{n}$.
+    \begin{enumerate}
+        \item $\E[L_{n}] \geq \sqrt{n}$.
+        \item $\limsup_{n \to \infty} \frac{\E[L_{n}]}{\sqrt{n}} \leq e$.
+        \item $\Prob(\abs{L_{n}-\E[L_{n}]} \geq t\sqrt{n}) \leq 2e^{-t^{2}/2}$.
+    \end{enumerate}
+\end{theorem}
+\noindent From these statements, one can conclude that
+\begin{align}
+    1 \leq \liminf_{n \to \infty} \frac{\E[L_{n}]}{\sqrt{n}} \leq \limsup_{n \to \infty} \frac{\E[L_{n}]}{\sqrt{n}} \leq e,
+\end{align}
+and
+\begin{align}
+    \frac{L_{n}}{\sqrt{n}} - \frac{\E[L_{n}]}{\sqrt{n}} \toP 0.
+\end{align}
+
+\noindent We make use of the following fact, that if $x_{1},\ldots,x_{n}$ are real numbers $L(x_{1},\ldots,x_{n})$ and $D(x_{1},\ldots,x_{n})$ denoting the lenghts of the longest increasing and decreasing subsequences of $x_{1},\ldots,x_{n}$, then
+\begin{align}
+    L(x_{1},\ldots,x_{n})D(x_{1},\ldots,x_{n}) \geq n.
+\end{align}
+Note that $D_{n}(\pi)$, the length of the longest decreasing subsequence of $\pi$, is equal in distribution to $L_{n}(\pi)$, so $\E[L_{n}]^{2} \geq n$, giving the first statement. For the second statement, let $N_{k}$ denote the number of increasing subsequences of length $k$. Then
+\begin{align}
+    N_{k} = \sum_{1 \leq i_{1} < \ldots < i_{k} \leq n} \1_{\{\pi(i_{1}) < \ldots < \pi(i_{k})\}}.
+\end{align}
+Then $\E[N_{k}] = \binom{n}{k}\frac{1}{k!}$. Then using Markov's inequality and Stirling's formula gives
+\begin{align}
+    \Prob(L_{n} \geq k) = \Prob(N_{k} \geq 1) \leq \E[N_{k}] = \binom{n}{k} \frac{1}{k!} \implies \E[L_{n}] = \sum_{k=1}^{n} \Prob(L_{n} \geq k) \leq \sum_{k=1}^{\infty} \binom{n}{k} \frac{1}{k!} \leq \sqrt{n}e.
+\end{align}
+For the last statement, let $\cA_{k} = \sigma(\pi(1),\ldots,\pi(k))$, and set $M_{k} = \E[L_{n} \mid \cA_{k}]$ for $n \geq 1$, and $M_{0} = \E[L_{n}]$. Then $(M_{k})_{0 \leq k \leq n}$ is a martingale (show this). Let $D_{k} = M_{k}-M_{k-1}$. Then
+\begin{align}
+    \E[D_{k} \mid \cA_{k-1}] = \E[M_{k} \mid \cA_{k-1}] - M_{k-1} = 0.
+\end{align}
+Also, there exists $c_{k}$ such that $\abs{D_{k}} \leq c_{k}$ (show this). This implies that
+\begin{align}
+    \E[e^{\lambda D_{k}} \mid \cA_{k-1}] \leq e^{\lambda^{2}c_{k}^{2}/2}
+\end{align}
+or
+\begin{align}
+    \E[e^{\lambda (M_{n}-M_{0})}] = \E[e^{\lambda \sum_{k=1}^{n} D_{k}}] = \E[e^{\sum_{k=1}^{n-1} D_{k}} \E[e^{\lambda D_{n}} \mid \cA_{n-1}]] \leq e^{\lambda^{2}\sum_{k=1}^{n} c_{k}^{2}/2}.
+\end{align}
+Using this, we have
+\begin{align}
+    \Prob(M_{n}-M_{0} \geq t) \leq \Prob(e^{\lambda(M_{n}-M_{0})} \geq e^{\lambda t}) \leq e^{-\lambda t} \E[e^{\lambda(M_{n}-M_{0})}] \leq e^{-\lambda t + \lambda^{2}\sum_{k=1}^{n} c_{k}^{2}/2}.
+\end{align}
+One can show that $c_{k} = 1$ works, so that
+\begin{align}
+    \Prob(M_{n}-M_{0} \geq t) \leq e^{-\lambda t + n\lambda^{2}/2}.
+\end{align}
+Minimizing the right-hand side over $\lambda$ gives $\lambda = t/n$, so
+\begin{align}
+    \Prob(M_{n}-M_{0} \geq t) \leq e^{-t^{2}/2n}.
+\end{align}
+This gives the desired result, since $\sqrt{n}(M_{n}-M_{0}) = L_{n}-\E[L_{n}]$.
