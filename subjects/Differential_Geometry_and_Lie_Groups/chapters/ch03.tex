@@ -199,3 +199,52 @@ Lifting this theory, let $M$ be a smooth manifold of dimension $n$. Recall that 
     \end{align}
     This implies that the map $\det(A(\cdot)):U \to \R^{\times}$ is a continuous function; so it must be positive on the entirety of $U$, or negative. Moreover, $f:U \to \{\pm 1\}$ may be written as $f(q) = \sgn(\det(A(q)))$ for all $q \in U$, showing that $f$ is locally constant. Since $M$ is connected, $f$ is constant, finally implying that $\mu = \nu$ or $\mu = -\nu$.
 \end{proof}
+
+\textit{October 16th.}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold of dimension $n$. A frame $(X_{1},\ldots,X_{n})$ on $M$ gives a pointwise continuous orientation on $M$ if and only if for all $p \in M$, there exists a chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ on $M$ with $p \in U$ such that $(dx^{1} \wedge \cdots \wedge dx^{n})_{p}(X_{1,p},\ldots,X_{n,p}) > 0$.
+\end{proposition}
+\begin{proof}
+    Let $(X_{1},\ldots,X_{n})$ be a frame on $M$ which gives a pointwise continuous orientation on $M$. Let $p \in M$. Then there exists a neighbourhood $U$ of $p$ and a continuous frame $(Y_{1},\ldots,Y_{n})$ on $U$ such that for all $q \in U$, $[(Y_{1,q},\ldots,Y_{n,q})] = [(X_{1,q},\ldots,X_{n,q})]$. $[(\frac{d}{dx^{1}})_{q},\ldots,(\frac{d}{dx^{n}})_{q}]$ is an orientation on $T_{q}M$ for all $q \in U$. Since $Y_{1},\ldots,Y_{n}$ are continuous vector fields on $U$, the coordinate functions $a_{ij}:U \to \R$ defined as $Y_{i} = \sum_{j=1}^{n} a_{ij}(\frac{d}{dx^{j}})$ are continuous. Thus, the map $\det(a_{ij}):U \to \R^{\times}$ is continuous, and so it must be positive on the entirety of $U$, or negative. If this map is negative, we can replace $Y_{1}$ with $-Y_{1}$ to make it positive. Then we have
+    \begin{align}
+        (dx^{1} \wedge \cdots \wedge dx^{n})_{q}(Y_{1,q},\ldots,Y_{n,q}) = \det(a_{ij}(q)) > 0.
+    \end{align}
+    Finally, since $[(Y_{1,q},\ldots,Y_{n,q})] = [(X_{1,q},\ldots,X_{n,q})]$, we have that
+    \begin{align}
+        (dx^{1} \wedge \cdots \wedge dx^{n})_{q}(X_{1,q},\ldots,X_{n,q}) > 0.
+    \end{align}
+    For the converse, let $(X_{1},\ldots,X_{n})$ be a frame on $M$ such that for all $p \in M$, there exists a chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ on $M$ with $p \in U$ such that $(dx^{1} \wedge \cdots \wedge dx^{n})_{p}(X_{1,p},\ldots,X_{n,p}) > 0$. Then for all $q \in U$, we have
+    \begin{align}
+        (dx^{1} \wedge \cdots \wedge dx^{n})_{q}(X_{1,q},\ldots,X_{n,q}) > 0.
+    \end{align}
+    We show that $[(X_{1,q},\ldots,X_{n,q})] = [(\frac{d}{dx^{1}})_{q},\ldots,(\frac{d}{dx^{n}})_{q}]$ for all $q \in U$. Let $A(q)$ be the change of basis matrix from $(X_{1,q},\ldots,X_{n,q})$ to $((\frac{d}{dx^{1}})_{q},\ldots,(\frac{d}{dx^{n}})_{q})$. Then we have
+    \begin{align}
+        (dx^{1} \wedge \cdots \wedge dx^{n})_{q}(X_{1,q},\ldots,X_{n,q}) = \det(A(q)) > 0.
+    \end{align}
+    This shows that the frame $(X_{1,q},\ldots,X_{n,q})$ is positively oriented with respect to the coordinate frame $((\frac{d}{dx^{1}})_{q},\ldots,(\frac{d}{dx^{n}})_{q})$ for all $q \in U$, and hence the frame $(X_{1},\ldots,X_{n})$ gives a pointwise continuous orientation on $M$.
+\end{proof}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold of dimension $n$. Then $M$ is orientable if and only if there exists a smooth nowhere vanishing $n$-form $\omega \in \Omega^{n}(M)$.
+\end{proposition}
+\begin{proof}
+    Suppose $M$ is orientable, and $X_{1},\ldots,X_{n}$ is a frame on $M$ which gives a pointwise continuous orientation on $M$. Then for all $p \in M$, there exists a chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ on $M$ with $p \in U$ such that $(dx^{1} \wedge \cdots \wedge dx^{n})_{p}(X_{1,p},\ldots,X_{n,p}) > 0$, or on $U$, $(dx^{1} \wedge \cdots \wedge dx^{n})(X_{1},\ldots,X_{n}) > 0$. Vary $p \in M$ to get an open cover $\{U_{\alpha}\}$ of $M$ with charts $(U_{\alpha},\varphi_{\alpha}) = (U_{\alpha},x^{1}_{\alpha},\ldots,x^{n}_{\alpha})$ on $M$ such that $(dx^{1}_{\alpha} \wedge \cdots \wedge dx^{n}_{\alpha})(X_{1},\ldots,X_{n}) > 0$ on $U_{\alpha}$. Let $\{\rho_{\alpha}\}$ be a smooth partition of unity subordinate to the open cover $\{U_{\alpha}\}$. Then we can define a smooth $n$-form $\omega \in \Omega^{n}(M)$ as
+    \begin{align}
+        \omega = \sum_{\alpha} \rho_{\alpha} dx^{1}_{\alpha} \wedge \cdots \wedge dx^{n}_{\alpha}.
+    \end{align}
+    Then for all $p \in M$, we have
+    \begin{align}
+        \omega_p(X_{1,p},\ldots,X_{n,p}) = \sum_{\alpha} \rho_{\alpha}(p) (dx^{1}_{\alpha} \wedge \cdots \wedge dx^{n}_{\alpha})_p(X_{1,p},\ldots,X_{n,p}) > 0.
+    \end{align}
+    This shows that $\omega$ is a smooth nowhere vanishing $n$-form on $M$. For the converse, suppose there exists a smooth nowhere vanishing $n$-form $\omega \in \Omega^{n}(M)$. Then for all $p \in M$, we have $\omega_{p} \neq 0$, and hence there exists a basis $(X_{1,p},\ldots,X_{n,p})$ for $T_{p}M$ such that $\omega_{p}(X_{1,p},\ldots,X_{n,p}) > 0$. Vary $p \in M$ to get a frame $(X_{1},\ldots,X_{n})$ on $M$ such that $\omega(X_{1},\ldots,X_{n}) > 0$. 
+    Define an orientation on $T_{p}M$ by declaring an ordered basis $(v_{1},\ldots,v_{n})$ to be positive if and only if
+    \begin{align}
+        \omega_{p}(v_{1},\ldots,v_{n}) > 0.
+    \end{align}
+    This is well-defined, since replacing a basis by another one multiplies the value of $\omega_{p}$ by the determinant of the change-of-basis matrix. It remains to verify continuity. Let $p \in M$ and choose a chart $(U,x^{1},\ldots,x^{n})$ around $p$. Since $\omega$ is nowhere vanishing, we can write
+    \begin{align}
+        \omega = f\,dx^{1} \wedge \cdots \wedge dx^{n}
+    \end{align}
+    on $U$, where $f:U \to \mathbb{R}$ is smooth and nowhere zero. After shrinking $U$ if necessary, $f$ has constant sign. Consequently, the coordinate frame $(\frac{\partial}{\partial x^{1}},\ldots,\frac{\partial}{\partial x^{n}})$, or the same frame with one vector multiplied by $-1$, represents the orientation defined above throughout $U$. Thus the pointwise orientation is continuous, so $M$ is orientable.
+\end{proof} `'
