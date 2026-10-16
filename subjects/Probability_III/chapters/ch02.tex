@@ -605,3 +605,70 @@ We now prove the central limit theorem in full generality.
     \end{align}
     as desired.
 \end{proof}
+
+\textit{October 16th.}
+
+\begin{theorem}[The \eax{Linderberg-Feller central limit theorem}]
+    Let $\{X_{ij}\}_{1 \leq j \leq i < \infty}$ be a triangular array of random variables such that:
+    \begin{enumerate}
+        \item For each $i \geq 1$, the random variables $X_{i1},\ldots,X_{ii}$ are independent, with $\E[X_{ij}] = 0$.
+        \item $\sum_{j=1}^{i}\E[X_{ij}^{2}] \to \sigma^{2} > 0$ as $i \to \infty$.
+        \item For all $\delta > 0$, $\sum_{j=1}^{i} \E[X_{ij}^{2}\1_{\abs{X_{ij}} > \delta}] \to 0$ as $i \to \infty$.
+    \end{enumerate}
+    Then, with $S_{n} = \sum_{j=1}^{n}X_{nj}$, we have $S_{n} \xrightarrow{d} N(0,\sigma^{2})$ as $n \to \infty$.
+\end{theorem}
+
+We first show that this more general form of the central limit theorem implies the classical form. Let $X_{1},X_{2},\ldots$ be independent and identically distributed random variables with $\E[X_{1}] = 0$ and $\Var(X_{1}) = \sigma^{2} > 0$. Then, for each $n \geq 1$, we can define a triangular array by setting $X_{nj} = X_{j}/\sqrt{n}$ for $1 \leq j \leq n$. Then, condition (1) is satisfied by independence, and condition (2) is satisfied since $\sum_{j=1}^{n}\E[X_{nj}^{2}] = \sum_{j=1}^{n}\Var(X_{j}/\sqrt{n}) = \sigma^{2}$. Finally, condition (3) is satisfied since
+\begin{align}
+    \sum_{j=1}^{n} \E[X_{nj}^{2}\1_{\abs{X_{nj}} > \delta}] = n\E[X_{1}^{2}\1_{\abs{X_{1}} > \delta\sqrt{n}}] \to 0,
+\end{align}
+as $n \to \infty$, by the dominated convergence theorem. This implies that $S_{n} = \sum_{j=1}^{n}X_{nj} = \sum_{j=1}^{n}X_{j}/\sqrt{n} \xrightarrow{d} N(0,\sigma^{2})$ as $n \to \infty$, which is the classical form of the central limit theorem.
+
+\begin{example}
+    Let $X_{1},X_{2},\ldots$ be independent random variables, with $X_{n} \sim \Ber(p_{n})$ where $0 < p_{n} < 1$ for all $n \geq 1$. Let $\tau_{n}^{2} = \sum_{j=1}^{n} \Var(X_{j}) = \sum_{j=1}^{n} p_{j}(1-p_{j})$. Suppose $\tau_{n}^{2} \to \infty$ as $n \to \infty$. Define $X_{nj} = (X_{j}-p_{j})/\tau_{n}$ for $1 \leq j \leq n$. Then, we have $\E[X_{nj}] = 0$, satisfying condition (1). Also, $\sum_{j=1}^{n} \E[X_{nj}^{2}] = \sum_{j=1}^{n} \Var(X_{j})/\tau_{n}^{2} = 1$, satisfying condition (2). Finally, for any $\delta > 0$, we have
+    \begin{align}
+        \sum_{j=1}^{n} \E[X_{nj}^{2}\1_{\abs{X_{nj}} > \delta}] = \sum_{j=1}^{n} \frac{\Var(X_{j})}{\tau_{n}^{2}} \1_{\abs{X_{j}-p_{j}} > \delta\tau_{n}} \leq \frac{1}{\tau_{n}^{2}} \sum_{j=1}^{n} \Var(X_{j}) = 1/\tau_{n}^{2} \to 0,
+    \end{align}
+    as $n \to \infty$, satisfying condition (3). Therefore, by the Linderberg-Feller central limit theorem, we have
+    \begin{align}
+        \frac{X_{1}+X_{2}+\cdots+X_{n}-\sum_{j=1}^{n}p_{j}}{\sqrt{\sum_{j=1}^{n}p_{j}(1-p_{j})}} = \frac{S_{n}-\E[S_{n}]}{\sqrt{\Var(S_{n})}} \xrightarrow{d} N(0,1),
+    \end{align}
+    as $n \to \infty$.
+\end{example}
+\begin{example}
+    Suppose $X_{1},X_{2},\ldots$ are independent and identically distributed random variables with $\E[X_{1}] = 0$ and $\Var(X_{1}) = 1$. Let $Y_{n} = X_{1}+2X_{2}+\cdots+nX_{n}$, where $\Var(Y_{n}) = \sum_{j=1}^{n} j^{2} \Var(X_{j}) = n(n+1)(2n+1)/6 \sim n^{3}/3$. We wish to show that
+    \begin{align}
+        \frac{Y_{n}}{\sqrt{n^{3}/3}} \xrightarrow{d} N(0,1),
+    \end{align}
+    as $n \to \infty$. To see this, we define a triangular array by setting $X_{nj} = jX_{j}/\sqrt{n^{3}/3}$ for $1 \leq j \leq n$. Then, condition (1) is satisfied by independence, and condition (2) is satisfied since
+    \begin{align}
+        \sum_{j=1}^{n} \E[X_{nj}^{2}] = \sum_{j=1}^{n} j^{2}\Var(X_{j})/(n^{3}/3) = \frac{3}{n^{3}}\sum_{j=1}^{n} j^{2} \to 1,
+    \end{align}
+    as $n \to \infty$. Finally, for any $\delta > 0$, we have
+    \begin{align}
+        \sum_{j=1}^{n} \E[X_{nj}^{2}\1_{\abs{X_{nj}} > \delta}] = \sum_{j=1}^{n} \frac{j^{2}}{n^{3}/3} \E[X_{j}^{2}\1_{\abs{X_{j}} > \delta\sqrt{n^{3}/3}/j}] \leq \frac{3}{n^{3}}\sum_{j=1}^{n} j^{2} \E[X_{j}^{2}\1_{\abs{X_{j}} > \delta\sqrt{n}/\sqrt{3}}] = \E[X_{1}^{2}\1_{\abs{X_{1}} > \delta\sqrt{n}/\sqrt{3}}] \to 0,
+    \end{align}
+    as $n \to \infty$. Therefore, by the Linderberg-Feller central limit theorem, we have
+    \begin{align}
+        \frac{Y_{n}}{\sqrt{n^{3}/3}} \xrightarrow{d} N(0,1),
+    \end{align}
+    as $n \to \infty$.
+\end{example}
+
+We now give a proof of the Linderberg-Feller central limit theorem.
+
+\begin{proof}[Proof of the Linderberg-Feller central limit theorem]
+    Let $S_{n} = X_{n1}+\cdots+X_{nn}$ be the sum of the $n$-th row. It suffices to show that, for all $t \in \R$, $\E[e^{it S_{n}}] \to \E[N(0,\sigma^{2})]$ as $n \to \infty$. The Taylor expansion of $e^{itx}$ about $x=0$ gives
+    \begin{align}
+        e^{itx} = 1+itx + \frac{(it)^{2}}{2}x^{2} + \frac{(it)^{3}}{3!}e^{itx^{\ast}}x^{3} = 1 + itx + \frac{(it)^{2}}{2} e^{it \tilde{x}}x^{2}
+    \end{align}
+    where $\abs{\tilde{x}},\abs{x^{\ast}} \leq \abs{x}$. We use the first expansion on $\abs{x} < \delta$ and the second expansion on $\abs{x} \geq \delta$; adding the two expansions gives
+    \begin{align}
+        e^{itx} = 1 + itx - \frac{t^{2}}{2}x^{2}(1-e^{it\tilde{x}}) \1_{\abs{x} \geq \delta} - \frac{it^{3}}{6}e^{itx^{\ast}}x^{3} \1_{\abs{x} < \delta}.
+    \end{align}
+    Then, we have
+    \begin{align}
+        \E[e^{it X_{nj}}] = 1 + 0 - \frac{t^{2}}{2} \E[X_{nj}^{2}] + R_{n,j}
+    \end{align}
+    where $R_{n,j}$ is small. We now show that if $z_{j} = 1-\frac{t^{2}}{2}\E[X_{nj}^{2}]$ and $w_{j} = 1-\frac{t^{2}}{2}\E[X_{nj}^{2}] + R_{n,j}$, then $\prod_{j=1}^{n} z_{j} \approx \prod_{j=1}^{n} w_{j}$, which happens when $\sum_{j=1}^{n} \abs{R_{n,j}} \to 0$ as $n \to \infty$. 
+\end{proof}
