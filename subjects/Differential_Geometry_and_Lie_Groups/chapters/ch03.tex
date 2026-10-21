@@ -247,4 +247,29 @@ Lifting this theory, let $M$ be a smooth manifold of dimension $n$. Recall that 
         \omega = f\,dx^{1} \wedge \cdots \wedge dx^{n}
     \end{align}
     on $U$, where $f:U \to \mathbb{R}$ is smooth and nowhere zero. After shrinking $U$ if necessary, $f$ has constant sign. Consequently, the coordinate frame $(\frac{\partial}{\partial x^{1}},\ldots,\frac{\partial}{\partial x^{n}})$, or the same frame with one vector multiplied by $-1$, represents the orientation defined above throughout $U$. Thus the pointwise orientation is continuous, so $M$ is orientable.
-\end{proof} `'
+\end{proof}
+
+\textit{October 21st.}
+
+\begin{definition}
+    Let $\{(U_{\alpha},\varphi_{\alpha}) = (U_{\alpha},x^{1}_{\alpha},\ldots,x^{n}_{\alpha})\}_{\alpha \in \Lambda}$ be an atlas on a smooth manifold $M$ of dimension $n$. It is termed an \eax{orientable atlas} if for all $\alpha,\beta \in \Lambda$ with $U_{\alpha} \cap U_{\beta} \neq \emptyset$, the Jacobian determinant of the transition map $\varphi_{\beta} \circ \varphi_{\alpha}^{-1}$ is positive on $\varphi_{\alpha}(U_{\alpha} \cap U_{\beta})$; that is,
+    \begin{align}
+        \det\left( \frac{\partial x^{i}_{\beta}}{\partial x^{j}_{\alpha}} \right)_{1 \leq i,j \leq n} > 0 \text{ on } \varphi_{\alpha}(U_{\alpha} \cap U_{\beta}).
+    \end{align}
+\end{definition}
+
+\begin{proposition}
+    Let $M$ be a smooth manifold of dimension $n$. Then $M$ is orientable if and only if there exists an orientable atlas on $M$.
+\end{proposition}
+\begin{proof}
+    If $M$ is orientable, then there exists a frame $(X_{1},\ldots,X_{n})$ on $M$ such that there exist charts $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ covering $M$ satisfying $(dx^{1} \wedge \cdots \wedge dx^{n})(X_{1},\ldots,X_{n}) > 0$. Let $\{(U_{\alpha},\varphi_{\alpha}) = (U_{\alpha},x^{1}_{\alpha},\ldots,x^{n}_{\alpha})\}_{\alpha \in \Lambda}$ be this atlas of charts on $M$. Then for all $\alpha,\beta \in \Lambda$ with $U_{\alpha} \cap U_{\beta} \neq \emptyset$, we have
+    \begin{align}
+         \det\left( \frac{\partial x^{i}_{\beta}}{\partial x^{j}_{\alpha}} \right) \cdot (dx^{1}_{\alpha} \wedge \cdots \wedge dx^{n}_{\alpha})(X_{1},\ldots,X_{n}) = (dx^{1}_{\beta} \wedge \cdots \wedge dx^{n}_{\beta})(X_{1},\ldots,X_{n}) > 0
+    \end{align}
+    implying that the Jacobian determinant of the transition map $\varphi_{\beta} \circ \varphi_{\alpha}^{-1}$ is positive on $\varphi_{\alpha}(U_{\alpha} \cap U_{\beta})$. Thus, $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ is an orientable atlas on $M$. Conversely, if there exists an orientable atlas $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ on $M$, let $\mu$ be the pointwise orientation on $M$ defined as follows. For all $p \in M$, choose $\alpha \in \Lambda$ such that $p \in U_{\alpha}$, and define $\mu_{p} = [((\frac{\partial}{\partial x^{1}_{\alpha}})_{p},\ldots,(\frac{\partial}{\partial x^{n}_{\alpha}})_{p})]$. This is well-defined, since if $p \in U_{\alpha} \cap U_{\beta}$, then the Jacobian determinant of the transition map $\varphi_{\beta} \circ \varphi_{\alpha}^{-1}$ is positive on $\varphi_{\alpha}(U_{\alpha} \cap U_{\beta})$, and hence
+    \begin{align}
+        \left[\left(\left(\frac{\partial}{\partial x^{1}_{\alpha}}\right)_{p},\ldots,\left(\frac{\partial}{\partial x^{n}_{\alpha}}\right)_{p}\right)\right] = \left[\left(\left(\frac{\partial}{\partial x^{1}_{\beta}}\right)_{p},\ldots,\left(\frac{\partial}{\partial x^{n}_{\beta}}\right)_{p}\right)\right].
+    \end{align}
+\end{proof}
+
+Let $M$ be a connected smooth manifold of dimension $n$. Then $M$ is orientable if and only if there exists a smooth nowhere vanishing $n$-form $\omega \in \Omega^{n}(M)$; on the set of all smooth nowhere vanishing $n$-forms on $M$, we define an equivalence relation as $\omega \sim \eta$ if and only if $\omega = f\eta$ for some smooth function $f:M \to \R$ such that $f(p) > 0$ for all $p \in M$. This equivalence relation partitions the set of all smooth nowhere vanishing $n$-forms on $M$ into 2 equivalence classes. Thus, an orientation determined by a smooth nowhere vanishing $n$-form $\omega$ on $M$ is exactly the orientation given by a frame $(X_{1},\ldots,X_{n})$ on $M$ such that $\omega(X_{1},\ldots,X_{n}) > 0$. In particular, if $\omega$ and $\eta$ are smooth nowhere vanishing $n$-forms on $M$, then they determine the same orientation on $M$ if and only if $\omega = f\eta$ for some smooth function $f > 0$.
