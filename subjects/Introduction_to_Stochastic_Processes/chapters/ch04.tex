@@ -125,3 +125,92 @@ Minimizing the right-hand side over $\lambda$ gives $\lambda = t/n$, so
     \Prob(M_{n}-M_{0} \geq t) \leq e^{-t^{2}/2n}.
 \end{align}
 This gives the desired result, since $\sqrt{n}(M_{n}-M_{0}) = L_{n}-\E[L_{n}]$.
+\\
+
+\textit{October 21st.}
+
+\begin{example}
+    The Erdos-Renyi random graph $G(n,p)$ is a random graph on $n$ vertices where each edge is included independently with probability $p$. We show results on this $G(n,p)$.
+\end{example}
+Let $p = \lambda/n$ for some $\lambda > 0$. Then note that
+\begin{align}
+    \Prob(\deg(i) = k) = \binom{n-1}{k}p^{k}(1-p)^{n-1-k} \to \frac{\lambda^{k}}{k!}e^{-\lambda},
+\end{align}
+as $n \to \infty$. We ask if there is a threshold of $\lambda$ that corresponds to connectivity of $G(n,\lambda/n)$. The following theorem applies.
+
+\begin{theorem}
+    Let $G(n,p)$ be the Erdos-Renyi random graph with $p = \lambda/n$. Then
+    \begin{enumerate}
+        \item If $\lambda - \log n \to -\infty$ as $n \to \infty$, then $\Prob(G(n,p) \text{ is connected}) \to 0$.
+        \item If $\lambda - \log n \to +\infty$ as $n \to \infty$, then $\Prob(G(n,p) \text{ is connected}) \to 1$.
+        \item If $\lambda - \log n \to t$ as $n \to \infty$, then $\Prob(G(n,p) \text{ is connected}) \to e^{-e^{-t}}$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Let $Y_n$ be the number of isolated vertices. Then
+    \begin{align}
+        \E[Y_n]=n(1-p)^{n-1},
+        \qquad
+        \E[Y_n(Y_n-1)]=n(n-1)(1-p)^{2n-3}.
+    \end{align}
+    Consequently, Chebyshev's inequality gives
+    \begin{align}
+        \Prob(Y_n=0)\leq \frac{1}{\E[Y_n]}+\frac{\lambda}{n-\lambda}.
+    \end{align}
+    (The second term may be replaced by $(\lambda-1)/(n-\lambda)$.)
+
+    If $\lambda-\log n\to-\infty$, then $\E[Y_n]\to\infty$, and
+    the above implies $\Prob(Y_n=0)\to0$. Since a connected
+    graph has no isolated vertex, the first assertion follows.
+
+    We next show that, whenever $\lambda\geq \frac12\log n$,
+    \begin{align}
+        \Prob(G(n,p)\text{ is disconnected and }Y_n=0)\longrightarrow0.
+        \label{eq:no-small-components}
+    \end{align}
+    For $2\leq k\leq n/2$, let $X_k$ be the number of components of size $k$.
+    A component counted by $X_k$ contains a spanning tree, and hence
+    \begin{align}
+        \E[X_k]
+        \leq \binom{n}{k}k^{k-2}p^{k-1}(1-p)^{k(n-k)}.
+        \label{eq:component-bound}
+    \end{align}
+    Summing this bound and using $p=\lambda/n$ shows
+    \begin{align}
+        \sum_{k=2}^{\lfloor n/2\rfloor}\E[X_k]=o(1).
+        \label{eq:component-sum}
+    \end{align}
+    Indeed, use $(1-p)^{k(n-k)}\leq e^{-\lambda k(1-k/n)}$ in
+    \eqref{eq:component-bound}, and split the sum at $k=\sqrt n$; the first
+    part is bounded by a geometric series with ratio $O(\lambda/n)$, while
+    the second part is $O(n^2e^{-c\lambda\sqrt n})$ for an absolute $c>0$.
+    Thus Markov's inequality proves \eqref{eq:no-small-components}, since a
+    disconnected graph with no isolated vertices has a component of size
+    between $2$ and $n/2$.
+
+    If $\lambda-\log n\to+\infty$, then
+    \begin{align}
+        \Prob(Y_n\geq1)\leq \E[Y_n]\leq ne^{-\lambda+\lambda/n}\to0.
+    \end{align}
+    Combining this with \eqref{eq:no-small-components} proves the second
+    assertion.
+
+    Finally, suppose $\lambda-\log n\to t$. For every fixed $r$,
+    \begin{align}
+        \E[(Y_n)_r]
+        =(n)_r(1-p)^{r(n-r)+\binom r2}\longrightarrow e^{-rt}.
+    \end{align}
+    Hence $Y_n$ converges in distribution to a Poisson random variable with
+    mean $e^{-t}$, and therefore
+    \begin{align}
+        \Prob(Y_n=0)\longrightarrow e^{-e^{-t}}.
+    \end{align}
+    Since $\lambda\geq\frac12\log n$ eventually, \eqref{eq:no-small-components}
+    gives
+    \begin{align}
+        \Prob(G(n,p)\text{ is connected})
+        =\Prob(Y_n=0)+o(1)\longrightarrow e^{-e^{-t}}.
+    \end{align}
+    This completes the proof.
+\end{proof}
