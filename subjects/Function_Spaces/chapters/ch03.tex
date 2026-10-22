@@ -1,0 +1,89 @@
+\chapter{SPACE OF CONTINUOUS FUNCTIONS}
+
+\section{The Space $C[0,1]$}
+
+\textit{October 22nd.}
+
+\begin{theorem}
+    The space $C[0,1]$ is Banach.
+\end{theorem}
+\begin{proof}
+    Let $\{f_{n}\}_{n \geq 1}$ be a Cauchy sequence in $(C[0,1],\norm{\cdot}_{\infty})$. For each $x \in [0,1]$, the sequence $\{f_{n}(x)\}_{n \geq 1}$ is Cauchy in $\C$, since
+    \begin{align}
+        \abs{f_{n}(x)-f_{m}(x)} \leq \norm{f_{n}-f_{m}}_{\infty}.
+    \end{align}
+    Since $\C$ is complete, there exists a function $f:[0,1] \to \C$ such that $f_{n}(x) \to f(x)$ for each $x \in [0,1]$.
+
+    We show that $f_{n} \to f$ uniformly on $[0,1]$. Let $\eps > 0$. Since $\{f_{n}\}_{n \geq 1}$ is Cauchy, there exists $N \in \N$ such that
+    \begin{align}
+        \norm{f_{n}-f_{m}}_{\infty} < \eps
+    \end{align}
+    for all $n,m \geq N$. Fix $n \geq N$ and let $m \to \infty$. Then, for every $x \in [0,1]$,
+    \begin{align}
+        \abs{f_{n}(x)-f(x)} \leq \eps.
+    \end{align}
+    Taking the supremum over $x \in [0,1]$, we obtain $\norm{f_{n}-f}_{\infty} \leq \eps$. Hence, $f_{n} \to f$ uniformly on $[0,1]$. Since the uniform limit of continuous functions is continuous, we have $f \in C[0,1]$. Therefore, $\{f_{n}\}_{n \geq 1}$ converges to $f$ in $(C[0,1],\norm{\cdot}_{\infty})$, and so $(C[0,1],\norm{\cdot}_{\infty})$ is a Banach space.
+\end{proof}
+
+The space $C[0,1]$, however, is not compact. To see this, consider the sequence of functions $\{f_{n}\}_{n \geq 1}$ defined by $f_{n}(x) = n$ for $x \in [0,1]$. Then, $\norm{f_{n}}_{\infty} = n \to \infty$ as $n \to \infty$, and so $\{f_{n}\}_{n \geq 1}$ has no convergent subsequence in $(C[0,1],\norm{\cdot}_{\infty})$. Now consider the unit ball $(C[0,1])_{1} = \{f \in C[0,1] : \norm{f}_{\infty} \leq 1\}$. The sequence $\{g_{n}\}_{n \geq 1}$ defined by $g_{n}(x) = x^{n}$ is contained in $(C[0,1])_{1}$, but it has no convergent subsequence in $(C[0,1],\norm{\cdot}_{\infty})$. Therefore, the unit ball $(C[0,1])_{1}$ is not compact in $(C[0,1],\norm{\cdot}_{\infty})$.
+
+The \eax{Heine-Borel theorem} states that $C(K)$, the space of continuous functions on a compact Hausdorff space $K$, is compact if and only if $K$ is finite.
+
+\begin{definition}
+    Let $K$ be a compact metric space. A family of functions $F \subseteq C(K)$ is said to be
+    \begin{enumerate}
+        \item \eax{uniformly bounded} if there exists $M > 0$ such that $\norm{f}_{\infty} \leq M$ for all $f \in F$.
+        \item \eax{equicontinuous} if for every $\eps > 0$, there exists $\delta > 0$ such that $\abs{f(x)-f(y)} < \eps$ for all $f \in F$ and all $x,y \in K$ with $d(x,y) < \delta$.
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}[The \eax{Arzelà-Ascoli theorem}]
+    Let $K$ be a compact metric space. A family of functions $F \subseteq C(K)$ is relatively compact in $(C(K),\norm{\cdot}_{\infty})$ if and only if $F$ is uniformly bounded and equicontinuous.    
+\end{theorem}
+\begin{proof}
+    First suppose that $F$ is relatively compact. Since its closure is compact, we may replace $F$ by its closure and assume that $F$ is compact. If $F$ is not uniformly bounded, then there exists a sequence $\{f_{n}\}_{n \geq 1} \subseteq F$ such that $\norm{f_{n}}_{\infty} \to \infty$ as $n \to \infty$. By compactness, some subsequence $\{f_{n_{k}}\}_{k \geq 1}$ converges to a function $f \in F$. Hence,
+    \begin{align}
+        \abs{\norm{f_{n_{k}}}_{\infty}-\norm{f}_{\infty}} \leq \norm{f_{n_{k}}-f}_{\infty} \to 0,
+    \end{align}
+    which is a contradiction. Therefore, $F$ is uniformly bounded.
+
+    Suppose that $F$ is not equicontinuous. Then there exist $\eps > 0$, a sequence $\{f_{n}\}_{n \geq 1} \subseteq F$, and points $x_{n},y_{n} \in K$ such that
+    \begin{align}
+        d(x_{n},y_{n}) < \frac{1}{n}
+        \quad\text{and}\quad
+        \abs{f_{n}(x_{n})-f_{n}(y_{n})} \geq \eps.
+    \end{align}
+    By compactness, after passing to a subsequence, $f_{n} \to f$ uniformly for some $f \in F$. Passing to a further subsequence, we may assume that $x_{n} \to x$ for some $x \in K$. Since $d(x_{n},y_{n}) \to 0$, we also have $y_{n} \to x$. Thus,
+    \begin{align}
+        \abs{f_{n}(x_{n})-f_{n}(y_{n})}
+        &\leq \abs{f_{n}(x_{n})-f(x_{n})}
+        +\abs{f(x_{n})-f(y_{n})}
+        +\abs{f(y_{n})-f_{n}(y_{n})}
+        \to 0,
+    \end{align}
+    which is a contradiction. Hence, $F$ is equicontinuous.
+
+    Conversely, suppose that $F$ is uniformly bounded and equicontinuous. Let $\{f_{n}\}_{n \geq 1}$ be a sequence in $F$. Since $K$ is a compact metric space, it has a countable dense subset $\{x_{j}\}_{j \geq 1}$. The sequence $\{f_{n}(x_{1})\}_{n \geq 1}$ is bounded in $\C$, so it has a convergent subsequence. From this subsequence, choose a further subsequence for which $\{f_{n}(x_{2})\}_{n \geq 1}$ converges, and continue this process. The diagonal sequence, which we denote by $\{g_{n}\}_{n \geq 1}$, has the property that $\{g_{n}(x_{j})\}_{n \geq 1}$ converges for every $j \geq 1$.
+
+    Let $\eps > 0$. By equicontinuity, there exists $\delta > 0$ such that
+    \begin{align}
+        \abs{f(x)-f(y)} < \frac{\eps}{3}
+    \end{align}
+    for all $f \in F$ and all $x,y \in K$ with $d(x,y) < \delta$. By compactness, there exist $z_{1},\ldots,z_{m} \in K$ such that
+    \begin{align}
+        K \subseteq \bigcup_{i=1}^{m} B(z_{i},\delta/2).
+    \end{align}
+    Since $\{x_{j}\}_{j \geq 1}$ is dense, choose $x_{j_{i}} \in B(z_{i},\delta/2)$ for each $i$. Then, for every $x \in K$, there exists $i$ such that $d(x,x_{j_{i}}) < \delta$. Since $\{g_{n}(x_{j_{i}})\}_{n \geq 1}$ converges for each $i$, there exists $N \in \N$ such that
+    \begin{align}
+        \abs{g_{n}(x_{j_{i}})-g_{m}(x_{j_{i}})} < \frac{\eps}{3}
+    \end{align}
+    for all $n,m \geq N$ and $1 \leq i \leq m$. Therefore, for all $n,m \geq N$ and $x \in K$,
+    \begin{align}
+        \abs{g_{n}(x)-g_{m}(x)}
+        &\leq \abs{g_{n}(x)-g_{n}(x_{j_{i}})}
+        +\abs{g_{n}(x_{j_{i}})-g_{m}(x_{j_{i}})}
+        +\abs{g_{m}(x_{j_{i}})-g_{m}(x)}
+        < \eps.
+    \end{align}
+    Hence, $\{g_{n}\}_{n \geq 1}$ is uniformly Cauchy. By the completeness of $\C$, it converges uniformly to a function $g:K \to \C$. The uniform limit of continuous functions is continuous, so $g \in C(K)$. Thus every sequence in $F$ has a subsequence converging in $C(K)$, and consequently $F$ is relatively compact.
+\end{proof}
