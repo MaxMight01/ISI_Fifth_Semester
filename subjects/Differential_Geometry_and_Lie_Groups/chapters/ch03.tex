@@ -273,3 +273,79 @@ Lifting this theory, let $M$ be a smooth manifold of dimension $n$. Recall that 
 \end{proof}
 
 Let $M$ be a connected smooth manifold of dimension $n$. Then $M$ is orientable if and only if there exists a smooth nowhere vanishing $n$-form $\omega \in \Omega^{n}(M)$; on the set of all smooth nowhere vanishing $n$-forms on $M$, we define an equivalence relation as $\omega \sim \eta$ if and only if $\omega = f\eta$ for some smooth function $f:M \to \R$ such that $f(p) > 0$ for all $p \in M$. This equivalence relation partitions the set of all smooth nowhere vanishing $n$-forms on $M$ into 2 equivalence classes. Thus, an orientation determined by a smooth nowhere vanishing $n$-form $\omega$ on $M$ is exactly the orientation given by a frame $(X_{1},\ldots,X_{n})$ on $M$ such that $\omega(X_{1},\ldots,X_{n}) > 0$. In particular, if $\omega$ and $\eta$ are smooth nowhere vanishing $n$-forms on $M$, then they determine the same orientation on $M$ if and only if $\omega = f\eta$ for some smooth function $f > 0$.
+
+\subsection{Manifolds with Boundary}
+\textit{October 24th.}
+
+Hereforth, we use $\sH^{n} = \{(x^{1},\ldots,x^{n}) \in \R^{n} \mid x^{n} \geq 0\}$ to denote the closed upper half-space in $\R^{n}$.
+
+\begin{definition}
+    A topological space $X$ is \eax{locally $\sH^{n}$} if for all $p \in X$, there exists a neighbourhood $U$ of $p$ and a homeomorphism $\varphi:U \to V$ onto an open subset $V$ of $\sH^{n}$ such that $\varphi(p) = 0$. $M$ is termed a \eax{topological manifold with boundary} of dimension $n$ if it is Hausdorff, second countable, and locally $\sH^{n}$.
+\end{definition}
+
+A smooth atlas on $M$ is a collection of charts $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ such that for all $\alpha,\beta \in \Lambda$ with $U_{\alpha} \cap U_{\beta} \neq \emptyset$, the transition map $\varphi_{\beta} \circ \varphi_{\alpha}^{-1}$ is smooth on $\varphi_{\alpha}(U_{\alpha} \cap U_{\beta})$. A smooth manifold with boundary is a topological manifold with boundary equipped with a smooth atlas. 
+
+For the closed half space $\sH^{n}$, we define
+\begin{align}
+    \partial \sH^{n} = \{(x^{1},\ldots,x^{n}) \in \R^{n} \mid x^{n} = 0\}, \qquad (\sH^{n})^{\circ} = \{(x^{1},\ldots,x^{n}) \in \R^{n} \mid x^{n} > 0\}
+\end{align}
+so that $\sH^{n} = (\sH^{n})^{\circ} \sqcup \partial \sH^{n}$. Note that if $U$ and $V$ are open subsets of $\sH^{n}$ and $f:U \to V$ is a diffeomorphism, then $f(\partial \sH^{n} \cap U) \subseteq \partial \sH^{n} \cap V$ and $f((\sH^{n})^{\circ} \cap U) \subseteq (\sH^{n})^{\circ} \cap V$. Here, $\partial \sH^{n}$ denotes the boundary of $\sH^{n}$, and $(\sH^{n})^{\circ}$ denotes the interior of $\sH^{n}$. One can show that $\partial \sH^{n}$ is a smooth manifold of dimension $n-1$, and $(\sH^{n})^{\circ}$ is a smooth manifold of dimension $n$. This can be extended to any smooth manifold with boundary $M$. We denote
+\begin{align}
+    \partial M = \{p \in M \mid \text{there exists a chart } (U,\varphi) \text{ on } M \text{ with } p \in U \text{ and } \varphi(p) \in \partial \sH^{n}\}, \qquad M^{\circ} = M \setminus \partial M.
+\end{align}
+One can show that $\partial M$ is a smooth manifold of dimension $n-1$, and $M^{\circ}$ is a smooth manifold of dimension $n$. We call $\partial M$ the \eax{boundary} of $M$, and $M^{\circ}$ the \eax{interior} of $M$. Note that if $M$ is a smooth manifold with boundary, then $\partial M$ is a smooth manifold without boundary.
+
+Smooth functions on a smooth manifold with boundary $M$ are defined as follows. A function $f:M \to \R$ is smooth if for all $p \in M$, there exists a chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ on $M$ with $p \in U$ such that $f \circ \varphi^{-1}$ is smooth on $\varphi(U)$. Smooth maps between smooth manifolds with boundary are defined similarly. Germs of smooth functions on a smooth manifold with boundary $M$ are defined just as for smooth manifolds without boundary. The tangent space $T_{p}M$ at a point $p \in M$ is defined as the set of derivations on the germs of smooth functions at $p$. We may then, analogously, define
+\begin{align}
+    T_{p}^{\ast}M = \Hom_{\R}(T_{p}M,\R), \qquad \bigwedge^{k}T_{p}^{\ast}M = A_{k}(T_{p}M)
+\end{align}
+and
+\begin{align}
+    TM = \bigsqcup_{p \in M} T_{p}M, \qquad T^{\ast}M = \bigsqcup_{p \in M} T_{p}^{\ast}M.
+\end{align}
+A smooth $k$-form on a smooth manifold with boundary $M$ is defined as a smooth section of the bundle $\bigwedge^{k}T^{\ast}M$. An orientation on a smooth manifold with boundary $M$, then, is one of three equivalent definitions: a smooth nowhere vanishing $n$-form $\omega \in \Omega^{n}(M)$, a pointwise continuous frame $(X_{1},\ldots,X_{n})$ on $M$, or an orientable atlas $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ on $M$.
+
+Let $\beta \in \bigwedge^{k} V^{\ast} = A_{k}(V)$ be a $k$-covector on a finite dimensional vector space $V$ over $\R$, where $\dim V \geq k \geq 2$. If a vector $v \in V$ is fixed, then we can define a $(k-1)$-covector $i_{v}\beta \in \bigwedge^{k-1} V^{\ast}$ as
+\begin{align}
+    (i_{v}\beta)(v_{1},\ldots,v_{k-1}) = \beta(v,v_{1},\ldots,v_{k-1}).
+\end{align}
+If $k = 1$, then we define $i_{v}\beta \in \bigwedge^{0} V^{\ast} = \R$ as $(i_{v}\beta) = \beta(v)$. $k = 0$ admits $i_{v}\beta = 0$. Moreover, if $\beta^{1},\ldots,\beta^{k} \in V^{\ast}$ are $1$-covectors on $V$, then $\beta^{1} \wedge \cdots \wedge \beta^{k} \in \bigwedge^{k} V^{\ast}$ is a $k$-covector on $V$, and we have
+\begin{align}
+    i_{v}(\beta^{1} \wedge \cdots \wedge \beta^{k}) = \sum_{i=1}^{k} (-1)^{i-1} \beta^{1} \wedge \cdots \wedge \beta^{i-1} \wedge \beta^{i+1} \wedge \cdots \wedge \beta^{k}.
+\end{align}
+The same construction can be lifted to a smooth manifold, $M$. Let $\omega \in \Omega^{k}(M)$ be a smooth $k$-form on $M$, and let $X \in \mf{X}(M)$ be a vector field on $M$. Then we can define a smooth $(k-1)$-form $i_{X}\omega \in \Omega^{k-1}(M)$ as
+\begin{align}
+    (i_{X}\omega)_{p} = i_{X_{p}}(\omega_{p})
+\end{align}
+for all $p \in M$.
+
+Note that if $M$ is an oriented smooth manifold with boundary, then $\partial M$ is an oriented smooth manifold without boundary.
+\begin{definition}
+    Let $M$ be a smooth manifold with boundary. Suppose $p \in \partial M$. A vector $X_{p} \in T_{p}M$ is said to be \eax{inward pointing} if
+    \begin{enumerate}
+        \item $X_{p} \notin T_{p}(\partial M)$, and
+        \item there exists a smooth map $c:[0,\epsilon) \to M$ for some $\epsilon > 0$ such that $c(0) = p$, $c'(0) = X_{p}$, and $c((0,\epsilon)) \subseteq M^{\circ}$.
+    \end{enumerate}
+    It is said to be \eax{outward pointing} if $-X_{p}$ is inward pointing.
+\end{definition}
+
+\begin{definition}
+    For a smooth manifold with boundary $M$, a vector field $X$ along the boundary $\partial M$ is a function $X:\partial M \to \bigsqcup_{p \in \partial M} T_{p}M$ such that $X(p) \in T_{p}M$ for all $p \in \partial M$. Such a vector field along the boundary is said to be smooth at $p \in \partial M$ if for any chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ on $M$ with $p \in U$, $X$ when written as $X(q) = \sum_{i=1}^{n} a^{i}(q)(\frac{\partial}{\partial x^{i}})_{q}$ for $q \in U \cap \partial M$ has smooth coefficients $a^{i}:U \cap \partial M \to \R$. A vector field along the boundary is said to be smooth if it is smooth at all points $p \in \partial M$. It is outward pointing at $p \in \partial M$ if and only if $a^{n}(p) > 0$ in any chart $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ on $M$ with $p \in U$. 
+\end{definition}
+
+\begin{proposition}
+    For any smooth manifold with boundary, there exists a smooth outward pointing vector field along the boundary.
+\end{proposition}
+\begin{proof}
+    Let $p \in \partial M$, and choose a chart $(U_{\alpha},x_{\alpha}^{1},\ldots,x_{\alpha}^{n})$ about $p$. Define $X_{\alpha} = -\frac{\partial}{\partial x_{\alpha}^{n}}$ on $U_{\alpha} \cap \partial M$. Then $X_{\alpha}$ is a smooth outward pointing vector field along the boundary on $U_{\alpha} \cap \partial M$. Let $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ be an open cover of $\partial M$ by such charts, and let $\{\rho_{\alpha}\}_{\alpha \in \Lambda}$ be a smooth partition of unity subordinate to this open cover. Then we can define a smooth outward pointing vector field along the boundary as
+    \begin{align}
+        X = \sum_{\alpha \in \Lambda} \rho_{\alpha} X_{\alpha}.
+    \end{align}
+    This is well-defined and smooth, and it is outward pointing at each point of $\partial M$.
+\end{proof}
+
+Now, let $M$ be an oriented smooth manifold with boundary of dimension $n$. Then $\partial M$ is an oriented smooth manifold without boundary of dimension $n-1$: let $\omega \in \Omega^{n}(M)$ be a smooth nowhere vanishing $n$-form on $M$ which determines the orientation on $M$. Let $X$ be a smooth outward pointing vector field along the boundary $\partial M$, via the above proposition. Then we can define a smooth nowhere vanishing $(n-1)$-form $\eta \in \Omega^{n-1}(\partial M)$ on $\partial M$ as
+\begin{align}
+    \eta = i_{X}\omega|_{\partial M}.
+\end{align}
+This $\eta$ cannot be zero; if it were at some point $p \in \partial M$, then $\omega_{p}(X_{p},v_{1},\ldots,v_{n-1}) = 0$ for all $v_{1},\ldots,v_{n-1} \in T_{p}(\partial M)$. But since $X_{p}$ is outward pointing, it is not in $T_{p}(\partial M)$, and hence $(X_{p},v_{1},\ldots,v_{n-1})$ forms a basis for $T_{p}M$. This contradicts the fact that $\omega$ is nowhere vanishing. Thus, $\eta$ is a smooth nowhere vanishing $(n-1)$-form on $\partial M$, and it determines an orientation on $\partial M$. Moreover, an ordered basis $(v_{1},v_{2},\ldots,v_{n-1})$ for $T_{p}(\partial M)$ is positively oriented with respect to the orientation on $\partial M$ if and only if $(X_{p},v_{1},v_{2},\ldots,v_{n-1})$ is positively oriented with respect to the orientation on $M$.
