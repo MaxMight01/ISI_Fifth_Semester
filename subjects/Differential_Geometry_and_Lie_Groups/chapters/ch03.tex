@@ -349,3 +349,102 @@ Now, let $M$ be an oriented smooth manifold with boundary of dimension $n$. Then
     \eta = i_{X}\omega|_{\partial M}.
 \end{align}
 This $\eta$ cannot be zero; if it were at some point $p \in \partial M$, then $\omega_{p}(X_{p},v_{1},\ldots,v_{n-1}) = 0$ for all $v_{1},\ldots,v_{n-1} \in T_{p}(\partial M)$. But since $X_{p}$ is outward pointing, it is not in $T_{p}(\partial M)$, and hence $(X_{p},v_{1},\ldots,v_{n-1})$ forms a basis for $T_{p}M$. This contradicts the fact that $\omega$ is nowhere vanishing. Thus, $\eta$ is a smooth nowhere vanishing $(n-1)$-form on $\partial M$, and it determines an orientation on $\partial M$. Moreover, an ordered basis $(v_{1},v_{2},\ldots,v_{n-1})$ for $T_{p}(\partial M)$ is positively oriented with respect to the orientation on $\partial M$ if and only if $(X_{p},v_{1},v_{2},\ldots,v_{n-1})$ is positively oriented with respect to the orientation on $M$.
+
+\section{Integration}
+\textit{October 26th.}
+
+Recall the theory of integration for a a bounded function $f:[a,b] \to \R$ on a closed interval $[a,b] \subseteq \R$. Let $\cP$ be the set of all partitions of $[a,b]$, and for each partition $P = \{x_{0},\ldots,x_{n}\} \in \cP$, define the lower sum and upper sum of $f$ with respect to $P$ as
+\begin{align}
+    L(f,P) = \sum_{i=1}^{n} m_{i}(x_{i}-x_{i-1}), \qquad U(f,P) = \sum_{i=1}^{n} M_{i}(x_{i}-x_{i-1}),
+\end{align}
+where $m_{i} = \inf\{f(x) \mid x \in [x_{i-1},x_{i}]\}$ and $M_{i} = \sup\{f(x) \mid x \in [x_{i-1},x_{i}]\}$. One can show that $L(f,P) \leq U(f,Q)$ for any partitions $P,Q \in \cP$. The lower integral and upper integral of $f$ on $[a,b]$ are defined as
+\begin{align}
+    \underline{\int_{a}^{b}} f(x) dx = \sup\{L(f,P) \mid P \in \cP\}, \qquad \overline{\int_{a}^{b}} f(x) dx = \inf\{U(f,P) \mid P \in \cP\}.
+\end{align}
+$f$ is said to be Riemann integrable on $[a,b]$ if $\underline{\int_{a}^{b}} f(x) dx = \overline{\int_{a}^{b}} f(x) dx$, in which case we denote the common value as $\int_{a}^{b} f(x) dx$. In general in $\R^{n}$, we have seen that if $f:A \to \R$ is a bounded function on a set $A \subseteq \R^{n}$, then we can define $\tilde{f}:\R^{n} \to \R$ as $\tilde{f}(x) = f(x)$ if $x \in A$, and $\tilde{f}(x) = 0$ if $x \notin A$. If $A$ happens to be a bounded subset, then we can consider any rectangle $R \subseteq \R^{n}$ containing $A$, and define the lower and upper integrals of $f$ on $A$ as
+\begin{align}
+    \underline{\int_{A}} f(x) dx = \underline{\int_{R}} \tilde{f}(x) dx, \qquad \overline{\int_{A}} f(x) dx = \overline{\int_{R}} \tilde{f}(x) dx.
+\end{align}
+$f$ is said to be Riemann integrable on $A$ if $\underline{\int_{A}} f(x) dx = \overline{\int_{A}} f(x) dx$, in which case we denote the common value as $\int_{A} f(x) dx$. 
+
+A bounded subset $A \subseteq \R^{n}$ is calle a \eax{domain of integration} if its boundary $\partial A$ has measure zero.
+
+\begin{lemma}[\eax{Lebesgue's lemma}]
+    Let $A \subseteq \R^{n}$ be a bounded subset, and let $f:A \to \R$ be a bounded function. Then $f$ is Riemann integrable on $A$ if and only if $\tilde{f}$ is continuous almost everywhere on a rectangle $R \subseteq \R^{n}$ containing $A$.
+    
+\end{lemma}
+
+\begin{corollary}
+    Let $U \subseteq \R^{n}$ be an open subset, and let $f:U \to \R$ be a continuous function with compact support. Then $f$ is Riemann integrable on $U$.
+\end{corollary}
+\begin{proof}
+    Since $f$ has compact support, there exists a compact subset $K \subseteq U$ such that $f(x) = 0$ for all $x \in U \setminus K$. Since $K$ is compact, it is bounded, and hence there exists a rectangle $R \subseteq \R^{n}$ containing $K$. Then $\tilde{f}$ is continuous on $R$, and hence continuous almost everywhere on $R$. By Lebesgue's lemma, $\tilde{f}$ is Riemann integrable on $R$, and hence $f$ is Riemann integrable on $U$.
+\end{proof}
+
+\begin{corollary}
+    Let $A \subseteq \R^{n}$ be a domain of integration, and let $f:A \to \R$ be a bounded continuous function. Then $f$ is Riemann integrable on $A$.
+\end{corollary}
+
+\begin{proof}
+    Since $A$ is a domain of integration, its boundary $\partial A$ has measure zero. Let $R \subseteq \R^{n}$ be a rectangle containing $A$. Then $\tilde{f}$ is continuous on $A$, and hence continuous almost everywhere on $R$. By Lebesgue's lemma, $\tilde{f}$ is Riemann integrable on $R$, and hence $f$ is Riemann integrable on $A$.
+\end{proof}
+
+Now, note that there is a bijection between the set of all $n$-forms on $\R^{n}$ and the set of all functions $f:\R^{n} \to \R$ given by
+\begin{align}
+    f \mapsto f\,dx^{1} \wedge \cdots \wedge dx^{n}, \qquad f\,dx^{1} \wedge \cdots \wedge dx^{n} \mapsto f.
+\end{align}
+The Riemann integral of an $n$-form $\omega = f\,dx^{1} \wedge \cdots \wedge dx^{n}$ on a domain of integration $A \subseteq \R^{n}$ is defined as
+\begin{align}
+    \int_{A} \omega = \int_{A} f(x^{1},\ldots,x^{n}) dx^{1} \cdots dx^{n}
+\end{align}
+assuming the integral exists. For $U,V \subseteq \R^{n}$ open subsets, and a diffeomorphism $T:V \to U$, we have the change of variables formula, where with the pullback
+\begin{align}
+    T^{\ast}\omega = T^{\ast}(f(x^{1},\ldots,x^{n}) dx^{1} \wedge \cdots \wedge dx^{n}) = (f \circ T)(y^{1},\ldots,y^{n}) \det\left( \frac{\partial T^{i}}{\partial x^{j}} \right) dy^{1} \wedge \cdots \wedge dy^{n},
+\end{align}
+the change of variables formula states that
+\begin{align}
+    \int_{U} \omega = \int_{U} f(x^{1},\ldots,x^{n}) dx^{1} \cdots dx^{n} = \int_{V} (f \circ T)(y^{1},\ldots,y^{n}) \abs{\det\left( \frac{\partial T^{i}}{\partial x^{j}} \right)} dy^{1} \cdots dy^{n}.
+\end{align}
+
+\subsection{Over Manifolds}
+We extend the theory of integration to smooth orientable manifolds. Let $M$ be a smooth oriented manifold of dimension $n$ with oriented atlas $\{(U_{\alpha},\varphi_{\alpha}) = (U_{\alpha},x^{1}_{\alpha},\ldots,x^{n}_{\alpha})\}_{\alpha \in \Lambda}$. Here, we define the set of all smooth $n$-forms on $M$ with compact support as $\Omega^{n}_{c}(M) = \{\omega \in \Omega^{n}(M) \mid \supp(\omega) \text{ is compact}\}$. Now, if $(U,\varphi)$ is a chart on $M$ with $\varphi(U) \subseteq \R^{n}$, then for any $\omega \in \Omega^{n}_{c}(U)$, we define
+\begin{align}
+    \int_{U} \omega \defeq \int_{\varphi(U)} (\varphi^{-1})^{\ast}\omega.
+\end{align}
+For well-definedness, let $(V,\psi)$ be another chart on $M$ with $\psi(V) \subseteq \R^{n}$, and suppose $\omega \in \Omega^{n}_{c}(U \cap V)$. Then with $T = \psi \circ \varphi^{-1}:\varphi(U \cap V) \to \psi(U \cap V)$ the transition map, we have
+\begin{align}
+    \int_{\varphi(U \cap V)} (\varphi^{-1})^{\ast}\omega = \int_{\varphi(U \cap V)} T^{\ast}((\psi^{-1})^{\ast}\omega) = \int_{\psi(U \cap V)} (\psi^{-1})^{\ast}\omega.
+\end{align}
+For $\omega \in \Omega^{n}_{c}(M)$, we use a partition of unity $\{\rho_{\alpha}\}$ subordinate to the open cover $\{U_{\alpha}\}$ of $M$ to define
+\begin{align}
+    \int_{M} \omega = \sum_{\alpha} \int_{U_{\alpha}} \rho_{\alpha}\omega.
+\end{align}
+Note that this sum is finite, since $\supp(\omega)$ is compact, and hence $\rho_{\alpha}\omega$ is nonzero for only finitely many $\alpha \in \Lambda$. Again, for well-definedness, let $\{(V_{\beta},\psi_{\beta})\}_{\beta \in \Gamma}$ be another oriented atlas on $M$ which gives the same orientation on $M$, and let $\{\chi_{\beta}\}$ be a smooth partition of unity subordinate to the open cover $\{V_{\beta}\}$ of $M$. Then we have
+\begin{align}
+    \sum_{\alpha} \int_{U_{\alpha}} \rho_{\alpha} \omega = \sum_{\alpha} \sum_{\beta} \int_{U_{\alpha} \cap V_{\beta}} \rho_{\alpha}\chi_{\beta}\omega = \sum_{\beta} \sum_{\alpha} \int_{U_{\alpha} \cap V_{\beta}} \rho_{\alpha}\chi_{\beta}\omega = \sum_{\beta} \int_{V_{\beta}} \chi_{\beta}\omega.
+\end{align}
+
+\begin{proposition}
+    Let $M$ be a= connected oriented smooth manifold. Let $-M$ denote the same smooth manifold with the opposite orientation. Then for all $\omega \in \Omega^{n}_{c}(M)$, we have
+    \begin{align}
+        \int_{-M} \omega = -\int_{M} \omega.
+    \end{align}
+\end{proposition}
+\begin{proof}
+    Note that it suffices to prove the result for $\omega \in \Omega^{n}_{c}(U)$ for some chart $(U,\varphi)$ on $M$. Let $(U,\varphi) = (U,x^{1},\ldots,x^{n})$ be a chart on $M$, and let $(U,\psi) = (U,-x^{1},x^{2},\ldots,x^{n})$ be the same chart with the opposite orientation. Then we have
+    \begin{align}
+        (\psi^{-1})^{\ast}\omega &= f \circ \psi d(x^{1} \circ \psi) \wedge d(x^{2} \circ \psi) \wedge \cdots \wedge d(x^{n} \circ \psi) = -f \circ \psi dr^{1} \wedge dr^{2} \wedge \cdots \wedge dr^{n} = -(\varphi^{-1})^{\ast}\omega.
+    \end{align}
+    Using this, we have
+    \begin{align}
+        \int_{U} \omega = \int_{\psi(U)} (\psi^{-1})^{\ast}\omega = -\int_{\varphi(U)} (\varphi^{-1})^{\ast}\omega = -\int_{M} \omega.
+    \end{align}
+\end{proof}
+
+\begin{theorem}
+    Let $M$ be an oriented manifold with boundary of dimension $n$, and let $\omega \in \Omega^{n-1}_{c}(M)$. Then $d\omega \in \Omega^{n}_{c}(M)$, and we have
+    \begin{align}
+        \int_{M} d\omega = \int_{\partial M} \omega,
+    \end{align}
+    where the orientation on $\partial M$ is induced by the orientation on $M$, and $\omega$ on the right-hand side is really the pullback via the inclusion map $i:\partial M \hookrightarrow M$.
+\end{theorem}
