@@ -87,3 +87,59 @@ The \eax{Heine-Borel theorem} states that $C(K)$, the space of continuous functi
     \end{align}
     Hence, $\{g_{n}\}_{n \geq 1}$ is uniformly Cauchy. By the completeness of $\C$, it converges uniformly to a function $g:K \to \C$. The uniform limit of continuous functions is continuous, so $g \in C(K)$. Thus every sequence in $F$ has a subsequence converging in $C(K)$, and consequently $F$ is relatively compact.
 \end{proof}
+
+\textit{October 26th.}
+
+\begin{theorem}[\eax{Peano's theorem}]
+    Let $U \subseteq \R^{n+1}$ be an open subset. Let $f:U \to \R^{n}$ be a continuous function. Then the initial value problem
+    \begin{align}
+        \frac{dx}{dt} = f(t,x(t)), \quad x(t_{0}) = x_{0}
+    \end{align}
+    has a solution $x(t)$ on $(t_{0}-h,t_{0}+h)$ for some $h > 0$.
+\end{theorem}
+\begin{proof}
+    Since $U$ is open, there are $a,r>0$ such that
+    \begin{align}
+        [t_{0}-a,t_{0}+a]\times \overline{B(x_{0},r)}\subseteq U.
+    \end{align}
+    Choose $h>0$ so that $h<a$ and $h<r/(M+1)$, where
+    \begin{align}
+        M=\sup\{\norm{f(t,z)}:(t,z)\in [t_{0}-a,t_{0}+a]\times
+        \overline{B(x_{0},r)}\}<\infty.
+    \end{align}
+    For $n\geq1$, put $t_{k}=t_{0}+kh/n$ for $-n\leq k\leq n$ and define
+    $x_{n}(t_{0})=x_{0}$ and
+    \begin{align}
+        x_{n}(t_{k+1})=x_{n}(t_{k})+\frac{h}{n}f(t_{k},x_{n}(t_{k}))
+        \qquad(-n\leq k<n),
+    \end{align}
+    extending $x_{n}$ linearly on each interval $[t_{k},t_{k+1}]$.
+    Inductively, every node lies in $\overline{B(x_{0},r)}$, since
+    \[
+        \norm{x_{n}(t_{k})-x_{0}}\leq M|t_{k}-t_{0}|
+        \leq Mh<r.
+    \]
+    Consequently, each $x_n$ is well-defined and is $M$-Lipschitz on
+    $[t_{0}-h,t_{0}+h]$. Thus the family $\{x_n\}$ is uniformly bounded and
+    equicontinuous. By Arzelà--Ascoli, a subsequence, still denoted by
+    $\{x_n\}$, converges uniformly to a function $x$.
+
+    For $s\in[t_k,t_{k+1})$, define $\tau_n(s)=t_k$. The polygonal
+    construction gives
+    \begin{align}
+        x_n(t)=x_0+\int_{t_0}^{t}
+        f\bigl(\tau_n(s),x_n(\tau_n(s))\bigr)\,ds.
+    \end{align}
+    Since $|\tau_n(s)-s|\leq h/n$, the uniform convergence $x_n\to x$ and
+    the uniform continuity of $f$ on the above compact set imply
+    \[
+        f\bigl(\tau_n(s),x_n(\tau_n(s))\bigr)\longrightarrow f(s,x(s))
+    \]
+    uniformly in $s$. Passing to the limit in the integral identity yields
+    \[
+        x(t)=x_0+\int_{t_0}^{t}f(s,x(s))\,ds.
+    \]
+    The integrand is continuous, so the fundamental theorem of calculus gives
+    $x'(t)=f(t,x(t))$ and $x(t_0)=x_0$. Hence $x$ is a solution on
+    $(t_0-h,t_0+h)$.
+\end{proof}
