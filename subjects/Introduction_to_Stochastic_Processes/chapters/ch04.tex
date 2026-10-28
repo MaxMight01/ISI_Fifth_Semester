@@ -214,3 +214,114 @@ as $n \to \infty$. We ask if there is a threshold of $\lambda$ that corresponds 
     \end{align}
     This completes the proof.
 \end{proof}
+
+\textit{October 28th.}
+
+\begin{example}
+    Consider the random walk where $\Prob(X=0) = \frac{1}{2} = \Prob(X=1)$, and $S_{n} = \sum_{i=1}^{n}X_{i}$. Strong law of large numbers gives $S_{n}/n \to 1/2$ almost surely, and the central limit theorem gives $(S_{n}-n/2)/\sqrt{n} \xrightarrow{d} N(0,1/4)$.
+\end{example}
+
+Given $a > \frac{1}{2}$, we ask for the asymptotic behavior of $\Prob(S_{n} \geq an)$.
+
+\begin{theorem}
+    As $n \to \infty$,
+    \begin{align}
+        \frac{1}{n} \log \Prob(S_{n} \geq an) \to -I(a)
+    \end{align}
+    where
+    \begin{align}
+        I(z) = \begin{cases}
+            \log 2 + z \log z + (1-z)\log(1-z) &\text{ if } z \in [0,1],\\
+            \infty &\text{ otherwise.}
+        \end{cases}
+    \end{align}
+\end{theorem}
+
+The function $I$ above is called the \eax{rate function} for the random walk.
+
+\begin{proof}
+    Note that for $a \in (1,\infty)$, the proof is trivial. For $a \in (1/2,1]$, we have $\Prob(S_{n} \geq an) = \frac{1}{2^{n}} \sum_{k \geq an} \binom{n}{k}$. Letting $Q_{n}(a) = \max_{k \geq an} \binom{n}{k}$, we have
+    \begin{align}
+        \frac{1}{2^{n}} Q_{n}(a) \leq \Prob(S_{n} \geq an) \leq \frac{n+1}{2} Q_{n}(a).
+    \end{align}
+    Using Stirling's formula, we can approximate $Q_{n}(a)$ as
+    \begin{align}
+        Q_{n}(a) \sim \frac{1}{\sqrt{2\pi an(1-a)n}} \frac{n^{n}}{(an)^{an}((1-a)n)^{(1-a)n}} = \frac{1}{\sqrt{2\pi an(1-a)n}} \left(\frac{1}{a^{a}(1-a)^{(1-a)}}\right)^{n}.
+    \end{align}
+    From here, we have
+    \begin{align}
+        \frac{1}{n} \log Q_{n}(a) \to -a\log a - (1-a)\log(1-a),
+    \end{align}
+    and therefore
+    \begin{align}
+        \frac{1}{n} \log \Prob(S_{n} \geq an) \to -a\log a - (1-a)\log(1-a)
+    \end{align}
+    via the squeeze theorem.
+\end{proof}
+
+\begin{remark}
+    Via switching of a few terms, one can show that if $a < 1/2$, then
+    \begin{align}
+        \frac{1}{n} \log \Prob(S_{n} \leq an) \to -I(1-a).
+    \end{align}
+\end{remark}
+
+\begin{theorem}[\eax{Cramer's theorem}]
+    Suppose $X_{1},X_{2},\ldots$ are independent and identically distributed with $X$ having moment generating function $\varphi(t) = \E[e^{tX}] < \infty$ for all $t \in \R$. Then for any $a > \E[X]$,
+    \begin{align}
+        \lim_{n \to \infty} \frac{1}{n} \log \Prob(S_{n} \geq an) = -I(a)
+    \end{align}
+    where the rate function $I$ is given by $I(z) = \sup_{t \in \R}\{tz - \log \varphi(t)\}$.
+\end{theorem}
+
+\begin{proof}
+    Without the loss of generality, we may assume $\E[X] < 0$ and $a = 0$. Thus, we are equivalently show that $\frac{1}{n} \log \Prob(S_{n} \geq 0) \to \log \rho$ where $\rho = \inf_{t \in \R} \varphi(t)$. Note that $\varphi$ is convex and smooth with $\varphi(0) = 1$ and $\varphi'(0) = \E[X] < 0$. We do casework. If $\Prob(X < 0) = 1$, then $\Prob(S_{n} \geq 0) = 0$ for all $n$, and the result is trivial. If $\Prob(X \leq 0) = 1$ and $\Prob(X = 0) > 0$, then $\varphi$ is strictly decreasing, and $\rho = \lim_{t \to \infty} \varphi(t) = \Prob(X = 0)$. Then $\Prob(S_{n} \geq 0) = \Prob(X = 0)^{n}$, and the result follows. The final case is when $\Prob(X > 0) > 0$ and $\Prob(X < 0) > 0$. Here, with $\alpha > 0$,
+    \begin{align}
+        \Prob(S_{n} \geq 0) = \Prob(e^{\alpha S_{n}} \geq 1) \leq \E[e^{\alpha S_{n}}] = \varphi(\alpha)^{n}.
+    \end{align}
+    Since $\lim_{t \to \pm \infty} \varphi(t) = \infty$, there exists $\alpha > 0$ such that $\varphi(\alpha) = \rho$. With this $\alpha$,
+    \begin{align}
+        \limsup_{n \to \infty} \frac{1}{n} \log \Prob(S_{n} \geq 0) \leq \log \varphi(\alpha) = \log \rho.
+    \end{align}
+    We now utilize tilting. With $F$ the distribution function of $X$, define $\{\tilde{X}_{i}\}_{i \geq 1}$, a sequence of independent and identically distributed random variables with distribution function $\tilde{F}$ given by
+    \begin{align}
+        \tilde{F}(x) = \frac{1}{\rho} \int_{-\infty}^{x} e^{\alpha y} dF(y).
+    \end{align}
+    Then, $\E[\tilde{X}] = \frac{1}{\rho} \int_{-\infty}^{\infty} y e^{\alpha y} dF(y) = \frac{1}{\rho} \frac{d}{d\alpha} \int_{-\infty}^{\infty} e^{\alpha y} dF(y) = \frac{1}{\rho} \frac{d}{d\alpha} \varphi(\alpha) = 0$, and $\Var(\tilde{X}) = \tilde{\sigma}^{2} < \infty$. Let $\tilde{S}_{n} = \sum_{i=1}^{n} \tilde{X}_{i}$. Then, we have
+    \begin{align}
+        \Prob(\tilde{S}_{n} \geq 0) = \frac{1}{\rho^{n}} \E[e^{-\alpha \tilde{S}_{n}} \1_{\{\tilde{S}_{n} \geq 0\}}] \geq \frac{1}{\rho^{n}} e^{-\alpha C \tilde{\sigma} \sqrt{n}} \E[1_{\{\frac{\tilde{S}_{n}}{\sqrt{n} \tilde{\sigma}} \in [0,C]\}}].
+    \end{align}
+    Via the central limit theorem, the rightmost expectation converges to $\Prob(Z \in [0,C])$ where $Z \sim N(0,1)$. Choose $C$ such that $\Prob(Z \in [0,C]) > \frac{1}{4}$. This gives
+    \begin{align}
+        \liminf_{n \to \infty} \frac{1}{n} \log \Prob(\tilde{S}_{n} \geq 0) \geq \log \rho.
+    \end{align}
+    Combining the upper and lower bounds gives the desired result.
+\end{proof}
+
+
+\begin{example}
+    \textit{Random walker in mobile Poisson traps}; consider a random walker starting at the origin. At every $0 \neq z \in \Z$, a $\Poi(\gamma)$ number of traps are placed. $\{X_{k}\}_{k \geq 1}$ denotes the simple symmetric random walk executed by the walker, and, for $y \in \Z$, $\{Y^{j,y}\}_{1 \leq j \leq N_{y}}$ denotes the simple symmetric random walk executed by the $j$-th trap at $y$, where $N_{y} \sim \Poi(\gamma)$ is the number of traps at $y$. When a trap meets the walker, the walker is killed with probability $q$.
+\end{example}
+We ask for the survival probability of the walker up to time $n$. We use $\xi(k,x)$ to denote the number of traps at site $k$ at time $x$. Thus, at time $k$, the walker is at $X_{k}$, and the number of traps at that site is $\xi(k,X_{k})$; the probability that the walker survives at time $k$ is $(1-q)^{\xi(k,X_{k})}$. Thus, the survival probability of the walker up to time $n$, for a fixed trajectory of the walker, is
+\begin{align}
+    \prod_{i=1}^{n} (1-q)^{\xi(i,X_{i})} = (1-q)^{\sum_{i=1}^{n} \xi(i,X_{i})}.
+\end{align}
+For a \textit{fixed} (random) trajectory $X$ of the walker, we denote
+\begin{align}
+    \sigma^{X}(n) = \E^{\xi}\left[ \prod_{i=1}^{n} (1-q)^{\xi(i,X_{i})} \right]
+\end{align}
+where the expectation is over the randomness of the traps. \eax{Pascal's principle} says that the survival probability is maximized when the walker does not move; that is,
+\begin{align}
+    \sigma^{X}(n) \leq \sigma^{\bv{0}}(n) = \E^{\xi}\left[ \prod_{i=1}^{n} (1-q)^{\xi(i,0)} \right].
+\end{align}
+To this end, we have
+\begin{align}
+    \sigma^{X}(n) &= \E^{\xi}\left[ (1-q)^{\sum_{i=0}^{n}\sum_{y \in Z} \sum_{j=1}^{N_{y}} \1_{Y_{i}^{j,y} = X_{i}}} \right] = \prod_{y \in \Z} \E^{Y}_{y} \E^{N_{y}} \left[ \prod_{1 \leq j \leq N_{y}} (1-q)^{\sum_{i=0}^{n} \1_{Y_{i}^{j,y} = X_{i}}} \right] \notag \\
+    &= \prod_{y \in \Z} \sum_{k=0}^{\infty} e^{-\gamma} \frac{\gamma^{k}}{k!} \E^{Y}_{y} \left[ \prod_{1 \leq j \leq k} (1-q)^{\sum_{i=0}^{n} \1_{Y_{i}^{j,y} = X_{i}}} \right] = \prod_{y \in \Z} \sum_{k=0}^{\infty} e^{-\gamma} \frac{\gamma^{k}}{k!} \left( \E^{Y}_{y} \left[ (1-q)^{\sum_{i=0}^{n} \1_{Y_{i} = X_{i}}} \right] \right)^{k} \notag \\
+    &= \prod_{y \in \Z} e^{-\gamma (1 - \E^{Y}_{y} \left[ (1-q)^{\sum_{i=0}^{n} \1_{Y_{i} = X_{i}}} \right])} = e^{-\gamma \sum_{y \in \Z} (1 - \E^{Y}_{y} \left[ (1-q)^{\sum_{i=0}^{n} \1_{Y_{i} = X_{i}}} \right])}.
+\end{align}
+Denote $W^{X}(n,y) = 1 - \E^{Y}_{y} \left[ (1-q)^{\sum_{i=0}^{n} \1_{Y_{i} = X_{i}}} \right]$. Thus, showing Pascal's principle amounts to showing that
+\begin{align}
+    \sum_{y \in \Z} W^{X}(n,y) \geq \sum_{y \in \Z} W^{\bv{0}}(n,y).
+\end{align}
+The proof is probabilistic in nature. 
