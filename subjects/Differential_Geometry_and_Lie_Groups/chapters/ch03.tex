@@ -441,10 +441,80 @@ Note that this sum is finite, since $\supp(\omega)$ is compact, and hence $\rho_
     \end{align}
 \end{proof}
 
-\begin{theorem}
-    Let $M$ be an oriented manifold with boundary of dimension $n$, and let $\omega \in \Omega^{n-1}_{c}(M)$. Then $d\omega \in \Omega^{n}_{c}(M)$, and we have
+\textit{October 28th.}
+
+\begin{theorem}[\eax{Stokes' theorem}]
+    Let $M$ be an oriented smooth manifold with boundary of dimension $n$, and let $\omega \in \Omega^{n-1}_{c}(M)$. Then $d\omega \in \Omega^{n}_{c}(M)$, and we have
     \begin{align}
         \int_{M} d\omega = \int_{\partial M} \omega,
     \end{align}
     where the orientation on $\partial M$ is induced by the orientation on $M$, and $\omega$ on the right-hand side is really the pullback via the inclusion map $i:\partial M \hookrightarrow M$.
 \end{theorem}
+
+We first give some easy corollaries. A smooth $k$-form $\omega \in \Omega^{k}(M)$ is said to be a \eax{closed form} if $d\omega = 0$, and it is said to be an \eax{exact form} if there exists a smooth $(k-1)$-form $\eta \in \Omega^{k-1}(M)$ such that $\omega = d\eta$. Note that every exact form is closed, since $d^{2} = 0$. If $\partial M = \emptyset$, we define $\int_{\partial M} \omega = 0$.
+
+\begin{corollary}
+    Let $M$ be as above.
+    \begin{enumerate}
+        \item If $M$, itself, happens to be compact, then $\omega \in \Omega^{n-1}(M)$ implies $\int_{\partial M} \omega = \int_{M} d\omega$.
+        \item If $M$ is compact without boundary, then $\omega \in \Omega^{n-1}(M)$ implies $\int_{M} d\omega = 0$.
+        \item If $M$ is compact and $\omega \in \Omega^{n-1}(M)$ is closed, then $\int_{\partial M} \omega = 0$.
+    \end{enumerate}
+\end{corollary}
+
+For a smooth manifold $M$ of dimension $n$, a \eax{regular domain} $D \subseteq M$ is an embedded submanifold with boundary of dimension $n$.
+
+\begin{corollary}[\eax{Green's theorem}]
+    Let $D \subseteq \R^{2}$ be a compact regular domain. If $P,Q:D \to \R$ are smooth functions, then
+    \begin{align}
+        \int_{D} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dx dy = \int_{\partial D} P dx + Q dy.
+    \end{align}
+\end{corollary}
+\begin{proof}
+    Simply apply Stokes' theorem to the $1$-form $\omega = P dx + Q dy \in \Omega^{1}(D)$, where $d\omega = \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dx \wedge dy$.
+\end{proof}
+
+\begin{corollary}
+    Let $F=(P,Q,R):\R^{3} \to \R^{3}$ be a smooth vector field, and define $F dr = P dx + Q dy + R dz \in \Omega^{1}(\R^{3})$. Let $C=(x(t),y(t),z(t)):[a,b] \to \R^{3}$ be a smooth curve. Suppose there exists a smooth function $f:\R^{3} \to \R$ such that $F = \nabla f$. Then
+    \begin{align}
+        \int_{C} F dr = f(C(b)) - f(C(a)).
+    \end{align}
+\end{corollary}
+\begin{proof}
+    The $1$-form $F dr$ is exact, since $F dr = df$, and the LHS term is $\int_{C} df$ and the RHS term is $\int_{\partial C} f$. Since $C$ is a smooth curve, it is a regular domain in $\R^{3}$, and hence we can apply Stokes' theorem to get the desired result.
+\end{proof}
+
+\begin{proof}[Proof of Stokes' theorem]
+    Let $\{(U_{\alpha},\varphi_{\alpha})\}_{\alpha \in \Lambda}$ be an oriented atlas on $M$ such that each $U_{\alpha}$ is diffeomorphic to either $\R^{n}$ or $\sH^{n}$, whilst preserving the orientation. Let $\{\rho_{\alpha}\}_{\alpha \in \Lambda}$ be a smooth partition of unity subordinate to the open cover $\{U_{\alpha}\}_{\alpha \in \Lambda}$ of $M$. Note that for each $\alpha$,
+    \begin{align}
+        \supp(\rho_{\alpha}\omega) \subseteq \supp(\rho_{\alpha}) \cap \supp(\omega) \subseteq U_{\alpha}
+    \end{align}
+    shows that $\rho_{\alpha}\omega$ is compactly supported since the support is a closed subset of the compact set $\supp(\omega)$. We may write $\omega = \sum_{\alpha} \rho_{\alpha}\omega$. Moreover, $\partial M \cap U_{\alpha} = \partial U_{\alpha}$ for all $\alpha$. For now, assume that Stokes' theorem holds for $\sH^{n}$ and $\R^{n}$. Then
+    \begin{align}
+        \int_{\partial M} \omega &= \sum_{\alpha} \int_{\partial M} \rho_{\alpha}\omega = \sum_{\alpha} \int_{\partial U_{\alpha}} \rho_{\alpha}\omega = \sum_{\alpha} \int_{U_{\alpha}} d(\rho_{\alpha}\omega) = \int_{M} d\omega.
+    \end{align}
+    We show Stokes' for $\sH^{n}$ with the orientation $dx^{1} \wedge \cdots \wedge dx^{n}$. The boundary orientation for $\partial \sH^{n}$ is then $(-1)^{n} dx^{1} \wedge \cdots \wedge dx^{n-1}$. Now let $\omega \in \Omega^{n-1}_{c}(\sH^{n})$. Then
+    \begin{align}
+        \omega = \sum_{i=1}^{n} f_{i} dx^{1} \wedge \cdots \wedge dx^{i-1} \wedge dx^{i+1} \wedge \cdots \wedge dx^{n}
+    \end{align}
+    where each $f_{i}$ is a smooth function with compact support on $\sH^{n}$. Choose $a > 0$ large enough such that $\supp(f_{i}) \subseteq \intr([-a,a]^{n-1} \times [0,a])$ for all $i$. Then we have
+    \begin{align}
+        d\omega &= \sum_{i=1}^{n} df_{i} \wedge dx^{1} \wedge \cdots \wedge dx^{i-1} \wedge dx^{i+1} \wedge \cdots \wedge dx^{n} \notag \\
+        &= \sum_{i=1}^{n} \frac{\partial f_{i}}{\partial x^{i}} dx^{i} \wedge dx^{1} \wedge \cdots \wedge dx^{i-1} \wedge dx^{i+1} \wedge \cdots \wedge dx^{n} \notag \\
+        &= \left(\sum_{i=1}^{n} (-1)^{i-1} \frac{\partial f_{i}}{\partial x^{i}}\right) dx^{1} \wedge \cdots \wedge dx^{n}.
+    \end{align}
+    Now,
+    \begin{align}
+        \int_{\sH^{n}} d\omega &= \int_{0}^{a} \underbrace{\int_{-a}^{a} \cdots \int_{-a}^{a}}_{n-1 \text{ times}} \left(\sum_{i=1}^{n} (-1)^{i-1} \frac{\partial f_{i}}{\partial x^{i}}\right) dx^{1} \cdots dx^{n}.
+    \end{align}
+    Note that for $i = 1,\ldots,n-1$, we have $f_{i}(x_{1},\ldots,x_{n}) |_{x_{i}= -a}^{x_{i}=a} = 0$ since $\supp(f_{i}) \subseteq \intr([-a,a]^{n-1} \times [0,a])$. Hence, by the fundamental theorem of calculus, we have
+    \begin{align}
+        \int_{\sH^{n}} d\omega &= \underbrace{\int_{-a}^{a} \cdots \int_{-a}^{a}}_{n-1 \text{ times}} \left( \int_{0}^{a} (-1)^{n-1} \frac{\partial f_{n}}{\partial x^{n}} dx^{n} \right) dx^{1} \cdots dx^{n-1} \notag \\
+        &= (-1)^{n} \int_{-a}^{a} \cdots \int_{-a}^{a} f_{n}(x^{1},\ldots,x^{n-1},0) dx^{1} \cdots dx^{n-1}.
+    \end{align}
+    On the other hand, we have
+    \begin{align}
+        \int_{\partial \sH^{n}} \omega &= (-1)^{n} \int_{\partial \sH^{n}} f_{n} dx^{1} \cdots dx^{n-1} = (-1)^{n} \int_{-a}^{a} \cdots \int_{-a}^{a} f_{n}(x^{1},\ldots,x^{n-1},0) dx^{1} \cdots dx^{n-1}
+    \end{align}
+    which is exactly the same as the previous expression. Hence, we have $\int_{\sH^{n}} d\omega = \int_{\partial \sH^{n}} \omega$. The proof for $\R^{n}$ is similar, there being $\int_{-a}^{a}$ instead of $\int_{0}^{a}$, and the proof is complete.
+\end{proof}
